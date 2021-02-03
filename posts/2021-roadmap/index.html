@@ -1,0 +1,157 @@
+<!doctype html>
+<html>
+  <head>
+      <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>2021 Paketo Buildpacks Roadmap | Paketo Buildpacks | Blog</title>
+<link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-language" content="en-us" />
+
+<meta name="og:site_name" content="Paketo Buildpacks | Blog">
+<meta name="og:title" content="2021 Paketo Buildpacks Roadmap">
+<meta name="og:url" content="https://blog.paketo.io/posts/2021-roadmap/">
+<meta name="twitter:title" content="Paketo Buildpacks | Blog" />
+<meta name="twitter:url" content="https://blog.paketo.io/posts/2021-roadmap/" />
+<meta name="twitter:card" content="" />
+<link rel="stylesheet" href="/scss/main.min.css">
+
+  </head>
+  <body>
+    <div class="post">
+      <header>
+        <a href="/">
+          <img class="logo" src="/images/logo512.png" />
+          <h1>Paketo Buildpacks | Blog</h1>
+        </a>
+      </header>
+      <section>
+        <h2>2021 Paketo Buildpacks Roadmap</h2>
+        <section class="author"><img src="/images/authors/rmoran.jpg" /><h4>Ryan Moran</h4></section>
+        <h5>Friday, Jan 29, 2021</h5>
+        <article>
+          <p><img src="/images/posts/0003/logo.png" alt="Logo"></p>
+<p>We’re not even at the one year anniversary of the Paketo Buildpacks launch, but
+we’ve already got so much to celebrate 🎉. 2020 was a busy year for the Paketo
+Buildpacks core development team. Looking back on the last year, a few
+highlights stand out:</p>
+<ul>
+<li>Establishing our <a href="https://github.com/paketo-buildpacks/community/blob/main/GOVERNANCE.md">project
+governance</a>
+and <a href="https://github.com/paketo-buildpacks/rfcs">RFC process</a></li>
+<li>Moving all project tooling to Github-based workflows</li>
+<li>Building out a foundational set of buildpacks for some of the most popular
+languages including <a href="https://github.com/paketo-buildpacks/java">Java</a>,
+<a href="https://github.com/paketo-buildpacks/nodejs">Node.js</a>, <a href="https://github.com/paketo-buildpacks/dotnet-core">.Net
+Core</a>,
+<a href="https://github.com/paketo-buildpacks/go">Go</a>, and
+<a href="https://github.com/paketo-buildpacks/ruby">Ruby</a>.</li>
+</ul>
+<p>For 2021, one of our most important goals is to align on a community-driven
+project roadmap. We started a discussion
+<a href="https://github.com/paketo-buildpacks/feedback/discussions/2">thread</a> at the
+start of the new year to solicit interest in areas of development for this year
+and received a lot of responses.</p>
+<p>After synthesizing the community responses, we’ve categorized each into three
+main themes:</p>
+<ul>
+<li><strong>Solidifying Existing Buildpacks</strong></li>
+<li><strong>Expanding the Buildpacks Ecosystem</strong></li>
+<li><strong>Non-production Use Cases</strong></li>
+</ul>
+<p>These themes cover a broad range of exciting ideas and opportunities, much too
+much to cover in a single blog post. And the ideas in each theme aren’t final.
+We’d love to hear from
+<a href="https://github.com/paketo-buildpacks/feedback/discussions/2">you</a> about what
+languages you are using in your applications and how we can support them with
+buildpacks.</p>
+<h3 id="solidifying-existing-buildpacks">Solidifying Existing Buildpacks</h3>
+<p>A lot of the work last year involved modularizing monolithic buildpacks into
+sets of buildpacks that can be mixed and matched to suit a variety of app
+configurations. One of the biggest priorities this year is to continue to
+extend and update our existing buildpacks to accommodate changes in upstream
+language ecosystems and the <a href="https://buildpacks.io/">Cloud Native Buildpacks
+project</a>. We’ll also continue working towards
+modularizing our “non-foundational” buildpacks. This includes work such as
+<a href="https://github.com/paketo-buildpacks/php/pull/267">re-architecting</a> the <a href="https://github.com/paketo-buildpacks/php">PHP
+buildpack</a> and establishing a <a href="https://github.com/paketo-buildpacks/rfcs/blob/main/accepted/0006-web-servers.md">Web
+Server
+buildpack</a>.</p>
+<p>We’ve been working recently to streamline and codify the existing configuration
+APIs. Buildpacks will continue to adopt environment variables as the primary
+mechanism for their configuration, deprecating the use of <code>buildpack.yml</code> as we
+reach a stable API across the existing set of buildpacks. Furthermore, we’ll be
+looking into streamlining and extending the log output and “bill of materials”
+metadata provided by all buildpacks.</p>
+<p>We’ve also recently started to provide a set of standardized common “utility”
+buildpacks across all language families. These buildpacks solve common use
+cases such as using <a href="https://github.com/paketo-buildpacks/procfile">Procfiles</a>,
+setting build/runtime <a href="https://github.com/paketo-buildpacks/ca-certificates">CA
+Certificates</a>, and
+setting <a href="https://github.com/paketo-buildpacks/environment-variables">environment
+variables</a> on the
+app image.</p>
+<p>Beyond standardizing on our buildpack interfaces, the team will be considering
+extensions to existing buildpacks to bring new runtimes and package manager
+support. Examples of this type of extension include new Ruby runtimes like
+<code>JRuby</code>, as well as functionality to generate code during the build process such
+as using <a href="https://github.com/paketo-buildpacks/go/pull/367"><code>go generate</code></a>.</p>
+<h3 id="expanding-the-buildpack-ecosystem">Expanding the Buildpack Ecosystem</h3>
+<p>Beyond solidifying the set of existing buildpacks, we want to continue to grow
+the overall <strong>buildpack ecosystem</strong> to support new developers and use cases.</p>
+<p>A huge part of growing the ecosystem involves building out new buildpacks.
+We’re already starting to build out <a href="https://github.com/paketo-community/python/issues/226">better support for
+Python</a>, and are looking
+into how we can support new use cases like <a href="https://github.com/paketo-buildpacks/rfcs/pull/29">function
+platforms</a>. We’re looking to
+see where we should next invest in new language ecosystems. Some ideas range
+from Typescript and Swift to Nim and Pony.</p>
+<p>An equally important part of growing the ecosystem involves engaging with the
+community. We plan to focus on community outreach to inform you of what is
+happening day-to-day, and also gather feedback about what we should be doing
+next. We’ll be focusing on improving documentation, reference materials, and
+tutorials. And we’ll be looking for ways to increase the discoverability of the
+project and its buildpacks.</p>
+<h3 id="non-production-use-cases">Non-production Use Cases</h3>
+<p>We’d like to think that our buildpacks run great in production environments
+(let us know if they don’t 😄). We want to go a bit further and start looking
+into how we can improve the buildpack experience beyond production
+environments.</p>
+<p>We’ll be looking into developing buildpacks and integrations that support
+non-production use cases, and working with CNB project to propose any API
+changes to accommodate these workflows. We hope to see buildpacks integrate
+with IDEs and local-development frameworks, expose and enable in-container
+debugging, and support running test suites while integrating with CI/CD
+platforms.</p>
+<h3 id="summary">Summary</h3>
+<p>We have a lot lined up for 2021 and welcome new contributors! <a href="https://github.com/paketo-buildpacks/feedback/discussions/2">Please join the
+discussion</a> to
+tell us what matters to you.</p>
+<h4 id="learn-more">Learn more!</h4>
+<ul>
+<li><a href="https://paketo.io">Website</a></li>
+<li><a href="https://slack.paketo.io">Slack</a></li>
+<li><a href="https://github.com/paketo-buildpacks/community#working-group-meetings">Join our Working Group Meetings!</a></li>
+<li><a href="https://github.com/paketo-buildpacks">Github</a></li>
+<li><a href="https://twitter.com/Paketo_io">Twitter</a></li>
+</ul>
+
+        </article>
+      </section>
+      <footer class="post">
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Paketo%20Buildpacks%20%7c%20Blog%20%7c%202021%20Paketo%20Buildpacks%20Roadmap&amp;url=https://blog.paketo.io/posts/2021-roadmap/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/twitter.png" />
+</a>
+
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://blog.paketo.io/posts/2021-roadmap/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/linkedin.png" />
+</a>
+
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://blog.paketo.io/posts/2021-roadmap/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/facebook.png" />
+</a>
+
+      </footer>
+    </div>
+  </body>
+</html>

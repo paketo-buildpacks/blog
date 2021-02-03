@@ -1,0 +1,161 @@
+<!doctype html>
+<html>
+  <head>
+      <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Paketo Buildpacks Hot Topic at Cloud Foundry Summit | Paketo Buildpacks | Blog</title>
+<link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-language" content="en-us" />
+
+<meta name="og:site_name" content="Paketo Buildpacks | Blog">
+<meta name="og:title" content="Paketo Buildpacks Hot Topic at Cloud Foundry Summit">
+<meta name="og:url" content="https://blog.paketo.io/posts/paketo-buildpacks-hot-topic-at-cf-summit/">
+<meta name="twitter:title" content="Paketo Buildpacks | Blog" />
+<meta name="twitter:url" content="https://blog.paketo.io/posts/paketo-buildpacks-hot-topic-at-cf-summit/" />
+<meta name="twitter:card" content="" />
+<link rel="stylesheet" href="/scss/main.min.css">
+
+  </head>
+  <body>
+    <div class="post">
+      <header>
+        <a href="/">
+          <img class="logo" src="/images/logo512.png" />
+          <h1>Paketo Buildpacks | Blog</h1>
+        </a>
+      </header>
+      <section>
+        <h2>Paketo Buildpacks Hot Topic at Cloud Foundry Summit</h2>
+        <section class="author"><img src="/images/authors/kvedurmudi.jpg" /><h4>Kashyap Vedurmudi</h4></section>
+        <h5>Tuesday, Jun 30, 2020</h5>
+        <article>
+          <p><img src="/images/posts/0002/logo.jpg" alt="Logo"></p>
+<p>Paketo Buildpacks were a hot topic at the recently concluded <a href="https://www.cloudfoundry.org/events/summit/na-virtual-2020/">Cloud Foundry
+Summit</a>, the first
+<strong>virtual Summit run by the Cloud Foundry Foundation</strong>. The Summit featured project
+updates, particularly in the Kubernetes space, including a talk on Paketo
+Buildpacks. Dan Thornton, an engineer contributing to the Paketo Buildpacks
+project, maintained that they are the ideal tool for transforming app source
+code into container images.</p>
+<p>So, we wanted to share Dan’s talk here and dive into a Q&amp;A of all of the
+questions we didn’t get to answer during this session. A comprehensive list of
+other sessions can be found on the Cloud Foundry <a href="https://www.youtube.com/channel/UC0ZYS0Y7b5oiVLvxGf4magw">YouTube
+channel</a>.</p>
+
+<div class="youtube">
+  <iframe src="https://www.youtube.com/embed/JVUh9OuA5N4" allowfullscreen title="Paketo Buildpacks, From Source Code to Application Images - Daniel Thornton, VMWare"></iframe>
+</div>
+
+<h3 id="qa">Q&amp;A</h3>
+<p><strong>Q</strong>: What is the state of the CNB (<a href="https://buildpacks.io/">Cloud Native
+Buildpacks</a>) project in the CNCF? CNCF TOC suggested
+that there weren’t enough end users to promote it.<br>
+<strong>A</strong>: The decision to move into incubation is still open. Currently CNB is a
+sandbox project. CNB’s proposal for incubation listed platforms integrating CNB
+in production as end-users of the CNB project. The CNCF TOC has yet to
+determine if platforms qualify as end-users of the project. If platforms do not
+qualify, CNB will work to identify users that meet the TOC’s requirements.</p>
+<p><strong>Q</strong>: Will it be easier to see which buildpack versions are in use by
+particular applications? We often find people using outdated buildpack
+versions, so visibility would greatly help.<br>
+<strong>A</strong>: Yes! It is much easier to view this buildpack specific metadata on your
+app image than it has been with previous buildpack iterations (Cloud Foundry
+buildpacks). Most CNB platforms such as pack and kpack allow you to view this
+metadata. With the <a href="https://github.com/buildpacks/pack">pack CLI</a>, you can run
+<code>pack inspect-image &lt;image name&gt;</code> to view this.</p>
+<p><strong>Q</strong>: One challenge with buildpacks is time. Is there a way to “lock in”
+buildpack versions major/minor/patch?<br>
+<strong>A</strong>: This is a bit outside the scope of the buildpacks themselves, and more
+about the platform that is running these buildpacks. One such platform is
+<strong>kpack</strong>. This platform does let you lock onto a current version of a buildpack
+but this is a bit antithetical to the process we are looking to encourage.
+Paketo reduces cost and risk associated with building new application images
+and promotion of the image from development into production. This should enable
+users to take advantage of the secure &amp; up to date dependencies Paketo
+Buildpacks provide.</p>
+<p><strong>Q</strong>: What is ABI compatibility ? Is this the concept of “rebasable” images
+layers?<br>
+<strong>A</strong>:
+<a href="https://en.wikipedia.org/wiki/Application_binary_interface">https://en.wikipedia.org/wiki/Application_binary_interface</a>
+It is the contract provided by OS vendors that guarantees that software doesn’t
+need to be rebuilt when security patches are applied to the OS layers. It makes
+“rebasable” image layers safe to rebase.</p>
+<p><strong>Q</strong>: Does Openshift use the same buildpack to make their source to image?<br>
+<strong>A</strong>: No</p>
+<p><strong>Q</strong>: Does building images using Paketo require a docker daemon as a
+prerequisite? Can it run with any alternative such as podman?<br>
+<strong>A</strong>: Paketo only requires a Docker daemon when you build with pack, which is
+designed to work on operating systems like macOS and Windows that don’t
+natively support containers. Paketo buildpacks work without the Docker daemon
+(or any privileges) on container platforms like Tekton or on any K8s via kpack.
+(The CNB lifecycle can build container images entirely in userland, and export
+them directly to a docker registry.)</p>
+<p><strong>Q</strong>: Can buildpacks be combined?<br>
+<strong>A</strong>: Yes they can. In the example build from the talk, the “node-engine” and
+“npm” buildpacks provided dependency layers in our app image. Any group of
+buildpacks can be combined into a “meta buildpack”. This meta buildpack
+provides an ordering you would expect the buildpacks to run in. The Paketo
+project provides meta buildpacks that cover common use cases but allows users
+to define their own. For an example of this, see the Node.js meta Paketo
+Buildpack <a href="https://github.com/paketo-buildpacks/nodejs/blob/ea4d2cde1fd3932454e952e2ce1fb51c359d7106/buildpack.toml#L36-L51">order
+definition</a>,
+which contains both the “node-engine” and “npm” buildpacks.</p>
+<p><strong>Q</strong>: What about the multistage builds that are resulting of scratch image
+with binary and a bunch of config files inside (golang usual)?<br>
+<strong>A</strong>: All builds are effectively multi-stage builds. The buildpack runs in a
+container, but then selectively chooses what to add to the layers in the image
+that it is contributing to. Therefore, nothing that isn’t explicitly added by a
+buildpack will be in the final image. The Go buildpack already uses a rich
+build image to compile applications and adds only the compiled binary to the
+final image. We use a base image called
+<a href="https://github.com/paketo-buildpacks/stacks#tiny">tiny</a> which is effectively
+distroless rather than scratch, for the same reasons that Google created
+<a href="https://github.com/GoogleContainerTools/distroless">distroless</a> in the first
+place.</p>
+<p><strong>Q</strong>: Do you plan to add a Quarkus buildpack to have a light image?<br>
+<strong>A</strong>: Quarkus is not the only way to get a native-image Java application and
+light images. We support building <a href="https://github.com/paketo-buildpacks/java-native-image">Spring Boot native
+images</a> and would
+welcome contributions to build native-images from other projects.</p>
+<p><strong>Q</strong>: How would Paketo Buildpacks work if you have dependencies that link into
+the OS layer with handling “lift and shift”?<br>
+<strong>A</strong>: Given you use a ABI compatible image, ABI compatibility guarantees that
+the links a dependency has into the underlying OS will not be broken. The
+Paketo project currently supports 3 ABI compatible images named <strong>tiny</strong>,
+<strong>base</strong>, and <strong>full</strong>. So it’s possible to lift all application &amp; dependency
+bits off of an old <strong>base</strong> layer and place them atop a new one with no
+breakages.</p>
+<p><strong>Q</strong>: How is the java buildpack coming on?<br>
+<strong>A</strong>: Complete and ready for production. Get started
+<a href="https://github.com/paketo-buildpacks/java">here</a>.</p>
+<p><strong>Q</strong>: What’s the name of this CLI tool for digging into layers? Is that pack
+itself?
+<strong>A</strong>: <a href="https://github.com/wagoodman/dive">dive</a></p>
+<h3 id="learn-more">Learn more!</h3>
+<ul>
+<li><a href="/posts/get-to-know-paketo-buildpacks">Get to know Paketo Buildpacks</a></li>
+<li>Website — <a href="https://paketo.io">https://paketo.io</a></li>
+<li>Slack — <a href="https://slack.paketo.io">https://slack.paketo.io</a></li>
+<li>GitHub — <a href="https://github.com/paketo-buildpacks">https://github.com/paketo-buildpacks</a></li>
+</ul>
+
+        </article>
+      </section>
+      <footer class="post">
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Paketo%20Buildpacks%20%7c%20Blog%20%7c%20Paketo%20Buildpacks%20Hot%20Topic%20at%20Cloud%20Foundry%20Summit&amp;url=https://blog.paketo.io/posts/paketo-buildpacks-hot-topic-at-cf-summit/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/twitter.png" />
+</a>
+
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://blog.paketo.io/posts/paketo-buildpacks-hot-topic-at-cf-summit/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/linkedin.png" />
+</a>
+
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://blog.paketo.io/posts/paketo-buildpacks-hot-topic-at-cf-summit/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/facebook.png" />
+</a>
+
+      </footer>
+    </div>
+  </body>
+</html>

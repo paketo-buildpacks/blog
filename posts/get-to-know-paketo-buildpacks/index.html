@@ -1,0 +1,158 @@
+<!doctype html>
+<html>
+  <head>
+      <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Building apps for Kubernetes? Get to Know Paketo Buildpacks. | Paketo Buildpacks | Blog</title>
+<link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-language" content="en-us" />
+
+<meta name="og:site_name" content="Paketo Buildpacks | Blog">
+<meta name="og:title" content="Building apps for Kubernetes? Get to Know Paketo Buildpacks.">
+<meta name="og:url" content="https://blog.paketo.io/posts/get-to-know-paketo-buildpacks/">
+<meta name="twitter:title" content="Paketo Buildpacks | Blog" />
+<meta name="twitter:url" content="https://blog.paketo.io/posts/get-to-know-paketo-buildpacks/" />
+<meta name="twitter:card" content="" />
+<link rel="stylesheet" href="/scss/main.min.css">
+
+  </head>
+  <body>
+    <div class="post">
+      <header>
+        <a href="/">
+          <img class="logo" src="/images/logo512.png" />
+          <h1>Paketo Buildpacks | Blog</h1>
+        </a>
+      </header>
+      <section>
+        <h2>Building apps for Kubernetes? Get to Know Paketo Buildpacks.</h2>
+        <section class="author"><img src="/images/authors/kvedurmudi.jpg" /><h4>Kashyap Vedurmudi</h4></section>
+        <h5>Tuesday, Apr 21, 2020</h5>
+        <article>
+          <p><img src="/images/posts/0001/logo.png" alt="Logo"></p>
+<p>I’m excited to announce the launch of <a href="https://paketo.io/">Paketo Buildpacks</a>,
+a collection of Cloud Native Buildpacks for the most popular languages and
+frameworks. Paketo Buildpacks make it easy for you to build and patch
+containerized apps so that you can spend all your time on the thing that
+matters the most… <strong>developing great software</strong>.</p>
+<h3 id="first-off-what-are-paketo-buildpacks-and-why-would-i-use-them">First off… what are Paketo Buildpacks, and why would I use them?</h3>
+<blockquote>
+<p>Buildpacks provide a higher-level abstraction for building apps</p>
+</blockquote>
+<p>If you’re looking for an alternative to Dockerfiles, Buildpacks are worth a
+look. Buildpacks:</p>
+<ol>
+<li>
+<p>Provide an easy way to transform source code into secure container images
+without requiring developers to write and maintain Dockerfiles.</p>
+</li>
+<li>
+<p>Permit build functionality to be modularized in a re-usable,
+context-independent, and transparent way.</p>
+</li>
+<li>
+<p>Optimize the build experience by minimizing the number of rebuilt image
+layers. (Dockerfiles do this too, but with CNB the layer order doesn’t
+matter!)</p>
+</li>
+<li>
+<p>Provide a simple and nearly-instant method for patching OS-level
+vulnerabilities.</p>
+</li>
+<li>
+<p>Provide metadata about the contents of container images, via an extensive
+Bill-of-Materials.</p>
+</li>
+</ol>
+<p>Paketo Buildpacks use the Cloud Native Buildpacks specification to provide
+modular language runtime support for applications. Paketo Buildpacks are great
+if you:</p>
+<ul>
+<li>
+<p><strong>Deploy container images to Kubernetes.</strong> Paketo Buildpacks follow best
+practices in each language ecosystem. They package your apps into container
+images that can easily be deployed onto any modern runtime.</p>
+</li>
+<li>
+<p><strong>Want to use the latest language runtimes to build your apps.</strong> Need the
+latest runtime or compiler features? Tired of waiting for OS package repos to
+update? You can trust the Paketo Buildpacks project to release new buildpacks
+whenever new dependency version lines are released upstream.</p>
+</li>
+<li>
+<p><strong>Don’t want to spend time worrying about vulnerable dependencies.</strong> We’re
+constantly updating Paketo Buildpacks to patch vulnerabilities in upstream
+language runtimes and operating system packages. The community has a terrific
+track record of keeping these bits updated, so it’s easier for your apps to
+stay up-to-date. Additionally, since Paketo Buildpacks use CNB and the OCI
+standard, it’s easy to “rebase” your app images with stack updates.</p>
+</li>
+</ul>
+<h3 id="demo">Demo</h3>
+<p>Let’s run through a quick demo of how easy it is to build your apps using
+Paketo Buildpacks and deploy them to an existing Kubernetes cluster. We’re
+using a local Minikube cluster for this demo.</p>
+<p>Prerequisites:</p>
+<ul>
+<li><a href="https://github.com/buildpacks/pack">Pack CLI</a></li>
+<li><a href="https://docs.docker.com/get-docker/">Docker</a></li>
+<li><a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/">kubectl CLI</a></li>
+<li><a href="https://kubernetes.io/docs/tasks/tools/install-minikube/">Minikube</a></li>
+</ul>
+<p>You can find the demo app source code
+<a href="https://github.com/paketo-buildpacks/samples/tree/master/demo-apps/app-source">here</a>.</p>
+<p>Let’s build a simple Node.js app using pack and the Node.js Paketo Buildpack.</p>
+<pre><code>$ pack build paketo-demo-app -p &lt;/path/to/app/source&gt; --builder gcr.io/paketo-buildpacks/builder:base
+</code></pre><p><img src="/images/posts/0001/demo-1.gif" alt="Demo 1"></p>
+<p>Now, let’s quickly validate that our app is working as expected.</p>
+<pre><code>$ docker run -p 8080:8080 -e PORT=8080 paketo-demo-app &amp;
+$ curl localhost:8080/greeting
+</code></pre><p><img src="/images/posts/0001/demo-2.gif" alt="Demo 2"></p>
+<p>Awesome, it works! Now let’s tag our image and publish it to a registry
+location. We’re using a GCR registry for this demo.</p>
+<pre><code>$ docker tag paketo-demo-app &lt;/registry/path/to/demo/image&gt;
+$ docker push &lt;/registry/path/to/demo/image&gt;
+</code></pre><p><img src="/images/posts/0001/demo-3.gif" alt="Demo 3"></p>
+<p>Finally, let’s deploy our app image to our live Kubernetes cluster.</p>
+<pre><code>$ kubectl create deployment paketo-node --image=&lt;/registry/path/to/demo/image&gt;
+$ kubectl expose deployment paketo-node --type=LoadBalancer --port=8080
+$ minikube service paketo-node
+</code></pre><p><img src="/images/posts/0001/demo-4.gif" alt="Demo 4"></p>
+<p>And that’s it! It’s that simple to get started with Paketo Buildpacks! You can
+run <code>kubectl get services</code> to find the IP address of your deployed app.</p>
+<h3 id="give-paketo-buildpacks-a-try">Give Paketo Buildpacks a Try!</h3>
+<p>Ready to learn more? Check out these links.</p>
+<ul>
+<li>Join us on <a href="https://slack.paketo.io/">Slack</a> and start asking questions!</li>
+<li>Walk through our
+<a href="https://paketo.io/docs/getting-started/build-an-example-app/">tutorial</a> on
+<a href="https://paketo.io/">paketo.io</a> to see how easy it is to use Paketo
+Buildpacks to build your apps.</li>
+<li>Bookmark the <a href="https://github.com/paketo-buildpacks/">Paketo Buildpacks
+Github</a> to see all the cool buildpacks
+and tools we’re building!</li>
+<li>Follow us on <a href="https://twitter.com/Paketo_io">Twitter</a>!</li>
+<li>Read through <a href="https://buildpacks.io/">buildpacks.io</a> for more information
+about how Cloud Native Buildpacks work.</li>
+</ul>
+
+        </article>
+      </section>
+      <footer class="post">
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Paketo%20Buildpacks%20%7c%20Blog%20%7c%20Building%20apps%20for%20Kubernetes?%20Get%20to%20Know%20Paketo%20Buildpacks.&amp;url=https://blog.paketo.io/posts/get-to-know-paketo-buildpacks/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/twitter.png" />
+</a>
+
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://blog.paketo.io/posts/get-to-know-paketo-buildpacks/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/linkedin.png" />
+</a>
+
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://blog.paketo.io/posts/get-to-know-paketo-buildpacks/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/facebook.png" />
+</a>
+
+      </footer>
+    </div>
+  </body>
+</html>
