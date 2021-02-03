@@ -24,7 +24,7 @@ jobs:
     - name: Install Hugo
       run: |
         mkdir -p build-environment/.bin
-        curl "https://github.com/gohugoio/hugo/releases/download/v0.80.0/hugo_0.80.0_Linux-64bit.tar.gz" \
+        curl "https://github.com/gohugoio/hugo/releases/download/v0.80.0/hugo_extended_0.80.0_Linux-64bit.tar.gz" \
           --silent \
           --location \
           --output /tmp/hugo.tar.gz
