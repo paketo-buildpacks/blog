@@ -1,7 +1,0 @@
-baseURL = "https://blog.paketo.io"
-languageCode = "en-us"
-title = "Paketo Buildpacks | Blog"
-
-[params.authors]
-  kvedurmudi = "Kashyap Vedurmudi"
-  rmoran = "Ryan Moran"
