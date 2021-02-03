@@ -28,7 +28,7 @@ jobs:
           --silent \
           --location \
           --output /tmp/hugo.tar.gz
-        tar -xOzvf hugo_0.80.0_Linux-64bit.tar.gz 'hugo' > build-environment/.bin/hugo
+        tar -xOzvf /tmp/hugo.tar.gz 'hugo' > build-environment/.bin/hugo
         chmod +x build-environment/.bin/hugo
         rm /tmp/hugo.tar.gz
 
