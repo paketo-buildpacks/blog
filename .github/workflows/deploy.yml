@@ -23,19 +23,21 @@ jobs:
 
     - name: Install Hugo
       run: |
+        mkdir -p build-environment/.bin
         curl "https://github.com/gohugoio/hugo/releases/download/v0.80.0/hugo_0.80.0_Linux-64bit.tar.gz" \
           --silent \
           --location \
           --output /tmp/hugo.tar.gz
-        tar -xOzvf hugo_0.80.0_Linux-64bit.tar.gz 'hugo' > /usr/bin/hugo
-        chmod +x /usr/bin/hugo
+        tar -xOzvf hugo_0.80.0_Linux-64bit.tar.gz 'hugo' > build-environment/.bin/hugo
+        chmod +x build-environment/.bin/hugo
         rm /tmp/hugo.tar.gz
 
     - name: Build
-      run: cd build-environment && hugo
+      run: cd build-environment && .bin/hugo
 
     - name: Update
       run: |
+        git rm -r .
         cp -a build-environment/public/* .
         rm -rf build-environment
 
