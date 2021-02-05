@@ -32,7 +32,7 @@ Writing a buildpack with the Packit library is integral to how we write our buil
 
 ### Bootstrap it
 
-Another huge help is our buildpack [Bootstrapper](https://github.com/paketo-community/bootstrapper) which sets up a basic buildpack directory structure in a Packit-compliant way. Using the bootstrapper tool removes the guesswork involved in setting up all the basic pieces of a buildpack, and enforces test-driven development. The bootstrapper-provided integration tests fail by default, encouraging you to write tests first and think about the overarching picture of what you need your buildpack to do. The Paketo core development team practices test-driven development when we work on buildpacks. If you're not convinced that TDD is important, this [blog post](https://tanzu.vmware.com/content/blog/why-tdd) makes a compelling case.
+Another huge help is our buildpack [Bootstrapper](https://github.com/paketo-community/bootstrapper) which sets up a basic buildpack directory structure in a Packit-compliant way. Using the bootstrapper tool removes the guesswork involved in setting up all the basic pieces of a buildpack, and enforces test-driven development. The bootstrapper-provided integration tests fail by default, encouraging you to write tests first and think about the overarching picture of what you need your buildpack to do.
 
 
 ### Keeping it simple
