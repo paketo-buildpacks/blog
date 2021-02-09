@@ -1,5 +1,5 @@
 ---
-title: Build Plan Buildpack NAME TBD
+title: What is the Build Plan Buildpack and why should I care?
 date: "2021-02-09"
 slug: build-plan-buildpack-exploration
 author: feckhardt
