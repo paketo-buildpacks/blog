@@ -51,7 +51,7 @@ the integration testing of dependency buildpacks. Let's use a [Go Dist
 buildpack integration
 app](https://github.com/paketo-buildpacks/go-dist/tree/main/integration/testdata/default_app)
 as an example. The `plan.toml` for that app looks as follow:
-```toml
+```
 [[requires]]
   name = "go"
 
@@ -81,4 +81,4 @@ everyone to check it out, play with it, and see what you can do with it. If you
 have any questions you can always feel free to ask us using any of the
 platforms listed below and we would be more than happy to try and help you.
 
-<Links to talk to us>
+# Links to talk to us
