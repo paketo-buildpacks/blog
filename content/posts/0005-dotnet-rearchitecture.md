@@ -5,7 +5,7 @@ slug: dotnet-core-rearchitecture
 author: fgallinajones
 ---
 
-&lt;PICTURE AT THE TOP>
+SOME PICTURE HERE
 
 Paketo is pleased to unveil our new and improved .NET Core Buildpack! With the
 release of [Paketo .NET Core Buildpack
@@ -69,7 +69,7 @@ How does it work? Let’s take it from empty directory to running app container:
 
 Voila!
 
-&lt; terminalizer gif here>
+![Terminal window animation demonstrating use of .NET Core Buildpack](/images/posts/0005/dotnet-build-demo.gif)
 
 The new .NET Core buildpack is included in the latest [Paketo Base
 Builder](https://paketo.io/docs/builders/#base) and [Paketo Full
