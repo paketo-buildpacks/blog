@@ -92,8 +92,7 @@ issue](https://github.com/paketo-buildpacks/dotnet-core/issues).
 [#dotnet-core](https://paketobuildpacks.slack.com/archives/CUD6SEE7L)
 in [Paketo slack](https://slack.paketo.io/).
 
-* Want to contribute a bug fix (or buildpack!)? [Learn more about our open source
-community.](https://github.com/paketo-buildpacks/community)
+* Want to contribute a bug fix (or buildpack!)? [Learn more](https://github.com/paketo-buildpacks/community) about our open source community.
 
 Thanks for reading!
 
