@@ -10,7 +10,7 @@ SOME PICTURE HERE
 Paketo is pleased to unveil our new and improved .NET Core Buildpack! With the
 release of [Paketo .NET Core Buildpack
 0.1.0](https://github.com/paketo-buildpacks/dotnet-core/releases), you’ll enjoy
-a host of new features and improvements that we hope will make containerizing
+a host of new features and improvements that will make containerizing
 your .NET apps a breeze.
 
 With the new buildpack, you can now:
