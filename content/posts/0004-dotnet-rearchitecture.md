@@ -1,6 +1,6 @@
 ---
 title: Introducing a re-architected .NET Core Buildpack!
-date: "2021-02-09"
+date: "2021-02-11"
 slug: dotnet-core-rearchitecture
 author: fgallinajones
 ---
@@ -45,7 +45,7 @@ Registry](http://registry.buildpacks.io/buildpacks/paketo-buildpacks/dotnet-core
 
 ## Demo
 It’s easy to get started with the .NET Core Buildpack. How easy? Let's do a
-quick demo using a .NET 5 app wih a React frontend. In a matter of minutes,
+quick demo using a .NET 5 app with a React frontend. In a matter of minutes,
 we'll have it up and running, **_without ever touching a Dockerfile_.**
 
 ![Terminal window animation demonstrating use of .NET Core Buildpack](/images/posts/0005/dotnet-demo.gif)
