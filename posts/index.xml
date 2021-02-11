@@ -6,7 +6,18 @@
     <description>Recent content in Posts on Paketo Buildpacks | Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 29 Jan 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 09 Feb 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Introducing a re-architected .NET Core Buildpack!</title>
+      <link>https://blog.paketo.io/posts/dotnet-core-rearchitecture/</link>
+      <pubDate>Tue, 09 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.paketo.io/posts/dotnet-core-rearchitecture/</guid>
+      <description>On behalf of the Paketo contributors, I&amp;rsquo;m pleased to unveil the new and improved .NET Core Buildpack! With the release of Paketo .NET Core Buildpack 0.1.0, you’ll enjoy a host of new features and improvements that will make containerizing your .NET apps a breeze. 🍃
+With the new buildpack, you can:
+ Build .NET 5 apps Build your app from source code, from a framework-dependent deployment (FDD), from a framework-dependent executable (FDE), or from a self-contained deployment Build Visual Basic apps Have source code removed from final app image.</description>
+    </item>
+    
     <item>
       <title>2021 Paketo Buildpacks Roadmap</title>
       <link>https://blog.paketo.io/posts/2021-roadmap/</link>

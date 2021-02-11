@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+  <head>
+      <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Introducing a re-architected .NET Core Buildpack! | Paketo Buildpacks | Blog</title>
+<link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-language" content="en-us" />
+
+<meta name="og:site_name" content="Paketo Buildpacks | Blog">
+<meta name="og:title" content="Introducing a re-architected .NET Core Buildpack!">
+<meta name="og:url" content="https://blog.paketo.io/posts/dotnet-core-rearchitecture/">
+<meta name="twitter:title" content="Paketo Buildpacks | Blog" />
+<meta name="twitter:url" content="https://blog.paketo.io/posts/dotnet-core-rearchitecture/" />
+<meta name="twitter:card" content="" />
+<link rel="stylesheet" href="/scss/main.min.css">
+
+  </head>
+  <body>
+    <div class="post">
+      <header>
+        <a href="/">
+          <img class="logo" src="/images/logo512.png" />
+          <h1>Paketo Buildpacks | Blog</h1>
+        </a>
+      </header>
+      <section>
+        <h2>Introducing a re-architected .NET Core Buildpack!</h2>
+        <section class="author"><img src="/images/authors/fgallinajones.jpg" /><h4>Frankie Gallina-Jones</h4></section>
+        <h5>Tuesday, Feb 9, 2021</h5>
+        <article>
+          <p><img src="/images/posts/0005/dotnet-core-logo.png" alt=".NET Core Logo"></p>
+<p>On behalf of the Paketo contributors, I&rsquo;m pleased to unveil the new and
+improved .NET Core Buildpack! With the release of <a href="https://github.com/paketo-buildpacks/dotnet-core/releases">Paketo .NET Core Buildpack
+0.1.0</a>, you’ll enjoy
+a host of new features and improvements that will make containerizing your .NET
+apps a breeze. 🍃</p>
+<p>With the new buildpack, you can:</p>
+<ul>
+<li>Build .NET 5 apps</li>
+<li>Build your app from source code, from a framework-dependent deployment
+(FDD), from a framework-dependent executable (FDE), or from a
+self-contained deployment</li>
+<li>Build Visual Basic apps</li>
+<li>Have source code removed from final app image. Your app container will
+only contain the built artifacts</li>
+<li>Use a
+<a href="https://paketo.io/docs/buildpacks/configuration/#procfiles">Procfile</a> to
+specify custom start processes</li>
+</ul>
+<p>We also re-wrote the buildpacks using
+<a href="https://github.com/paketo-buildpacks/packit">packit</a>, our library for
+buildpack developers. This will ensure that the buildpack benefits from future
+innovations in the <a href="https://github.com/buildpacks/spec/blob/main/buildpack.md">Cloud Native Buildpacks
+specification</a>.</p>
+<p>If you’re not sure why you should get excited about .NET 5, check out this
+<a href="https://devblogs.microsoft.com/dotnet/announcing-net-5-0/">post from
+Microsoft</a>
+announcing its release.</p>
+<p>The new .NET Core buildpack is included in the latest <a href="https://paketo.io/docs/builders/#base">Paketo Base
+Builder</a> and <a href="https://paketo.io/docs/builders/#full">Paketo Full
+Builder</a>. You can also find it on
+<a href="https://hub.docker.com/r/paketobuildpacks/dotnet-core">Dockerhub</a> and on the
+<a href="http://registry.buildpacks.io/buildpacks/paketo-buildpacks/dotnet-core">Buildpacks
+Registry</a>.</p>
+<h2 id="demo">Demo</h2>
+<p>It’s easy to get started with the .NET Core Buildpack. How easy? Let&rsquo;s do a
+quick demo using a .NET 5 app wih a React frontend. In a matter of minutes,
+we&rsquo;ll have it up and running, <strong><em>without ever touching a Dockerfile</em>.</strong></p>
+<p><img src="/images/posts/0005/dotnet-demo.gif" alt="Terminal window animation demonstrating use of .NET Core Buildpack"></p>
+<p>Let’s take it from empty directory to running app container:</p>
+<ol>
+<li>Install the latest <a href="https://docs.microsoft.com/en-us/dotnet/core/install/">dotnet
+CLI</a></li>
+<li>Install <a href="https://buildpacks.io/docs/tools/pack/#install"><code>pack</code></a></li>
+<li>Generate the sample app and have a look around
+<pre><code>dotnet new react -o dotnet-five-react &amp;&amp; cd dotnet-five-react &amp;&amp; ls -al
+</code></pre></li>
+<li>Use <code>pack</code> with the new .NET Core buildpack to build the source code into a
+runnable image
+<pre><code>pack build dotnet-five-react --buildpack gcr.io/paketo-buildpacks/dotnet-core:0.1.1
+</code></pre></li>
+<li>Run the app
+<pre><code>docker run -it --publish 8080:8080 dotnet-five-react
+</code></pre></li>
+<li>Check out the results in your browser at:
+<a href="http://0.0.0.0:8080">http://0.0.0.0:8080</a> or test out the app with <code>curl</code>
+<pre><code>curl 0.0.0.0:8080
+</code></pre></li>
+<li>You&rsquo;ve successfully containerized a .NET 5 app</li>
+</ol>
+<h3 id="tada">Tada!</h3>
+<h2 id="heading"></h2>
+<h3 id="heading-1"></h3>
+<p><img src="https://media.giphy.com/media/KmIR3x7UG4cFy/giphy.gif" alt="Buildpacks are almost like this magic trick"></p>
+<h2 id="learn-more">Learn More</h2>
+<ul>
+<li>
+<p>Want to learn more about using the .NET Core Buildpack? <a href="https://paketo.io/docs/buildpacks/language-family-buildpacks/dotnet-core/">Check out our
+docs</a>.</p>
+</li>
+<li>
+<p>Feature request? <a href="https://github.com/paketo-buildpacks/dotnet-core/issues">Open an
+issue</a>.</p>
+</li>
+<li>
+<p>Want to chat with .NET Buildpack maintainers? Join
+<a href="https://paketobuildpacks.slack.com/archives/CUD6SEE7L">#dotnet-core</a>
+in <a href="https://slack.paketo.io/">Paketo slack</a>.</p>
+</li>
+<li>
+<p>Want to contribute a bug fix (or buildpack!)? <a href="https://github.com/paketo-buildpacks/community">Learn more</a> about our open source community.</p>
+</li>
+</ul>
+<p>Thanks for reading!</p>
+
+        </article>
+      </section>
+      <footer class="post">
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Paketo%20Buildpacks%20%7c%20Blog%20%7c%20Introducing%20a%20re-architected%20.NET%20Core%20Buildpack!&amp;url=https://blog.paketo.io/posts/dotnet-core-rearchitecture/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/twitter.png" />
+</a>
+
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://blog.paketo.io/posts/dotnet-core-rearchitecture/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/linkedin.png" />
+</a>
+
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://blog.paketo.io/posts/dotnet-core-rearchitecture/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/facebook.png" />
+</a>
+
+      </footer>
+    </div>
+  </body>
+</html>
