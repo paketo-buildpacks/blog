@@ -31,7 +31,7 @@ Writing a buildpack with `packit` is integral to how we write our buildpacks and
 
 Another huge help is our buildpack [Bootstrapper](https://github.com/paketo-community/bootstrapper) which sets up a basic buildpack directory structure in a `packit`-compliant way. Using the bootstrapper tool removes the guesswork involved in setting up all the basic pieces of a buildpack, and enforces test-driven development. The bootstrapper-provided integration tests fail by default, encouraging you to write tests first and think about the overarching picture of what you need your buildpack to do.
 
-### Keep it simple
+#### Keep it simple
 
 Part of our philosophy when it comes to writing buildpacks is to keep it simple. We want each buildpack to do one job and do it well. This way many simple buildpacks can be combined to achieve complex behaviours. As a contributor, this is music to my ears, since the buildpack only needs to focus on one major task. An example of this is our language family buildpacks, like [Go](https://github.com/paketo-buildpacks/go), which is composed of multiple small buildpacks. There's a buildpack for installing Golang, one for vendoring dependencies with Go modules, and one for compiling and running the app. The Go language family buildpack includes different buildpacks depending on the app.
 
