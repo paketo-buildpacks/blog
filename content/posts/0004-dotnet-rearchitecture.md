@@ -5,7 +5,7 @@ slug: dotnet-core-rearchitecture
 author: fgallinajones
 ---
 
-![.NET Core Logo](/images/posts/0005/dotnet-core-logo.png)
+![.NET Core Logo](/images/posts/0004/dotnet-core-logo.png)
 
 On behalf of the Paketo contributors, I'm pleased to unveil the new and
 improved .NET Core Buildpack! With the release of [Paketo .NET Core Buildpack
@@ -48,7 +48,7 @@ It’s easy to get started with the .NET Core Buildpack. How easy? Let's do a
 quick demo using a .NET 5 app with a React frontend. In a matter of minutes,
 we'll have it up and running, **_without ever touching a Dockerfile_.**
 
-![Terminal window animation demonstrating use of .NET Core Buildpack](/images/posts/0005/dotnet-demo.gif)
+![Terminal window animation demonstrating use of .NET Core Buildpack](/images/posts/0004/dotnet-demo.gif)
 
 Let’s take it from empty directory to running app container:
 
