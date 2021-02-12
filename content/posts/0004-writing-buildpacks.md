@@ -4,16 +4,7 @@ date: "2021-02-09"
 slug: building-a-cloud-native-buildpack-isnt-as-hard-as-you-think
 author: swigmore
 ---
-
-Maybe you’ve heard of Cloud Native Buildpacks (CNB), or at least the value in containerizing your applications. Buildpacks provide a seamless mechanism for doing just that. There are a few implementations of the buildpack concept available, but the general takeaways can be summarized as follows:
-
-> Buildpacks provide a seamless experience from source code to a running container
-
-> Dockerfiles aren’t the only option anymore
-
-> Everything is open source and community driven
-
-[Paketo Buildpacks](https://paketo.io) provides CNB implementations for the most popular languages. The buildpacks provide great out-of-box support for many languages, but what if you need a buildpack that doesn’t exist yet? As a community-driven project, it may feel like the onus is on you to create that buildpack? Where would you even begin?
+Maybe you’ve heard that many companies today are transitioning to, or have already transitioned to, a container-based platform like Kubernetes. With this movement comes the need to containerize your applications, new and old. Buildpacks provide a seamless mechanism for doing that, without Dockerfiles. [Paketo Buildpacks](https://paketo.io) is a community-driven project that provides Cloud Native Buildpacks implementations for the most popular languages. Buildpacks provide great out-of-box support for many languages, but what if you need a buildpack that doesn’t exist yet? As a community-driven initiative, it may feel like the onus is on you to create that buildpack. Where would you even begin? 
 
 Paketo Buildpacks strives to make answering those questions transparent, approachable, and simple. The idea of being a community-driven project is splashed across our [blog posts](/posts/get-to-know-paketo-buildpacks), and [roadmap](/posts/2021-roadmap) for a reason. As an engineer who recently learned the ropes of working on buildpacks myself, I’ll explain why building a buildpack isn’t as hard as you might think, and provide some tips and tricks I've learned along the way.
 
