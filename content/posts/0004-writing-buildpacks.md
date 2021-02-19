@@ -37,6 +37,7 @@ Across the different language ecosystems, the buildpacks follow major patterns d
 ##### Installing a distribution/tool
 
 When you need to download some tool or distribution for your app, and (usually) put it on the PATH, you may find yourself saying:
+
 *“I'll need Golang to build and run my Go app”*, or
 *“I'll need to install Bundler to run `bundle-install` commands for my Ruby app."*
 
