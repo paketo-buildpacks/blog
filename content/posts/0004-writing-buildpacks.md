@@ -25,10 +25,12 @@ One way to determine if you need a new buildpack is to think about if the featur
 ##### When to add a new buildpack
 New functionality usually means a new buildpack is needed. An example of this can be seen with the [Rails Assets buildpack](https://github.com/paketo-buildpacks/rails-assets). A user, [@drnic](https://github.com/drnic) filed [an issue](https://github.com/paketo-buildpacks/ruby/issues/470) about performing asset compilation for Ruby apps, which was completely unsupported behaviour in the Ruby buildpacks. A Ruby maintainer, [@ryanmoran](https://github.com/ryanmoran) wrote up [an RFC](https://github.com/paketo-buildpacks/ruby/pull/475) to propose a new buildpack for the functionality, and a contributor [@genevievelesperance](https://github.com/genevieve) actually [implemented the buildpack](https://github.com/genevieve/rails-assets). (If you’re interested in this workflow, look out for a future blog post outlining our contribution process!) The idea here is that a new buildpack was needed in order to support completely new functionality.
 
-##### When to modify a buildpack
-On the other hand, there are many cases for modifying an existing buildpack. When looking for cases of “unimplemented subsets of existing functionality”, ask yourself: *If you were building this app again, is there any “optional” behaviour?*
+Another example of this case is when a brand new dependency or runtime is needed in an app image. If a buildpack providing the specific distribution that you need doesn't exist, then this would be another good indicator that a new buildpack is needed. This is slightly different than the Rails Assets example above, because that buildpack performs a new behaviour, but doesn't provide a dependency. An example of a need for a new runtime can be seen with the [Rust buildpack](https://github.com/paketo-community/rust). Contributor [@dmikusa-pivotal](https://github.com/dmikusa-pivotal) put together a set of new buildpacks to support Rust-based apps. Specifically the [Rust Dist buildpack](https://github.com/paketo-community/rust-dist) is an example of creating a new buildpack in order to provide a new runtime.
 
-For example, imagine an app that serves content on a custom port, rather than using the default port 8080. If the existing buildpack only allowed default port 8080 to be used, it would make sense to modify the buildpack to allow for the optional behaviour of using a custom port, rather than writing a separate buildpack with almost the same logic. This is a simplified example, but there are surely other examples of optimizations within the scope of a buildpack’s functionality that could allow for some new behaviour. We’re always looking for cases where we can optimize the buildpacks, and invite you to weigh in via a Github issue if you can think of one!
+##### When to modify a buildpack
+On the other hand, there are many cases for modifying an existing buildpack. When looking for cases of “unimplemented subsets of existing functionality”, ask yourself: *If you were building the app container, step by step, is there any “optional” behaviour?*
+
+For example, imagine an app that serves content on a custom port, rather than using the default port 8080. If the existing buildpack only allowed default port 8080 to be used, it would make sense to modify the buildpack to allow for the optional behaviour of using a custom port, rather than writing a separate buildpack with almost the same logic. This modification would still follow the "keep it simple" philosophy in that the buildpack would still be performing one task, just with more flexibility. This is a simplified example, but there are surely other examples of optimizations within the scope of a buildpack’s functionality that could allow for some new behaviour. We’re always looking for cases where we can optimize the buildpacks, and invite you to weigh in via a Github issue if you can think of one!
 
 #### Patterns are everywhere
 
@@ -44,7 +46,7 @@ When you need to download some tool or distribution for your app, and (usually) 
 Check out the following buildpacks: [Go Dist](https://github.com/paketo-buildpacks/go-dist) , [Bundler](https://github.com/paketo-buildpacks/bundler), [Yarn](https://github.com/paketo-buildpacks/yarn), [Node Engine](https://github.com/paketo-buildpacks/node-engine). And look for the following things:
 
 * Detection: Variations of checking language-specific files (e.g. `Gemfile.lock`) or environment variables for versions to install
-* Build: How layer metadata is set
+* Build: How layer metadata is set (i.e. will I need the contents of this layer during container build-time, run-time, or in subsequent builds?)
 
 ##### Managing or installing app dependencies
 
@@ -69,7 +71,7 @@ When a command needs to be run to start the app in the container, you might thin
 Check out the following buildpacks: [Go Build](https://github.com/paketo-buildpacks/go-build), [Npm Start](https://github.com/paketo-buildpacks/npm-start), [Dotnet Execute](https://github.com/paketo-buildpacks/dotnet-execute), Ruby webservers (e.g. [Unicorn](https://github.com/paketo-buildpacks/unicorn) or [Passenger](https://github.com/paketo-buildpacks/passenger)). And look for the following things:
 
 * Detect: What they require during detection to run. This varies widely depending on language.
-* Build: Environment variables set or read from other buildpacks. This varies widely depending on language.
+* Build: Environment variables set or read from other buildpacks. This varies widely depending on language, but can have an impact on the outcome of the start command.
 
 Of course there are plenty of other patterns and things that buildpacks can do! I urge you to take a look through our other buildpacks for ideas. The [Paketo Dashboard](https://dashboard.paketo.io/) is an excellent place to see a master list of all of the buildpacks we maintain.
 
