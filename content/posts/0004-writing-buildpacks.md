@@ -12,7 +12,7 @@ Paketo Buildpacks strives to make answering those questions transparent, approac
 
 Part of our philosophy when it comes to writing buildpacks is to keep it simple. We want each buildpack to do one job and do it well. This way many simple buildpacks can be combined to achieve complex behaviours. 
 
-This is both a blessing and a curse when it comes to writing buildpacks. It’s a blessing for obvious reasons: since the buildpack only needs to focus on one major task, it makes them simpler to write. We try to pick good defaults that would make the experience better in the vast majority of cases, and to keep our APIs streamlined, but meaningful.
+This is both a blessing and a curse when it comes to writing buildpacks. It’s a blessing for obvious reasons: since the buildpack only needs to focus on one major task, it's simpler to write. We try to pick good defaults that would make the experience better in the vast majority of cases, and to keep our APIs streamlined, but meaningful.
 
 Simple sounds good, how could this be a curse? 
 Because our buildpacks perform one task each, in unique use cases it can be hard to discern if you need a fully new buildpack for your case, or if an existing buildpack just needs a tweak. It doesn’t always make sense to architect a new buildpack, but it can be hard to make this judgement if you’re not closely acquainted with buildpacks that are already available.
