@@ -3,17 +3,22 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://blog.paketo.io/posts/dotnet-core-rearchitecture/</loc>
-    <lastmod>2021-02-11T00:00:00+00:00</lastmod>
+    <loc>https://blog.paketo.io/posts/building-a-cloud-native-buildpack-isnt-as-hard-as-you-think/</loc>
+    <lastmod>2021-02-26T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.paketo.io/</loc>
-    <lastmod>2021-02-11T00:00:00+00:00</lastmod>
+    <lastmod>2021-02-26T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.paketo.io/posts/</loc>
+    <lastmod>2021-02-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.paketo.io/posts/dotnet-core-rearchitecture/</loc>
     <lastmod>2021-02-11T00:00:00+00:00</lastmod>
   </url>
   

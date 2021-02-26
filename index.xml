@@ -6,7 +6,17 @@
     <description>Recent content on Paketo Buildpacks | Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 11 Feb 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 26 Feb 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Building a Cloud Native Buildpack Isn’t as Hard as You Think</title>
+      <link>https://blog.paketo.io/posts/building-a-cloud-native-buildpack-isnt-as-hard-as-you-think/</link>
+      <pubDate>Fri, 26 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.paketo.io/posts/building-a-cloud-native-buildpack-isnt-as-hard-as-you-think/</guid>
+      <description>Maybe you’ve heard that many companies today are transitioning to, or have already transitioned to, a container-based platform like Kubernetes. With this movement comes the need to containerize your applications, new and old. Buildpacks provide a seamless mechanism for doing that without Dockerfiles. Paketo Buildpacks is a community-driven project that provides Cloud Native Buildpacks implementations for the most popular languages.
+Buildpacks provide great out-of-box support for many languages, but what if you need a buildpack that doesn’t exist yet?</description>
+    </item>
+    
     <item>
       <title>Introducing a re-architected .NET Core Buildpack!</title>
       <link>https://blog.paketo.io/posts/dotnet-core-rearchitecture/</link>
