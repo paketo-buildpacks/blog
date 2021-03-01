@@ -11,46 +11,20 @@ body {
   font-size: 1.2em;
 }
 
-a, a:before {
+a {
 	text-decoration: none;
 	color: #293878;
-	outline: none;
-	transition: all 0.3s ease;
 	font-weight: 100;
 }
 
-a {
-	position: relative;
-	z-index: 1;
-	display: inline-block;
-	line-height: 1em;
+a:hover {
+  opacity: 0.5;
+}
 
-  svg {
-    max-height: 20px;
-    float: left;
-    padding-right: 5px;
-    width: 24px;
-
-    path {
-      fill: white;
-    }
+header {
+  a:hover {
+    opacity: 1;
   }
-}
-
-a:before {
-	content: "";
-	position: absolute;
-	bottom: -0.02em;
-	height: 0.1em;
-	left: 0;
-	width: 100%;
-	background: #F7CA44;
-	z-index: -1;
-}
-
-a:hover:before {
-	height: 100%;
-	bottom: 0;
 }
 
 li {

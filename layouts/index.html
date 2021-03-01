@@ -6,8 +6,10 @@
   <body>
     <div class="index">
       <header>
-        <img class="logo" src="/images/logo512.png">
-        <h1>Paketo Buildpacks | Blog</h1>
+        <a href=https://paketo.io>
+          <img class="logo" src="/images/logo512.png">
+          <h1>Paketo Buildpacks | Blog</h1>
+        </a>
       </header>
       <section class="table-of-contents">
       {{ range first 5 (where .Site.RegularPages.ByDate "Section" "posts" ).Reverse }}
