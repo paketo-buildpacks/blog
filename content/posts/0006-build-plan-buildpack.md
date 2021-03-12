@@ -37,9 +37,8 @@ requirements that you want. Furthermore, if you are using the Build Plan
 Buildpack with Paketo Buildpacks it will allow you to specify when you want the
 dependency to be present whether that is during build-time, at launch-time, or both. You
 can specify this for Paketo Buildpacks because they respect two flags that go
-in the `metadata` field of a requirement. Those two flags are `build` and
-`launch`, `build` makes the dependency available during the build phase of
-subsequent buildpacks in the order, and `launch` makes the dependency available
+in the `metadata` field of a requirement. Those two flags are `build` which makes the dependency available during the build phase of
+subsequent buildpacks in the order, and `launch` which makes the dependency available
 in the final running image.
 
 ### Why would I want this?
