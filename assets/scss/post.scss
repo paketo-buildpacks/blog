@@ -45,6 +45,12 @@
     }
   }
 
+  article {
+    a {
+      text-decoration: underline;
+    }
+  }
+
   section {
       a {
         font-weight: 400;
@@ -103,6 +109,7 @@
           margin: 0 0 0 0.5em;
         }
       }
+
   }
 
   footer {
