@@ -1,12 +1,13 @@
 .index {
   width: 100%;
-  max-width: 50rem;
+  max-width: 60rem;
   margin: 0 auto;
 
   header {
     display: flex;
     flex-direction: row;
     align-items: center;
+    margin-bottom: 60px;
 
     img.logo {
       $length: 200px;
@@ -24,12 +25,27 @@
   section.table-of-contents {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+
+    .paketo-redirect {
+      align-self: flex-end;
+      color: #30438F;
+      font-weight: 400;
+    }
+
+    .emphasis-line {
+      align-self: flex-end;
+      width: 192px;
+      height: 3px;
+      background: linear-gradient(to right, #f5c344, #b6cd56, #79cf7d, #3acaa6, #00c1c5, #00b3cb, #00a5cc, #3295c7, #2281bc, #1f6daf, #2658a0, #30438f);
+      margin-bottom: 16px;
+    }
 
     article {
-      margin: 1em 0;
+
+      margin-bottom: 60px;
 
       h2 {
+        margin-top: 0;
         font-size: 2em;
         font-weight: 100;
         margin-bottom: 20px;
