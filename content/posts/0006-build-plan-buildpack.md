@@ -11,43 +11,65 @@ why/when you would utilize this kind of functionality.
 
 ### What is the Build Plan?
 
-The Build Plan is a part of the Cloud Native Buildpacks (CNB) specification
-that is the format for how buildpacks communicate during the [detect phase](https://paketo.io/docs/buildpacks/#detect-phase) of
-the lifecycle. Buildpacks write out a Build Plan that outlines the
-dependency that the buildpack will either `provide` or `require` during its build
-phase. Buildpacks may both require and provide any number of dependencies. For
-detection to pass a buildpacks must have all of the dependencies it requires,
-provided by a buildpack that comes before it in the build order and it needs to
-have all of the dependencies that it provides, required by buildpacks that come
-later in the build order. If either of these conditions is not satisfied
-detection will fail for that buildpack. A more in-depth breakdown of the Build
-Plan can be found in the [CNB
-Spec](https://github.com/buildpacks/spec/blob/main/buildpack.md).
+A Build Plan is how a buildpack indicates the dependencies it provides and
+requires to other buildpacks. Formally, its a part of the Cloud Native
+Buildpacks (CNB) [Buildpack API
+specification](https://github.com/buildpacks/spec/blob/main/buildpack.md) and
+it functions by passing a [TOML
+file](https://github.com/buildpacks/spec/blob/main/buildpack.md#build-plan-toml)
+to the buildpack lifecycle after the detect phase has completed. There's a lot
+of nuance and complexity there but mostly this means that at the end of the
+detect phase, a buildpack will write down what it is capable of providing as a
+dependency for other buildpacks to use. It also writes down what it requires in
+order to perform its own functions.
+
+Let's show this with an example. The [`bundle-install`
+buildpack](https://github.com/paketo-buildpacks/bundle-install) performs a
+`bundle install` process which installs Ruby packages called "gems". In order
+to run `bundle install`, the buildpack needs an installation of Ruby and the
+Bundler CLI. All of this can be described in a Build Plan. The buildpack simply
+states that it provides `gems`, and requires `mri` (Ruby) and `bundler`. Now,
+for our buildpack to "pass" detection and participate in the build process,
+other buildpacks in its group must provide its requirements and require its
+provisions. Lucky for us, the [`mri`](https://github.com/paketo-buildpacks/mri)
+and [`bundler`](https://github.com/paketo-buildpacks/bundler) buildpacks
+provide those dependencies, and the [`puma`
+buildpack](https://github.com/paketo-buildpacks/puma) requires `gems` so that
+it can set the `puma` start command. With those buildpacks we now have a
+complete set of providing and requiring plan entries for `mri`, `bundler`, and
+`gems`. Now that all of the provisions and requirements in this buildpack group
+are satisfied, that group is chosen to execute its build phase.
+
+As you can see, the Build Plan is a fundamental part of the buildpack process.
+Its what allows buildpacks to be made modular, replaceable, and composable to
+enable a large number of use-cases. Its also what allows buildpacks to
+communicate and collaborate on what exactly gets done during the build phase.
+We'll explain more about that communication and collaboration a bit later. For
+now, let's focus on what the Build Plan Buildpack does.
 
 ### How does the Build Plan Buildpack work?
 
-The Build Plan Buildpack works by adding a `plan.toml`, which mirrors the
-[requires portion of Build
-Plan](https://github.com/buildpacks/spec/blob/main/buildpack.md#build-plan-toml),
-to the root of your app. The buildpack will read the `plan.toml` and make all
-of the requirements listed in it for you. This means that if you add a
-`plan.toml` to the root of your app and then add the Build Plan buildpack to
-the end of your  buildpack group, you will be able to make any arbitrary
-requirements that you want. Furthermore, if you are using the Build Plan
-Buildpack with Paketo Buildpacks it will allow you to specify when you want the
-dependency to be present whether that is during build-time, at launch-time, or both. You
-can specify this for Paketo Buildpacks because they respect two flags that go
-in the `metadata` field of a requirement. Those two flags are `build` which makes the dependency available during the build phase of
-subsequent buildpacks in the order, and `launch` which makes the dependency available
-in the final running image.
+The Build Plan Buildpack works by reading a user provided file at the root of
+your called `plan.toml`, which mirrors the [requires portion of Build
+Plan](https://github.com/buildpacks/spec/blob/main/buildpack.md#build-plan-toml).
+The buildpack reads `plan.toml` and makes all of the requirements listed in it.
+This means you will be able to make any arbitrary requirements that you want.
+Furthermore, if you are using the Build Plan Buildpack with Paketo Buildpacks,
+it will allow you to specify when you want the dependency to be present whether
+that is during build-time, launch-time, or both. You can specify this for
+Paketo Buildpacks because they respect two flags that go in the `metadata`
+field of a requirement. Those two flags are `build` which makes the dependency
+available during the build phase of subsequent buildpacks in the order, and
+`launch` which makes the dependency available in the final running image.
 
 ### Why would I want this?
 
-The Build Plan Buildpack is incredibly useful in writing
-integration tests for dependency buildpacks (buildpacks that contain a dependency). Let's use a [Go Dist
-buildpack integration
-app](https://github.com/paketo-buildpacks/go-dist/tree/main/integration/testdata/default_app)
-as an example. The `plan.toml` for that app looks as follow:
+Let's start with a basic example. Let's say that you want create an image that
+has the Go compiler on it. This is noramlly impossible because the `go`
+dependency is usually only ever required during build to compile your
+applications source code. However, with the Build Plan buildpack you could
+write the following `plan.toml` that would force the compiler to be on the
+image.
 ```
 [[requires]]
   name = "go"
@@ -55,16 +77,10 @@ as an example. The `plan.toml` for that app looks as follow:
   [requires.metadata]
     launch = true
 ```
-The Build Plan Buildpack is used here so that we don't need to use either the
-[Go Mod Vendor](https://github.com/paketo-buildpacks/go-mod-vendor) or the [Go Build](https://github.com/paketo-buildpacks/go-build) buildpacks to require the `go` dependency. We can
-also force the `go` dependency, which in this case is the Go compiler, to be
-present in the final running image, which it normally is absent from. This
-allows us to run various `go` commands to ensure that it is installed properly
-without relying on any other buildpacks in the Go language family.
 
 There are other applications where the use of the Build Plan buildpack would
 enable a build that would be hard if not impossible to detect automatically, or
-to make an image as small as possible. 
+to make an image as small as possible.
 
 An example of this would be an app that has a simple Nodejs frontend and has a Go backend.
 You could add the Node Engine and Build Plan buildpack to the order grouping of
