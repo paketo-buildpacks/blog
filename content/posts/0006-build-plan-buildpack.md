@@ -14,7 +14,7 @@ why/when you would utilize this kind of functionality.
 The Build Plan is a part of the Cloud Native Buildpacks (CNB) specification
 that is the format for how buildpacks communicate during the [detect phase](https://paketo.io/docs/buildpacks/#detect-phase) of
 the lifecycle. Buildpacks write out a Build Plan that outlines the
-dependency that the buildpack will either provide or require during its build
+dependency that the buildpack will either `provide` or `require` during its build
 phase. Buildpacks may both require and provide any number of dependencies. For
 detection to pass a buildpacks must have all of the dependencies it requires,
 provided by a buildpack that comes before it in the build order and it needs to
