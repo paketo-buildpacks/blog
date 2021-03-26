@@ -27,13 +27,25 @@ Let's show this with an example. The [`bundle-install`
 buildpack](https://github.com/paketo-buildpacks/bundle-install) performs a
 `bundle install` process which installs Ruby packages called "gems". In order
 to run `bundle install`, the buildpack needs an installation of Ruby and the
-Bundler CLI. All of this can be described in a Build Plan. The buildpack simply
-states that it provides `gems`, and requires `mri` (Ruby) and `bundler`. Now,
-for our buildpack to "pass" detection and participate in the build process,
-other buildpacks in its group must provide its requirements and require its
-provisions. Lucky for us, the [`mri`](https://github.com/paketo-buildpacks/mri)
-and [`bundler`](https://github.com/paketo-buildpacks/bundler) buildpacks
-provide those dependencies, and the [`puma`
+Bundler CLI. All of this can be described in a Build Plan, which would look
+like the following:
+```
+[[provides]]
+  name = "gems"
+
+[[requires]]
+  name = "mri"
+
+[[requires]]
+  name = "bundler"
+```
+The buildpack simply states that it provides `gems`, and requires `mri` (Ruby)
+and `bundler`. Now, for our buildpack to "pass" detection and participate in
+the build process, other buildpacks in its group must provide its requirements
+and require its provisions. Lucky for us, the
+[`mri`](https://github.com/paketo-buildpacks/mri) and
+[`bundler`](https://github.com/paketo-buildpacks/bundler) buildpacks provide
+those dependencies, and the [`puma`
 buildpack](https://github.com/paketo-buildpacks/puma) requires `gems` so that
 it can set the `puma` start command. With those buildpacks we now have a
 complete set of providing and requiring plan entries for `mri`, `bundler`, and
@@ -50,8 +62,24 @@ now, let's focus on what the Build Plan Buildpack does.
 ### How does the Build Plan Buildpack work?
 
 The Build Plan Buildpack works by reading a user provided file at the root of
-your called `plan.toml`, which mirrors the [requires portion of Build
+your app called `plan.toml`, which mirrors the [requires portion of Build
 Plan](https://github.com/buildpacks/spec/blob/main/buildpack.md#build-plan-toml).
+`plan.toml` has the following schema:
+```
+[[requires]]
+name = "<dependency name>"
+
+[requires.metadata]
+# buildpack-specific data
+
+[[or]]
+
+[[or.requires]]
+name = "<dependency name>"
+
+[or.requires.metadata]
+# buildpack-specific data
+```
 The buildpack reads `plan.toml` and makes all of the requirements listed in it.
 This means you will be able to make any arbitrary requirements that you want.
 Furthermore, if you are using the Build Plan Buildpack with Paketo Buildpacks,
