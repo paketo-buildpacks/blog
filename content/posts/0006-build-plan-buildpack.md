@@ -11,8 +11,7 @@ why/when you would utilize this kind of functionality.
 
 ### What is the Build Plan?
 
-A Build Plan is how a buildpack indicates the dependencies it provides and
-requires to other buildpacks. Formally, its a part of the Cloud Native
+A Build Plan is how a buildpack indicates to other buildpacks which dependencies it provides and requires. Formally, its a part of the Cloud Native
 Buildpacks (CNB) [Buildpack API
 specification](https://github.com/buildpacks/spec/blob/main/buildpack.md) and
 it functions by passing a [TOML
