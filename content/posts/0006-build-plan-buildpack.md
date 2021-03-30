@@ -7,7 +7,7 @@ author: feckhardt
 The [Build Plan buildpack](https://github.com/paketo-community/build-plan)
 gives you very precise control over what buildpacks run during a build and what
 dependencies end up in the final image. Let's talk about how it works and
-why/when you would utilize this kind of functionality.
+why/when you would use this kind of functionality.
 
 ### What is the Build Plan?
 
