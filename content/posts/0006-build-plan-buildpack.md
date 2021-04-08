@@ -1,6 +1,6 @@
 ---
 title: What is the Build Plan Buildpack and why should I care?
-date: "2021-03-05"
+date: "2021-04-08"
 slug: build-plan-buildpack-exploration
 author: feckhardt
 ---
@@ -11,7 +11,8 @@ why/when you would use this kind of functionality.
 
 ### What is the Build Plan?
 
-A Build Plan is how a buildpack indicates to other buildpacks which dependencies it provides and requires. Formally, its a part of the Cloud Native
+A Build Plan is how a buildpack indicates to other buildpacks which
+dependencies it provides and requires. Formally, its a part of the Cloud Native
 Buildpacks (CNB) [Buildpack API
 specification](https://github.com/buildpacks/spec/blob/main/buildpack.md) and
 it functions by passing a [TOML
@@ -44,12 +45,12 @@ the build process, other buildpacks in its group must provide its requirements
 and require its provisions. Lucky for us, the
 [`mri`](https://github.com/paketo-buildpacks/mri) and
 [`bundler`](https://github.com/paketo-buildpacks/bundler) buildpacks provide
-those dependencies, and the [`puma`
-buildpack](https://github.com/paketo-buildpacks/puma) requires `gems` so that
-it can set the `puma` start command. With those buildpacks we now have a
-complete set of providing and requiring plan entries for `mri`, `bundler`, and
-`gems`. Now that all of the provisions and requirements in this buildpack group
-are satisfied, that group is chosen to execute its build phase.
+those dependencies, and the [`puma`](https://github.com/paketo-buildpacks/puma)
+buildpack requires `gems` so that it can set the `puma` start command. With
+those buildpacks we now have a complete set of providing and requiring plan
+entries for `mri`, `bundler`, and `gems`. Now that all of the provisions and
+requirements in this buildpack group are satisfied, that group is chosen to
+execute its build phase.
 
 As you can see, the Build Plan is a fundamental part of the buildpack process.
 Its what allows buildpacks to be made modular, replaceable, and composable to
@@ -109,12 +110,12 @@ There are other applications where the use of the Build Plan buildpack would
 enable a build that would be hard if not impossible to detect automatically, or
 to make an image as small as possible.
 
-An example of this would be an app that has a simple Nodejs frontend and has a Go backend.
-You could add the Node Engine and Build Plan buildpack to the order grouping of
-your build and write a `plan.toml` that required the node engine during launch.
-This would force the Node Engine buildpack's detection to pass and the build
-phase would install the node engine into the image and make it available during
-build.
+An example of this would be an app that has a simple Nodejs frontend and has a
+Go backend. You could add the Node Engine and Build Plan buildpack to the order
+grouping of your build and write a `plan.toml` that required the node engine
+during launch. This would force the Node Engine buildpack's detection to pass
+and the build phase would install the node engine into the image and make it
+available during build.
 
 There are countless scenarios that you could propose that are
 made possible by using the Build Plan buildpack, so we encourage everyone to
