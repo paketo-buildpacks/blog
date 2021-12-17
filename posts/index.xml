@@ -6,7 +6,16 @@
     <description>Recent content in Posts on Paketo Buildpacks | Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 26 Feb 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 09 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java Buildpack Support and Debug Enhancements</title>
+      <link>https://blog.paketo.io/posts/java-rearchitecture/</link>
+      <pubDate>Thu, 09 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.paketo.io/posts/java-rearchitecture/</guid>
+      <description>I’m pleased to announce that the Paketo Java Buildpack has been enhanced to make it even easier to analyze and debug your JVM based applications. A host of features have been added or integrated in the form of environment variable flags, and some features which previously required image rebuilds can now simply be toggled at runtime. This post will outline how to both configure the JVM itself and make use of the following features:</description>
+    </item>
+    
     <item>
       <title>Building a Cloud Native Buildpack Isn’t as Hard as You Think</title>
       <link>https://blog.paketo.io/posts/building-a-cloud-native-buildpack-isnt-as-hard-as-you-think/</link>
