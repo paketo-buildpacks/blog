@@ -92,10 +92,12 @@ Java Flight Recorder is a tool which is integrated into the JVM and allows for t
  
 The tool supports a range of configuration options which can be set using the following environment variable:
 
-`BPL_JFR_ARGS` - this supports a comma-separated list of options (full list detailed in the Oracle docs [here](https://docs.oracle.com/javacomponents/jmc-5-4/jfr-runtime-guide/comline.htm#JFRUH193)). If the tool is enabled but no options are specified here, the buildpack will at a minimum configure the tool to write data to a temporary file on JVM exit. The following default options will be configured to allow this:
+`BPL_JFR_ARGS` - this supports a comma-separated list of options (full list detailed in the Oracle docs [here](https://docs.oracle.com/javacomponents/jmc-5-4/jfr-runtime-guide/comline.htm#JFRUH193)). If the tool is enabled but no options are specified here, the buildpack will at a minimum configure the tool to write data to a temporary file on JVM exit. 
 
-`dumponexit=true` - this tells the JFR tool to write recording data to a file when the JVM exits.
-`filename=<system-temp-dir>/recording.jfr` - the location of the dump file, on linux this will be “/tmp/recording.jfr”
+The following default options will be supplied to `BPL_JFR_ARGS` to allow this:
+
+* `dumponexit=true` - this tells the JFR tool to write recording data to a file when the JVM exits.
+* `filename=<system-temp-dir>/recording.jfr` - the location of the dump file, on linux this will be “/tmp/recording.jfr”
 
 If any custom arguments are specified, the above defaults are not applied. When enabled, a JFR argument will be passed to the JVM, for example, the defaults result in the following:
 
