@@ -120,7 +120,7 @@ docker cp <container-id>:/tmp/my-recording.jfr .
 
 ### Newly Integrated Features
 
-In addition to the new features now supported by the buildpack, two features which previously a user to rebuild their image are now integrated into the Paketo Java Buildpack directly. These can simply be enabled at runtime using an environment variable.
+In addition to the new features now supported by the buildpack, two features which previously required a user to rebuild their image are now integrated into the Paketo Java Buildpack directly. These can simply be enabled at runtime using an environment variable.
 
 #### **Java Management Extensions (JMX)**
 
