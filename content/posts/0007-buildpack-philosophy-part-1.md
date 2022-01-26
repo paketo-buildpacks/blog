@@ -1,6 +1,6 @@
 ---
 title: A Philosophy for Developing Paketo Buildpacks, Part 1
-date: "2021-05-17T15:03:39-07:00"
+date: "2022-01-26T15:03:39-07:00"
 slug: buildpack-philosophy-part-1
 author: rmoran
 ---
