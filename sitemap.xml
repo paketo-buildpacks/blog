@@ -18,11 +18,6 @@
   </url>
   
   <url>
-    <loc>https://blog.paketo.io/posts/buildpack-philosophy-part-1/</loc>
-    <lastmod>2021-05-17T15:03:39-07:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://blog.paketo.io/posts/building-a-cloud-native-buildpack-isnt-as-hard-as-you-think/</loc>
     <lastmod>2021-02-26T00:00:00+00:00</lastmod>
   </url>
