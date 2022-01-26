@@ -1,0 +1,272 @@
+<!doctype html>
+<html>
+  <head>
+      <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>A Philosophy for Developing Paketo Buildpacks, Part 1 | Paketo Buildpacks | Blog</title>
+<link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-language" content="en-us" />
+
+<meta property='og:site_name' content="Paketo Buildpacks | Blog">
+<meta property='og:title' content="A Philosophy for Developing Paketo Buildpacks, Part 1">
+<meta property='og:url' content="https://blog.paketo.io/posts/buildpack-philosophy-part-1/">
+<meta property='og:image' content='/images/logo512.png'/>
+<meta name="twitter:title" content="Paketo Buildpacks | Blog" />
+<meta name="twitter:url" content="https://blog.paketo.io/posts/buildpack-philosophy-part-1/" />
+<meta name="twitter:card" content="" />
+<link rel="stylesheet" href="/scss/main.min.css">
+
+  </head>
+  <body>
+    <div class="post">
+      <header>
+        <a href="/">
+          <img class="logo" src="/images/logo512.png" />
+          <h1>Paketo Buildpacks | Blog</h1>
+        </a>
+      </header>
+      <section>
+        <h2>A Philosophy for Developing Paketo Buildpacks, Part 1</h2>
+        <section class="author"><img src="/images/authors/rmoran.jpg" /><h4>Ryan Moran</h4></section>
+        <h5>Monday, May 17, 2021</h5>
+        <article>
+          <figure>
+    <img src="/images/posts/0000/road.jpg"
+         alt="A road through the wilderness"/> <figcaption>
+            <p>Photo by <a href="https://unsplash.com/@jonflobrant?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Jon Flobrant</a> on <a href="https://unsplash.com/collections/1666315/philosophy-topics?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></p>
+        </figcaption>
+</figure>
+
+<h3 id="sharing-what-weve-learned">Sharing what we&rsquo;ve learned</h3>
+<p>The Paketo Buildpacks Team has been developing our Cloud Native Buildpacks for
+the better part of 2 years now. In the process, we&rsquo;ve learned a lot about what
+works well and what doesn&rsquo;t. We&rsquo;ve made mistakes and interated toward solutions
+that are more flexible, easier to maintain, and provide better experiences for
+our users. In the process, we&rsquo;ve developed a set of guidelines – a philosophy,
+maybe – for how we think about developing buildpacks. These guidelines don&rsquo;t
+always apply, but they are what we strive for in the vast majority of cases.</p>
+<p>With this post, we&rsquo;d like to start to record some of that knowledge and share
+it with the buildpack authoring community so that you all might benefit. This
+post will cover a few of the guidelines, explaining where we think they apply
+and even where they might come into conflict with one another. With that, let&rsquo;s
+dive right in!</p>
+<h3 id="guidelines">Guidelines</h3>
+<h4 id="meet-language-ecosystem-expectations">Meet language-ecosystem expectations</h4>
+<p>When implementing support for a feature, attempt to meet the expectations of
+the language ecosystem. Doing so will ensure that developers familiar with that
+ecosystem will find the buildpack’s behavior familiar.</p>
+<p>There have been a number of instances in the past where we&rsquo;ve been faced with a
+decision on how best to deliver a new feature: How do we balance finding a
+solution that fits the workflows that our users expect while still fitting
+cleanly into the buildpack model?</p>
+<p>Recently this question of balance became relevant in our <a href="https://github.com/paketo-buildpacks/ruby">Ruby
+buildpack</a> as we worked to provide a
+buildpack that enabled a flexible build process while ensuring that we limited
+what ends up in the built container image.  Specifically, we knew there were
+cases where developers would have different expectations about what gems (Ruby
+packages) were provided by the <a href="https://github.com/paketo-buildpacks/bundle-install"><code>bundle-install</code>
+buildpack</a> at different
+points in the buildpack lifecycle.</p>
+<p>For instance, it would be totally reasonable for our users to expect gems that
+are only used for development or testing to be available while the application
+container is being built, but then not in the resulting container image. An
+example of this might be that a user expects to have the <a href="https://github.com/lautis/uglifier"><code>uglifier</code>
+gem</a> available to the <a href="https://github.com/paketo-buildpacks/rails-assets"><code>rails-assets</code>
+buildpack</a> so that
+JavaScript files could be compressed, but then also expect that it wouldn&rsquo;t
+appear in the built container image as it serves no purpose to a running Rails
+application. Providing a buildpack that operates this way is just what the Ruby
+developer ecosystem would expect.</p>
+<p>To resolve this, the <code>bundle-install</code> buildpack <a href="https://github.com/paketo-buildpacks/bundle-install/blob/b2e7772ec4ad72d51b53733a756939c0dfd6056c/build.go#L73-L171">provides two different
+layers</a>,
+one for build-related gems and another for launch-related gems. Doing this has
+certainly resulted in a buildpack that is more programatically complex, but its
+also meant that the buildpack works the way the user thinks. In these cases,
+taking on that extra complexity can have huge benefits for developer
+productivity.</p>
+<h4 id="enable-complexity-through-composition">Enable complexity through composition</h4>
+<p>Try to limit the focus of the buildpack. Buildpacks can easily sprawl as they
+accrete features. Instead of pulling every possible feature into the buildpack,
+consider how it might be broken down into parts that can be composed together
+to create more complex behaviors. In turn, these parts can be reused to enable
+other workflows that weren&rsquo;t originally foreseen.</p>
+<p>If you dig into many of our language family buildpacks (<a href="https://github.com/paketo-buildpacks/dotnet-core">.Net
+Core</a>,
+<a href="https://github.com/paketo-buildpacks/go">Go</a>,
+<a href="https://github.com/paketo-buildpacks/java">Java</a>, etc.) you&rsquo;ll notice that
+they are made up of many smaller buildpacks. Just <a href="https://github.com/paketo-buildpacks/nodejs/blob/33aad92fd908665122d9ca6345fcfd97fa3d86bb/buildpack.toml">taking a
+look</a>
+at the NodeJS buildpack, we can see that it consists of 11 smaller buildpacks:</p>
+<ul>
+<li><a href="https://github.com/paketo-buildpacks/node-engine">Node Engine</a></li>
+<li><a href="https://github.com/paketo-buildpacks/node-start">Node Start</a></li>
+<li><a href="https://github.com/paketo-buildpacks/npm-install">NPM Install</a></li>
+<li><a href="https://github.com/paketo-buildpacks/npm-start">NPM Start</a></li>
+<li><a href="https://github.com/paketo-buildpacks/yarn">Yarn</a></li>
+<li><a href="https://github.com/paketo-buildpacks/yarn-install">Yarn Install</a></li>
+<li><a href="https://github.com/paketo-buildpacks/yarn-start">Yarn Start</a></li>
+<li><a href="https://github.com/paketo-buildpacks/procfile">Procfile</a></li>
+<li><a href="https://github.com/paketo-buildpacks/environment-variables">Environment Variables</a></li>
+<li><a href="https://github.com/paketo-buildpacks/image-labels">Image Labels</a></li>
+<li><a href="https://github.com/paketo-buildpacks/ca-certificates">CA Certificates</a></li>
+</ul>
+<p>Each one of these buildpacks performs a small role in the overall NodeJS
+buildpack. They provide dependencies, execute build tool processes, or
+configure the application to run in a containerized environment. They do their
+single part of the job well, and in a focused manner. For example, given a
+<a href="https://yarnpkg.com/">Yarn</a>-based application, the Node Engine buildpack
+installs the NodeJS runtime, the Yarn buildpack installs the Yarn tool, the
+Yarn Install buildpack executes the <code>yarn install</code> build process, and the Yarn
+Start buildpack chooses the right command to start the application in the
+container.</p>
+<p>These buildpacks can be used over again in different combinations and in
+entirely different buildpack language ecosystems. Its pretty common for
+<a href="http://rubyonrails.org/">Rails</a> apps to require a JavaScript runtime to
+compile their assets. The Ruby buildpack includes the Node Engine buildpack to
+provide that runtime. It works well because the Node Engine buildpack limits
+itself to performing only that one task.</p>
+<h4 id="be-transparent-and-understandable">Be transparent and understandable</h4>
+<p>Provide the buildpack user with transparent and understandable feedback during
+all phases of the buildpack lifecycle. When a buildpack fails to detect,
+specify why. When a buildpack fails to build, include as much logging
+information as is reasonable to help the user orient themselves in the build
+context at the point of failure. Provide concise prose messages with clear
+phrasing.</p>
+<p>The log output that our buildpacks provide isn&rsquo;t perfect, but we&rsquo;ve thought a
+bit about how it conveys information to the user. Let&rsquo;s take a look at some
+sample log output from the <a href="https://github.com/paketo-buildpacks/go">Go
+buildpack</a>.</p>
+<pre><code>Paketo Go Distribution Buildpack 0.4.0
+  Resolving Go version
+    Candidate version sources (in priority order):
+      go.mod -&gt; &quot;&gt;= 1.15&quot;
+
+    Selected Go version (using go.mod): 1.16.3
+
+  Executing build process
+    Installing Go 1.16.3
+      Completed in 13.551s
+
+Paketo Go Mod Vendor Buildpack 0.2.1
+  Checking module graph
+    Running 'go mod graph'
+      Completed in 310ms
+
+  Executing build process
+    Running 'go mod vendor'
+      Completed in 315ms
+
+Paketo Go Build Buildpack 0.3.2
+  Executing build process
+    Running 'go build -o /layers/paketo-buildpacks_go-build/targets/bin -buildmode pie .'
+      Completed in 45.49s
+
+  Assigning launch processes
+    web: /layers/paketo-buildpacks_go-build/targets/bin/mod
+    mod: /layers/paketo-buildpacks_go-build/targets/bin/mod
+</code></pre><p>From the logs, we can see that there are three buildpacks involved in the build
+process (<a href="https://github.com/paketo-buildpacks/go-dist">Go Dist</a>, <a href="https://github.com/paketo-buildpacks/go-mod-vendor">Go Mod
+Vendor</a>, and <a href="https://github.com/paketo-buildpacks/go-build">Go
+Build</a>). These buildpacks have
+log output that structurally mirror one another. They use indentation to denote
+a relational hierarchy to the log information. They tell the user the exact
+command that will be executed by the buildpack (<code>go mod vendor</code>). And, they
+repeat common phrases (<code>Executing build process</code>, <code>Running ...</code>, <code>Completed in ...</code>). These common elements help users to orient themselves.</p>
+<p>Not every one of our buildpacks has log output that looks like this. And this
+certainly isn&rsquo;t the final note on how we want to provide feedback to buildpack
+users about how the buildpacks are working. We&rsquo;ll continue to evolve and
+evaluate this output always keeping in mind that the goal should be to remain
+transparent and understandable.</p>
+<h4 id="understand-the-container-lifecycle-and-environment">Understand the container lifecycle and environment</h4>
+<p>The images our users build will be run in environments that are often chaotic
+and/or limited. We should build features in a way that supports environments
+that are operating in imperfect conditions. As a starting point, buildpacks
+should consider how they can support graceful shutdowns and/or perform tasks in
+environments without network access.</p>
+<p>To illustrate this, we&rsquo;ll take a look at a scenario we encountered in the
+development of the NodeJS buildpack that brought this guideline into conflict
+with another. It involves a concept called graceful shutdown that allows
+applications to finish responding to open HTTP requests before they terminate
+their process.</p>
+<p>To see how this type of concern influences the design decisions made in our
+buildpacks, let&rsquo;s take a closer look at how Kubernetes handles <a href="https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination">stopping
+containers</a>.
+To summarize the documentation, Kubernetes has a mechanism that allows it to
+gracefully shutdown containers so that they can finish any work they may have
+inflight. Technically, this is achieved by having the container runtime send a
+<code>TERM</code> signal to the container telling it to finish its work and shutdown. When
+it sends the signal, the init process in the container will receive the signal.
+Often times this is the application process itself (maybe a Go or Rust binary).
+But in some cases, there is a small process tree managing the lifecycle of the
+application process. For the signal to make it all the way to the application
+process, each process in the hierarchy will need to implement signal handling
+and forwarding. If the signal doesn&rsquo;t make it to the application, it won&rsquo;t know
+that it needs to finish any inflight requests and come to a stop. Instead, it
+will just keep running with the expectation that new requests will keep
+arriving. After some time, Kubernetes will send another signal that will result
+in the container being stopped entirely. This abrupt stop could mean that
+inflight connections between the app and external clients are dropped
+mid-request. It obviously creates a less than ideal situation for application
+users. Their experience when the connection fails may be that the application
+is broken.</p>
+<p>In the NodeJS language family we have several buildpacks that choose launch
+processes. These launch processes are what the Cloud Native Buildpack launcher
+will invoke when the built application container is run. For developers
+familiar with <code>npm</code>, this is something like <code>node server.js</code>. Its often what
+they put as the <code>npm start</code> command.  When we first built our NodeJS support,
+we focused on building something that matched those expectations for NodeJS
+developers. We built the <a href="https://github.com/paketo-buildpacks/npm-start"><code>npm-start</code>
+buildpack</a> to set the launch
+process for the container to <code>npm start</code>. Unfortunately, this creates a process
+tree that prevents the application from receiving the <code>TERM</code> signal from the
+container runtime. Specifically, this process tree looks like the following:</p>
+<pre><code>UID  PID  PPID  C  STIME  TTY        TIME  CMD
+cnb    1     0  1  21:41  pts/0  00:00:01  npm
+cnb   32     1  0  21:41  pts/0  00:00:00  sh -c node server.js
+cnb   33    32  0  21:41  pts/0  00:00:00   \_ node server.js
+</code></pre><p>We can see our <code>npm</code> process is PID 1 and that there are a couple other child
+processes (32 and 33). What&rsquo;s happening here is that <code>npm</code> is creating a
+subshell to run the command that is defined in the <code>package.json</code> for <code>npm start</code> (<code>node server.js</code> in this case). Now, when <code>npm</code> receives the <code>TERM</code>
+signal it sends it on, but the subshell between <code>npm</code> and your application
+<code>node</code> process doesn&rsquo;t. It also doesn&rsquo;t act like a proper process manager (and
+arguably shouldn&rsquo;t <a href="https://github.com/npm/npm/issues/4603">according to the
+maintainers</a>) making sure these
+processes receive that signal.</p>
+<p>To ensure the application process will receive a signal and shutdown
+gracefully, we don&rsquo;t run <code>npm start</code> as the launch process. Instead, we inspect
+the command that <code>npm start</code> would have run and run it directly. While that
+doesn&rsquo;t match directly with what a developer in the NodeJS ecosystem might
+expect given their experience developing an application on their own
+workstation, it has become a clear <a href="https://github.com/nodejs/docker-node/blob/main/docs/BestPractices.md#cmd">best
+practice</a>
+in the community for applications run in containers. Knowing when to make the
+tradeoff between these guidelines can be difficult, but it makes all the
+difference for creating containers that perform well in all cases.</p>
+<h3 id="next-time">Next Time</h3>
+<p>Hopefully this post left you with some understanding of the thought that has
+gone into the development of Paketo buildpacks and maybe even inspired you to
+think about <a href="https://paketo.io/contribute/">contributing</a>. In the next post we
+will explore some more thoughts we have on the development of Cloud Native
+Buildpacks including developing a meaningful API, enabling configuration, and
+performance.</p>
+
+        </article>
+      </section>
+      <footer class="post">
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Paketo%20Buildpacks%20%7c%20Blog%20%7c%20A%20Philosophy%20for%20Developing%20Paketo%20Buildpacks,%20Part%201&amp;url=https://blog.paketo.io/posts/buildpack-philosophy-part-1/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/twitter.png" />
+</a>
+
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://blog.paketo.io/posts/buildpack-philosophy-part-1/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/linkedin.png" />
+</a>
+
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://blog.paketo.io/posts/buildpack-philosophy-part-1/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/facebook.png" />
+</a>
+
+      </footer>
+    </div>
+  </body>
+</html>
