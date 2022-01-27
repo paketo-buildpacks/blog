@@ -6,7 +6,17 @@
     <description>Recent content on Paketo Buildpacks | Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 09 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 26 Jan 2022 15:03:39 -0700</lastBuildDate><atom:link href="https://blog.paketo.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>A Philosophy for Developing Paketo Buildpacks, Part 1</title>
+      <link>https://blog.paketo.io/posts/buildpack-philosophy-part-1/</link>
+      <pubDate>Wed, 26 Jan 2022 15:03:39 -0700</pubDate>
+      
+      <guid>https://blog.paketo.io/posts/buildpack-philosophy-part-1/</guid>
+      <description>Photo by Jon Flobrant on Unsplash
+  Sharing what we&amp;rsquo;ve learned The Paketo Buildpacks Team has been developing our Cloud Native Buildpacks for the better part of 2 years now. In the process, we&amp;rsquo;ve learned a lot about what works well and what doesn&amp;rsquo;t. We&amp;rsquo;ve made mistakes and interated toward solutions that are more flexible, easier to maintain, and provide better experiences for our users. In the process, we&amp;rsquo;ve developed a set of guidelines – a philosophy, maybe – for how we think about developing buildpacks.</description>
+    </item>
+    
     <item>
       <title>Java Buildpack Support and Debug Enhancements</title>
       <link>https://blog.paketo.io/posts/java-rearchitecture/</link>
