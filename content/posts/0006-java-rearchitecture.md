@@ -174,13 +174,13 @@ Related to this functionality, the buildpack also provides a runtime environment
 
 ### Notes
 
-The following new features are on the roadmap for the Paketo Java Buildpack:
+The following new buildpacks are now available:
 
-Java Memory Assistant Buildpack  
-This buildpack will be used to install and enable the [Java Memory Assistant](https://github.com/SAP/java-memory-assistant). This is an advanced agent that can be used for flexible configuration of triggers to create heap dumps.
+[Java Memory Assistant Buildpack](https://github.com/paketo-buildpacks/java-memory-assistant)
+This buildpack installs and enables the [Java Memory Assistant](https://github.com/SAP/java-memory-assistant). This is an advanced agent that can be used for flexible configuration of triggers to create heap dumps.
 
-JAttach Buildpack  
-This buildpack will install the [JAttach binary](https://github.com/apangin/jattach), which is a community tool that replaces the `jmap`,`jstack`,`jcmd` & `jinfo` tools that are not present in the OpenJDK JRE.
+[JAttach Buildpack](https://github.com/paketo-buildpacks/jattach)
+This buildpack installs the [JAttach binary](https://github.com/apangin/jattach), which is a community tool that replaces the `jmap`,`jstack`,`jcmd` & `jinfo` tools that are not present in the OpenJDK JRE.
 
 #### Learn More
 
