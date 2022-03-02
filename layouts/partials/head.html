@@ -14,5 +14,14 @@
 <meta name="twitter:card" content="" />
 {{ end }}
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TJMQZ5RDFG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TJMQZ5RDFG');
+</script>
+
 {{- $style := resources.Get "scss/main.scss" | resources.ToCSS | resources.Minify -}}
 <link rel="stylesheet" href="{{ $style.RelPermalink }}">
