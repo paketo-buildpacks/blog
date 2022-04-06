@@ -10,7 +10,7 @@ author: kevin-ortega
 [Liberty](https://github.com/paketo-buildpacks/liberty) is finally available in Paketo and included in the [java](https://github.com/paketo-buildpacks/java) buildpack! Liberty is an open application framework designed for the cloud. It’s small, lightweight, and designed with modern cloud-native application development in mind.
 
 With the Liberty buildpack, you can:
-*   Build java apps from source or a pre-configured on-prem Liberty
+*   Build Java apps from source or a pre-configured on-prem Liberty
 *   Install Liberty and user custom features
 *   Install Liberty interim fixes
 *   Create UBI-based OCI images
