@@ -94,13 +94,13 @@ bin/server package defaultServer --include=usr
 ```
 You can then supply the packaged server to the build by using the `--path` argument:
 ```
-pack build --path <packaged-server-zip-path> --env BP_JAVA_APP_SERVER=liberty \
+pack build --path <packaged-server-zip-path> \
  --buildpack paketo-buildpacks/eclipse-openj9 \
  --buildpack paketo-buildpacks/java myapp
 ```
 Alternatively, you can build from a Liberty server installation by changing your working directory to the installation root that contains the `wlp` directory and running the following command:
 ```
-pack build --env BP_JAVA_APP_SERVER=liberty \
+pack build  \
  --buildpack paketo-buildpacks/eclipse-openj9 \
  --buildpack paketo-buildpacks/java myapp
 ```
