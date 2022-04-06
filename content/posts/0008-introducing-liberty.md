@@ -36,7 +36,7 @@ pack config default-builder gcr.io/paketo-buildpacks/builder:base
 
 Build the application with a minimal footprint with only the Liberty features required to run the application and IBM Semeru OpenJ9:
 ```
- pack build --env BP_JAVA_APP_SERVER=liberty --env BP_LIBERTY_PROFILE=kernel \  
+ pack build --env BP_JAVA_APP_SERVER=liberty --env BP_LIBERTY_PROFILE=kernel \
   --env BP_LIBERTY_FEATURES='jaxrs-2.1 jsonp-1.1 cdi-2.0 mpMetrics-3.0 mpConfig-2.0' \
   --buildpack paketo-buildpacks/eclipse-openj9 --buildpack paketo-buildpacks/java myapp
 ```
@@ -53,7 +53,6 @@ We need to provide a server.xml to the Liberty buildpack using a binding.
 <server description="Intro to the Paketo Liberty buildpack">
   <!-- tag::featureManager[] -->
   <featureManager>
-      <!--feature>webProfile-8.0</feature -->
       <feature>mpconfig-2.0</feature>
       <feature>mpmetrics-3.0</feature>
       <feature>cdi-2.0</feature>
