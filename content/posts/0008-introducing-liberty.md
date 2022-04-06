@@ -2,7 +2,7 @@
 title: Introducing the Liberty buildpack
 date: "2022-04-04T09:38:38-04:00"
 slug: introducing-liberty-buildpack
-author: kevin-ortega
+author: kevinortega
 ---
 
 ![Open Liberty Logo](/images/posts/0008/open-liberty-logo.png)
