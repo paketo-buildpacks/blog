@@ -29,7 +29,7 @@ git clone https://github.com/openliberty/guide-getting-started.git
 cd guide-getting-started/start
 ```
 
-Set a default builder:
+If you're new to buildpacks, I recommend you set a default builder as this removes the need to set a builder each time you build an image.
 ```
 pack config default-builder gcr.io/paketo-buildpacks/builder:base
 ```
