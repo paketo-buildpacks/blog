@@ -36,7 +36,8 @@ pack config default-builder gcr.io/paketo-buildpacks/builder:base
 
 Build the application with a minimal footprint with only the Liberty features required to run the application and IBM Semeru OpenJ9:
 ```
- pack build --env BP_JAVA_APP_SERVER=liberty --env BP_LIBERTY_PROFILE=kernel \
+ pack build --env BP_JAVA_APP_SERVER=liberty \
+  --env BP_LIBERTY_PROFILE=kernel \
   --env BP_LIBERTY_FEATURES='jaxrs-2.1 jsonp-1.1 cdi-2.0 mpMetrics-3.0 mpConfig-2.0' \
   --buildpack paketo-buildpacks/eclipse-openj9 --buildpack paketo-buildpacks/java myapp
 ```
