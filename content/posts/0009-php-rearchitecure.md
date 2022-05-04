@@ -23,14 +23,14 @@ for single parts of the build process. This may sound like a lot of new
 buildpacks, but small lighter-weight buildpacks are actually what we strive
 for in the project. This concept is well-described in the [Paketo Buildpacks
 Philosophy Part 1 blog
-post](https://blog.paketo.io/posts/buildpack-philosophy-part-1/)
+post](https://blog.paketo.io/posts/buildpack-philosophy-part-1/).
 
 The GIF below gives an overview of how the buildpacks have been split up based
 off of their main job. The new buildpacks are split into three order groups,
 one for the Nginx use case, one for the HTTPD use case, and one for the PHP
 built-in server use case. The order groups in the buildpack can be found in the
 [PHP buildpack `buildpack.toml`
-file](https://github.com/paketo-buildpacks/php/blob/main/buildpack.toml)
+file](https://github.com/paketo-buildpacks/php/blob/main/buildpack.toml).
 
 ![Rewrite GIF](/images/posts/0009/rewrite.gif)
 
@@ -83,11 +83,11 @@ Registry](http://registry.buildpacks.io/buildpacks/paketo-buildpacks/php).
 
 #### Try it out with sample apps
 
-The Paketo [Samples repositry](https://github.com/paketo-buildpacks/samples) is
+The Paketo [Samples repository](https://github.com/paketo-buildpacks/samples) is
 a great resource for understanding basic applications that can be built with
-Paketo buildpacks. The apps in the [PHP
-directory](https://github.com/paketo-buildpacks/samples/tree/main/php) contain
-examples of each use case and are a great starting point to test out how the
+Paketo buildpacks. The [PHP sample
+apps](https://github.com/paketo-buildpacks/samples/tree/main/php) contain
+examples of each use case, and are a great starting point to test out how the
 buildpacks work.
 
 ## Learn More
