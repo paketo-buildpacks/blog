@@ -17,7 +17,7 @@ into individual buildpacks.
 
 #### Breaking it down
 The rearchitecture has made it vastly easier for maintainers and contributors
-to add new functionality to the language family in the future, by breaking down
+to add new functionality to the language family, by breaking down
 what used to be three larger buildpacks, into 10+ new buildpacks responsible
 for single parts of the build process. This may sound like a lot of new
 buildpacks, but small lighter-weight buildpacks are actually what we strive
@@ -74,7 +74,7 @@ documentation](https://paketo.io/docs/reference/php-reference/).
 
 #### Accessing the new release
 The new PHP buildpack has been released as v1.1.0 (yes, we found a bug in
-v1.0.0 😝) is included in the latest [Paketo Full
+v1.0.0 😝) and is included in the latest [Paketo Full
 Builder](https://github.com/paketo-buildpacks/full-builder/releases/tag/v0.2.63).
 You can also find it on
 [Dockerhub](https://hub.docker.com/r/paketobuildpacks/php) and on the
