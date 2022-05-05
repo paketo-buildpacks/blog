@@ -57,12 +57,12 @@ documentation](https://paketo.io/docs/howto/sbom/) for how to access the SBOM.
 If you're not already acquainted with the previous version of the buildpack PHP
 buildpack, the following use cases are supported:
 
-*  Build PHP apps that are served with HTTPD
-*  Build PHP apps that are served with Nginx
-*  Build PHP apps that are served the PHP Built-in Server
-*  Leverage the PHP FastCGI Process Manager (FPM) to run alongside servers
-*  Build apps that use Composer as an application level package manager
-*  Configure and run PHP session handlers for Redis and Memcached instances
+*  Build PHP apps that are served with HTTPD ([sample app example](https://github.com/paketo-buildpacks/samples/tree/main/php/httpd))
+*  Build PHP apps that are served with Nginx ([sample app example](https://github.com/paketo-buildpacks/samples/tree/main/php/nginx))
+*  Build PHP apps that are served the PHP Built-in Server ([sample app example](https://github.com/paketo-buildpacks/samples/tree/main/php/builtin-server))
+*  Leverage the PHP FastCGI Process Manager (FPM) to run alongside servers (Nginx and HTTPD samples showcase this)
+*  Build apps that use Composer as an application level package manager ([sample app example](https://github.com/paketo-buildpacks/samples/tree/main/php/composer))
+*  Configure and run PHP session handlers for Redis and Memcached instances ([sample app example](https://github.com/paketo-buildpacks/samples/tree/main/php/memcached_session_handler))
 
 The main difference in the user experience is that support for setting
 configuration through a `buildpack.yml` has been removed in favour of
