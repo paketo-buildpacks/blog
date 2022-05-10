@@ -6,7 +6,18 @@
     <description>Recent content in Posts on Paketo Buildpacks | Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 04 Apr 2022 09:38:38 -0400</lastBuildDate><atom:link href="https://blog.paketo.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 06 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Paketo Buildpacks 2021 - A Year in Review</title>
+      <link>https://blog.paketo.io/posts/2021-recap/</link>
+      <pubDate>Fri, 06 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.paketo.io/posts/2021-recap/</guid>
+      <description>Thanks so much to the Paketo community for all your hard work over the last year! The project made significant progress on the themes identified in our 2021 Roadmap. We won’t be able to cover everything in this blog post, but here are some highlights.
+Solidifying Existing Buildpacks While the work of standardizing our buildpacks continues, we are proud of the progres we have made, including:
+ Moving to environment variables as the primary mode of configuration for all buildpacks Standardized handling of language-ecosystem environment variables such as JAVA_TOOL_OPTIONS and NODE_ENV Standardized versioning of buildpacks, stacks, and builders Standardized configuration options, including log levels and dependency mappings Inclusion of utility buildpacks in all language families, allowing users to:  Configure additional CA Certificates Apply custom image labels Set runtime environment variables Contribute additional process types    We also restructured the Python buildpack, improving modularity and composability.</description>
+    </item>
+    
     <item>
       <title>Introducing the Liberty buildpack</title>
       <link>https://blog.paketo.io/posts/introducing-liberty-buildpack/</link>
