@@ -6,11 +6,11 @@
     <description>Recent content on Paketo Buildpacks | Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 06 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 10 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Paketo Buildpacks 2021 - A Year in Review</title>
       <link>https://blog.paketo.io/posts/2021-recap/</link>
-      <pubDate>Fri, 06 May 2022 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 10 May 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.paketo.io/posts/2021-recap/</guid>
       <description>Thanks so much to the Paketo community for all your hard work over the last year! The project made significant progress on the themes identified in our 2021 Roadmap. We won’t be able to cover everything in this blog post, but here are some highlights.
