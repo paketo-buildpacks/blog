@@ -19,6 +19,15 @@ Solidifying Existing Buildpacks While the work of standardizing our buildpacks c
     </item>
     
     <item>
+      <title>Paketo Buildpacks 2022 - Full speed ahead</title>
+      <link>https://blog.paketo.io/posts/2022-roadmap/</link>
+      <pubDate>Fri, 06 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.paketo.io/posts/2022-roadmap/</guid>
+      <description>Before we share the big plans we have for 2022, the Paketo Buildpacks Steering Committee would like to thank everyone that joined in the 2022 roadmap discussion, as well as everyone that’s provided feedback across all of the Paketo Buildpacks in 2021. The team is grateful for all of the feedback that we receive, as it helps to shape the project and ensure we’re building the tools that everyone wants to use.</description>
+    </item>
+    
+    <item>
       <title>Introducing the Liberty buildpack</title>
       <link>https://blog.paketo.io/posts/introducing-liberty-buildpack/</link>
       <pubDate>Mon, 04 Apr 2022 09:38:38 -0400</pubDate>
