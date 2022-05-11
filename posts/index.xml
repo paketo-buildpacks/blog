@@ -6,7 +6,16 @@
     <description>Recent content in Posts on Paketo Buildpacks | Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 10 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 11 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Paketo Buildpacks 2022 - Full speed ahead</title>
+      <link>https://blog.paketo.io/posts/2022-roadmap/</link>
+      <pubDate>Wed, 11 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.paketo.io/posts/2022-roadmap/</guid>
+      <description>Before we share the big plans we have for 2022, the Paketo Buildpacks Steering Committee would like to thank everyone that joined in the 2022 roadmap discussion, as well as everyone that’s provided feedback across all of the Paketo Buildpacks in 2021. The team is grateful for all of the feedback that we receive, as it helps to shape the project and ensure we’re building the tools that everyone wants to use.</description>
+    </item>
+    
     <item>
       <title>Paketo Buildpacks 2021 - A Year in Review</title>
       <link>https://blog.paketo.io/posts/2021-recap/</link>
@@ -16,15 +25,6 @@
       <description>Thanks so much to the Paketo community for all your hard work over the last year! The project made significant progress on the themes identified in our 2021 Roadmap. We won’t be able to cover everything in this blog post, but here are some highlights.
 Solidifying Existing Buildpacks While the work of standardizing our buildpacks continues, we are proud of the progres we have made, including:
  Moving to environment variables as the primary mode of configuration for all buildpacks Standardized handling of language-ecosystem environment variables such as JAVA_TOOL_OPTIONS and NODE_ENV Standardized versioning of buildpacks, stacks, and builders Standardized configuration options, including log levels and dependency mappings Inclusion of utility buildpacks in all language families, allowing users to:  Configure additional CA Certificates Apply custom image labels Set runtime environment variables Contribute additional process types    We also restructured the Python buildpack, improving modularity and composability.</description>
-    </item>
-    
-    <item>
-      <title>Paketo Buildpacks 2022 - Full speed ahead</title>
-      <link>https://blog.paketo.io/posts/2022-roadmap/</link>
-      <pubDate>Fri, 06 May 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.paketo.io/posts/2022-roadmap/</guid>
-      <description>Before we share the big plans we have for 2022, the Paketo Buildpacks Steering Committee would like to thank everyone that joined in the 2022 roadmap discussion, as well as everyone that’s provided feedback across all of the Paketo Buildpacks in 2021. The team is grateful for all of the feedback that we receive, as it helps to shape the project and ensure we’re building the tools that everyone wants to use.</description>
     </item>
     
     <item>
