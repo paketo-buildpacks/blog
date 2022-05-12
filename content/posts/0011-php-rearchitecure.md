@@ -1,6 +1,6 @@
 ---
 title: Reintroducing the PHP Buildpack
-date: "2022-05-03"
+date: "2022-05-12"
 slug: php-rearchitecture
 author: swigmore
 ---
