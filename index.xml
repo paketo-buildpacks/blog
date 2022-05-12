@@ -6,7 +6,17 @@
     <description>Recent content on Paketo Buildpacks | Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 11 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 12 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Reintroducing the PHP Buildpack</title>
+      <link>https://blog.paketo.io/posts/php-rearchitecture/</link>
+      <pubDate>Thu, 12 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.paketo.io/posts/php-rearchitecture/</guid>
+      <description>There&amp;rsquo;s a new and exciting development in the Paketo Buildpacks project! The Paketo PHP Buildpack has been fully re-architected and is ready to make containerizing PHP applications simple and transparent. With the rearchitecture, the same base set of functionality is supported as in the original PHP buildpack, but the buildpacks have been modernized using the newest Paketo tooling and modularized to separate concerns into individual buildpacks.
+What&amp;rsquo;s new? Breaking it down The rearchitecture has made it vastly easier for maintainers and contributors to add new functionality to the language family, by breaking down what used to be three larger buildpacks, into 10+ new buildpacks responsible for single parts of the build process.</description>
+    </item>
+    
     <item>
       <title>Paketo Buildpacks 2022 - Full speed ahead</title>
       <link>https://blog.paketo.io/posts/2022-roadmap/</link>

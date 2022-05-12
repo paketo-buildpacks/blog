@@ -1,0 +1,156 @@
+<!doctype html>
+<html>
+  <head>
+      <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Reintroducing the PHP Buildpack | Paketo Buildpacks | Blog</title>
+<link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-language" content="en-us" />
+
+<meta property='og:site_name' content="Paketo Buildpacks | Blog">
+<meta property='og:title' content="Reintroducing the PHP Buildpack">
+<meta property='og:url' content="https://blog.paketo.io/posts/php-rearchitecture/">
+<meta property='og:image' content='/images/logo512.png'/>
+<meta name="twitter:title" content="Paketo Buildpacks | Blog" />
+<meta name="twitter:url" content="https://blog.paketo.io/posts/php-rearchitecture/" />
+<meta name="twitter:card" content="" />
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TJMQZ5RDFG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TJMQZ5RDFG');
+</script><link rel="stylesheet" href="/scss/main.min.css">
+
+  </head>
+  <body>
+    <div class="post">
+      <header>
+        <a href="/">
+          <img class="logo" src="/images/logo512.png" />
+          <h1>Paketo Buildpacks | Blog</h1>
+        </a>
+      </header>
+      <section>
+        <h2>Reintroducing the PHP Buildpack</h2>
+        <section class="author"><img src="/images/authors/swigmore.jpg" /><h4>Sophie Wigmore</h4></section>
+        <h5>Thursday, May 12, 2022</h5>
+        <article>
+          <p>There&rsquo;s a new and exciting development in the Paketo Buildpacks project! The
+<a href="https://github.com/paketo-buildpacks/php">Paketo PHP Buildpack</a> has been fully
+re-architected and is ready to make containerizing PHP applications simple and
+transparent. With the rearchitecture, the same base set of functionality is
+supported as in the original PHP buildpack, but the buildpacks have been
+modernized using the newest Paketo tooling and modularized to separate concerns
+into individual buildpacks.</p>
+<h2 id="whats-new">What&rsquo;s new?</h2>
+<h4 id="breaking-it-down">Breaking it down</h4>
+<p>The rearchitecture has made it vastly easier for maintainers and contributors
+to add new functionality to the language family, by breaking down
+what used to be three larger buildpacks, into 10+ new buildpacks responsible
+for single parts of the build process. This may sound like a lot of new
+buildpacks, but small lighter-weight buildpacks are actually what we strive
+for in the project. This concept is well-described in the <a href="https://blog.paketo.io/posts/buildpack-philosophy-part-1/">Paketo Buildpacks
+Philosophy Part 1 blog
+post</a>.</p>
+<p>The GIF below gives an overview of how the buildpacks have been split up based
+off of their main job. The new buildpacks are split into three order groups,
+one for the Nginx use case, one for the HTTPD use case, and one for the PHP
+built-in server use case. The order groups in the buildpack can be found in the
+<a href="https://github.com/paketo-buildpacks/php/blob/main/buildpack.toml">PHP buildpack <code>buildpack.toml</code>
+file</a>.</p>
+<p><img src="/images/posts/0009/rewrite.gif" alt="Rewrite GIF"></p>
+<h4 id="api-upgrades">API Upgrades</h4>
+<p>The buildpacks have also been re-written to leverage the newest Paketo
+tooling, such as the <a href="https://github.com/paketo-buildpacks/packit">packit
+library</a>. Using the packit library
+allows the buildpacks to run on the latest versions of the upstream Cloud
+Native Buildpacks specifiction to make sure our buildpacks support the full
+range of new features in the buildpacks ecosystem. The new PHP buildpacks are
+built on <a href="https://github.com/buildpacks/spec/blob/buildpack/v0.7/buildpack.md">Buildpack API
+0.7</a>, as
+opposed to the API 0.4 that the old buildpacks used.</p>
+<h4 id="sbom-support">SBOM support</h4>
+<p>Because of the API upgrade, the buildpacks now include <a href="https://paketo.io/docs/concepts/sbom/">Software Bill of
+Materials</a> (SBOM) support. The SBOM
+provides metadata about the dependencies associated with your application
+image, and can be used for vulnerability scanning. Check out the <a href="https://paketo.io/docs/howto/sbom/">Paketo
+documentation</a> for how to access the SBOM.</p>
+<h4 id="maintaining-the-same-use-cases">Maintaining the same use cases</h4>
+<p>If you&rsquo;re not already acquainted with the previous version of the buildpack PHP
+buildpack, the following use cases are supported:</p>
+<ul>
+<li>Build PHP apps that are served with HTTPD (<a href="https://github.com/paketo-buildpacks/samples/tree/main/php/httpd">sample app example</a>)</li>
+<li>Build PHP apps that are served with Nginx (<a href="https://github.com/paketo-buildpacks/samples/tree/main/php/nginx">sample app example</a>)</li>
+<li>Build PHP apps that are served the PHP Built-in Server (<a href="https://github.com/paketo-buildpacks/samples/tree/main/php/builtin-server">sample app example</a>)</li>
+<li>Leverage the PHP FastCGI Process Manager (FPM) to run alongside servers (Nginx and HTTPD samples showcase this)</li>
+<li>Build apps that use Composer as an application level package manager (<a href="https://github.com/paketo-buildpacks/samples/tree/main/php/composer">sample app example</a>)</li>
+<li>Configure and run PHP session handlers for Redis and Memcached instances (<a href="https://github.com/paketo-buildpacks/samples/tree/main/php/memcached_session_handler">sample app example</a>)</li>
+</ul>
+<p>The main difference in the user experience is that support for setting
+configuration through a <code>buildpack.yml</code> has been removed in favour of
+environment variable configuration. The configuration options are now detailed
+in the <a href="https://paketo.io/docs/howto/php/">Paketo PHP How-To documentation</a>,
+with more in-depth details of buildpack behaviour available in the <a href="https://paketo.io/docs/reference/php-reference/">Paketo PHP
+Buildpack Reference
+documentation</a>.</p>
+<h4 id="accessing-the-new-release">Accessing the new release</h4>
+<p>The new PHP buildpack has been released as v1.1.0 (yes, we found a bug in
+v1.0.0 😝) and is included in the latest <a href="https://github.com/paketo-buildpacks/full-builder/releases/tag/v0.2.63">Paketo Full
+Builder</a>.
+You can also find it on
+<a href="https://hub.docker.com/r/paketobuildpacks/php">Dockerhub</a> and on the
+<a href="http://registry.buildpacks.io/buildpacks/paketo-buildpacks/php">Buildpacks
+Registry</a>.</p>
+<h4 id="try-it-out-with-sample-apps">Try it out with sample apps</h4>
+<p>The Paketo <a href="https://github.com/paketo-buildpacks/samples">Samples repository</a> is
+a great resource for understanding basic applications that can be built with
+Paketo buildpacks. The <a href="https://github.com/paketo-buildpacks/samples/tree/main/php">PHP sample
+apps</a> contain
+examples of each use case, and are a great starting point to test out how the
+buildpacks work.</p>
+<h2 id="learn-more">Learn More</h2>
+<ul>
+<li>
+<p>Want to learn more about using the PHP Buildpack? <a href="https://paketo.io/docs/reference/php-reference/">Check out our
+docs</a>.</p>
+</li>
+<li>
+<p>Feature request? <a href="https://github.com/paketo-buildpacks/php/issues">Open an
+issue</a>.</p>
+</li>
+<li>
+<p>Want to chat with maintainers? Join
+<code>#php</code> in <a href="https://slack.paketo.io/">Paketo slack</a>.</p>
+</li>
+<li>
+<p>Want to contribute a bug fix (or buildpack!)? <a href="https://github.com/paketo-buildpacks/community">Learn
+more</a> about our open source
+community.</p>
+</li>
+</ul>
+<p>Thanks for reading!</p>
+
+        </article>
+      </section>
+      <footer class="post">
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Paketo%20Buildpacks%20%7c%20Blog%20%7c%20Reintroducing%20the%20PHP%20Buildpack&amp;url=https://blog.paketo.io/posts/php-rearchitecture/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/twitter.png" />
+</a>
+
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://blog.paketo.io/posts/php-rearchitecture/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/linkedin.png" />
+</a>
+
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://blog.paketo.io/posts/php-rearchitecture/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/facebook.png" />
+</a>
+
+      </footer>
+    </div>
+  </body>
+</html>
