@@ -17,11 +17,11 @@ While Paketo has had the [NGINX](https://github.com/paketo-buildpacks/nginx) and
 
 ## Using `npm` and `yarn` to generate static content
 
-You can now easily deploy your dynamic front-end application as static content, since the Web Servers buildpack allows you to execute arbitrary `npm` scripts by using the [`node-run-script`](https://github.com/paketo-buildpacks/node-run-script) buildpack.
+You can now easily deploy your dynamic frontend application as static content, since the Web Servers buildpack allows you to execute arbitrary `npm` or `yarn` scripts by using the [`node-run-script`](https://github.com/paketo-buildpacks/node-run-script) buildpack.
 Just add appropriate scripts in `package.json` and use `BP_NODE_RUN_SCRIPTS` to tell the buildpack which scripts to run.
 
-This allows you to create your front-end application in the javascript framework of your choice and then serve it up using either `HTTPD` or `NGINX`.
-Since `npm` can be used in the absence of a javascript framework, you can also use this capability to download dependencies, transpile javascript, assemble content, or do anything necessary to translate your source material into static files.
+This allows you to create your frontend application in the javascript framework of your choice and then serve it up using either `HTTPD` or `NGINX`.
+Since `npm` and `yarn` can be used in the absence of a javascript framework, you can also use this capability to download dependencies, transpile javascript, assemble content, or do anything necessary to translate your source material into static files.
 
 ## Zero-Config static sites
 
@@ -48,7 +48,7 @@ In addition to the new application types described above, utility buildpacks add
 - Set custom start commands using the [`procfile`](https://github.com/paketo-buildpacks/procfile/) buildpack
 - Embed environment variables into the launch image using the [`environment-variables`](https://github.com/paketo-buildpacks/environment-variables) buildpack
 - Add image labels to the launch image using the [`image-labels`](https://github.com/paketo-buildpacks/image-labels) buildpack
-- Run any arbitrary script in `package.json` using the [`node-run-script`](https://github.com/paketo-buildpacks/node-run-script) buildpack, which enables you to transform your front-end application to static files (among many other possibilities)
+- Run any arbitrary script in `package.json` using the [`node-run-script`](https://github.com/paketo-buildpacks/node-run-script) buildpack, which enables you to transform your frontend application to static files (among many other possibilities)
 
 ## Samples
 
