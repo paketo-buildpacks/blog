@@ -6,7 +6,17 @@
     <description>Recent content in Posts on Paketo Buildpacks | Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 12 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 18 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Introducing the Paketo Web Servers Buildpack</title>
+      <link>https://blog.paketo.io/posts/webservers-rearchitecture/</link>
+      <pubDate>Wed, 18 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.paketo.io/posts/webservers-rearchitecture/</guid>
+      <description>The Paketo team is pleased to introduce the Web Servers buildpack, available in the Paketo Full Builder as of version 0.2.74.
+This buildpack allows you to serve static content using the popular NGINX or HTTPD web servers, with a variety of utilities for ease of use. Whether you have static files and a server configuration file that you want to package in an image, or you need to transform your dynamic content into static files and want the buildpack to generate the necessary server configuration file, the Web Servers buildpack has you covered.</description>
+    </item>
+    
     <item>
       <title>Reintroducing the PHP Buildpack</title>
       <link>https://blog.paketo.io/posts/php-rearchitecture/</link>
