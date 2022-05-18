@@ -1,6 +1,6 @@
 ---
 title: Introducing the Paketo Web Servers Buildpack
-date: "2022-05-16"
+date: "2022-05-18"
 slug: webservers-rearchitecture
 author: joshuatcasey
 ---
