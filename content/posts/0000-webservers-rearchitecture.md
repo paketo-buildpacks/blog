@@ -1,15 +1,13 @@
 ---
-title: Introducing new ways to bring your static files to the cloud
+title: Introducing the Paketo Web Servers Buildpack
 date: "2022-05-16"
 slug: webservers-rearchitecture
 author: joshuatcasey
 ---
 
-# Introducing the Paketo Web Servers Buildpack
-
 The Paketo team is pleased to introduce the [Web Servers buildpack](https://github.com/paketo-buildpacks/web-servers), available in the Paketo Full Builder as of [version 0.2.74](https://github.com/paketo-buildpacks/full-builder/releases/tag/v0.2.74).
 
-This buildpack allows you to serve static content using the popular NGINX or HTTPD web servers, with a variety of utilities for ease of use. Whether you have static files and a conf file that you want to package in an image, or you need to transform your dynamic content into static files and want the buildpack to generate the necessary conf file, the Web Servers buildpack has you covered.
+This buildpack allows you to serve static content using the popular NGINX or HTTPD web servers, with a variety of utilities for ease of use. Whether you have static files and a server configuration file that you want to package in an image, or you need to transform your dynamic content into static files and want the buildpack to generate the necessary server configuration file, the Web Servers buildpack has you covered.
 
 If the buildpack does not have the capability you need, please let us know on the [Paketo Slack](https://slack.paketo.io/) or by [filing an issue](https://github.com/paketo-buildpacks/web-servers/issues/new).
 
@@ -28,7 +26,7 @@ Since `npm` and `yarn` can be used in the absence of a JavaScript framework, you
 What if your app is simple enough that you don't need a custom `httpd.conf` or `nginx.conf`?
 Use `BP_WEB_SERVER` to both indicate your server preference and signal to the appropriate buildpack to generate a server configuration file.
 
-The generated configuration file can be influenced by various environment variables and service bindings to accomplish common configuration options, so you can:
+You can use environment variables and service bindings to tweak the automatically-generated configuration file so that you can:
 
 - Use a custom directory for static files
 - Enable push-state routing
@@ -54,8 +52,8 @@ In addition to the new application types described above, utility buildpacks add
 
 The [Paketo samples](https://github.com/paketo-buildpacks/samples/tree/main/web-servers) have several different application types that can be built into OCI images using Paketo buildpacks. These demonstrate common use cases such as:
 
-- Serving static content with your own conf file, using either [HTTPD](https://github.com/paketo-buildpacks/samples/tree/main/web-servers/httpd-sample) or [NGINX](https://github.com/paketo-buildpacks/samples/tree/main/web-servers/nginx-sample)
-- Serving static content with a buildpack-generated conf file, using `BP_WEB_SERVER` to select either [HTTPD](https://github.com/paketo-buildpacks/samples/blob/main/web-servers/no-config-file-sample/HTTPD.md) or [NGINX](https://github.com/paketo-buildpacks/samples/blob/main/web-servers/no-config-file-sample/NGINX.md) 
+- Serving static content with your own server configuration file, using either [HTTPD](https://github.com/paketo-buildpacks/samples/tree/main/web-servers/httpd-sample) or [NGINX](https://github.com/paketo-buildpacks/samples/tree/main/web-servers/nginx-sample)
+- Serving static content with a buildpack-generated server configuration file, using `BP_WEB_SERVER` to select either [HTTPD](https://github.com/paketo-buildpacks/samples/blob/main/web-servers/no-config-file-sample/HTTPD.md) or [NGINX](https://github.com/paketo-buildpacks/samples/blob/main/web-servers/no-config-file-sample/NGINX.md)
 - Using NPM to build a React app into static files that can be [served by a web server](https://github.com/paketo-buildpacks/samples/tree/main/web-servers/javascript-frontend-sample), using `BP_WEB_SERVER` to select either HTTPD or NGINX
 
 ## Additional Reading
