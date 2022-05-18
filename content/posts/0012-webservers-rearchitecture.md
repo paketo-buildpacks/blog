@@ -13,7 +13,7 @@ If the buildpack does not have the capability you need, please let us know on th
 
 While Paketo has had the [NGINX](https://github.com/paketo-buildpacks/nginx) and [HTTPD](https://github.com/paketo-buildpacks/httpd) buildpacks for some time, bringing them together in the new Web Servers buildpack enables the exciting capabilities listed below.
 
-## Using `npm` and `yarn` to generate static content
+### Using `npm` and `yarn` to generate static content
 
 You can now easily deploy your dynamic frontend application as static content, since the Web Servers buildpack allows you to execute arbitrary `npm` or `yarn` scripts by using the [`node-run-script`](https://github.com/paketo-buildpacks/node-run-script) buildpack.
 Just add appropriate scripts in `package.json` and set the [`BP_NODE_RUN_SCRIPTS` environment variable](https://paketo.io/docs/howto/nodejs/#run-scripts-during-build-phase) at build-time to tell the buildpack which scripts to run.
@@ -21,7 +21,7 @@ Just add appropriate scripts in `package.json` and set the [`BP_NODE_RUN_SCRIPTS
 This allows you to create your frontend application in the JavaScript framework of your choice and then serve it up using either HTTPD or NGINX.
 Since `npm` and `yarn` can be used in the absence of a JavaScript framework, you can also use this capability to download dependencies, transpile JavaScript, assemble content, or do anything necessary to translate your source material into static files.
 
-## Zero-Config static sites
+### Zero-Config static sites
 
 What if your app is simple enough that you don't need a custom `httpd.conf` or `nginx.conf`?
 Set the [`BP_WEB_SERVER` environment variable ](https://paketo.io/docs/reference/nginx-reference/#bp_web_server) at build-time to both indicate your server preference and signal to the appropriate buildpack to generate a server configuration file.
@@ -38,7 +38,7 @@ The [`No Config File Sample`](https://github.com/paketo-buildpacks/samples/tree/
 
 These customizations are meant to work out of the box for both HTTPD and NGINX. In case you need more details, take a look at the default configuration files (see [HTTPD](https://github.com/paketo-buildpacks/httpd/blob/main/default_conf.go) and [NGINX](https://github.com/paketo-buildpacks/nginx/blob/main/default_conf.go)).
 
-## Additional utilities
+### Additional utilities
 
 In addition to the new application types described above, utility buildpacks added to the toolchain allow enhancing the images built to serve your static files. This enables you to:
 
@@ -48,7 +48,7 @@ In addition to the new application types described above, utility buildpacks add
 - Add image labels to the launch image using the [`image-labels`](https://github.com/paketo-buildpacks/image-labels) buildpack
 - Run any arbitrary script in `package.json` using the [`node-run-script`](https://github.com/paketo-buildpacks/node-run-script) buildpack, which enables you to transform your frontend application into static files (among many other possibilities)
 
-## Samples
+### Samples
 
 The [Paketo samples](https://github.com/paketo-buildpacks/samples/tree/main/web-servers) have several different application types that can be built into OCI images using Paketo buildpacks. These demonstrate common use cases such as:
 
