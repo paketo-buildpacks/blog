@@ -44,11 +44,12 @@
 
       margin-bottom: 60px;
 
-      h2 {
+      h1 {
         margin-top: 0;
         font-size: 2em;
         font-weight: 100;
         margin-bottom: 20px;
+        line-height: 1.5em;
       }
 
       .metadata {
@@ -72,7 +73,7 @@
             border-radius: $length / 2;
           }
 
-          h4 {
+          name {
             font-size: 0.8em;
             margin: 0 0 0 0.5em;
           }

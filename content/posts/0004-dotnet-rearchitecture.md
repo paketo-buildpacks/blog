@@ -77,8 +77,6 @@ Let’s take it from empty directory to running app container:
 
 ### Tada!
 
-##
-###
 ![Buildpacks are almost like this magic trick](https://media.giphy.com/media/KmIR3x7UG4cFy/giphy.gif)
 
 ## Learn More

@@ -13,7 +13,7 @@ frameworks. Paketo Buildpacks make it easy for you to build and patch
 containerized apps so that you can spend all your time on the thing that
 matters the most… **developing great software**.
 
-### First off… what are Paketo Buildpacks, and why would I use them?
+## First off… what are Paketo Buildpacks, and why would I use them?
 
 > Buildpacks provide a higher-level abstraction for building apps
 
@@ -56,7 +56,7 @@ if you:
   stay up-to-date. Additionally, since Paketo Buildpacks use CNB and the OCI
   standard, it’s easy to “rebase” your app images with stack updates.
 
-### Demo
+## Demo
 
 Let’s run through a quick demo of how easy it is to build your apps using
 Paketo Buildpacks and deploy them to an existing Kubernetes cluster. We’re
@@ -112,7 +112,7 @@ $ minikube service paketo-node
 And that’s it! It’s that simple to get started with Paketo Buildpacks! You can
 run `kubectl get services` to find the IP address of your deployed app.
 
-### Give Paketo Buildpacks a Try!
+## Give Paketo Buildpacks a Try!
 
 Ready to learn more? Check out these links.
 

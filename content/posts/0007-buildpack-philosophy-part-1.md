@@ -7,7 +7,7 @@ author: rmoran
 
 {{< figure src="/images/posts/0000/road.jpg" alt="A road through the wilderness" caption="Photo by [Jon Flobrant](https://unsplash.com/@jonflobrant?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/collections/1666315/philosophy-topics?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)" >}}
 
-### Sharing what we've learned
+## Sharing what we've learned
 
 The Paketo Buildpacks Team has been developing our Cloud Native Buildpacks for
 the better part of 2 years now. In the process, we've learned a lot about what
@@ -23,9 +23,9 @@ post will cover a few of the guidelines, explaining where we think they apply
 and even where they might come into conflict with one another. With that, let's
 dive right in!
 
-### Guidelines
+## Guidelines
 
-#### Meet language-ecosystem expectations
+### Meet language-ecosystem expectations
 
 When implementing support for a feature, attempt to meet the expectations of
 the language ecosystem. Doing so will ensure that developers familiar with that
@@ -64,7 +64,7 @@ also meant that the buildpack works the way the user thinks. In these cases,
 taking on that extra complexity can have huge benefits for developer
 productivity.
 
-#### Enable complexity through composition
+### Enable complexity through composition
 
 Try to limit the focus of the buildpack. Buildpacks can easily sprawl as they
 accrete features. Instead of pulling every possible feature into the buildpack,
@@ -109,7 +109,7 @@ compile their assets. The Ruby buildpack includes the Node Engine buildpack to
 provide that runtime. It works well because the Node Engine buildpack limits
 itself to performing only that one task.
 
-#### Be transparent and understandable
+### Be transparent and understandable
 
 Provide the buildpack user with transparent and understandable feedback during
 all phases of the buildpack lifecycle. When a buildpack fails to detect,
@@ -170,7 +170,7 @@ users about how the buildpacks are working. We'll continue to evolve and
 evaluate this output always keeping in mind that the goal should be to remain
 transparent and understandable.
 
-#### Understand the container lifecycle and environment
+### Understand the container lifecycle and environment
 
 The images our users build will be run in environments that are often chaotic
 and/or limited. We should build features in a way that supports environments
@@ -246,7 +246,7 @@ in the community for applications run in containers. Knowing when to make the
 tradeoff between these guidelines can be difficult, but it makes all the
 difference for creating containers that perform well in all cases.
 
-### Next Time
+## Next Time
 
 Hopefully this post left you with some understanding of the thought that has
 gone into the development of Paketo buildpacks and maybe even inspired you to
