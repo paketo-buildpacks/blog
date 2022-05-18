@@ -16,7 +16,7 @@ While Paketo has had the [NGINX](https://github.com/paketo-buildpacks/nginx) and
 ## Using `npm` and `yarn` to generate static content
 
 You can now easily deploy your dynamic frontend application as static content, since the Web Servers buildpack allows you to execute arbitrary `npm` or `yarn` scripts by using the [`node-run-script`](https://github.com/paketo-buildpacks/node-run-script) buildpack.
-Just add appropriate scripts in `package.json` and use `BP_NODE_RUN_SCRIPTS` to tell the buildpack which scripts to run.
+Just add appropriate scripts in `package.json` and set the [`BP_NODE_RUN_SCRIPTS` environment variable](https://paketo.io/docs/howto/nodejs/#run-scripts-during-build-phase) at build-time to tell the buildpack which scripts to run.
 
 This allows you to create your frontend application in the JavaScript framework of your choice and then serve it up using either HTTPD or NGINX.
 Since `npm` and `yarn` can be used in the absence of a JavaScript framework, you can also use this capability to download dependencies, transpile JavaScript, assemble content, or do anything necessary to translate your source material into static files.
