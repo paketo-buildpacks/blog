@@ -24,7 +24,7 @@ Since `npm` and `yarn` can be used in the absence of a JavaScript framework, you
 ## Zero-Config static sites
 
 What if your app is simple enough that you don't need a custom `httpd.conf` or `nginx.conf`?
-Use `BP_WEB_SERVER` to both indicate your server preference and signal to the appropriate buildpack to generate a server configuration file.
+Set the [`BP_WEB_SERVER` environment variable ](https://paketo.io/docs/reference/nginx-reference/#bp_web_server) at build-time to both indicate your server preference and signal to the appropriate buildpack to generate a server configuration file.
 
 You can use environment variables and service bindings to tweak the automatically-generated configuration file so that you can:
 
