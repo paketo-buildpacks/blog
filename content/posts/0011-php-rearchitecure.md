@@ -15,7 +15,7 @@ into individual buildpacks.
 
 ## What's new?
 
-#### Breaking it down
+### Breaking it down
 The rearchitecture has made it vastly easier for maintainers and contributors
 to add new functionality to the language family, by breaking down
 what used to be three larger buildpacks, into 10+ new buildpacks responsible
@@ -35,7 +35,7 @@ file](https://github.com/paketo-buildpacks/php/blob/main/buildpack.toml).
 ![Rewrite GIF](/images/posts/0009/rewrite.gif)
 
 
-#### API Upgrades
+### API Upgrades
 The buildpacks have also been re-written to leverage the newest Paketo
 tooling, such as the [packit
 library](https://github.com/paketo-buildpacks/packit). Using the packit library
@@ -46,14 +46,14 @@ built on [Buildpack API
 0.7](https://github.com/buildpacks/spec/blob/buildpack/v0.7/buildpack.md), as
 opposed to the API 0.4 that the old buildpacks used.
 
-#### SBOM support
+### SBOM support
 Because of the API upgrade, the buildpacks now include [Software Bill of
 Materials](https://paketo.io/docs/concepts/sbom/) (SBOM) support. The SBOM
 provides metadata about the dependencies associated with your application
 image, and can be used for vulnerability scanning. Check out the [Paketo
 documentation](https://paketo.io/docs/howto/sbom/) for how to access the SBOM.
 
-#### Maintaining the same use cases
+### Maintaining the same use cases
 If you're not already acquainted with the previous version of the buildpack PHP
 buildpack, the following use cases are supported:
 
@@ -72,7 +72,7 @@ with more in-depth details of buildpack behaviour available in the [Paketo PHP
 Buildpack Reference
 documentation](https://paketo.io/docs/reference/php-reference/).
 
-#### Accessing the new release
+### Accessing the new release
 The new PHP buildpack has been released as v1.1.0 (yes, we found a bug in
 v1.0.0 😝) and is included in the latest [Paketo Full
 Builder](https://github.com/paketo-buildpacks/full-builder/releases/tag/v0.2.63).
@@ -81,7 +81,7 @@ You can also find it on
 [Buildpacks
 Registry](http://registry.buildpacks.io/buildpacks/paketo-buildpacks/php).
 
-#### Try it out with sample apps
+### Try it out with sample apps
 
 The Paketo [Samples repository](https://github.com/paketo-buildpacks/samples) is
 a great resource for understanding basic applications that can be built with

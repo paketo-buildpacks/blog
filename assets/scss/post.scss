@@ -72,29 +72,65 @@
         }
       }
 
-      h2 {
+      h1 {
+        font-size: 2.5em;
+        margin-top: 1em;
+        line-height: 1.5em;
         font-weight: 100;
         margin-bottom: 20px;
       }
 
-      h3 + p {
-        margin-top: 0.5em;
+      date{
+        display: block;
+        font-size: 1.2em;
+        line-height: 1em;
+        margin-top: 0.8em;
       }
 
-      h4 + p {
-        margin-top: 0.5em;
-      }
+      article{
+        p {
+          margin-top: 1.5em;
+        }
 
-      h5 + p {
-        margin-top: 0.5em;
-      }
+        ul li p {
+          margin: 0;
+        }
 
-      h6 + p {
-        margin-top: 0.5em;
-      }
+        h2 {
+          font-size: 2em;
+          line-height: 1.5em;
+          margin-top: 0.5em;
+        }
 
-      em {
-        font-style: italic;
+        h3 {
+          font-size: 1.5em;
+          line-height: 1em;
+          margin-top: 0.5em;
+        }
+
+        h4 {
+          font-size: 1.3em;
+          line-height: 1em;
+          margin-top: 0.5em;
+        }
+
+        h5 {
+          font-size: 1.3em;
+          font-weight: 250;
+          line-height: 1em;
+          margin-top: 0.5em;
+        }
+
+        h6 {
+          font-size: 1.3em;
+          font-weight: 100;
+          line-height: 1em;
+          margin-top: 0.5em;
+        }
+
+        em {
+          font-style: italic;
+        }
       }
 
       section.author {
@@ -112,12 +148,12 @@
           border-radius: $length / 2;
         }
 
-        h4 {
+        name {
           margin: 0 0 0 0.5em;
         }
       }
 
-  }
+   }
 
   footer {
     border-top: 3px solid #4A516D;

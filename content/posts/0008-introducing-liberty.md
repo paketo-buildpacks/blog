@@ -47,7 +47,7 @@ Your application is now transformed into an OCI image!
 ## Now what?
 With your OCI image, you can run your application locally with the `docker run` command.
 
-We need to provide a server.xml to the Liberty buildpack using a binding.  
+We need to provide a server.xml to the Liberty buildpack using a binding.
 1. Create a directory named `bindings`, for example
 2. Create a file named server.xml in the `bindings` directory with the following content:
 ```
