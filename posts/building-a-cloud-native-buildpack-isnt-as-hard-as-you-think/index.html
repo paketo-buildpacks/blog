@@ -36,30 +36,30 @@
         </a>
       </header>
       <section>
-        <h2>Building a Cloud Native Buildpack Isn’t as Hard as You Think</h2>
-        <section class="author"><img src="/images/authors/swigmore.jpg" /><h4>Sophie Wigmore</h4></section>
-        <h5>Friday, Feb 26, 2021</h5>
+        <h1>Building a Cloud Native Buildpack Isn’t as Hard as You Think</h1>
+        <section class="author"><img src="/images/authors/swigmore.jpg" /><name>Sophie Wigmore</name></section>
+        <date>Friday, Feb 26, 2021</date>
         <article>
           <p>Maybe you’ve heard that many companies today are transitioning to, or have already transitioned to, a container-based platform like Kubernetes. With this movement comes the need to containerize your applications, new and old. Buildpacks provide a seamless mechanism for doing that <em>without Dockerfiles.</em> <a href="https://paketo.io">Paketo Buildpacks</a> is a community-driven project that provides <a href="https://buildpacks.io">Cloud Native Buildpacks</a> implementations for the most popular languages.</p>
 <p>Buildpacks provide great out-of-box support for many languages, but <strong>what if you need a buildpack that doesn’t exist yet?</strong> As a community-driven initiative, it may feel like the onus is on you to create that buildpack. Where would you even begin? 🤯</p>
 <p>Paketo Buildpacks strives to make answering those questions transparent, approachable, and simple. The idea of being a community-driven project is splashed across our <a href="/posts/get-to-know-paketo-buildpacks">blog posts</a>, and <a href="/posts/2021-roadmap">roadmap</a> for a reason. As an engineer who recently learned the ropes of working on buildpacks myself, I’ll explain why building a buildpack isn’t as hard as you might think, and provide some tips and tricks I&rsquo;ve learned along the way.</p>
-<h4 id="keep-it-simple"><strong>Keep it simple</strong></h4>
+<h2 id="keep-it-simple"><strong>Keep it simple</strong></h2>
 <p>Part of our philosophy when it comes to writing buildpacks is to keep it simple. We want each buildpack to do one job and do it well. This way many simple buildpacks can be combined to achieve complex behaviours.</p>
 <p>This is both a blessing and a curse when it comes to writing buildpacks. It’s a blessing for obvious reasons: since the buildpack only needs to focus on one major task, it&rsquo;s simpler to write. We try to pick good defaults that would make the experience better in the vast majority of cases, while keeping our APIs streamlined, but meaningful.</p>
 <p>Simple sounds good, how could this be a curse?
 Because our buildpacks perform one task each, in unique use cases it can be hard to discern if you need a fully new buildpack for your case, or if an existing buildpack just needs a tweak. It doesn’t always make sense to architect a new buildpack, but it can be hard to make this judgement if you’re not closely acquainted with buildpacks that are already available.</p>
-<h4 id="two-roads-diverged">Two roads diverged</h4>
+<h2 id="two-roads-diverged">Two roads diverged</h2>
 <p>One way to determine if you need a new buildpack is to think about if the feature in question is completely new functionality, or if it’s an unimplemented subset of existing buildpack functionality.
 <img src="/images/posts/0005/roads-diverged.jpg" alt="Roads-Diverged"></p>
-<h5 id="when-to-add-a-new-buildpack">When to add a new buildpack</h5>
+<h3 id="when-to-add-a-new-buildpack">When to add a new buildpack</h3>
 <p>New functionality usually means a new buildpack is needed. An example of this can be seen with the <a href="https://github.com/paketo-buildpacks/rails-assets">Rails Assets buildpack</a>. A user, <a href="https://github.com/drnic">@drnic</a> filed <a href="https://github.com/paketo-buildpacks/ruby/issues/470">an issue</a> about performing asset compilation for Ruby apps, which was completely unsupported behaviour in the Ruby buildpacks. A Ruby maintainer, <a href="https://github.com/ryanmoran">@ryanmoran</a> wrote up <a href="https://github.com/paketo-buildpacks/ruby/pull/475">an RFC</a> to propose a new buildpack for the functionality, and a contributor <a href="https://github.com/genevieve">@genevievelesperance</a> actually <a href="https://github.com/genevieve/rails-assets">implemented the buildpack</a>. (If you’re interested in this workflow, look out for a future blog post outlining our contribution process!) The idea here is that a new buildpack was needed in order to support completely new functionality.</p>
 <p>Another example of this case is when a brand new dependency or runtime is needed in an app image. If a buildpack providing the specific distribution that you need doesn&rsquo;t exist, then this would be another good indicator that a new buildpack is needed. This is slightly different than the Rails Assets example above, because that buildpack performs a new behaviour, but doesn&rsquo;t provide a dependency. An example of a need for a new runtime can be seen with the <a href="https://github.com/paketo-community/rust">Rust buildpack</a>. Contributor <a href="https://github.com/dmikusa-pivotal">@dmikusa-pivotal</a> put together a set of new buildpacks to support Rust-based apps. Specifically the <a href="https://github.com/paketo-community/rust-dist">Rust Dist buildpack</a> is an example of creating a new buildpack in order to provide a new runtime.</p>
-<h5 id="when-to-modify-a-buildpack">When to modify a buildpack</h5>
+<h3 id="when-to-modify-a-buildpack">When to modify a buildpack</h3>
 <p>On the other hand, there are many cases for modifying an existing buildpack. When looking for cases of “unimplemented subsets of existing functionality”, ask yourself: <em>If you were building the app container, step by step, is there any “optional” behaviour?</em></p>
 <p>For example, imagine an app that serves content on a custom port, rather than using the default port 8080. If the existing buildpack only allowed default port 8080 to be used, it would make sense to modify the buildpack to allow for the optional behaviour of using a custom port, rather than writing a separate buildpack with almost the same logic. This modification would still follow the &ldquo;keep it simple&rdquo; philosophy in that the buildpack still performs one task, just with more flexibility. This is a simplified example, but there are surely other examples of optimizations within the scope of a buildpack’s functionality that could allow for some new behaviour. We’re always looking for cases where we can optimize the buildpacks, and invite you to weigh in via a Github issue if you can think of one!</p>
-<h4 id="patterns-are-everywhere">Patterns are everywhere</h4>
+<h2 id="patterns-are-everywhere">Patterns are everywhere</h2>
 <p>Across the different language ecosystems, the buildpacks follow major patterns depending on the type of job that they are doing. Understanding the patterns that our buildpacks follow can make the decision whether to modify a buildpack or create a new one clearer. Especially in the case of writing a new buildpack, <strong>I recommend taking advantage of the work that’s already been done.</strong> It&rsquo;s far more helpful to look at what other buildpacks are doing as concrete examples than to try to architect complicated behaviours from scratch. Decide what you need your buildpack to do, and find patterns that suit your case. Here I’ve highlighted some common patterns across our buildpacks:</p>
-<h5 id="installing-a-distributiontool">Installing a distribution/tool</h5>
+<h3 id="installing-a-distributiontool">Installing a distribution/tool</h3>
 <p>When you need to download some tool or distribution for your app, and (usually) put it on the PATH, you may find yourself saying:</p>
 <p><em>“I&rsquo;ll need Golang to build and run my Go app”</em>, or
 <em>“I&rsquo;ll need to install Bundler to run <code>bundle-install</code> commands for my Ruby app.&quot;</em></p>
@@ -68,7 +68,7 @@ Because our buildpacks perform one task each, in unique use cases it can be hard
 <li>Detection: Variations of checking language-specific files (e.g. <code>Gemfile.lock</code>) or environment variables for versions to install</li>
 <li>Build: How layer metadata is set (i.e. will I need the contents of this layer during container build-time, run-time, or in subsequent builds?)</li>
 </ul>
-<h5 id="managing-or-installing-app-dependencies">Managing or installing app dependencies</h5>
+<h3 id="managing-or-installing-app-dependencies">Managing or installing app dependencies</h3>
 <p>When your app has a dependency manager, you may be thinking:</p>
 <p><em>“I&rsquo;ll need to run <code>bundle-install</code> to pull in certain gems for my Ruby app”</em> or
 <em>“I&rsquo;ll need to run <code>go mod vendor</code> to vendor my Go app dependencies.”</em></p>
@@ -78,7 +78,7 @@ Because our buildpacks perform one task each, in unique use cases it can be hard
 <li>Dependency Caching: How dependencies and layers are cached/reused for subsequent builds</li>
 <li>Symlinking: Some buildpacks do symlinking between assets and layers, see <a href="https://github.com/paketo-buildpacks/yarn-install">Yarn Install</a> for an example.</li>
 </ul>
-<h5 id="running-a-start-command">Running a start command</h5>
+<h3 id="running-a-start-command">Running a start command</h3>
 <p>When a command needs to be run to start the app in the container, you might think:</p>
 <p><em>“I&rsquo;ll need to run <code>go-build</code> to compile and run my app”</em> or
 <em>“I have an app that runs on a web server, so I need to run a command to start the server.”</em></p>
@@ -88,14 +88,14 @@ Because our buildpacks perform one task each, in unique use cases it can be hard
 <li>Build: Environment variables set or read from other buildpacks. This varies widely depending on language, but can have an impact on the outcome of the start command.</li>
 </ul>
 <p>Of course there are plenty of other patterns and things that buildpacks can do! I urge you to take a look through our other buildpacks for ideas. The <a href="https://dashboard.paketo.io/">Paketo Dashboard</a> is an excellent place to see a master list of all of the buildpacks we maintain.</p>
-<h4 id="creating-a-new-paketo-style-buildpack"><strong>Creating a new Paketo-style buildpack</strong></h4>
+<h2 id="creating-a-new-paketo-style-buildpack"><strong>Creating a new Paketo-style buildpack</strong></h2>
 <p>If you get to the stage where you’re sure that you need a new buildpack, there are some tips to make this process easier.</p>
 <p>There are definitely some need-to-know basics when it comes to buildpacks that have been <a href="https://buildpacks.io/docs/concepts/">well documented</a> by the Cloud Native Buildpacks project. I recommend reading this documentation for more information on some basic concepts, like the buildpack lifecycle phases. Once you have the basics down, there&rsquo;s a <a href="https://buildpacks.io/docs/buildpack-author-guide/create-buildpack/">simple tutorial</a> to create a CNB in <code>bash</code>. This is a great introduction to simple buildpacks, but the Paketo contributors have adopted Golang as our language of choice to carry out more complex behaviour.</p>
-<h4 id="packit-is-here-to-help"><code>packit</code> is here to help!</h4>
+<h3 id="packit-is-here-to-help"><code>packit</code> is here to help!</h3>
 <p>Kicking things up a notch, there is a separate <a href="https://paketo.io/docs/tutorials/create-paketo-buildpack/">tutorial</a> for creating a simple Paketo Buildpack, which are written in <strong>Golang</strong>. The shining star of the tutorial is the introduction of <a href="https://github.com/paketo-buildpacks/packit"><code>packit</code></a>, a library that simplifies the repetitive parts of writing a buildpack, such as <a href="https://github.com/paketo-buildpacks/packit/blob/main/postal">dependency installation</a> and <a href="https://github.com/paketo-buildpacks/packit/blob/main/fs">file system manipulation</a>. <code>packit</code> also ensures that the buildpack abides by the <a href="https://github.com/buildpacks/spec">CNB spec</a> without too much effort. Writing a buildpack with <code>packit</code> is integral to how we write our buildpacks and keep them consistent. I recommend looking at one our buildpacks to see how <code>packit</code> is used. Keep an eye out for future blog post deep diving into <code>packit</code>, as well.</p>
-<h4 id="bootstrap-it">Bootstrap it</h4>
+<h3 id="bootstrap-it">Bootstrap it</h3>
 <p>Another huge help is our buildpack <a href="https://github.com/paketo-community/bootstrapper">Bootstrapper</a> which sets up a basic buildpack directory structure in a <code>packit</code>-compliant way. Using the bootstrapper tool removes the guesswork involved in setting up all the basic pieces of a buildpack, and enforces test-driven development. The bootstrapper-provided integration tests fail by default, encouraging you to write tests first and think about the overarching picture of what you need your buildpack to do.</p>
-<h4 id="connecting-with-our-community">Connecting with our community</h4>
+<h2 id="connecting-with-our-community">Connecting with our community</h2>
 <p>My final piece of advice to make contributing a breeze is to connect with our community in any of our forums that suit you:</p>
 <ul>
 <li><a href="https://slack.paketo.io">Paketo Slack</a>: chat with Paketo maintainers in real time to get quick questions answered</li>

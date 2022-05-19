@@ -36,9 +36,9 @@
         </a>
       </header>
       <section>
-        <h2>A Philosophy for Developing Paketo Buildpacks, Part 1</h2>
-        <section class="author"><img src="/images/authors/rmoran.jpg" /><h4>Ryan Moran</h4></section>
-        <h5>Wednesday, Jan 26, 2022</h5>
+        <h1>A Philosophy for Developing Paketo Buildpacks, Part 1</h1>
+        <section class="author"><img src="/images/authors/rmoran.jpg" /><name>Ryan Moran</name></section>
+        <date>Wednesday, Jan 26, 2022</date>
         <article>
           <figure>
     <img src="/images/posts/0000/road.jpg"
@@ -47,7 +47,7 @@
         </figcaption>
 </figure>
 
-<h3 id="sharing-what-weve-learned">Sharing what we&rsquo;ve learned</h3>
+<h2 id="sharing-what-weve-learned">Sharing what we&rsquo;ve learned</h2>
 <p>The Paketo Buildpacks Team has been developing our Cloud Native Buildpacks for
 the better part of 2 years now. In the process, we&rsquo;ve learned a lot about what
 works well and what doesn&rsquo;t. We&rsquo;ve made mistakes and interated toward solutions
@@ -60,8 +60,8 @@ it with the buildpack authoring community so that you all might benefit. This
 post will cover a few of the guidelines, explaining where we think they apply
 and even where they might come into conflict with one another. With that, let&rsquo;s
 dive right in!</p>
-<h3 id="guidelines">Guidelines</h3>
-<h4 id="meet-language-ecosystem-expectations">Meet language-ecosystem expectations</h4>
+<h2 id="guidelines">Guidelines</h2>
+<h3 id="meet-language-ecosystem-expectations">Meet language-ecosystem expectations</h3>
 <p>When implementing support for a feature, attempt to meet the expectations of
 the language ecosystem. Doing so will ensure that developers familiar with that
 ecosystem will find the buildpack’s behavior familiar.</p>
@@ -94,7 +94,7 @@ certainly resulted in a buildpack that is more programatically complex, but its
 also meant that the buildpack works the way the user thinks. In these cases,
 taking on that extra complexity can have huge benefits for developer
 productivity.</p>
-<h4 id="enable-complexity-through-composition">Enable complexity through composition</h4>
+<h3 id="enable-complexity-through-composition">Enable complexity through composition</h3>
 <p>Try to limit the focus of the buildpack. Buildpacks can easily sprawl as they
 accrete features. Instead of pulling every possible feature into the buildpack,
 consider how it might be broken down into parts that can be composed together
@@ -135,7 +135,7 @@ entirely different buildpack language ecosystems. Its pretty common for
 compile their assets. The Ruby buildpack includes the Node Engine buildpack to
 provide that runtime. It works well because the Node Engine buildpack limits
 itself to performing only that one task.</p>
-<h4 id="be-transparent-and-understandable">Be transparent and understandable</h4>
+<h3 id="be-transparent-and-understandable">Be transparent and understandable</h3>
 <p>Provide the buildpack user with transparent and understandable feedback during
 all phases of the buildpack lifecycle. When a buildpack fails to detect,
 specify why. When a buildpack fails to build, include as much logging
@@ -187,7 +187,7 @@ certainly isn&rsquo;t the final note on how we want to provide feedback to build
 users about how the buildpacks are working. We&rsquo;ll continue to evolve and
 evaluate this output always keeping in mind that the goal should be to remain
 transparent and understandable.</p>
-<h4 id="understand-the-container-lifecycle-and-environment">Understand the container lifecycle and environment</h4>
+<h3 id="understand-the-container-lifecycle-and-environment">Understand the container lifecycle and environment</h3>
 <p>The images our users build will be run in environments that are often chaotic
 and/or limited. We should build features in a way that supports environments
 that are operating in imperfect conditions. As a starting point, buildpacks
@@ -252,7 +252,7 @@ practice</a>
 in the community for applications run in containers. Knowing when to make the
 tradeoff between these guidelines can be difficult, but it makes all the
 difference for creating containers that perform well in all cases.</p>
-<h3 id="next-time">Next Time</h3>
+<h2 id="next-time">Next Time</h2>
 <p>Hopefully this post left you with some understanding of the thought that has
 gone into the development of Paketo buildpacks and maybe even inspired you to
 think about <a href="https://paketo.io/contribute/">contributing</a>. In the next post we

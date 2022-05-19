@@ -36,9 +36,9 @@
         </a>
       </header>
       <section>
-        <h2>Reintroducing the PHP Buildpack</h2>
-        <section class="author"><img src="/images/authors/swigmore.jpg" /><h4>Sophie Wigmore</h4></section>
-        <h5>Thursday, May 12, 2022</h5>
+        <h1>Reintroducing the PHP Buildpack</h1>
+        <section class="author"><img src="/images/authors/swigmore.jpg" /><name>Sophie Wigmore</name></section>
+        <date>Thursday, May 12, 2022</date>
         <article>
           <p>There&rsquo;s a new and exciting development in the Paketo Buildpacks project! The
 <a href="https://github.com/paketo-buildpacks/php">Paketo PHP Buildpack</a> has been fully
@@ -48,7 +48,7 @@ supported as in the original PHP buildpack, but the buildpacks have been
 modernized using the newest Paketo tooling and modularized to separate concerns
 into individual buildpacks.</p>
 <h2 id="whats-new">What&rsquo;s new?</h2>
-<h4 id="breaking-it-down">Breaking it down</h4>
+<h3 id="breaking-it-down">Breaking it down</h3>
 <p>The rearchitecture has made it vastly easier for maintainers and contributors
 to add new functionality to the language family, by breaking down
 what used to be three larger buildpacks, into 10+ new buildpacks responsible
@@ -64,7 +64,7 @@ built-in server use case. The order groups in the buildpack can be found in the
 <a href="https://github.com/paketo-buildpacks/php/blob/main/buildpack.toml">PHP buildpack <code>buildpack.toml</code>
 file</a>.</p>
 <p><img src="/images/posts/0009/rewrite.gif" alt="Rewrite GIF"></p>
-<h4 id="api-upgrades">API Upgrades</h4>
+<h3 id="api-upgrades">API Upgrades</h3>
 <p>The buildpacks have also been re-written to leverage the newest Paketo
 tooling, such as the <a href="https://github.com/paketo-buildpacks/packit">packit
 library</a>. Using the packit library
@@ -74,13 +74,13 @@ range of new features in the buildpacks ecosystem. The new PHP buildpacks are
 built on <a href="https://github.com/buildpacks/spec/blob/buildpack/v0.7/buildpack.md">Buildpack API
 0.7</a>, as
 opposed to the API 0.4 that the old buildpacks used.</p>
-<h4 id="sbom-support">SBOM support</h4>
+<h3 id="sbom-support">SBOM support</h3>
 <p>Because of the API upgrade, the buildpacks now include <a href="https://paketo.io/docs/concepts/sbom/">Software Bill of
 Materials</a> (SBOM) support. The SBOM
 provides metadata about the dependencies associated with your application
 image, and can be used for vulnerability scanning. Check out the <a href="https://paketo.io/docs/howto/sbom/">Paketo
 documentation</a> for how to access the SBOM.</p>
-<h4 id="maintaining-the-same-use-cases">Maintaining the same use cases</h4>
+<h3 id="maintaining-the-same-use-cases">Maintaining the same use cases</h3>
 <p>If you&rsquo;re not already acquainted with the previous version of the buildpack PHP
 buildpack, the following use cases are supported:</p>
 <ul>
@@ -98,7 +98,7 @@ in the <a href="https://paketo.io/docs/howto/php/">Paketo PHP How-To documentati
 with more in-depth details of buildpack behaviour available in the <a href="https://paketo.io/docs/reference/php-reference/">Paketo PHP
 Buildpack Reference
 documentation</a>.</p>
-<h4 id="accessing-the-new-release">Accessing the new release</h4>
+<h3 id="accessing-the-new-release">Accessing the new release</h3>
 <p>The new PHP buildpack has been released as v1.1.0 (yes, we found a bug in
 v1.0.0 😝) and is included in the latest <a href="https://github.com/paketo-buildpacks/full-builder/releases/tag/v0.2.63">Paketo Full
 Builder</a>.
@@ -106,7 +106,7 @@ You can also find it on
 <a href="https://hub.docker.com/r/paketobuildpacks/php">Dockerhub</a> and on the
 <a href="http://registry.buildpacks.io/buildpacks/paketo-buildpacks/php">Buildpacks
 Registry</a>.</p>
-<h4 id="try-it-out-with-sample-apps">Try it out with sample apps</h4>
+<h3 id="try-it-out-with-sample-apps">Try it out with sample apps</h3>
 <p>The Paketo <a href="https://github.com/paketo-buildpacks/samples">Samples repository</a> is
 a great resource for understanding basic applications that can be built with
 Paketo buildpacks. The <a href="https://github.com/paketo-buildpacks/samples/tree/main/php">PHP sample
