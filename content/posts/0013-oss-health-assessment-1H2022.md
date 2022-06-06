@@ -6,7 +6,8 @@ author: despejo
 ---
 Some say that one cannot improve what one does not measure. And even if that's debatable, the truth is that growing and sustaining a healthy community around an open source project is a conscious effort that requires clear goals, concrete milestones and overall, metrics that help drive the community efforts to achieve the greater good for its members.
 
-As a VMware-backed OSS project, Paketo Buildpacks aims to apply the Community Engagement guidelines and best practices [outlined here](https://github.com/vmware-tanzu/community-engagement/blob/main/GUIDELINES.md) and, to make sure we are doing it effectively, an assessment is conducted twice per year, providing recommendations and an action plan to tackle the findings.
+In order to guide these efforts, the Paketo Buildpacks project currently follows the Community Engagement guidelines and best practices [outlined here](https://github.com/vmware-tanzu/community-engagement/blob/main/GUIDELINES.md) as they represent a diverse set of initiatives that could better serve the community of users, contributors and maintainers
+. In order to make sure we are doing it effectively, an assessment is conducted twice per year, providing recommendations and an action plan to tackle the possible findings.
 
 The following table summarizes the findings for the June 2022 assessment and provides links to corresponding issues. Also it's organized as a timeline for the second half of 2022, which implies the **estimated Level of Effort** to discuss, reach an agreement and implement a solution for each finding:
 
