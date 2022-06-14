@@ -22,7 +22,7 @@ channel](https://www.youtube.com/channel/UC0ZYS0Y7b5oiVLvxGf4magw).
 
 {{< youtube id="JVUh9OuA5N4" class="youtube" title="Paketo Buildpacks, From Source Code to Application Images - Daniel Thornton, VMWare" >}}
 
-### Q&A
+## Q&A
 
 **Q**: What is the state of the CNB ([Cloud Native
 Buildpacks](https://buildpacks.io/)) project in the CNCF? CNCF TOC suggested
@@ -120,7 +120,7 @@ breakages.
 itself?
 **A**: [dive](https://github.com/wagoodman/dive)
 
-### Learn more!
+## Learn more!
 
 * [Get to know Paketo Buildpacks](/posts/get-to-know-paketo-buildpacks)
 * Website — [https://paketo.io](https://paketo.io)

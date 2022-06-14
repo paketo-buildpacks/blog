@@ -12,7 +12,7 @@
       <section class="table-of-contents">
       <a href="https://paketo.io" class="paketo-redirect">paketo.io</a>
       <div class="emphasis-line">  </div>
-      {{ range first 5 (where .Site.RegularPages.ByDate "Section" "posts" ).Reverse }}
+      {{ range (where .Site.RegularPages.ByDate "Section" "posts" ).Reverse }}
         {{ partial "summary.html" . }}
       {{ end }}
       </section>

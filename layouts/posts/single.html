@@ -12,9 +12,9 @@
         </a>
       </header>
       <section>
-        <h2>{{ .Title }}</h2>
+        <h1>{{ .Title }}</h1>
         {{ partial "author.html" . }}
-        <h5>{{ dateFormat "Monday, Jan 2, 2006" .Date }}</h5>
+        <date>{{ dateFormat "Monday, Jan 2, 2006" .Date }}</date>
         <article>
           {{ .Content }}
         </article>

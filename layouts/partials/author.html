@@ -4,6 +4,6 @@
   {{- if $avatar -}}<img src="{{ $avatar.RelPermalink }}" />{{- end -}}
 
   {{- $author := index .Site.Params.authors .Params.author }}
-  {{- if $author -}}<h4>{{ $author }}</h4>{{- end -}}
+  {{- if $author -}}<name>{{ $author }}</name>{{- end -}}
 </section>
 {{- end -}}

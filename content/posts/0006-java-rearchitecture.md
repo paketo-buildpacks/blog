@@ -12,11 +12,11 @@ I’m pleased to announce that the Paketo Java Buildpack has been enhanced to ma
 * [Remote Debugging][debug]
 * [Heap Dump on Out-of-Memory-Error][jvm-kill]
 
-### JVM Configuration
+## JVM Configuration
 
 The JVM used to build and run your application can be configured in three main ways: the JVM provider, the JVM version, and the JVM type (a full JDK vs JRE).
 
-#### JVM Provider  
+### JVM Provider
 
 By default, the Paketo Java Buildpack uses the Bellsoft Liberica JVM. To use an alternative JVM, you can specify it as a `--buildpack` argument before the Paketo Java Buildpack.
 
@@ -30,7 +30,7 @@ Example (to install the Amazon Corretto JVM):
 
 A table of alternative JVM providers can be found [here](https://paketo.io/docs/howto/java/#use-an-alternative-jvm).
 
-#### JVM Type & Version
+### JVM Type & Version
 
 These can be set using environment variables provided to the build command.
 
@@ -46,7 +46,7 @@ pack build apps/sample \
 --env BP_JVM_VERSION=11
 ```
 
-### New Features
+## New Features
 
 Support for each of the new features below can be enabled at build time without the participation of other buildpacks and without the need for any build-time environment variables, simply build with the standard ‘pack build’ command for a Java application:
 
@@ -54,7 +54,7 @@ Support for each of the new features below can be enabled at build time without 
 
 You can then enable a feature at run time using the `BPL_<feature-name>_ENABLED` environment variable detailed for each feature. Further variables can then be used to customise the default configuration for this feature.
 
-#### **Java Native Memory Tracking (NMT)**  
+### **Java Native Memory Tracking (NMT)**  
 
 Native Memory Tracking (NMT) is a feature that tracks internal memory usage in the JVM. Support for this feature has been added to the Paketo Java Buildpack and is now enabled by default. When the JVM exits, it will print a summary of memory usage. In addition, you can use the JDK tool ‘jcmd’ to dump and view the data collected (see the [JVM Type configuration][install-jvm-type] section for details on how to ensure you have a JDK at runtime). There are two runtime configuration options for this feature:
 
@@ -84,12 +84,12 @@ NMT data will also be printed at JVM exit:
 
 ![NMT](/images/posts/0006/nmt.png)
 
-#### **Java Flight Recorder (JFR)**
+### **Java Flight Recorder (JFR)**
 
 Java Flight Recorder is a tool which is integrated into the JVM and allows for the collection of profiling and diagnostic data about your application. Support for this feature has been added, however, it is disabled by default. To enable it, simply use the environment variable:
 
 `BPL_JFR_ENABLED` - set to `false` by default
- 
+
 The tool supports a range of configuration options which can be set using the following environment variable:
 
 `BPL_JFR_ARGS` - this supports a comma-separated list of options (full list detailed in the Oracle docs [here](https://docs.oracle.com/javacomponents/jmc-5-4/jfr-runtime-guide/comline.htm#JFRUH193)). If the tool is enabled but no options are specified here, the buildpack will at a minimum configure the tool to write data to a temporary file on JVM exit. 
@@ -120,11 +120,11 @@ When you wish to retrieve the recording file, you can run the following to copy 
 docker cp <container-id>:/tmp/my-recording.jfr .
 ```
 
-### Newly Integrated Features
+## Newly Integrated Features
 
 In addition to the new features now supported by the buildpack, two features which previously required a user to rebuild their image are now integrated into the Paketo Java Buildpack directly. These can simply be enabled at runtime using an environment variable.
 
-#### **Java Management Extensions (JMX)**
+### Java Management Extensions (JMX)
 
 JMX is a tool to allow you to connect  to a running JVM application and display real-time data such as memory and CPU usage, garbage collections, thread activity etc. To configure your application to receive connections on a specific port, you can use the following runtime environment variables:
 
@@ -141,7 +141,7 @@ When enabled, these default JMX arguments will be passed to the JVM:
 -Dcom.sun.management.jmxremote.rmi.port=5000
 ```
 
-#### **Remote Debugging**
+### Remote Debugging
 
 To enable and configure the JVM to accept connections for remote debugging, you can use the following runtime environment variables:
 
@@ -153,9 +153,11 @@ To enable and configure the JVM to accept connections for remote debugging, you 
 
 When enabled, these default debug arguments will be passed to the JVM:
 
-`-agentlib:jdwp=transport=dt_socket,server=y,address=*:8000,suspend=n`
+```
+-agentlib:jdwp=transport=dt_socket,server=y,address=*:8000,suspend=n
+```
 
-#### **JVM Kill Agent**   
+### JVM Kill Agent
 
 The JVM Kill Agent was previously installed by the Paketo Java Buildpack to all container images. Its primary purpose was to cause the JVM process to exit when there was an Out Of Memory Error (OOME). Due to the JVM being run as a ‘direct’ process type, as PID1, it is not possible for the agent to terminate the JVM. 
 
@@ -172,7 +174,7 @@ Related to this functionality, the buildpack also provides a runtime environment
 -XX:HeapDumpPath=<path>
 ```
 
-### Notes
+## Notes
 
 The following new buildpacks are now available:
 
@@ -182,7 +184,7 @@ This buildpack installs and enables the [Java Memory Assistant](https://github.c
 [JAttach Buildpack](https://github.com/paketo-buildpacks/jattach)
 This buildpack installs the [JAttach binary](https://github.com/apangin/jattach), which is a community tool that replaces the `jmap`,`jstack`,`jcmd` & `jinfo` tools that are not present in the OpenJDK JRE.
 
-#### Learn More
+## Learn More
 
 * Further examples and features can be found in our ['How To' docs](https://paketo.io/docs/howto/java/)
 
