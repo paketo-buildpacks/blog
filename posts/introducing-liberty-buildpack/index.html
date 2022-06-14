@@ -64,44 +64,12 @@ cd guide-getting-started/start
 <pre><code>pack config default-builder gcr.io/paketo-buildpacks/builder:base
 </code></pre><p>Build the application with a minimal footprint with only the Liberty features required to run the application and IBM Semeru OpenJ9:</p>
 <pre><code> pack build --env BP_JAVA_APP_SERVER=liberty \
-  --env BP_LIBERTY_PROFILE=kernel \
-  --env BP_LIBERTY_FEATURES='jaxrs-2.1 jsonp-1.1 cdi-2.0 mpMetrics-3.0 mpConfig-2.0' \
+  --env BP_LIBERTY_PROFILE=jakartaee9 \
   --buildpack paketo-buildpacks/eclipse-openj9 --buildpack paketo-buildpacks/java myapp
 </code></pre><p>Your application is now transformed into an OCI image!</p>
 <h2 id="now-what">Now what?</h2>
 <p>With your OCI image, you can run your application locally with the <code>docker run</code> command.</p>
-<p>We need to provide a server.xml to the Liberty buildpack using a binding.</p>
-<ol>
-<li>Create a directory named <code>bindings</code>, for example</li>
-<li>Create a file named server.xml in the <code>bindings</code> directory with the following content:</li>
-</ol>
-<pre><code>&lt;server description=&quot;Intro to the Paketo Liberty buildpack&quot;&gt;
-  &lt;!-- tag::featureManager[] --&gt;
-  &lt;featureManager&gt;
-      &lt;feature&gt;mpconfig-2.0&lt;/feature&gt;
-      &lt;feature&gt;mpmetrics-3.0&lt;/feature&gt;
-      &lt;feature&gt;cdi-2.0&lt;/feature&gt;
-      &lt;feature&gt;jsonp-1.1&lt;/feature&gt;
-      &lt;feature&gt;jaxrs-2.1&lt;/feature&gt;
-  &lt;/featureManager&gt;
-  &lt;!-- end::featureManager[] --&gt;
-
-  &lt;mpMetrics authentication=&quot;false&quot;/&gt;
-
-  &lt;!-- tag::httpEndpoint[] --&gt;
-  &lt;httpEndpoint httpPort=&quot;9080&quot; httpsPort=&quot;9443&quot; id=&quot;defaultHttpEndpoint&quot; host=&quot;*&quot; /&gt;
-  &lt;!-- end::httpEndpoint[] --&gt;
-&lt;/server&gt;
-</code></pre><ol start="3">
-<li>In the same directory, create a file named <code>type</code> with the following content:</li>
-</ol>
-<pre><code>liberty
-</code></pre><p>Your directory structure should look like this:</p>
-<pre><code>bindings
-|__server.xml
-|__type
-</code></pre><pre><code>docker run --rm -p 9080:9080 --env SERVICE_BINDING_ROOT=/bindings \
- --volume &lt;absolute path to bindings&gt;:/bindings/liberty myapp
+<pre><code>docker run --rm -p 9080:9080 myapp
 </code></pre><p>or deploy your application to any Kubernetes-based platform, such as <a href="https://www.redhat.com/en/technologies/cloud-computing/openshift">Red Hat OpenShift</a>, by using an <a href="https://github.com/OpenLiberty/open-liberty-operator">Open Liberty operator</a></p>
 <h2 id="build-your-app-from-an-on-prem-open-liberty-installation">Build your app from an on-prem Open Liberty installation</h2>
 <p>You can build from an on-prem Open Liberty installation by using a packaged Liberty server. Run the following command to package your server.</p>
