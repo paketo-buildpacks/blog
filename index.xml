@@ -6,7 +6,17 @@
     <description>Recent content on Paketo Buildpacks | Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 18 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 16 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Growing a healthy open source community, one metric at a time</title>
+      <link>https://blog.paketo.io/posts/oss-health-assessment/</link>
+      <pubDate>Thu, 16 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.paketo.io/posts/oss-health-assessment/</guid>
+      <description>In this post, I plan to share the framework the Paketo Buildpacks project will be using to approach the goal of building and sustaining an inclusive community of users, contributors and maintainers; and how it translates to a set of action items we will be executing during the remaining of 2022.
+Currently, the project follows the Community Engagement guidelines and best practices outlined here as they represent a diverse set of initiatives designed to provide the community with tools and processes for improved collaboration.</description>
+    </item>
+    
     <item>
       <title>Introducing the Paketo Web Servers Buildpack</title>
       <link>https://blog.paketo.io/posts/webservers-rearchitecture/</link>
