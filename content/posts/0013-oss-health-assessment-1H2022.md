@@ -15,7 +15,8 @@ Currently, the project follows the Community Engagement guidelines and best prac
 The following table summarizes the findings for the June 2022 assessment and provides links to corresponding issues. Also it's organized as a timeline for the second half of 2022, which implies the **estimated Level of Effort** to discuss, reach an agreement and implement a solution for each finding:
 
 
-| Category/estimated completion (2022)| June| July | August| September| October| November|
+<!-- spellchecker-disable -->
+| **Category/estimated completion (2022)**| **June**| **July** | **August**| **September**| **October**| **November**|
 |---|---|---|---|---|---|---|
 |**Project Maturity**|Improve README [(#82)](https://github.com/paketo-buildpacks/community/issues/82) | | | | | |
 |**Project Maturity**|Build a set of talk proposal to submit to events ([Discussion](https://github.com/paketo-buildpacks/feedback/discussions/27))| | | | | |
@@ -34,7 +35,7 @@ The following table summarizes the findings for the June 2022 assessment and pro
 |**Diversity of Community**| | | |Deliver a meetup talk | | |
 |**User community engagement**| | | |Kickoff a Paketo User Meeting ([#88](https://github.com/paketo-buildpacks/community/issues/88)) | | |
 |**Diversity of Community**| | | | |Deliver a Tutorial session at an event | |
-
+<!-- spellchecker-enable -->
 
 All these tasks are no small feat. 
 Because of this, your input as a valued community member is much appreciated, so feel free to comment on the issues or even point us on a better direction where you feel it's needed.

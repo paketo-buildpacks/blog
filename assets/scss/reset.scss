@@ -14,7 +14,6 @@ time, mark, audio, video {
   margin: 0;
   padding: 0;
   border: 0;
-  font-size: 100%;
   font: inherit;
   vertical-align: baseline;
 }
@@ -32,7 +31,27 @@ a {
 	vertical-align: baseline;
 	background: transparent;
 }
+td {
+  border: 1px solid #DDD;
+  box-sizing: content-box;
+  background: white;
+  padding: 3px;
+  text-align: start;
+}
+th {
+  border: 1px solid #DDD;
+  background: white;
+  padding: 10px;
+  word-break: break-word;
+}
+tr {
+  text-align: center;
+}
 table {
   border-collapse: collapse;
-  border-spacing: 0;
+  border-spacing: 0px;
+  font-size: 20%;
+  line-height: normal;
+  table-layout: auto;
+  width: 100%;
 }
