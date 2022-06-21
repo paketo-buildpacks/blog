@@ -37,8 +37,7 @@ pack config default-builder gcr.io/paketo-buildpacks/builder:base
 Build the application with a minimal footprint with only the Liberty features required to run the application and IBM Semeru OpenJ9:
 ```
  pack build --env BP_JAVA_APP_SERVER=liberty \
-  --env BP_LIBERTY_PROFILE=kernel \
-  --env BP_LIBERTY_FEATURES='jaxrs-2.1 jsonp-1.1 cdi-2.0 mpMetrics-3.0 mpConfig-2.0' \
+  --env BP_LIBERTY_PROFILE=jakartaee9 \
   --buildpack paketo-buildpacks/eclipse-openj9 --buildpack paketo-buildpacks/java myapp
 ```
 
@@ -47,43 +46,8 @@ Your application is now transformed into an OCI image!
 ## Now what?
 With your OCI image, you can run your application locally with the `docker run` command.
 
-We need to provide a server.xml to the Liberty buildpack using a binding.
-1. Create a directory named `bindings`, for example
-2. Create a file named server.xml in the `bindings` directory with the following content:
 ```
-<server description="Intro to the Paketo Liberty buildpack">
-  <!-- tag::featureManager[] -->
-  <featureManager>
-      <feature>mpconfig-2.0</feature>
-      <feature>mpmetrics-3.0</feature>
-      <feature>cdi-2.0</feature>
-      <feature>jsonp-1.1</feature>
-      <feature>jaxrs-2.1</feature>
-  </featureManager>
-  <!-- end::featureManager[] -->
-
-  <mpMetrics authentication="false"/>
-
-  <!-- tag::httpEndpoint[] -->
-  <httpEndpoint httpPort="9080" httpsPort="9443" id="defaultHttpEndpoint" host="*" />
-  <!-- end::httpEndpoint[] -->
-</server>
-```
-3. In the same directory, create a file named `type` with the following content:
-```
-liberty
-```
-
-Your directory structure should look like this:
-```
-bindings
-|__server.xml
-|__type
-```
-
-```
-docker run --rm -p 9080:9080 --env SERVICE_BINDING_ROOT=/bindings \
- --volume <absolute path to bindings>:/bindings/liberty myapp
+docker run --rm -p 9080:9080 myapp
 ```
 or deploy your application to any Kubernetes-based platform, such as [Red Hat OpenShift](https://www.redhat.com/en/technologies/cloud-computing/openshift), by using an [Open Liberty operator](https://github.com/OpenLiberty/open-liberty-operator)
 

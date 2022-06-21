@@ -11,7 +11,6 @@ In this post, I plan to share the framework the Paketo Buildpacks project will b
 Currently, the project follows the Community Engagement guidelines and best practices [outlined here](https://github.com/vmware-tanzu/community-engagement/blob/main/GUIDELINES.md) as they represent a diverse set of initiatives designed to provide the community with tools and processes for improved collaboration. To make sure we are doing it effectively, an assessment is conducted twice per year, providing recommendations and an action plan to address the possible findings.
 
 
-
 The following list summarizes the findings for the June 2022 assessment and provides links to corresponding issues. Also it's organized as a timeline for the second half of 2022, which implies the **estimated Level of Effort** to discuss, reach an agreement and implement a solution for each finding:
 
 ## June
@@ -75,5 +74,7 @@ The following list summarizes the findings for the June 2022 assessment and prov
 -----
 All these tasks are no small feat. 
 Because of this, your input as a valued community member is highly appreciated. Feel free to comment on the issues or even point us on a better direction where you see it's needed.
+
+
 
 Thanks in advance and let's keep building Paketo together!
