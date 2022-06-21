@@ -1,6 +1,6 @@
 ---
 title: Growing a healthy open source community, one metric at a time
-date: "2022-06-14"
+date: "2022-06-16"
 slug: oss-health-assessment
 author: despejo
 ---
