@@ -7,7 +7,7 @@ author: despejo
 
 Why someone contributes to open source?
 
-*The Open Source Way 2.0*  [guidebook](https://www.theopensourceway.org/the_open_source_way-guidebook-2.0.html#_why_do_people_participate_in_open_source_communities) describes some of the diverse motivations that lead individuals to participate in open source communities, including:
+*The Open Source Way 2.0* [guidebook](https://www.theopensourceway.org/the_open_source_way-guidebook-2.0.html#_why_do_people_participate_in_open_source_communities) describes some of the diverse motivations that lead individuals to participate in open source communities, including:
 
 - Extrinsic motivation: contributing to OSS is part of their job, career advancement by developing code that it's in the open or to collaboratively solve a problem they are facing.
 - Intrinsic motivation: a sense of purpose while contributing to a cause that is beneficial to a community, collaborative learning and the perceived professional benefit that it produces.
