@@ -32,7 +32,7 @@ We plan to recognize contributors in three different categories:
 * Content creator (tweets/blog posts/screencasts/presentations/podcasts)
 * Community advocate (participation on community meetings/providing user feedback/creating or commenting Slack interactions,Github discussions or issues)
   
-Code contributions will be tracked using the  `shoutouter` [script](https://github.com/vmware-tanzu/community-engagement/tree/main/shoutouter).
+Code contributions will be tracked using the `shoutouter` [script](https://github.com/vmware-tanzu/community-engagement/tree/main/shoutouter).
 
 While content and community support contributions will be tracked by the Paketo community team, feel free to share in [this Discussion](https://github.com/paketo-buildpacks/feedback/discussions/35) about any contribution you have made to the project. It all counts!
 
