@@ -6,7 +6,18 @@
     <description>Recent content on Paketo Buildpacks | Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 22 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 25 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>WebSphere Liberty now available</title>
+      <link>https://blog.paketo.io/posts/websphere-liberty-now-included-in-liberty-buildpack/</link>
+      <pubDate>Thu, 25 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.paketo.io/posts/websphere-liberty-now-included-in-liberty-buildpack/</guid>
+      <description>I am pleased to announce that WebSphere Liberty is now included in the Paketo Liberty buildpack and available to currently entitled WebSphere Liberty users. WebSphere Liberty is built on Open Liberty and is a lightweight, efficient, Java™ EE, Jakarta EE and MicroProfile cloud-native runtime.
+The Paketo Liberty buildpack now gives you a choice to use WebSphere Liberty or Open Liberty to run your application.
+To use WebSphere Liberty in your container, set the BP_LIBERTY_INSTALL_TYPE environment variable to specify the install type wlp:</description>
+    </item>
+    
     <item>
       <title>Growing a healthy open source community, one metric at a time</title>
       <link>https://blog.paketo.io/posts/oss-health-assessment/</link>
