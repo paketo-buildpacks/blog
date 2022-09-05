@@ -12,7 +12,7 @@ Why someone contributes to open source?
 - Extrinsic motivation: contributing to OSS is part of their job, career advancement by developing code that it's in the open or to collaboratively solve a problem they are facing.
 - Intrinsic motivation: a sense of purpose while contributing to a cause that is beneficial to a community, collaborative learning and the perceived professional benefit that it produces.
 
-While intrinsic motivation is the kind of altruist behavior usually  associated with OSS contributions, extrinsic motivation and rewards also play an important role on encouraging and recognizing the diverse forms of contributions an open source project wants and needs.
+While intrinsic motivation is the kind of altruist behavior usually associated with OSS contributions, extrinsic motivation and rewards also play an important role on encouraging and recognizing the diverse forms of contributions an open source project wants and needs.
 
 Here at the Paketo Buildpacks project, we're glad to introduce the **Contributor of the Month** initiative, briefly described in [this issue](https://github.com/paketo-buildpacks/community/issues/86), we also want to elaborate better in this post about how it's designed to work:
 
