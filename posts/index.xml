@@ -6,7 +6,18 @@
     <description>Recent content in Posts on Paketo Buildpacks | Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 25 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 01 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Introducing the Contributor of the Month initiative</title>
+      <link>https://blog.paketo.io/posts/oss-contributor-of-the-month/</link>
+      <pubDate>Thu, 01 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.paketo.io/posts/oss-contributor-of-the-month/</guid>
+      <description>Why someone contributes to open source?
+The Open Source Way 2.0 guidebook describes some of the diverse motivations that lead individuals to participate in open source communities, including:
+ Extrinsic motivation: contributing to OSS is part of their job, career advancement by developing code that it&amp;rsquo;s in the open or to collaboratively solve a problem they are facing. Intrinsic motivation: a sense of purpose while contributing to a cause that is beneficial to a community, collaborative learning and the perceived professional benefit that it produces.</description>
+    </item>
+    
     <item>
       <title>WebSphere Liberty now available</title>
       <link>https://blog.paketo.io/posts/websphere-liberty-now-included-in-liberty-buildpack/</link>
