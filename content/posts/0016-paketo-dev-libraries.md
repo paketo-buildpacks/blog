@@ -53,7 +53,7 @@ So which one should you pick? Well, that depends, but we can offer some advice.
 
 The Paketo project is aware that having two different libraries for creating buildpacks has caused some confusion in the community and represents some development overhead for the project.
 
-The present plan is to gradually bring the `libpak` and `packit` libraries closer together. A likely first step will be to base future versions of `packit` off of the `libcnb`, and some work has already started to facilitate this upstream in `libcnb`. This will reduce the overhead of maintaining a second spec implementation, and removes the possibility of behavior differences based on the implementation.
+The present plan is to gradually bring the `libpak` and `packit` libraries closer together. A likely first step will be to base future versions of `packit` off of `libcnb`, and some work has already started to facilitate this upstream in `libcnb`. This will reduce the overhead of maintaining a second spec implementation, and removes the possibility of behavior differences based on the implementation.
 
 Beyond that, we hope to see things like CI processes and publishing tools consolidate. We believe that this is another area where we can improve developer experience and reduce our maintenance costs.
 
