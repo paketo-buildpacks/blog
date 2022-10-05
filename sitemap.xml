@@ -3,17 +3,22 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://blog.paketo.io/posts/oss-contributor-of-the-month/</loc>
-    <lastmod>2022-09-01T00:00:00+00:00</lastmod>
+    <loc>https://blog.paketo.io/posts/buildpack-dev-selecting-a-library/</loc>
+    <lastmod>2022-10-03T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.paketo.io/</loc>
-    <lastmod>2022-09-01T00:00:00+00:00</lastmod>
+    <lastmod>2022-10-03T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.paketo.io/posts/</loc>
+    <lastmod>2022-10-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.paketo.io/posts/oss-contributor-of-the-month/</loc>
     <lastmod>2022-09-01T00:00:00+00:00</lastmod>
   </url>
   

@@ -6,7 +6,17 @@
     <description>Recent content on Paketo Buildpacks | Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 01 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 03 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Buildpack Development: Selecting a Cloud-Native Buildpacks Library</title>
+      <link>https://blog.paketo.io/posts/buildpack-dev-selecting-a-library/</link>
+      <pubDate>Mon, 03 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.paketo.io/posts/buildpack-dev-selecting-a-library/</guid>
+      <description>In the Paketo Buildpacks community, we’ve standardized around writing our buildpacks using the Go language. Go works great for buildpack development because it compiles down to a relatively compact static binary, so our buildpack images are small, and it runs very fast, so our buildpacks run fast. It also provides great support for testing and since we want to have rock solid buildpacks, testing is very important as well.
+To write a buildpack in the Go language, it helps if you have a library that implements the Cloud-Native Buildpacks (CNB) specification.</description>
+    </item>
+    
     <item>
       <title>Introducing the Contributor of the Month initiative</title>
       <link>https://blog.paketo.io/posts/oss-contributor-of-the-month/</link>

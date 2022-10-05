@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+  <head>
+      <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Buildpack Development: Selecting a Cloud-Native Buildpacks Library | Paketo Buildpacks | Blog</title>
+<link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-language" content="en-us" />
+
+<meta property='og:site_name' content="Paketo Buildpacks | Blog">
+<meta property='og:title' content="Buildpack Development: Selecting a Cloud-Native Buildpacks Library">
+<meta property='og:url' content="https://blog.paketo.io/posts/buildpack-dev-selecting-a-library/">
+<meta property='og:image' content='/images/logo512.png'/>
+<meta name="twitter:title" content="Paketo Buildpacks | Blog" />
+<meta name="twitter:url" content="https://blog.paketo.io/posts/buildpack-dev-selecting-a-library/" />
+<meta name="twitter:card" content="" />
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TJMQZ5RDFG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TJMQZ5RDFG');
+</script><link rel="stylesheet" href="/scss/main.min.css">
+
+  </head>
+  <body>
+    <div class="post">
+      <header>
+        <a href="/">
+          <img class="logo" src="/images/logo512.png" />
+          <h1>Paketo Buildpacks | Blog</h1>
+        </a>
+      </header>
+      <section>
+        <h1>Buildpack Development: Selecting a Cloud-Native Buildpacks Library</h1>
+        <section class="author"><img src="/images/authors/dmikusa.jpg" /><name>Daniel Mikusa</name></section>
+        <date>Monday, Oct 3, 2022</date>
+        <article>
+          <p>In the Paketo Buildpacks community, we’ve standardized around writing our buildpacks using the Go language. Go works great for buildpack development because it compiles down to a relatively compact static binary, so our buildpack images are small, and it runs very fast, so our buildpacks run fast. It also provides great support for testing and since we want to have rock solid buildpacks, testing is very important as well.</p>
+<p>To write a buildpack in the Go language, it helps if you have a library that implements the Cloud-Native Buildpacks (CNB) specification. You could certainly write buildpacks without a library, but it’s going to require more work and you then need to validate that your buildpack follows the specification.</p>
+<p>This leads to what is probably the most common questions we see around developing buildpacks and contributing to the Paketo Buildpacks community. What library should I use? There are three choices and this article will break down each library and the differences.</p>
+<h3 id="libcnb">libcnb</h3>
+<p>The Cloud-Native Buildpacks project publishes an official library in Go called <code>libcnb</code>. The goal of the <code>libcnb</code> library is to implement the Cloud-Native Buildpacks specification in a fairly straightforward and transparent way. It doesn&rsquo;t add a lot of abstractions or additional bells and whistles.</p>
+<p>Reasons for using <code>libcnb</code> directly:</p>
+<ul>
+<li>You want a minimal set of dependencies.</li>
+<li>Perhaps your buildpack is small/simple and <code>libcnb</code> covers everything you require.</li>
+<li>You want new features as soon as possible. Because this is from the CNB project directly, it tends to get all the new features very quickly.</li>
+<li>You want to contribute a buildpack to the CNB directly.</li>
+<li>You want to learn about the CNB specification. Since it maps more directly to the specification and there is less abstraction, it makes learning about the specification easier.</li>
+</ul>
+<h3 id="libpak--packit">libpak &amp; packit</h3>
+<p>The Paketo project has a lot of buildpacks and through the process of writing these buildpacks has discovered many interesting patterns and bits of functionality that we see repeated across buildpacks. As such, we have created our own libraries to extract this code and follow the DRY (don&rsquo;t repeat yourself) principle.</p>
+<p>This has resulted in us producing two additional libraries: <code>libpak</code> and <code>packit</code>.</p>
+<p>Things to keep in mind about both libraries.</p>
+<ul>
+<li>They both offer a spec-compliant way to create buildpacks</li>
+<li>They both offer a lot of additional functionality, like managing dependencies, file management, logging, running processes and handling bindings, as well as providing their own CI and packaging tools to actually build and ship your buildpack.</li>
+<li>They are both fully maintained and supported by the Paketo project.</li>
+</ul>
+<p>What’s different between the two libraries?</p>
+<ul>
+<li>Primarily the opinions, like the look and feel, and conventions that each library follow</li>
+<li>The API that each library provides</li>
+<li>The implementation. With <code>libpak</code>, it extends <code>libcnb</code>, while <code>packit</code> is a  ground-up separate spec implementation. This shouldn&rsquo;t ultimately matter though as both produce a spec-compliant buildpack.</li>
+</ul>
+<p>So which one should you pick? Well, that depends, but we can offer some advice.</p>
+<ol>
+<li>
+<p>If you&rsquo;re writing your own buildpack then it&rsquo;s really up to you. Both will work great, so we suggest that you simply pick based on the options, conventions, and API that you prefer.</p>
+</li>
+<li>
+<p>If you&rsquo;re contributing to Paketo, we strongly suggest that you pick the library primarily used by the language family to which you are contributing features, code, or even a whole buildpack.</p>
+<p>The Java buildpacks, Application Monitoring buildpacks, and most of the utilities buildpacks are implemented using <code>libpak</code>, while the other language families like Python, Ruby, Go, and Node.js are written using <code>packit</code>. Keeping this consistent helps the teams to more easily approve and maintain the code you commit.</p>
+</li>
+</ol>
+<h3 id="future-direction">Future Direction</h3>
+<p>The Paketo project is aware that having two different libraries for creating buildpacks has caused some confusion in the community and represents some development overhead for the project.</p>
+<p>The present plan is to gradually bring the <code>libpak</code> and <code>packit</code> libraries closer together. A likely first step will be to base future versions of <code>packit</code> off of <code>libcnb</code>, and some work has already started to facilitate this upstream in <code>libcnb</code>. This will reduce the overhead of maintaining a second spec implementation, and removes the possibility of behavior differences based on the implementation.</p>
+<p>Beyond that, we hope to see things like CI processes and publishing tools consolidate. We believe that this is another area where we can improve developer experience and reduce our maintenance costs.</p>
+<p>It&rsquo;s not clear if there will ever be one library to rule them all, but it is a path that we&rsquo;ll likely continue to explore in the long term. Developers should not worry about picking a winner, both <code>libpak</code> and <code>packit</code> are likely to be around for years to come.</p>
+<p>If you have any additional questions, comments or feedback we&rsquo;d love to hear from you! Please feel free to open Github issues or reach out on the Paketo Slack.</p>
+
+        </article>
+      </section>
+      <footer class="post">
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Paketo%20Buildpacks%20%7c%20Blog%20%7c%20Buildpack%20Development:%20Selecting%20a%20Cloud-Native%20Buildpacks%20Library&amp;url=https://blog.paketo.io/posts/buildpack-dev-selecting-a-library/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/twitter.png" />
+</a>
+
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://blog.paketo.io/posts/buildpack-dev-selecting-a-library/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/linkedin.png" />
+</a>
+
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://blog.paketo.io/posts/buildpack-dev-selecting-a-library/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/facebook.png" />
+</a>
+
+      </footer>
+    </div>
+  </body>
+</html>
