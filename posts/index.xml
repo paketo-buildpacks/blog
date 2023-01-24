@@ -6,7 +6,17 @@
     <description>Recent content in Posts on Paketo Buildpacks | Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 03 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 24 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Paketo Buildpacks 2022 - Another Year in Review</title>
+      <link>https://blog.paketo.io/posts/2022-recap/</link>
+      <pubDate>Tue, 24 Jan 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.paketo.io/posts/2022-recap/</guid>
+      <description>In 2022, the major roadmap themes were improvements and expansions of our stack offerings, paying down significant technical debt in our dependency management system, and making efforts to improve buildpack authoring tools.
+Improving and Expanding our Base Image / Stack / Builder Offering We launched sweeping support for Ubuntu 2022.04 Jammy Jellyfish across our stacks, buildpacks, and builders. This was a tremendous effort with contributions across the entire Paketo Core team and community.</description>
+    </item>
+    
     <item>
       <title>Buildpack Development: Selecting a Cloud-Native Buildpacks Library</title>
       <link>https://blog.paketo.io/posts/buildpack-dev-selecting-a-library/</link>

@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+  <head>
+      <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Paketo Buildpacks 2022 - Another Year in Review | Paketo Buildpacks | Blog</title>
+<link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-language" content="en-us" />
+
+<meta property='og:site_name' content="Paketo Buildpacks | Blog">
+<meta property='og:title' content="Paketo Buildpacks 2022 - Another Year in Review">
+<meta property='og:url' content="https://blog.paketo.io/posts/2022-recap/">
+<meta property='og:image' content='/images/logo512.png'/>
+<meta name="twitter:title" content="Paketo Buildpacks | Blog" />
+<meta name="twitter:url" content="https://blog.paketo.io/posts/2022-recap/" />
+<meta name="twitter:card" content="" />
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TJMQZ5RDFG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TJMQZ5RDFG');
+</script><link rel="stylesheet" href="/scss/main.min.css">
+
+  </head>
+  <body>
+    <div class="post">
+      <header>
+        <a href="/">
+          <img class="logo" src="/images/logo512.png" />
+          <h1>Paketo Buildpacks | Blog</h1>
+        </a>
+      </header>
+      <section>
+        <h1>Paketo Buildpacks 2022 - Another Year in Review</h1>
+        <section class="author"><img src="/images/authors/rmoran.jpg" /><name>Ryan Moran</name></section>
+        <date>Tuesday, Jan 24, 2023</date>
+        <article>
+          <p><img src="/images/posts/0003/logo.png" alt="Logo"></p>
+<p>In 2022, the major roadmap themes were improvements and expansions of our stack
+offerings, paying down significant technical debt in our dependency management
+system, and making efforts to improve buildpack authoring tools.</p>
+<h2 id="improving-and-expanding-our-base-image--stack--builder-offering">Improving and Expanding our Base Image / Stack / Builder Offering</h2>
+<p>We launched sweeping support for Ubuntu 2022.04 Jammy Jellyfish across our
+stacks, buildpacks, and builders. This was a tremendous effort with
+contributions across the entire Paketo Core team and community. It touched
+every buildpack and took the better part of 9 months to complete as we resolved
+huge amounts of technical debt in the process. If you are more interested in
+what happened on this front, check out the RFCs below:</p>
+<ul>
+<li><a href="https://github.com/paketo-buildpacks/rfcs/blob/main/text/stacks/0003-stack-descriptor.md">Stacks RFC0003: Stack Descriptor and Tooling</a></li>
+<li><a href="https://github.com/paketo-buildpacks/rfcs/blob/main/text/stacks/0004-jammy-jellyfish.md">Stacks RFC0004: Stacks based on Ubuntu 2022.04: Jammy Jellyfish</a></li>
+<li><a href="https://github.com/paketo-buildpacks/rfcs/blob/main/text/stacks/0005-bionic-stack-updates.md">Stacks RFC0005: Updates to Stacks based on Ubuntu Bionic</a></li>
+<li><a href="https://github.com/paketo-buildpacks/rfcs/blob/main/text/0052-graceful-stack-upgrades.md">RFC0052: Graceful Stack Upgrades</a></li>
+</ul>
+<h2 id="improvements-to-dependency-management-and-caching">Improvements to Dependency Management and Caching</h2>
+<p>In the process of rolling out Jammy Jellyfish across all of our buildpacks, we
+paid down a significant amount of technical debt in our dependency management
+infrastructure. We&rsquo;ve moved to a system that biases itself to download
+dependencies from their canonical upstream location and federated our build
+infrastructure across the language-ecosystem teams, putting more control in
+these maintainer&rsquo;s hands. For more details about what&rsquo;s been going on with
+buildpack dependencies, take a look at the following RFCs:</p>
+<ul>
+<li><a href="https://github.com/paketo-buildpacks/rfcs/blob/main/text/dependencies/rfcs/0003-dependency-management-overview.md">Dependencies RFC0003: Buildpack Dependency Management Improvement Overview</a></li>
+<li><a href="https://github.com/paketo-buildpacks/rfcs/blob/main/text/0043-reproducible-builds.md">RFC0043: Expanding the Criteria for Reproducible Builds</a></li>
+<li><a href="https://github.com/paketo-buildpacks/rfcs/blob/main/text/0046-image-retention-policy.md">RFC0046: Define an Image &amp; Dependency Retention Policy for Paketo Images</a></li>
+</ul>
+<h2 id="improving-the-buildpack-authoring-experience">Improving the Buildpack Authoring Experience</h2>
+<p>At several points last year, we spent some time trying to bring <code>packit</code> and
+<code>libcnb</code> closer together. The goal of this effort has been to simplify the
+development and contribution process for users outside of the Paketo core team.
+For some of the details, read up on Dan&rsquo;s blog post and some PRs in <code>libcnb</code>
+below:</p>
+<ul>
+<li><a href="https://blog.paketo.io/posts/buildpack-dev-selecting-a-library/">Buildpack Development: Selecting a Cloud-Native Buildpacks Library</a></li>
+<li><a href="https://github.com/buildpacks/libcnb/pull/82">libcnb#82: Replace Builder and Detector with functions</a></li>
+<li><a href="https://github.com/buildpacks/libcnb/pull/74">libcnb#74: Removes LayerContributor concept</a></li>
+<li><a href="https://github.com/buildpacks/libcnb/pull/151">libcnb#151: Extract method for generating Config</a></li>
+</ul>
+<h2 id="other-milestones">Other Milestones</h2>
+<p>While we made progress on the big themes in the 2022 Roadmap, we also hit some
+major milestones in other parts of the project.</p>
+<p>The Web Servers Buildpack was promoted from the &ldquo;community&rdquo; organization to
+join the rest of the fully-supported buildpacks. It provides a much improved
+experience for developers looking to build front-end applications.</p>
+<ul>
+<li><a href="https://github.com/paketo-buildpacks/rfcs/blob/main/text/0047-promote-web-servers-buildpack.md">RFC0047: Web Servers Buildpack Promotion</a></li>
+<li><a href="https://blog.paketo.io/posts/webservers-rearchitecture/">Introducing the Paketo Web Servers Buildpack</a></li>
+</ul>
+<p>The PHP Buildpack was rewritten from the ground up to better support ongoing
+maintenance and future development. We look forward to making further progress
+on supporting the PHP ecosystem in 2023.</p>
+<ul>
+<li><a href="https://github.com/paketo-buildpacks/rfcs/blob/main/text/php/0001-restructure.md">PHP RFC0001: Restructuring PHP Buildpacks</a></li>
+<li><a href="https://blog.paketo.io/posts/php-rearchitecture/">Reintroducing the PHP Buildpack</a></li>
+</ul>
+<p>The project also added support for debugging processes in .NET Core and
+generalized application healthchecking. Check out those RFCs for more details:</p>
+<ul>
+<li><a href="https://github.com/paketo-buildpacks/rfcs/blob/main/text/utilities/0007-health-checker-buildpack.md">Utilities RFC0007: Health Checker Support</a></li>
+<li><a href="https://github.com/paketo-buildpacks/rfcs/blob/main/text/dotnet-core/0005-debug-support.md">.NET Core RFC0005: Enable Remote Debug Support</a></li>
+</ul>
+<h2 id="the-future">The Future</h2>
+<p>If you are looking to get involved this year, please consider joining the
+<a href="https://slack.paketo.io">Paketo Slack</a> or calling in to one of our weekly
+<a href="https://github.com/paketo-buildpacks/community#working-group-meetings">working group
+meetings</a>.
+We would love to hear feedback from you!</p>
+<p>2022 was a big year for the Paketo Buildpacks project. We&rsquo;ve seen a big uptick
+in interest, usage, feedback, and contribution. Thank you to our entire
+community for helping us make the project better in so many ways. We can&rsquo;t wait
+to see where the project goes in 2023. Happy New Year!</p>
+<h3 id="join-us">Join us!</h3>
+<ul>
+<li><a href="https://paketo.io">Website</a></li>
+<li><a href="https://slack.paketo.io">Slack</a></li>
+<li><a href="https://github.com/paketo-buildpacks/community#working-group-meetings">Join our Working Group Meetings!</a></li>
+<li><a href="https://github.com/paketo-buildpacks">Github</a></li>
+<li><a href="https://twitter.com/Paketo_io">Twitter</a></li>
+</ul>
+
+        </article>
+      </section>
+      <footer class="post">
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Paketo%20Buildpacks%20%7c%20Blog%20%7c%20Paketo%20Buildpacks%202022%20-%20Another%20Year%20in%20Review&amp;url=https://blog.paketo.io/posts/2022-recap/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/twitter.png" />
+</a>
+
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://blog.paketo.io/posts/2022-recap/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/linkedin.png" />
+</a>
+
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://blog.paketo.io/posts/2022-recap/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/facebook.png" />
+</a>
+
+      </footer>
+    </div>
+  </body>
+</html>
