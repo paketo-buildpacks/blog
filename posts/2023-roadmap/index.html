@@ -1,0 +1,131 @@
+<!doctype html>
+<html>
+  <head>
+      <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Paketo Buildpacks 2023 - Onward and Upward | Paketo Buildpacks | Blog</title>
+<link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-language" content="en-us" />
+
+<meta property='og:site_name' content="Paketo Buildpacks | Blog">
+<meta property='og:title' content="Paketo Buildpacks 2023 - Onward and Upward">
+<meta property='og:url' content="https://blog.paketo.io/posts/2023-roadmap/">
+<meta property='og:image' content='/images/logo512.png'/>
+<meta name="twitter:title" content="Paketo Buildpacks | Blog" />
+<meta name="twitter:url" content="https://blog.paketo.io/posts/2023-roadmap/" />
+<meta name="twitter:card" content="" />
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TJMQZ5RDFG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TJMQZ5RDFG');
+</script><link rel="stylesheet" href="/scss/main.min.css">
+
+  </head>
+  <body>
+    <div class="post">
+      <header>
+        <a href="/">
+          <img class="logo" src="/images/logo512.png" />
+          <h1>Paketo Buildpacks | Blog</h1>
+        </a>
+      </header>
+      <section>
+        <h1>Paketo Buildpacks 2023 - Onward and Upward</h1>
+        <section class="author"><img src="/images/authors/rmoran.jpg" /><name>Ryan Moran</name></section>
+        <date>Thursday, Jan 26, 2023</date>
+        <article>
+          <p>This last year was a big one for the project. We grew significantly, matured
+our buildpack and stack offerings, and found new ways to engage with our users.
+For 2023, we hope for all of that and more.</p>
+<p>We want to thank everyone who contributed to the project in 2022. Whether that
+was direct contibution to our codebases or feedback in the form of issues,
+discussions, or Slack messages, you&rsquo;ve been a big part of the success we&rsquo;ve had
+this year.</p>
+<p>If you are looking to get involved with the project in 2023, we&rsquo;d be happy to
+help through any of our communication channels. Find us on
+<a href="https://github.com/paketo-buildpacks">Github</a>,
+<a href="https://slack.paketo.io">Slack</a>, <a href="https://twitter.com/Paketo_io">Twitter</a>, the
+project <a href="https://lists.paketo.io/g/main/join">Mailing List</a>, or at our weekly
+<a href="https://github.com/paketo-buildpacks/community#working-group-meetings">Working Group
+meetings</a>.</p>
+<p>The roadmap for this year has a lot of great ideas in it. Thank you to everyone
+that contributed their thoughts and helped us to outline the direction of the
+project. Let&rsquo;s take a look at what&rsquo;s coming up.</p>
+<h2 id="arm64">ARM64</h2>
+<p>This was easily the most requested item on the roadmap and for good reason. It
+feels like ARM64 is gaining big marketshare as it jumps from phones into
+workstations and server infrastructure. With the efforts to rebuild our stack
+and dependency management infrastructure in the rearview, figuring out how we
+can better support ARM64 builds seems like an obvious next step.</p>
+<p>Check out the ongoing <a href="https://github.com/paketo-buildpacks/feedback/discussions/23">discussion
+topic</a> for ARM64
+to help us build out a plan.</p>
+<h2 id="security-and-transparency">Security and Transparency</h2>
+<p>In the last few years we&rsquo;ve seen users grow to expect more with regards to the
+security profile of the tools they use. Developers increasingly are being
+called upon to know what code they are running in their build systems and to
+verify their authenticity. To that end, we&rsquo;re going to spend some time this
+year focusing on delivering SBOMs, provenance data, and signatures for our
+release artifacts.</p>
+<p>To get involved, join the <a href="https://github.com/orgs/paketo-buildpacks/discussions/69">discussion
+topic</a> for this item.</p>
+<h2 id="stacks-and-builders">Stacks and Builders</h2>
+<p>There were a number of items in the roadmap discussion related to stacks and
+builders. From introducing <a href="https://github.com/orgs/paketo-buildpacks/discussions/58#discussioncomment-4364166">new versions of our existing Ubuntu
+stack</a>
+to wholy <a href="https://github.com/orgs/paketo-buildpacks/discussions/68">new
+efforts</a> to bring Red
+Hat UBI stacks to the project, its clear that 2023 will be another big year for
+stack development.</p>
+<p>In the process, we&rsquo;ll need to figure out some technical and scaling concerns so
+that we can easily support this growth in stacks. Specifically, we need to find
+ways to scale our builder development, both internally by finding <a href="https://github.com/paketo-buildpacks/rfcs/pull/274">a
+solution</a> to the layer
+limits we are seeing in the Full builder, and externally by making buildpack
+stack compatibility more flexible through adoption of <a href="https://github.com/buildpacks/rfcs/blob/main/text/0096-remove-stacks-mixins.md">upstream CNB
+specifications</a>.</p>
+<h2 id="dependencies">Dependencies</h2>
+<p>In 2022, we paid down a huge amount of <a href="https://github.com/paketo-buildpacks/rfcs/blob/main/text/dependencies/rfcs/0003-dependency-management-overview.md">technical
+debt</a>
+in our dependency management system. With that effort reaching its conclusion,
+its time to start considering what the next steps should be to improve the
+story for dependency installation process. Specifically, we&rsquo;ve seen renewed
+interest in figuring out how to <a href="https://github.com/orgs/paketo-buildpacks/discussions/58#discussioncomment-4344953">decouple
+buildpacks</a>
+from the dependencies they install. Doing this will allow the project to more
+clearly articulate what the changes are in any given release.</p>
+<h2 id="lets-get-started">Let&rsquo;s get started!</h2>
+<p>Hopefully its clear that we have a lot of exciting and interesting work on the
+horizon for 2023. We&rsquo;re gonna be working hard to make as much of this happen as
+possible and we&rsquo;d love to see contributions from you!</p>
+<p>If you want to get involved, please check out the <a href="https://github.com/orgs/paketo-buildpacks/projects/29">2023 Roadmap project
+board</a> and join us on
+<a href="https://slack.paketo.io">Slack</a> or at our weekly <a href="https://github.com/paketo-buildpacks/community#working-group-meetings">Working Group
+meetings</a>.</p>
+<p>Here&rsquo;s to 2023! 🎉</p>
+
+        </article>
+      </section>
+      <footer class="post">
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Paketo%20Buildpacks%20%7c%20Blog%20%7c%20Paketo%20Buildpacks%202023%20-%20Onward%20and%20Upward&amp;url=https://blog.paketo.io/posts/2023-roadmap/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/twitter.png" />
+</a>
+
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://blog.paketo.io/posts/2023-roadmap/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/linkedin.png" />
+</a>
+
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://blog.paketo.io/posts/2023-roadmap/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/facebook.png" />
+</a>
+
+      </footer>
+    </div>
+  </body>
+</html>

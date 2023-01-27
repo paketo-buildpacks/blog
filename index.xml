@@ -6,7 +6,17 @@
     <description>Recent content on Paketo Buildpacks | Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 24 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 26 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Paketo Buildpacks 2023 - Onward and Upward</title>
+      <link>https://blog.paketo.io/posts/2023-roadmap/</link>
+      <pubDate>Thu, 26 Jan 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.paketo.io/posts/2023-roadmap/</guid>
+      <description>This last year was a big one for the project. We grew significantly, matured our buildpack and stack offerings, and found new ways to engage with our users. For 2023, we hope for all of that and more.
+We want to thank everyone who contributed to the project in 2022. Whether that was direct contibution to our codebases or feedback in the form of issues, discussions, or Slack messages, you&amp;rsquo;ve been a big part of the success we&amp;rsquo;ve had this year.</description>
+    </item>
+    
     <item>
       <title>Paketo Buildpacks 2022 - Another Year in Review</title>
       <link>https://blog.paketo.io/posts/2022-recap/</link>
