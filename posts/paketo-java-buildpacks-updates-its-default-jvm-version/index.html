@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+  <head>
+      <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Paketo Java Buildpacks Updates its Default JVM Version | Paketo Buildpacks | Blog</title>
+<link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-language" content="en-us" />
+
+<meta property='og:site_name' content="Paketo Buildpacks | Blog">
+<meta property='og:title' content="Paketo Java Buildpacks Updates its Default JVM Version">
+<meta property='og:url' content="https://blog.paketo.io/posts/paketo-java-buildpacks-updates-its-default-jvm-version/">
+<meta property='og:image' content='/images/logo512.png'/>
+<meta name="twitter:title" content="Paketo Buildpacks | Blog" />
+<meta name="twitter:url" content="https://blog.paketo.io/posts/paketo-java-buildpacks-updates-its-default-jvm-version/" />
+<meta name="twitter:card" content="" />
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TJMQZ5RDFG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TJMQZ5RDFG');
+</script><link rel="stylesheet" href="/scss/main.min.css">
+
+  </head>
+  <body>
+    <div class="post">
+      <header>
+        <a href="/">
+          <img class="logo" src="/images/logo512.png" />
+          <h1>Paketo Buildpacks | Blog</h1>
+        </a>
+      </header>
+      <section>
+        <h1>Paketo Java Buildpacks Updates its Default JVM Version</h1>
+        <section class="author"><img src="/images/authors/dmikusa.jpg" /><name>Daniel Mikusa</name></section>
+        <date>Thursday, Feb 9, 2023</date>
+        <article>
+          <p>Time and tides wait for no one, nor does software. The Oracle and the OpenJDK project have been steadily releasing new versions of Java for years now, with new Java versions every six months and now long-term support releases every two years (with Java 21, it&rsquo;s dropped to two years from three).</p>
+<p>As of writing this post, the Java buildpack is currently using Java 11 as its default. This has been the same default version since the Paketo Java buildpack was released, but we&rsquo;re falling behind and it&rsquo;s time for a change.</p>
+<p>Through our community RFC process, the Paketo Java subteam has <a href="https://github.com/paketo-buildpacks/rfcs/blob/main/text/java/0014-selecting-default-java-version.md">adopted an official policy on updating the default version of the JVM</a>, RFC #0014.</p>
+<p>The policy states that &ldquo;the default should be changed once the latest released LTS version of Java is at least one year old&rdquo;. It further states that we should immediately proceed to update the default version from Java 11 to Java 17. This will bring us into alignment with the stated goals of the policy.</p>
+<p>Because we realize this will impact users, we are providing a one month advance notice of this change. We will be adjusting the default version of the JVM to Java 17 starting with the Java buildpack release scheduled for Friday March 17th, 2023.</p>
+<p>There are a few things you can do to prepare for this change:</p>
+<ol>
+<li>Upgrade to Java 17! You know you want to, it&rsquo;s great.</li>
+<li>If you can&rsquo;t upgrade, you can <a href="https://paketo.io/docs/howto/java/#install-a-specific-jvm-version">pin the major Java version</a> to your required version.</li>
+<li>Alternatively, you may be able to <a href="https://www.baeldung.com/java-source-target-options">set the Java source/target version</a> in your project.</li>
+</ol>
+<p>If you do pin the version, please make a note or set a reminder to come back and upgrade later.</p>
+<p>The project does not recommend pinning the buildpack version. This will prevent the application from being built using the latest patch release of Java and could leave your application vulnerable to know security issues.</p>
+<p>That&rsquo;s it! Go forth and build modern Java apps.</p>
+
+        </article>
+      </section>
+      <footer class="post">
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Paketo%20Buildpacks%20%7c%20Blog%20%7c%20Paketo%20Java%20Buildpacks%20Updates%20its%20Default%20JVM%20Version&amp;url=https://blog.paketo.io/posts/paketo-java-buildpacks-updates-its-default-jvm-version/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/twitter.png" />
+</a>
+
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://blog.paketo.io/posts/paketo-java-buildpacks-updates-its-default-jvm-version/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/linkedin.png" />
+</a>
+
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://blog.paketo.io/posts/paketo-java-buildpacks-updates-its-default-jvm-version/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/facebook.png" />
+</a>
+
+      </footer>
+    </div>
+  </body>
+</html>

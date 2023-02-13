@@ -6,7 +6,17 @@
     <description>Recent content on Paketo Buildpacks | Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 26 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 09 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Paketo Java Buildpacks Updates its Default JVM Version</title>
+      <link>https://blog.paketo.io/posts/paketo-java-buildpacks-updates-its-default-jvm-version/</link>
+      <pubDate>Thu, 09 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.paketo.io/posts/paketo-java-buildpacks-updates-its-default-jvm-version/</guid>
+      <description>Time and tides wait for no one, nor does software. The Oracle and the OpenJDK project have been steadily releasing new versions of Java for years now, with new Java versions every six months and now long-term support releases every two years (with Java 21, it&amp;rsquo;s dropped to two years from three).
+As of writing this post, the Java buildpack is currently using Java 11 as its default. This has been the same default version since the Paketo Java buildpack was released, but we&amp;rsquo;re falling behind and it&amp;rsquo;s time for a change.</description>
+    </item>
+    
     <item>
       <title>Paketo Buildpacks 2023 - Onward and Upward</title>
       <link>https://blog.paketo.io/posts/2023-roadmap/</link>

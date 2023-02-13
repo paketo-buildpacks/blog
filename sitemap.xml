@@ -3,17 +3,22 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://blog.paketo.io/posts/2023-roadmap/</loc>
-    <lastmod>2023-01-26T00:00:00+00:00</lastmod>
+    <loc>https://blog.paketo.io/</loc>
+    <lastmod>2023-02-09T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.paketo.io/</loc>
-    <lastmod>2023-01-26T00:00:00+00:00</lastmod>
+    <loc>https://blog.paketo.io/posts/paketo-java-buildpacks-updates-its-default-jvm-version/</loc>
+    <lastmod>2023-02-09T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.paketo.io/posts/</loc>
+    <lastmod>2023-02-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.paketo.io/posts/2023-roadmap/</loc>
     <lastmod>2023-01-26T00:00:00+00:00</lastmod>
   </url>
   
