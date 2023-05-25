@@ -6,7 +6,18 @@
     <description>Recent content in Posts on Paketo Buildpacks | Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 09 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 23 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Manually testing changes to a Paketo Buildpack</title>
+      <link>https://blog.paketo.io/posts/manually-testing-changes-to-paketo-buildpacks/</link>
+      <pubDate>Tue, 23 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.paketo.io/posts/manually-testing-changes-to-paketo-buildpacks/</guid>
+      <description>While this article is mainly about how to manually test Java family Paketo buildpacks, still, most of the instructions should work fine with other Paketo buildpacks; and even non Paketo buildpacks!
+Suppose that you started working on a new feature for the spring-boot buildpack&amp;hellip;
+Unit tests first Of course, during your development, you will make sure that you did not break any tests, regularly running go test -v ./... but you would also add new tests covering your new code; the classic combination go test -v .</description>
+    </item>
+    
     <item>
       <title>Paketo Java Buildpacks Updates its Default JVM Version</title>
       <link>https://blog.paketo.io/posts/paketo-java-buildpacks-updates-its-default-jvm-version/</link>

@@ -40,6 +40,23 @@
       
         <article>
   <div>
+    <h2><a href="/posts/manually-testing-changes-to-paketo-buildpacks/">Manually testing changes to a Paketo Buildpack</a></h2>
+    While this article is mainly about how to manually test Java family Paketo buildpacks, still, most of the instructions should work fine with other Paketo buildpacks; and even non Paketo buildpacks!
+Suppose that you started working on a new feature for the spring-boot buildpack&hellip;
+Unit tests first Of course, during your development, you will make sure that you did not break any tests, regularly running go test -v ./... but you would also add new tests covering your new code; the classic combination go test -v .
+    
+      <a href="/posts/manually-testing-changes-to-paketo-buildpacks/">…</a>
+    
+    <div class="metadata">
+      <section class="author"><img src="/images/authors/anthonydahanne.jpg" /><name>Anthony Dahanne</name></section>
+      <span class="date">Tuesday, May 23, 2023</span>
+    </div>
+  </div>
+</article>
+
+      
+        <article>
+  <div>
     <h2><a href="/posts/paketo-java-buildpacks-updates-its-default-jvm-version/">Paketo Java Buildpacks Updates its Default JVM Version</a></h2>
     Time and tides wait for no one, nor does software. The Oracle and the OpenJDK project have been steadily releasing new versions of Java for years now, with new Java versions every six months and now long-term support releases every two years (with Java 21, it&rsquo;s dropped to two years from three).
 As of writing this post, the Java buildpack is currently using Java 11 as its default. This has been the same default version since the Paketo Java buildpack was released, but we&rsquo;re falling behind and it&rsquo;s time for a change.

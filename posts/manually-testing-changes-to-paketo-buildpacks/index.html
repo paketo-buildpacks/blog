@@ -1,0 +1,212 @@
+<!doctype html>
+<html>
+  <head>
+      <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Manually testing changes to a Paketo Buildpack | Paketo Buildpacks | Blog</title>
+<link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-language" content="en-us" />
+
+<meta property='og:site_name' content="Paketo Buildpacks | Blog">
+<meta property='og:title' content="Manually testing changes to a Paketo Buildpack">
+<meta property='og:url' content="https://blog.paketo.io/posts/manually-testing-changes-to-paketo-buildpacks/">
+<meta property='og:image' content='/images/logo512.png'/>
+<meta name="twitter:title" content="Paketo Buildpacks | Blog" />
+<meta name="twitter:url" content="https://blog.paketo.io/posts/manually-testing-changes-to-paketo-buildpacks/" />
+<meta name="twitter:card" content="" />
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TJMQZ5RDFG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TJMQZ5RDFG');
+</script><link rel="stylesheet" href="/scss/main.min.css">
+
+  </head>
+  <body>
+    <div class="post">
+      <header>
+        <a href="/">
+          <img class="logo" src="/images/logo512.png" />
+          <h1>Paketo Buildpacks | Blog</h1>
+        </a>
+      </header>
+      <section>
+        <h1>Manually testing changes to a Paketo Buildpack</h1>
+        <section class="author"><img src="/images/authors/anthonydahanne.jpg" /><name>Anthony Dahanne</name></section>
+        <date>Tuesday, May 23, 2023</date>
+        <article>
+          <p><em>While this article is mainly about how to manually test Java family Paketo buildpacks, still, most of the instructions should work fine with other Paketo buildpacks; and even non Paketo buildpacks!</em></p>
+<p>Suppose that you started working on a new feature for the <a href="https://github.com/paketo-buildpacks/spring-boot/"><code>spring-boot</code></a> buildpack&hellip;</p>
+<h2 id="unit-tests-first">Unit tests first</h2>
+<p>Of course, during your development, you will make sure that you did not break any tests, regularly running <code>go test -v ./...</code> but you would also add new tests covering your new code; the classic combination <code>go test -v ./... -coverprofile=coverage.out</code> followed with <code>go tool cover -html=coverage.out</code> will allow you to verify you did not forget to test some errors or edge cases.</p>
+<h2 id="build-and-try-the-buildpack-out-before-publishing-it">Build and try the buildpack out before publishing it</h2>
+<p>If the buildpack you are working on provides some integration tests (or end to end tests), I suggest you try and add some use cases to those tests.</p>
+<p>If not, then it&rsquo;s likely that the integration tests are running from the <a href="https://github.com/paketo-buildpacks/samples/"><code>samples</code></a> Github repository; have a look at this <a href="https://github.com/paketo-buildpacks/samples/actions/workflows/test-all-samples.yml">Github Actions Workflow</a> for example.</p>
+<h3 id="build-the-paketo-buildpack">Build the Paketo Buildpack</h3>
+<p>Most Paketo buildpacks provide a <code>scripts/build.sh</code> build script that you can use to build the <code>detect</code> and <code>build</code> binaries (luckily the required <code>buildpack.toml</code> is already at the root of the project).</p>
+<p>Just run the script and then check you have your buildpacks <code>bin</code> and <code>detect</code> executable files generated:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">&gt; scripts/build.sh
+&gt; ls bin                                                                                                                                 
+build  detect helper main
+</code></pre></div><h3 id="mac-arm64-note">Mac arm64 note</h3>
+<p>If you&rsquo;re using a Mac arm64 (M1, M2, etc.), you may need to prepend <code>GOARCH=&quot;amd64&quot;</code> to <code>scripts/build.sh</code> to specify that you want to build for <code>amd64</code> (it will help if you publish your image and then try to run it on a  Linux amd64 host); like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">GOARCH<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;amd64&#34;</span> ./scripts/build.sh
+</code></pre></div><p>If you don&rsquo;t, you could see such messages along the way:</p>
+<pre><code>===&gt; DETECTING
+======== Error: paketo-buildpacks/spring-boot@{{.version}} ========
+fork/exec /cnb/buildpacks/paketo-buildpacks_spring-boot/{{.version}}/bin/detect: exec format error
+</code></pre><h3 id="run-the-paketo-buildpack">Run the Paketo Buildpack</h3>
+<p>If you try to build a <a href="https://github.com/paketo-buildpacks/samples/tree/main/java/maven">sample Java project</a> using your newly build <code>spring-boot</code> buildpack:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">pack build -p ~/workspaces/paketo-buildpacks/samples/java/maven applications/maven-app <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -b .
+</code></pre></div><p><code>-p</code> providing the path of the application to build an image for.</p>
+<p><code>-b .</code> providing the path of our buildpack we just built (it will be looking for <code>bin/detect</code> and <code>bin/build</code> under this folder)</p>
+<p>Well, you will get an error:</p>
+<pre><code>===&gt; DETECTING
+======== Results ========
+pass: paketo-buildpacks/spring-boot@{{.version}}
+Resolving plan... (try #1)
+fail: paketo-buildpacks/spring-boot@{{.version}} requires jvm-application
+</code></pre><p>With Paketo Buildpacks, you typically can&rsquo;t run just one buildpack; most of them are inter-dependent.</p>
+<p>In our case, <code>spring-boot</code> buildpack <code>requires</code> a buildpack providing <code>jvm-application</code>; probably the <code>executable-jar</code> buildpack will provide it, but then this one will <code>require</code> a buildpack providing a JVM, etc.</p>
+<h4 id="note-about-pack-build">Note about Pack build</h4>
+<p>You would think that <code>-b .</code> would just append our buildpack after the other detected buildpacks provided by the builder&hellip; Unfortunately, as soon as you use <code>-b</code> once, <code>pack</code> will only consider the buildpacks provided in the command line.</p>
+<p>There&rsquo;s a way not to spend hours to find the right incantation: observing what the chain is when you let your builder pick the needed <code>buildpacks</code>:</p>
+<pre><code>pack build -p ~/workspaces/paketo-buildpacks/samples/java/maven applications/maven-app
+[...]
+===&gt; DETECTING
+10 of 26 buildpacks participating
+paketo-buildpacks/ca-certificates   3.6.1
+paketo-buildpacks/bellsoft-liberica 10.2.3
+paketo-buildpacks/syft              1.30.0
+paketo-buildpacks/maven             6.15.2
+paketo-buildpacks/executable-jar    6.7.1
+paketo-buildpacks/apache-tomcat     7.13.3
+paketo-buildpacks/apache-tomee      1.7.1
+paketo-buildpacks/liberty           3.7.1
+paketo-buildpacks/dist-zip          5.6.1
+paketo-buildpacks/spring-boot       5.25.0
+[...]
+</code></pre><p>Now, that we know the full chain, we just need to replace the original <code>paketo-buildpacks/spring-boot</code> with ours.</p>
+<pre><code>pack build -p ~/workspaces/paketo-buildpacks/samples/java/maven applications/maven-app \
+  -b urn:cnb:builder:paketo-buildpacks/ca-certificates \
+  -b urn:cnb:builder:paketo-buildpacks/bellsoft-liberica \
+  -b urn:cnb:builder:paketo-buildpacks/syft \
+  -b urn:cnb:builder:paketo-buildpacks/maven \
+  -b urn:cnb:builder:paketo-buildpacks/executable-jar \
+  -b urn:cnb:builder:paketo-buildpacks/apache-tomcat \
+  -b urn:cnb:builder:paketo-buildpacks/apache-tomee \
+  -b urn:cnb:builder:paketo-buildpacks/liberty \
+  -b urn:cnb:builder:paketo-buildpacks/dist-zip \
+  -b . 
+[...]
+===&gt; DETECTING
+paketo-buildpacks/ca-certificates   3.6.1
+paketo-buildpacks/bellsoft-liberica 10.2.3
+paketo-buildpacks/syft              1.30.0
+paketo-buildpacks/maven             6.15.2
+paketo-buildpacks/executable-jar    6.7.1
+paketo-buildpacks/apache-tomcat     7.13.3
+paketo-buildpacks/apache-tomee      1.7.1
+paketo-buildpacks/liberty           3.7.1
+paketo-buildpacks/dist-zip          5.6.1
+paketo-buildpacks/spring-boot       {{.version}}
+[...]  
+</code></pre><p>with the <code>urn:cnb:builder:</code> prefix being used to indicate to <code>pack</code> that it should take the buildpack from the builder - otherwise you would force the addition of duplicate buildpacks to the end builder; not an issue but will slow down your build.</p>
+<p>Now our buildpack is picked up and our modified code will run.</p>
+<p>About the <code>{{.version}}</code>: this is what you get unless you set a specific version in your buildpack <code>buildpack.toml</code> - it&rsquo;s up to you to set a test version, it does not bother the rest of the toolchain to use the default <code>{{.version}}</code>)</p>
+<p>Loggers and plain <code>fmt.Println</code> will help you check the values of your variables, etc.</p>
+<h3 id="publish-your-paketo-buildpack-changes">Publish your Paketo Buildpack changes</h3>
+<p>It&rsquo;s possible that when you&rsquo;re ready to make a Pull Request to the maintainers of the buildpack you&rsquo;re working on, the maintainers may ask questions on your changes.</p>
+<p>If you want to ease their task, you can publish your buildpack with:</p>
+<pre><code>pack buildpack package anthonydahanne/spring-boot:fix-273 --publish
+
+Successfully published package anthonydahanne/spring-boot:fix-273
+</code></pre><p>In this example, I published the image to my free DockerHub account; of course you could use any other public registry.</p>
+<p>Now in the PR comments, you can explain which sample you used to test your changes, along with a command-line that the maintainers can run immediately:</p>
+<pre><code>pack build -p ~/workspaces/paketo-buildpacks/samples/java/maven applications/maven-app \
+  -b urn:cnb:builder:paketo-buildpacks/ca-certificates \
+  -b urn:cnb:builder:paketo-buildpacks/bellsoft-liberica \
+  -b urn:cnb:builder:paketo-buildpacks/syft \
+  -b urn:cnb:builder:paketo-buildpacks/maven \
+  -b urn:cnb:builder:paketo-buildpacks/executable-jar \
+  -b urn:cnb:builder:paketo-buildpacks/apache-tomcat \
+  -b urn:cnb:builder:paketo-buildpacks/apache-tomee \
+  -b urn:cnb:builder:paketo-buildpacks/liberty \
+  -b urn:cnb:builder:paketo-buildpacks/dist-zip \
+  -b anthonydahanne/spring-boot:fix-273
+</code></pre><p>🥰 Big kudos to you if you ever do that in your PR! 🥰</p>
+<h3 id="bonus-chapter-testing-how-your-paketo-buildpack-interact-with-the-other-buildpacks">Bonus chapter: testing how your Paketo Buildpack interact with the other Buildpacks</h3>
+<p>In an advanced feature / scenario, you could need to change one or several <code>PlanEntry</code>, and in this case, you would want to make sure your changes did not break other buildpacks.</p>
+<p>In that case, you would want to test your buildpack with several samples; and it would become very difficult and lengthy to find out all the incantations for each case.</p>
+<p>Enter the <code>composite</code> buildpacks: let&rsquo;s take the <a href="https://github.com/paketo-buildpacks/java"><code>java</code></a> buildpack for example.</p>
+<p>A <code>composite</code> buildpack does not introduce any code; just a composition of <code>component</code> buildpacks.</p>
+<p>If we continue with the example of a <code>spring-boot</code> buildpack change, we need to update those files:</p>
+<p><strong>buildpack.toml</strong> Make sure to change <code>spring-boot</code> dependency version</p>
+<pre><code>   [[order.group]]
+     id = &quot;paketo-buildpacks/spring-boot&quot;
+     optional = true
+-    version = &quot;5.25.0&quot;
++    version = &quot;{{.version}}&quot;
+</code></pre><p><strong>package.toml</strong> Make sure to change the coordinates of the <code>spring-boot</code> buildpack to yours</p>
+<pre><code>[[dependencies]]
+-  uri = &quot;docker://gcr.io/paketo-buildpacks/spring-boot:5.25.0&quot;
++  uri = &quot;docker://anthonydahanne/spring-boot:fix-273&quot;
+[... end of file ...]
++
++[buildpack]
++uri = &quot;.&quot;
+</code></pre><p>Now you&rsquo;re good to go to publish your composite buildpack:</p>
+<pre><code>pack buildpack package anthonydahanne/java:fix-273 --config ./package.toml --publish
+
+Successfully published package anthonydahanne/java:fix-273
+</code></pre><p>And of course be able to use it:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">pack build -p ~/workspaces/paketo-buildpacks/samples/java/maven applications/maven-app -b anthonydahanne/java:fix-273
+</code></pre></div><h5 id="updating-the-builder-itself">Updating the builder itself</h5>
+<p>Now that we can test that the buildpacks inside the composite work well together, we could go even further creating a Paketo builder that would embed this composite and other buildpacks; in case we want to make sure our buildpack is not breaking non-related buildpacks.</p>
+<p>Let&rsquo;s update the <a href="https://github.com/paketo-buildpacks/builder-jammy-tiny"><code>tiny</code> builder</a> to include our composite.</p>
+<p><strong>builder.toml</strong> Make sure to change the java buildpacks reference</p>
+<pre><code> [[buildpacks]]
+-  uri = &quot;docker://gcr.io/paketo-buildpacks/java:9.7.0&quot;
+-  version = &quot;9.7.0&quot;
++  uri = &quot;docker://anthonydahanne/java:fix-273&quot;
++  version = &quot;{{.version}}&quot;
+   [[order.group]]
+     id = &quot;paketo-buildpacks/java&quot;
+-    version = &quot;9.7.0&quot;
++    version = &quot;{{.version}}&quot;
+</code></pre><p>Now, let&rsquo;s update it:</p>
+<pre><code>pack builder create anthonydahanne/tiny-builder:fix-273 --config builder.toml --publish
+Successfully created builder image anthonydahanne/tiny-builder:fix-273
+Tip: Run pack build &lt;image-name&gt; --builder anthonydahanne/tiny-builder:fix-273 to use this builder
+</code></pre><p>And finally use it:</p>
+<pre><code>pack build -p ~/workspaces/paketo-buildpacks/samples/java/maven applications/maven-app --builder=anthonydahanne/tiny-builder:fix-273
+</code></pre><p>You&rsquo;ll find in the builders repository (<a href="https://github.com/paketo-buildpacks/builder-jammy-tiny"><code>tiny</code></a>, <a href="https://github.com/paketo-buildpacks/builder-jammy-base"><code>base</code></a> and <a href="https://github.com/paketo-buildpacks/builder-jammy-full"><code>full</code></a>) integration test that you could try your builder against; to make sure your changes did not break standard expectations.</p>
+<h2 id="final-notes">Final notes</h2>
+<p>With Paketo buildpacks, everything is in the open, so you can definitely test your changes from a single unit test to a full builder that includes your composite, that includes your changed component!</p>
+<p>Most of the time though, you will probably just need to be able to build and run your modified buildpack: it&rsquo;s easy and will help your colleagues or maintainers test your changes!</p>
+
+        </article>
+      </section>
+      <footer class="post">
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Paketo%20Buildpacks%20%7c%20Blog%20%7c%20Manually%20testing%20changes%20to%20a%20Paketo%20Buildpack&amp;url=https://blog.paketo.io/posts/manually-testing-changes-to-paketo-buildpacks/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/twitter.png" />
+</a>
+
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://blog.paketo.io/posts/manually-testing-changes-to-paketo-buildpacks/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/linkedin.png" />
+</a>
+
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://blog.paketo.io/posts/manually-testing-changes-to-paketo-buildpacks/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/facebook.png" />
+</a>
+
+      </footer>
+    </div>
+  </body>
+</html>
