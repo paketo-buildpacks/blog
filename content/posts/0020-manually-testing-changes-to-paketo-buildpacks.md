@@ -24,7 +24,7 @@ Most Paketo buildpacks provide a `scripts/build.sh` build script that you can us
 
 Just run the script and then check you have your buildpacks `bin` and `detect` executable files generated:
 
-```shell
+```
 > scripts/build.sh
 > ls bin                                                                                                                                 
 build  detect helper main
@@ -33,7 +33,7 @@ build  detect helper main
 ### Mac arm64 note
 If you're using a Mac arm64 (M1, M2, etc.), you may need to prepend `GOARCH="amd64"` to `scripts/build.sh` to specify that you want to build for `amd64` (it will help if you publish your image and then try to run it on a  Linux amd64 host); like this:
 
-```shell
+```
 GOARCH="amd64" ./scripts/build.sh
 ```
 
@@ -49,7 +49,7 @@ fork/exec /cnb/buildpacks/paketo-buildpacks_spring-boot/{{.version}}/bin/detect:
 
 If you try to build a [sample Java project](https://github.com/paketo-buildpacks/samples/tree/main/java/maven) using your newly build `spring-boot` buildpack:
 
-```shell
+```
 pack build -p ~/workspaces/paketo-buildpacks/samples/java/maven applications/maven-app \
   -b .
 ```
@@ -206,7 +206,7 @@ Successfully published package anthonydahanne/java:fix-273
 
 And of course be able to use it:
 
-```shell
+```
 pack build -p ~/workspaces/paketo-buildpacks/samples/java/maven applications/maven-app -b anthonydahanne/java:fix-273
 ```
 
