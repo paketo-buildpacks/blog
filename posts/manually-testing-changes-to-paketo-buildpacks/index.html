@@ -50,21 +50,21 @@
 <h3 id="build-the-paketo-buildpack">Build the Paketo Buildpack</h3>
 <p>Most Paketo buildpacks provide a <code>scripts/build.sh</code> build script that you can use to build the <code>detect</code> and <code>build</code> binaries (luckily the required <code>buildpack.toml</code> is already at the root of the project).</p>
 <p>Just run the script and then check you have your buildpacks <code>bin</code> and <code>detect</code> executable files generated:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">&gt; scripts/build.sh
+<pre><code>&gt; scripts/build.sh
 &gt; ls bin                                                                                                                                 
 build  detect helper main
-</code></pre></div><h3 id="mac-arm64-note">Mac arm64 note</h3>
+</code></pre><h3 id="mac-arm64-note">Mac arm64 note</h3>
 <p>If you&rsquo;re using a Mac arm64 (M1, M2, etc.), you may need to prepend <code>GOARCH=&quot;amd64&quot;</code> to <code>scripts/build.sh</code> to specify that you want to build for <code>amd64</code> (it will help if you publish your image and then try to run it on a  Linux amd64 host); like this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">GOARCH<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;amd64&#34;</span> ./scripts/build.sh
-</code></pre></div><p>If you don&rsquo;t, you could see such messages along the way:</p>
+<pre><code>GOARCH=&quot;amd64&quot; ./scripts/build.sh
+</code></pre><p>If you don&rsquo;t, you could see such messages along the way:</p>
 <pre><code>===&gt; DETECTING
 ======== Error: paketo-buildpacks/spring-boot@{{.version}} ========
 fork/exec /cnb/buildpacks/paketo-buildpacks_spring-boot/{{.version}}/bin/detect: exec format error
 </code></pre><h3 id="run-the-paketo-buildpack">Run the Paketo Buildpack</h3>
 <p>If you try to build a <a href="https://github.com/paketo-buildpacks/samples/tree/main/java/maven">sample Java project</a> using your newly build <code>spring-boot</code> buildpack:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">pack build -p ~/workspaces/paketo-buildpacks/samples/java/maven applications/maven-app <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  -b .
-</code></pre></div><p><code>-p</code> providing the path of the application to build an image for.</p>
+<pre><code>pack build -p ~/workspaces/paketo-buildpacks/samples/java/maven applications/maven-app \
+  -b .
+</code></pre><p><code>-p</code> providing the path of the application to build an image for.</p>
 <p><code>-b .</code> providing the path of our buildpack we just built (it will be looking for <code>bin/detect</code> and <code>bin/build</code> under this folder)</p>
 <p>Well, you will get an error:</p>
 <pre><code>===&gt; DETECTING
@@ -166,8 +166,8 @@ Successfully published package anthonydahanne/spring-boot:fix-273
 
 Successfully published package anthonydahanne/java:fix-273
 </code></pre><p>And of course be able to use it:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">pack build -p ~/workspaces/paketo-buildpacks/samples/java/maven applications/maven-app -b anthonydahanne/java:fix-273
-</code></pre></div><h5 id="updating-the-builder-itself">Updating the builder itself</h5>
+<pre><code>pack build -p ~/workspaces/paketo-buildpacks/samples/java/maven applications/maven-app -b anthonydahanne/java:fix-273
+</code></pre><h5 id="updating-the-builder-itself">Updating the builder itself</h5>
 <p>Now that we can test that the buildpacks inside the composite work well together, we could go even further creating a Paketo builder that would embed this composite and other buildpacks; in case we want to make sure our buildpack is not breaking non-related buildpacks.</p>
 <p>Let&rsquo;s update the <a href="https://github.com/paketo-buildpacks/builder-jammy-tiny"><code>tiny</code> builder</a> to include our composite.</p>
 <p><strong>builder.toml</strong> Make sure to change the java buildpacks reference</p>
