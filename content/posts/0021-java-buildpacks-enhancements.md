@@ -85,3 +85,9 @@ Thanks to [the Spring and Spring boot teams](https://github.com/paketo-buildpack
 ```
 pack build -p target/spring-boot-demo-0.0.1-SNAPSHOT.jar my-image
 ```
+
+## Next steps
+
+Modern Java is still burgeoning! [Coordinated](https://wiki.openjdk.org/display/crac) [Restore](https://www.azul.com/products/components/crac/) at [Checkpoint](https://github.com/CRaC/docs), also known as  [CRaC](https://github.com/sdeleuze/spring-boot-crac-demo), [modern GraalVM distributions](https://medium.com/graalvm/a-new-graalvm-release-and-new-free-license-4aab483692f5), future [Java 21](https://openjdk.org/projects/jdk/21/) should keep us busy!
+
+Of course, there can still be bugs and missing features we have not yet identified, feel free to create an issue to the appropriate Paketo project - if in doubt, [paketo-buildpacks/java](https://github.com/paketo-buildpacks/java/issues/new/choose) is probably the best place to ask for a new feature or share a new bug.
