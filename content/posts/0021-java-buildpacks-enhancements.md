@@ -24,11 +24,11 @@ More details in the [PR](https://github.com/paketo-buildpacks/gradle/issues/244)
 
 ## Additional build arguments for Gradle and Maven
 
-While before you needed to always provide the full arguments lists of arguments even if you just wanted to activate 1 parameter, using 
+Before, you always needed to provide the full arguments lists, even if you just wanted to activate 1 parameter, using 
 * `BP_MAVEN_BUILD_ARGUMENTS` for Maven builds or
 * `BP_GRADLE_BUILD_ARGUMENTS` for Gradle builds
 
-Now you can just append additional arguments to the default BP_{MAVEN|GRADLE}_BUILD_ARGUMENTS, using:
+You can still overwrite all of the arguments using `BP_{MAVEN|GRADLE}_BUILD_ARGUMENTS`, but if you just want to append additional arguments to the default list of arguments you can do that using:
 * `BP_MAVEN_ADDITIONAL_BUILD_ARGUMENTS` for Maven builds or
 * `BP_GRADLE_ADDITIONAL_BUILD_ARGUMENTS` for Gradle builds
 
@@ -44,7 +44,7 @@ This enhancement ([PR](https://github.com/paketo-buildpacks/maven/pull/265)) was
 
 ## Better Spring Boot Native detection
 
-Since Spring Boot 3.0, Paketo buildpacks support Spring Boot native builds; using a combination of the `bellsoft-liberica`, `spring-boot` and `native-image` buildpacks.
+Since first-class native builds were added in Spring Boot 3.0, Paketo buildpacks support Spring Boot native builds; using a combination of the `bellsoft-liberica`, `spring-boot` and `native-image` buildpacks.
 
 Up until now, it could be tedious for users wanting to get a native build, to specify so many arguments:
 
@@ -56,9 +56,9 @@ pack build applications/native-image \
   --env BP_JVM_VERSION=17
 ```
 
-Agreed, since the `bellosoft-liberica` buildpack [release 10.0.0 back in March 2023](https://github.com/paketo-buildpacks/bellsoft-liberica/releases/tag/v10.0.0), you no longer need to specify `BP_JVM_VERSION=17` since it's now the default version from 11.
+Fortunately, we can simplify! Since the `bellosoft-liberica` buildpack [release 10.0.0 back in March 2023](https://github.com/paketo-buildpacks/bellsoft-liberica/releases/tag/v10.0.0), you no longer need to specify `BP_JVM_VERSION=17` since it's now the default version from 11.
 
-Also, if you've read the previous item, you could argue that you can replace `BP_MAVEN_BUILD_ARGUMENTS="-Dmaven.test.skip=true --no-transfer-progress package -Pnative"` with `BP_MAVEN_ACTIVE_PROFILES="native"`.
+Also, the sharp-eyed reader might notice you can replace `BP_MAVEN_BUILD_ARGUMENTS="-Dmaven.test.skip=true --no-transfer-progress package -Pnative"` with `BP_MAVEN_ACTIVE_PROFILES="native"`.
 
 Making the previous invocation much simpler:
 
