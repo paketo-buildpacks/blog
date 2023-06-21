@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+  <head>
+      <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Java Buildpacks enhancements | Paketo Buildpacks | Blog</title>
+<link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-language" content="en-us" />
+
+<meta property='og:site_name' content="Paketo Buildpacks | Blog">
+<meta property='og:title' content="Java Buildpacks enhancements">
+<meta property='og:url' content="https://blog.paketo.io/posts/java-buildpacks-enhancements/">
+<meta property='og:image' content='/images/logo512.png'/>
+<meta name="twitter:title" content="Paketo Buildpacks | Blog" />
+<meta name="twitter:url" content="https://blog.paketo.io/posts/java-buildpacks-enhancements/" />
+<meta name="twitter:card" content="" />
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TJMQZ5RDFG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TJMQZ5RDFG');
+</script><link rel="stylesheet" href="/scss/main.min.css">
+
+  </head>
+  <body>
+    <div class="post">
+      <header>
+        <a href="/">
+          <img class="logo" src="/images/logo512.png" />
+          <h1>Paketo Buildpacks | Blog</h1>
+        </a>
+      </header>
+      <section>
+        <h1>Java Buildpacks enhancements</h1>
+        <section class="author"><img src="/images/authors/anthonydahanne.jpg" /><name>Anthony Dahanne</name></section>
+        <date>Friday, Jun 16, 2023</date>
+        <article>
+          <p>During the last few weeks, some enhancements were brought to buildpacks related to the Java ecosystem.</p>
+<p>Let&rsquo;s discover what&rsquo;s new!</p>
+<h3 id="tldr">TL;DR</h3>
+<p>Checkout the <a href="https://github.com/paketo-buildpacks/samples/tree/main/java">samples repository for Java examples</a> and the <a href="https://paketo.io/docs/howto/java/">Paketo Buildpacks official documentation</a> - those provide way more details about Paketo uses cases (native, certificates, network-less, etc.) than the different build plugins (Maven and Gradle) documentation.</p>
+<p>And they&rsquo;re always up-to-date! If the rare event they&rsquo;re not, create an issue or Pull Request, and we will fix that!</p>
+<h2 id="no-more-gradle-welcome-message">No more Gradle welcome message</h2>
+<p>This enhancement was pretty trivial to add, but we hope you will like it: we have disabled Gradle build default welcome message.</p>
+<p>It&rsquo;s interesting to learn about Gradle new features in the welcome message, but when you re-build several times with the same gradle version, that does not remember you used it more than once already (because it&rsquo;s run from fresh containers), it can be get a bit repetitive.</p>
+<p>More details in the <a href="https://github.com/paketo-buildpacks/gradle/issues/244">PR</a>.</p>
+<h2 id="additional-build-arguments-for-gradle-and-maven">Additional build arguments for Gradle and Maven</h2>
+<p>Before, you always needed to provide the full arguments lists, even if you just wanted to activate 1 parameter, using</p>
+<ul>
+<li><code>BP_MAVEN_BUILD_ARGUMENTS</code> for Maven builds or</li>
+<li><code>BP_GRADLE_BUILD_ARGUMENTS</code> for Gradle builds</li>
+</ul>
+<p>You can still overwrite all of the arguments using <code>BP_{MAVEN|GRADLE}_BUILD_ARGUMENTS</code>, but if you just want to append additional arguments to the default list of arguments you can do that using:</p>
+<ul>
+<li><code>BP_MAVEN_ADDITIONAL_BUILD_ARGUMENTS</code> for Maven builds or</li>
+<li><code>BP_GRADLE_ADDITIONAL_BUILD_ARGUMENTS</code> for Gradle builds</li>
+</ul>
+<p>More details in the <a href="https://github.com/paketo-buildpacks/maven/pull/265">Maven PR</a> and in the <a href="https://github.com/paketo-buildpacks/gradle/pull/238">Gradle PR</a>.</p>
+<h2 id="specify-maven-active-profiles">Specify Maven active profiles</h2>
+<p>Very similar to the previous enhancement, but just for Maven this time, you can activate a profile without specifying the full list of Maven build arguments now, using:</p>
+<ul>
+<li><code>BP_MAVEN_ACTIVE_PROFILES</code></li>
+</ul>
+<p>This enhancement (<a href="https://github.com/paketo-buildpacks/maven/pull/265">PR</a>) was actually key for the next item in our list, Spring Boot native detection.</p>
+<h2 id="better-spring-boot-native-detection">Better Spring Boot Native detection</h2>
+<p>Since first-class native builds were added in Spring Boot 3.0, Paketo buildpacks support Spring Boot native builds; using a combination of the <code>bellsoft-liberica</code>, <code>spring-boot</code> and <code>native-image</code> buildpacks.</p>
+<p>Up until now, it could be tedious for users wanting to get a native build, to specify so many arguments:</p>
+<pre><code>pack build applications/native-image \
+  --builder paketobuildpacks/builder-jammy-tiny \
+  --env BP_NATIVE_IMAGE=true \
+  --env BP_MAVEN_BUILD_ARGUMENTS=&quot;-Dmaven.test.skip=true --no-transfer-progress package -Pnative&quot; \
+  --env BP_JVM_VERSION=17
+</code></pre><p>Fortunately, we can simplify! Since the <code>bellosoft-liberica</code> buildpack <a href="https://github.com/paketo-buildpacks/bellsoft-liberica/releases/tag/v10.0.0">release 10.0.0 back in March 2023</a>, you no longer need to specify <code>BP_JVM_VERSION=17</code> since it&rsquo;s now the default version from 11.</p>
+<p>Also, the sharp-eyed reader might notice you can replace <code>BP_MAVEN_BUILD_ARGUMENTS=&quot;-Dmaven.test.skip=true --no-transfer-progress package -Pnative&quot;</code> with <code>BP_MAVEN_ACTIVE_PROFILES=&quot;native&quot;</code>.</p>
+<p>Making the previous invocation much simpler:</p>
+<pre><code>pack build applications/native-image \
+  --builder paketobuildpacks/builder-jammy-tiny \
+  --env BP_MAVEN_ACTIVE_PROFILES=native \
+</code></pre><p>But that&rsquo;s only improving one use case of Spring Boot native builds (from source code).</p>
+<p>If you tried turning a Spring Boot jar built with AOT hints (using <code>./mvnw package -Pnative</code> for example), Paketo buildpacks would not know that you wanted a native image from it.</p>
+<p>You had to build using:</p>
+<pre><code>pack build -p target/spring-boot-demo-0.0.1-SNAPSHOT.jar my-image --env BP_NATIVE_IMAGE=true
+</code></pre><p>which is not super intuitive&hellip;</p>
+<p>Thanks to <a href="https://github.com/paketo-buildpacks/spring-boot/issues/273">the Spring and Spring boot teams</a>, we found a way to be more clever about native detection: detecting the Spring-Boot-3.1-introduced <a href="https://github.com/spring-projects/spring-boot/issues/35205"><code>Spring-Boot-Native-Processed</code> META-INF/MANIFEST entry</a>; turning the previous <code>pack</code> invocation into:</p>
+<pre><code>pack build -p target/spring-boot-demo-0.0.1-SNAPSHOT.jar my-image
+</code></pre><h2 id="next-steps">Next steps</h2>
+<p>Modern Java is still burgeoning! <a href="https://wiki.openjdk.org/display/crac">Coordinated</a> <a href="https://www.azul.com/products/components/crac/">Restore</a> at <a href="https://github.com/CRaC/docs">Checkpoint</a>, also known as  <a href="https://github.com/sdeleuze/spring-boot-crac-demo">CRaC</a>, <a href="https://medium.com/graalvm/a-new-graalvm-release-and-new-free-license-4aab483692f5">modern GraalVM distributions</a>, future <a href="https://openjdk.org/projects/jdk/21/">Java 21</a> should keep us busy!</p>
+<p>Of course, there can still be bugs and missing features we have not yet identified, feel free to create an issue to the appropriate Paketo project - if in doubt, <a href="https://github.com/paketo-buildpacks/java/issues/new/choose">paketo-buildpacks/java</a> is probably the best place to ask for a new feature or share a new bug.</p>
+
+        </article>
+      </section>
+      <footer class="post">
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Paketo%20Buildpacks%20%7c%20Blog%20%7c%20Java%20Buildpacks%20enhancements&amp;url=https://blog.paketo.io/posts/java-buildpacks-enhancements/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/twitter.png" />
+</a>
+
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://blog.paketo.io/posts/java-buildpacks-enhancements/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/linkedin.png" />
+</a>
+
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://blog.paketo.io/posts/java-buildpacks-enhancements/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/facebook.png" />
+</a>
+
+      </footer>
+    </div>
+  </body>
+</html>

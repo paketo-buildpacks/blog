@@ -6,7 +6,19 @@
     <description>Recent content in Posts on Paketo Buildpacks | Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 23 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 16 Jun 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java Buildpacks enhancements</title>
+      <link>https://blog.paketo.io/posts/java-buildpacks-enhancements/</link>
+      <pubDate>Fri, 16 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.paketo.io/posts/java-buildpacks-enhancements/</guid>
+      <description>During the last few weeks, some enhancements were brought to buildpacks related to the Java ecosystem.
+Let&amp;rsquo;s discover what&amp;rsquo;s new!
+TL;DR Checkout the samples repository for Java examples and the Paketo Buildpacks official documentation - those provide way more details about Paketo uses cases (native, certificates, network-less, etc.) than the different build plugins (Maven and Gradle) documentation.
+And they&amp;rsquo;re always up-to-date! If the rare event they&amp;rsquo;re not, create an issue or Pull Request, and we will fix that!</description>
+    </item>
+    
     <item>
       <title>Manually testing changes to a Paketo Buildpack</title>
       <link>https://blog.paketo.io/posts/manually-testing-changes-to-paketo-buildpacks/</link>
