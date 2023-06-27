@@ -16,7 +16,7 @@
       <description>During the last few weeks, some enhancements were brought to buildpacks related to the Java ecosystem.
 Let&amp;rsquo;s discover what&amp;rsquo;s new!
 TL;DR Checkout the samples repository for Java examples and the Paketo Buildpacks official documentation - those provide way more details about Paketo uses cases (native, certificates, network-less, etc.) than the different build plugins (Maven and Gradle) documentation.
-And they&amp;rsquo;re always up-to-date! If the rare event they&amp;rsquo;re not, create an issue or Pull Request, and we will fix that!</description>
+And they&amp;rsquo;re always up-to-date! In the rare event they&amp;rsquo;re not, create an issue or Pull Request or reach us on Slack, and we will fix that!</description>
     </item>
     
     <item>
