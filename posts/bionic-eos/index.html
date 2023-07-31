@@ -1,0 +1,142 @@
+<!doctype html>
+<html>
+  <head>
+      <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Bionic End of Support | Paketo Buildpacks | Blog</title>
+<link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-language" content="en-us" />
+
+<meta property='og:site_name' content="Paketo Buildpacks | Blog">
+<meta property='og:title' content="Bionic End of Support">
+<meta property='og:url' content="https://blog.paketo.io/posts/bionic-eos/">
+<meta property='og:image' content='/images/logo512.png'/>
+<meta name="twitter:title" content="Paketo Buildpacks | Blog" />
+<meta name="twitter:url" content="https://blog.paketo.io/posts/bionic-eos/" />
+<meta name="twitter:card" content="" />
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TJMQZ5RDFG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TJMQZ5RDFG');
+</script><link rel="stylesheet" href="/scss/main.min.css">
+
+  </head>
+  <body>
+    <div class="post">
+      <header>
+        <a href="/">
+          <img class="logo" src="/images/logo512.png" />
+          <h1>Paketo Buildpacks | Blog</h1>
+        </a>
+      </header>
+      <section>
+        <h1>Bionic End of Support</h1>
+        <section class="author"><img src="/images/authors/swigmore.jpg" /><name>Sophie Wigmore</name></section>
+        <date>Friday, Jul 28, 2023</date>
+        <article>
+          <p>As of May 31, 2023, Ubuntu 18.04 (Bionic Beaver) is <a href="https://ubuntu.com/blog/18-04-end-of-standard-support">out of
+support</a> for open-source
+customers.</p>
+<p>As a result, Paketo will stop supporting Bionic in the project. If you
+currently depend on our Bionic-based offerings, this blog post will contain
+all of the relevant information about what this means and how to migrate.</p>
+<h2 id="end-of-support-details">End of Support Details</h2>
+<p>The removal of Bionic support in Paketo was announced and ratified in the
+<a href="https://github.com/paketo-buildpacks/rfcs/blob/main/text/0057-bionic-eos.md">Bionic End of Support RFC</a>.
+The following stacks and builders will no longer be supported, meaning</p>
+<ul>
+<li>(1) we will no longer publish updates (meaning no CVE fixes),</li>
+<li>(2) the related repositories have been archived, and</li>
+<li>(3) the images will be removed from Docker and GCR in accordance with our <a href="https://github.com/paketo-buildpacks/rfcs/blob/main/text/0046-image-retention-policy.md">image retention policy</a>, which states we&rsquo;ll retain them for at least two years.</li>
+</ul>
+<ul>
+<li>
+<p><a href="https://github.com/paketo-buildpacks/bionic-tiny-stack">Bionic Tiny Stack</a></p>
+</li>
+<li>
+<p><a href="https://github.com/paketo-buildpacks/tiny-builder">Bionic Tiny Builder</a></p>
+</li>
+<li>
+<p><a href="https://github.com/paketo-buildpacks/buildpackless-tiny-builder">Bionic Tiny Buildpackless Builder</a></p>
+</li>
+<li>
+<p><a href="https://github.com/paketo-buildpacks/bionic-base-stack">Bionic Base Stack</a></p>
+</li>
+<li>
+<p><a href="https://github.com/paketo-buildpacks/base-builder">Bionic Base Builder</a></p>
+</li>
+<li>
+<p><a href="https://github.com/paketo-buildpacks/buildpackless-base-builder">Bionic Base Buildpackless Builder</a></p>
+</li>
+<li>
+<p><a href="https://github.com/paketo-buildpacks/bionic-full-stack">Bionic Full Stack</a></p>
+</li>
+<li>
+<p><a href="https://github.com/paketo-buildpacks/full-builder">Bionic Full Builder</a></p>
+</li>
+<li>
+<p><a href="https://github.com/paketo-buildpacks/buildpackless-full-builder">Bionic Full Buildpackless Builder</a></p>
+</li>
+</ul>
+<h2 id="migration-path">Migration Path</h2>
+<p>We strongly recommend migrating your workloads from Bionic to our Ubuntu 22.04
+(Jammy Jellyfish) based offerings. Each Bionic stack and builder listed above
+has a more or less 1:1 Jammy equivalent available in the project.</p>
+<p>If you are using the <code>pack</code> CLI version v0.29.0 or prior for your builds, you
+can set the default builder for your builds to Jammy via the <code>pack config default-builder</code> command:</p>
+<pre><code>pack config default-builder paketobuildpacks/builder-jammy-base
+</code></pre><p>You may notice that current versions of <code>pack</code> still suggest using the Bionic builder if you run <code>pack builder suggest</code>. This is out-of-date and Paketo is waiting on a new release of <code>pack</code> which will correctly suggest the Jammy builders. Please ignore the output of <code>pack builder suggest</code> for now and use the builder listed above.
+Here is a complete list of the new builders:</p>
+<ul>
+<li><code>paketobuildpacks/builder-jammy-full</code></li>
+<li><code>paketobuildpacks/builder-jammy-base</code></li>
+<li><code>paketobuildpacks/builder-jammy-tiny</code></li>
+<li><code>paketobuildpacks/builder-jammy-buildpackless-full</code></li>
+<li><code>paketobuildpacks/builder-jammy-buildpackless-base</code></li>
+<li><code>paketobuildpacks/builder-jammy-buildpackless-tiny</code></li>
+<li><code>paketobuildpacks/builder-jammy-buildpackless-static</code>
+If you are using Spring Boot build tools, you will need to set the builder in your <code>pom.xml</code> if you&rsquo;re using Maven or in your <code>build.gradle</code> if you&rsquo;re using Gradle. For Maven, instructions <a href="https://docs.spring.io/spring-boot/docs/3.1.2/maven-plugin/reference/htmlsingle/#build-image.examples.custom-image-builder">see here</a>. For Gradle instructions, <a href="https://docs.spring.io/spring-boot/docs/3.1.2/gradle-plugin/reference/htmlsingle/#build-image.examples.custom-image-builder">see here</a>. Use one of the builder&rsquo;s listed above, like <code>paketobuildpacks/builder-jammy-base</code>.</li>
+</ul>
+<h2 id="alternatives">Alternatives</h2>
+<p>If for some reason you cannot migrate away from Bionic right away, you can create your own
+custom stack. While the Paketo project will no longer support Bionic, you can
+support this use-case yourself, although it&rsquo;s not recommended over moving to Jammy.</p>
+<p>In order to do this, you&rsquo;ll need to look into <a href="https://ubuntu.com/security/esm">Ubuntu ESM
+support</a> in order to get access to extended
+Ubuntu Bionic package support. Then, you can follow the <a href="https://paketo.io/docs/howto/create-custom-stack/">Paketo
+documentation</a> on how to
+create a custom stack.</p>
+<h2 id="questions">Questions?</h2>
+<p>If you have any questions, feel free to reach out to us in <a href="https://slack.paketo.io/">Paketo
+slack</a>:</p>
+<ul>
+<li>Stacks-related questions: <a href="https://paketobuildpacks.slack.com/archives/C03K61JJ57A">#stacks</a></li>
+<li>Builder-related questions: <a href="https://paketobuildpacks.slack.com/archives/C01E8A03W9F">#builders</a></li>
+<li>General discussion: <a href="https://paketobuildpacks.slack.com/archives/CU8RVQZ1R">#general</a></li>
+</ul>
+
+        </article>
+      </section>
+      <footer class="post">
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Paketo%20Buildpacks%20%7c%20Blog%20%7c%20Bionic%20End%20of%20Support&amp;url=https://blog.paketo.io/posts/bionic-eos/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/twitter.png" />
+</a>
+
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://blog.paketo.io/posts/bionic-eos/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/linkedin.png" />
+</a>
+
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://blog.paketo.io/posts/bionic-eos/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/facebook.png" />
+</a>
+
+      </footer>
+    </div>
+  </body>
+</html>
