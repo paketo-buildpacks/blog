@@ -47,7 +47,14 @@ can set the default builder for your builds to Jammy via the `pack config defaul
 pack config default-builder paketobuildpacks/builder-jammy-base
 ```
 You may notice that current versions of `pack` still suggest using the Bionic builder if you run `pack builder suggest`. This is out-of-date and Paketo is waiting on a new release of `pack` which will correctly suggest the Jammy builders. Please ignore the output of `pack builder suggest` for now and use the builder listed above.
-
+Here is a complete list of the new builders:
+- `paketobuildpacks/builder-jammy-full`
+- `paketobuildpacks/builder-jammy-base`
+- `paketobuildpacks/builder-jammy-tiny`
+- `paketobuildpacks/builder-jammy-buildpackless-full`
+- `paketobuildpacks/builder-jammy-buildpackless-base`
+- `paketobuildpacks/builder-jammy-buildpackless-tiny`
+- `paketobuildpacks/builder-jammy-buildpackless-static`
 If you are using Spring Boot build tools, you will need to set the builder in your `pom.xml` if you're using Maven or in your `build.gradle` if you're using Gradle. For Maven, instructions [see here](https://docs.spring.io/spring-boot/docs/3.1.2/maven-plugin/reference/htmlsingle/#build-image.examples.custom-image-builder). For Gradle instructions, [see here](https://docs.spring.io/spring-boot/docs/3.1.2/gradle-plugin/reference/htmlsingle/#build-image.examples.custom-image-builder). Use one of the builder's listed above, like `paketobuildpacks/builder-jammy-base`.
 ## Alternatives
 
