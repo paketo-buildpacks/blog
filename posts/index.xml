@@ -6,7 +6,19 @@
     <description>Recent content in Posts on Paketo Buildpacks | Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 28 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 05 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Paketo buildpacks team is welcoming new contributors from Hacktoberfest!</title>
+      <link>https://blog.paketo.io/posts/paketo-buildpacks-hacktoberfest-2023/</link>
+      <pubDate>Thu, 05 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.paketo.io/posts/paketo-buildpacks-hacktoberfest-2023/</guid>
+      <description>What is Hacktoberfest? Hacktoberfest is a recurring (yearly) event that lasts the whole month of October and encourages participants to contribute to Open Source projects.
+The contributions can be technical (code) but also about documentation - the goal is to make a new population of developers familiar with Open Source.
+Digital Ocean and other companies organize this event each year and of course you win awards participating!
+You already have a Github account?</description>
+    </item>
+    
     <item>
       <title>Bionic End of Support</title>
       <link>https://blog.paketo.io/posts/bionic-eos/</link>
