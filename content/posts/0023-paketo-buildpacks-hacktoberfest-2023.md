@@ -27,7 +27,7 @@ Not sure how to start? You can still reach the Paketo maintainers [on Slack](htt
 
 ## Ready, set, go!
 
-Go and discover all the issues we tagged as **[hacktoberfest](https://github.com/search?q=org%3Apaketo-buildpacks++label%3A%22hacktoberfest%22&type=issues)** and start working on your contributions!
+Go and discover all the issues we tagged as **[hacktoberfest](https://github.com/search?q=org%3Apaketo-buildpacks++label%3A%22hacktoberfest%22++state%3Aopen+&type=issues&s=&o=desc)** and start working on your contributions!
 
 ## Bonus
 
