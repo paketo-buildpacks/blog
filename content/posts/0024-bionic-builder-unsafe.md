@@ -7,17 +7,17 @@ author: dmikusa
 
 ## Paketo's Bionic Builder Is Unsafe
 
-It's a strange thing for the Paketo Project to call out its builder as being unsafe, but the key detail here that it's the **Ubuntu Bionic Builder** we're saying is unsafe.
+It's a strange thing for the Paketo Project to call out its builder as being unsafe, but the key detail here is that it's the **Ubuntu Bionic Builder** we're saying is unsafe.
 
-On May 31st 2023, Ubuntu 18.04 (Bionic Beaver) went out of support for OSS customers ([source](https://ubuntu.com/blog/18-04-end-of-standard-support)). At the same time, the Paketo Project [stopped supporting its Bionic Stacks and Builders based on Ubuntu 18.04](https://github.com/paketo-buildpacks/rfcs/blob/main/text/0057-bionic-eos.md). This was further communicated in a [blog post on July 28, 2023](https://blog.paketo.io/posts/bionic-eos/).
+On May 31st, 2023, Ubuntu 18.04 (Bionic Beaver) went out of support for OSS customers ([source](https://ubuntu.com/blog/18-04-end-of-standard-support)). At the same time, the Paketo Project [stopped supporting its Bionic Stacks and Builders based on Ubuntu 18.04](https://github.com/paketo-buildpacks/rfcs/blob/main/text/0057-bionic-eos.md). This was further communicated in a [blog post on July 28, 2023](https://blog.paketo.io/posts/bionic-eos/).
 
-This means that updates have not been published for the Bionic Builder or any of it's buildpacks **almost six months**. That's a long time in the software world, which is why we're saying that it's not safe to use this stack.
+This means that updates have not been published for the Bionic Builder or any of its buildpacks **for almost six months**. That's a long time in the software world, which is why we're saying that it's not safe to use this stack.
 
 Despite this, we are still seeing users performing builds against the Bionic stacks. This comes up in forum posts, Stack Overflow questions, Slack questions, and other channels. We believe that users are not getting the message or are not noticing that they are still using an old builder.
 
 ## The Plan
 
-To help notify users that they need to change, **we are going to move forward with a brownout for the Bionic Builder on Monday, November 20th, 2023. It will run from 10 AM EST to 2 PM EST**. We believe this will cover a time range across EMEA, US East, and US West. We hope this will be long enough time period that it will break some user's builds/CI systems, and users will notice thus being encouraged to upgrade.
+To help notify users that they need to change, **we are going to move forward with a brownout for the Bionic Builder on Monday, November 20th, 2023. It will run from 10 AM EST to 2 PM EST**. We believe this will cover a time range across EMEA, the US East, and the US West. We hope this will be a long enough period that it will break some users' builds/CI systems, and users will notice thus being encouraged to upgrade.
 
 This will be implemented by temporarily removing the image tags from the Bionic builder images (full, base, and tiny). Once the brownout is finished, the image tags will be restored. This will fix user builds.
 
@@ -40,7 +40,7 @@ If it does not, then run `pack config default-builder paketobuildpacks/builder-j
 
 ### Check your CI pipelines
 
-Users should also check their CI pipelines, build scripts, and other automations for usage of the Bionic builders. 
+Users should also check their CI pipelines, build scripts, and other automations for the usage of the Bionic Builders. 
 
 - Users may call `pack build` with the `-B` or `--builder` flag to set a builder. 
 - Users may include a `project.toml` file which might have a `builder = <builder>` property set in the `[build]` block to set a builder.
@@ -86,5 +86,5 @@ For these users:
    - `paketobuildpacks/builder:buildpackless-base-unsafe`
    - `paketobuildpacks/builder:buildpackless-full-unsafe`
 
-3. Starting Jan 1, 2024 we will permanently remove the original image tags (i.e. those without `-unsafe`) from the Bionic builder images (full, base, and tiny). If you have not switched to using the `-unsafe` tags, then your builds will be broken until you switch.
+3. Starting Jan 1, 2024, we will permanently remove the original image tags (i.e. those without `-unsafe`) from the Bionic builder images (full, base, and tiny). If you have not switched to using the `-unsafe` tags, then your builds will be broken until you switch.
 
