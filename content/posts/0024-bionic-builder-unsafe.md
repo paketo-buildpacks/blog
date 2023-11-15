@@ -76,7 +76,7 @@ We hope that everyone will be able to upgrade, but we recognize that there may b
 
 For these users:
 
-1. Your builds will break during the brownout. Don't panic! They will start working again when the brownout is over. Grab your towel or a [Pan Galactic Gargle Blaster](https://en.wikipedia.org/wiki/Zaphod_Beeblebrox) and wait it out.
+1. Your builds will break during the brownout. Don't panic! They will start working again when the brownout is over. Grab your towel or a [Pan Galactic Gargle Blaster](https://en.wikipedia.org/wiki/Zaphod_Beeblebrox), you can just wait it out.
 2. When the brownout is over, you will need to switch the image tag on your builder to the following:
 
    - `paketobuildpacks/builder:tiny-unsafe`
@@ -85,6 +85,8 @@ For these users:
    - `paketobuildpacks/builder:buildpackless-tiny-unsafe`
    - `paketobuildpacks/builder:buildpackless-base-unsafe`
    - `paketobuildpacks/builder:buildpackless-full-unsafe`
+
+    In fact, we have added the `-unsafe` tags to the builder images as of this article being posted, so you don't strictly need to wait. If you want to get ahead of things, you could switch to the `-unsafe` tag now and avoid downtime during the brownout.
 
 3. Starting Jan 1, 2024, we will permanently remove the original image tags (i.e. those without `-unsafe`) from the Bionic builder images (full, base, and tiny). If you have not switched to using the `-unsafe` tags, then your builds will be broken until you switch.
 
