@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+  <head>
+      <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Paketo&#39;s Bionic Builder Is Unsafe | Paketo Buildpacks | Blog</title>
+<link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-language" content="en-us" />
+
+<meta property='og:site_name' content="Paketo Buildpacks | Blog">
+<meta property='og:title' content="Paketo&#39;s Bionic Builder Is Unsafe">
+<meta property='og:url' content="https://blog.paketo.io/posts/paketo-bionic-builder-is-unsafe/">
+<meta property='og:image' content='/images/logo512.png'/>
+<meta name="twitter:title" content="Paketo Buildpacks | Blog" />
+<meta name="twitter:url" content="https://blog.paketo.io/posts/paketo-bionic-builder-is-unsafe/" />
+<meta name="twitter:card" content="" />
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TJMQZ5RDFG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TJMQZ5RDFG');
+</script><link rel="stylesheet" href="/scss/main.min.css">
+
+  </head>
+  <body>
+    <div class="post">
+      <header>
+        <a href="/">
+          <img class="logo" src="/images/logo512.png" />
+          <h1>Paketo Buildpacks | Blog</h1>
+        </a>
+      </header>
+      <section>
+        <h1>Paketo&#39;s Bionic Builder Is Unsafe</h1>
+        <section class="author"><img src="/images/authors/dmikusa.jpg" /><name>Daniel Mikusa</name></section>
+        <date>Tuesday, Nov 14, 2023</date>
+        <article>
+          <h2 id="paketos-bionic-builder-is-unsafe">Paketo&rsquo;s Bionic Builder Is Unsafe</h2>
+<p>It&rsquo;s a strange thing for the Paketo Project to call out its builder as being unsafe, but the key detail here is that it&rsquo;s the <strong>Ubuntu Bionic Builder</strong> we&rsquo;re saying is unsafe.</p>
+<p>On May 31st, 2023, Ubuntu 18.04 (Bionic Beaver) went out of support for OSS customers (<a href="https://ubuntu.com/blog/18-04-end-of-standard-support">source</a>). At the same time, the Paketo Project <a href="https://github.com/paketo-buildpacks/rfcs/blob/main/text/0057-bionic-eos.md">stopped supporting its Bionic Stacks and Builders based on Ubuntu 18.04</a>. This was further communicated in a <a href="https://blog.paketo.io/posts/bionic-eos/">blog post on July 28, 2023</a>.</p>
+<p>This means that updates have not been published for the Bionic Builder or any of its buildpacks <strong>for almost six months</strong>. That&rsquo;s a long time in the software world, which is why we&rsquo;re saying that it&rsquo;s not safe to use this stack.</p>
+<p>Despite this, we are still seeing users performing builds against the Bionic stacks. This comes up in forum posts, Stack Overflow questions, Slack questions, and other channels. We believe that users are not getting the message or are not noticing that they are still using an old builder.</p>
+<h2 id="the-plan">The Plan</h2>
+<p>To help notify users that they need to change, <strong>we are going to move forward with a brownout for the Bionic Builder on W, November 27th, 2023. It will run from 10 AM EST to 2 PM EST</strong>. We believe this will cover a time range across EMEA, the US East, and the US West. We hope this will be a long enough period that it will break some users' builds/CI systems, and users will notice thus being encouraged to upgrade.</p>
+<p>This will be implemented by temporarily removing the image tags from the Bionic builder images (full, base, and tiny). Once the brownout is finished, the image tags will be restored. This will fix user builds.</p>
+<p>We hope this will be sufficient to alert any users still on the Bionic Builder.</p>
+<h2 id="what-does-this-mean-for-you">What Does This Mean for You?</h2>
+<h3 id="check-your-desktop">Check your Desktop</h3>
+<p>All users should check their systems and confirm the builder that they are using</p>
+<p>With <code>pack</code>, users should run <code>pack config default-builder</code>. It should say that they are using a Jammy builder.</p>
+<pre><code>&gt; pack config default-builder
+The current default builder is paketobuildpacks/builder-jammy-base
+</code></pre><p>If it does not, then run <code>pack config default-builder paketobuildpacks/builder-jammy-base</code> (or <code>-full</code> or <code>-tiny</code>, based on your needs).</p>
+<h3 id="check-your-ci-pipelines">Check your CI pipelines</h3>
+<p>Users should also check their CI pipelines, build scripts, and other automations for the usage of the Bionic Builders.</p>
+<ul>
+<li>Users may call <code>pack build</code> with the <code>-B</code> or <code>--builder</code> flag to set a builder.</li>
+<li>Users may include a <code>project.toml</code> file which might have a <code>builder = &lt;builder&gt;</code> property set in the <code>[build]</code> block to set a builder.</li>
+<li>It is less likely, but users can also call <code>pack config default-builder &lt;builder&gt;</code> to set a builder in CI.</li>
+</ul>
+<p>Users may also want to check for the names of the older builders in your CI/pipelines:</p>
+<ul>
+<li><code>paketobuildpacks/builder:tiny</code></li>
+<li><code>paketobuildpacks/builder:base</code></li>
+<li><code>paketobuildpacks/builder:full</code></li>
+<li><code>paketobuildpacks/builder:buildpackless-tiny</code></li>
+<li><code>paketobuildpacks/builder:buildpackless-base</code></li>
+<li><code>paketobuildpacks/builder:buildpackless-full</code></li>
+</ul>
+<p>Any usage of these builders should be replaced with the equivalent Jammy builder.</p>
+<ul>
+<li><code>paketobuildpacks/builder-jammy-tiny:latest</code></li>
+<li><code>paketobuildpacks/builder-jammy-base:latest</code></li>
+<li><code>paketobuildpacks/builder-jammy-full:latest</code></li>
+<li><code>paketobuildpacks/builder-jammy-buildpackless-tiny:latest</code></li>
+<li><code>paketobuildpacks/builder-jammy-buildpackless-base:latest</code></li>
+<li><code>paketobuildpacks/builder-jammy-buildpackless-full:latest</code></li>
+</ul>
+<h3 id="upgrade-your-spring-boot-apps">Upgrade your Spring Boot Apps</h3>
+<p><a href="https://spring.io/blog/2023/09/22/paketo-buildpacks-bionic-end-of-support">Spring Boot Users will continue to default to the Bionic Stack until Spring Boot 3.2</a>. Please read the Spring Blog post and perform the actions listed there. That will upgrade your app to use the Jammy stack.</p>
+<p>Please also consider upgrading to Spring Boot 3.2 when it is available. Spring Boot 3.2+ will default to using the Jammy builders.</p>
+<h3 id="help-i-need-bionic">Help! I need Bionic</h3>
+<p>We hope that everyone will be able to upgrade, but we recognize that there may be cases where a user cannot upgrade or cannot upgrade immediately.</p>
+<p>For these users:</p>
+<ol>
+<li>
+<p>Your builds will break during the brownout. Don&rsquo;t panic! They will start working again when the brownout is over. Grab your towel or a <a href="https://en.wikipedia.org/wiki/Zaphod_Beeblebrox">Pan Galactic Gargle Blaster</a>, you can just wait it out.</p>
+</li>
+<li>
+<p>When the brownout is over, you will need to switch the image tag on your builder to the following:</p>
+<ul>
+<li><code>paketobuildpacks/builder:tiny-unsafe</code></li>
+<li><code>paketobuildpacks/builder:base-unsafe</code></li>
+<li><code>paketobuildpacks/builder:full-unsafe</code></li>
+<li><code>paketobuildpacks/builder:buildpackless-tiny-unsafe</code></li>
+<li><code>paketobuildpacks/builder:buildpackless-base-unsafe</code></li>
+<li><code>paketobuildpacks/builder:buildpackless-full-unsafe</code></li>
+</ul>
+<p>In fact, we have added the <code>-unsafe</code> tags to the builder images as of this article being posted, so you don&rsquo;t strictly need to wait. If you want to get ahead of things, you could switch to the <code>-unsafe</code> tag now and avoid downtime during the brownout.</p>
+</li>
+<li>
+<p>Starting Jan 1, 2024, we will permanently remove the original image tags (i.e. those without <code>-unsafe</code>) from the Bionic builder images (full, base, and tiny). If you have not switched to using the <code>-unsafe</code> tags, then your builds will be broken until you switch.</p>
+</li>
+</ol>
+
+        </article>
+      </section>
+      <footer class="post">
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Paketo%20Buildpacks%20%7c%20Blog%20%7c%20Paketo%27s%20Bionic%20Builder%20Is%20Unsafe&amp;url=https://blog.paketo.io/posts/paketo-bionic-builder-is-unsafe/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/twitter.png" />
+</a>
+
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://blog.paketo.io/posts/paketo-bionic-builder-is-unsafe/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/linkedin.png" />
+</a>
+
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://blog.paketo.io/posts/paketo-bionic-builder-is-unsafe/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/facebook.png" />
+</a>
+
+      </footer>
+    </div>
+  </body>
+</html>

@@ -6,7 +6,17 @@
     <description>Recent content in Posts on Paketo Buildpacks | Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 05 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 14 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Paketo&#39;s Bionic Builder Is Unsafe</title>
+      <link>https://blog.paketo.io/posts/paketo-bionic-builder-is-unsafe/</link>
+      <pubDate>Tue, 14 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.paketo.io/posts/paketo-bionic-builder-is-unsafe/</guid>
+      <description>Paketo&amp;rsquo;s Bionic Builder Is Unsafe It&amp;rsquo;s a strange thing for the Paketo Project to call out its builder as being unsafe, but the key detail here is that it&amp;rsquo;s the Ubuntu Bionic Builder we&amp;rsquo;re saying is unsafe.
+On May 31st, 2023, Ubuntu 18.04 (Bionic Beaver) went out of support for OSS customers (source). At the same time, the Paketo Project stopped supporting its Bionic Stacks and Builders based on Ubuntu 18.</description>
+    </item>
+    
     <item>
       <title>Paketo buildpacks team is welcoming new contributors from Hacktoberfest!</title>
       <link>https://blog.paketo.io/posts/paketo-buildpacks-hacktoberfest-2023/</link>
