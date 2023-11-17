@@ -17,7 +17,7 @@ Despite this, we are still seeing users performing builds against the Bionic sta
 
 ## The Plan
 
-To help notify users that they need to change, **we are going to move forward with a brownout for the Bionic Builder on Monday, November 20th, 2023. It will run from 10 AM EST to 2 PM EST**. We believe this will cover a time range across EMEA, the US East, and the US West. We hope this will be a long enough period that it will break some users' builds/CI systems, and users will notice thus being encouraged to upgrade.
+To help notify users that they need to change, **we are going to move forward with a brownout for the Bionic Builder on W, November 27th, 2023. It will run from 10 AM EST to 2 PM EST**. We believe this will cover a time range across EMEA, the US East, and the US West. We hope this will be a long enough period that it will break some users' builds/CI systems, and users will notice thus being encouraged to upgrade.
 
 This will be implemented by temporarily removing the image tags from the Bionic builder images (full, base, and tiny). Once the brownout is finished, the image tags will be restored. This will fix user builds.
 
