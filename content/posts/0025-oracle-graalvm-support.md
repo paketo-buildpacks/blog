@@ -50,7 +50,7 @@ Paketo Buildpack for Oracle 3.11.0
 ...
 ```
 
-This example shows one my favorite features of buildpacks, which is that switching JVM and Native Image vendors is trivial. The Oracle GraalVM is fantastic, but if you want to switch to use the GraalVM Community Edition, that's easy too. Just swap in `paketo-buildpacks/graalvm` for `paketo-buildpacks/oracle`. A two-second change and you're building using a different vendor.
+This example shows one of my favorite features of buildpacks, which is that switching JVM and Native Image vendors is trivial. The Oracle GraalVM is fantastic, but if you want to switch to use the GraalVM Community Edition, that's easy too. Just swap in `paketo-buildpacks/graalvm` for `paketo-buildpacks/oracle`. A two-second change and you're building using a different vendor.
 
 Just as easily, you can swap versions too. The Oracle buildpack presently supports both Java 17 and 21, which you can select by setting the `BP_JVM_VERSION` flag. For example, `pack build applications/native-image -b paketobuildpacks/oracle -b urn:cnb:builder:paketo-buildpacks/java-native-image --builder paketobuildpacks/builder-jammy-tiny --env BP_MAVEN_ACTIVE_PROFILES=native --env BP_JVM_VERSION=21`. This makes trying out new versions trivial, which ultimately makes your upgrades easier.
 
