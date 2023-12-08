@@ -82,6 +82,6 @@ At the moment, the Oracle buildpack supports using the [Oracle free JDK](https:/
 
 This was something we left out of the initial support because it would have delayed the release more and that's something we didn't want to do. Also, we believe that future work in the Paketo project is going to make support for this significantly easier.
 
-What this all means is that for the moment, you can't run your Java apps with GraalVM. We'll be working hard to support this in the future, but in meantime we think you'll really enjoy using Oracle GraalVM to build your native images.
+What this all means is that for the moment, you can't run your Java apps with GraalVM. We'll be working hard to support this in the future, but in the meantime, we think you'll really enjoy using Oracle GraalVM to build your native images.
 
 As always, please post questions/comments on our [Github Discussion Page](https://github.com/orgs/paketo-buildpacks/discussions/categories/java-team), or Join the [Paketo Slack](https://slack.paketo.io/) and chat with us in the `#java` room.
