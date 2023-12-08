@@ -76,6 +76,17 @@ If you're using Spring Boot Build Tools to generate your application image, you 
 
 2. Then run `./mvnw spring-boot:build-image -Pnative` to build your image.
 
+And the equivalent change with Gradle `build.gradle`:
+    ```
+    ...
+    tasks.named("bootBuildImage") {
+        builder = "paketobuildpacks/builder-jammy-tiny:latest"
+        buildpacks = ["docker.io/paketobuildpacks/oracle", "urn:cnb:builder:paketo-buildpacks/java-native-image"]
+    }
+    ...
+    ```
+2. Then run `./gradlew bootBuildImage` to build your image.
+
 ## Future Roadmap
 
 At the moment, the Oracle buildpack supports using the [Oracle free JDK](https://www.oracle.com/java/technologies/downloads/) for running your Java apps, and it supports using [Oracle GraalVM](https://www.oracle.com/java/graalvm/) for building your Native Image apps. What's been left out at the moment is support to use Oracle GraalVM as a JDK to run your Java apps.
