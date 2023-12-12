@@ -6,7 +6,17 @@
     <description>Recent content in Posts on Paketo Buildpacks | Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 14 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 11 Dec 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Oracle GraalVM Support has Arrived!</title>
+      <link>https://blog.paketo.io/posts/oracle-graalvm-support-has-arrived/</link>
+      <pubDate>Mon, 11 Dec 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.paketo.io/posts/oracle-graalvm-support-has-arrived/</guid>
+      <description>Oracle GraalVM Support has Arrived! Today marks the start of support for building native image applications with Oracle GraalVM. Since Oracle released Oracle GraalVM under the GraalVM Free License, we&amp;rsquo;ve been receiving lots of feedback to add support for it. Starting with the 3.11.0 release of the Paketo Buildpack for Oracle we now have official support!
+With this first release, you can build native image applications with Oracle GraalVM. Building your application is simple.</description>
+    </item>
+    
     <item>
       <title>Paketo&#39;s Bionic Builder Is Unsafe</title>
       <link>https://blog.paketo.io/posts/paketo-bionic-builder-is-unsafe/</link>

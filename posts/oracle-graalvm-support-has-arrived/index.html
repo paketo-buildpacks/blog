@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+  <head>
+      <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Oracle GraalVM Support has Arrived! | Paketo Buildpacks | Blog</title>
+<link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-language" content="en-us" />
+
+<meta property='og:site_name' content="Paketo Buildpacks | Blog">
+<meta property='og:title' content="Oracle GraalVM Support has Arrived!">
+<meta property='og:url' content="https://blog.paketo.io/posts/oracle-graalvm-support-has-arrived/">
+<meta property='og:image' content='/images/logo512.png'/>
+<meta name="twitter:title" content="Paketo Buildpacks | Blog" />
+<meta name="twitter:url" content="https://blog.paketo.io/posts/oracle-graalvm-support-has-arrived/" />
+<meta name="twitter:card" content="" />
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TJMQZ5RDFG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TJMQZ5RDFG');
+</script><link rel="stylesheet" href="/scss/main.min.css">
+
+  </head>
+  <body>
+    <div class="post">
+      <header>
+        <a href="/">
+          <img class="logo" src="/images/logo512.png" />
+          <h1>Paketo Buildpacks | Blog</h1>
+        </a>
+      </header>
+      <section>
+        <h1>Oracle GraalVM Support has Arrived!</h1>
+        <section class="author"><img src="/images/authors/dmikusa.jpg" /><name>Daniel Mikusa</name></section>
+        <date>Monday, Dec 11, 2023</date>
+        <article>
+          <h2 id="oracle-graalvm-support-has-arrived">Oracle GraalVM Support has Arrived!</h2>
+<p>Today marks the start of support for building native image applications with <a href="https://www.oracle.com/java/graalvm/">Oracle GraalVM</a>. Since Oracle released Oracle GraalVM under the <a href="https://blogs.oracle.com/java/post/graalvm-free-license">GraalVM Free License</a>, we&rsquo;ve been receiving lots of feedback to add support for it. Starting with the 3.11.0 release of the Paketo Buildpack for Oracle we now have official support!</p>
+<p>With this first release, you can build native image applications with Oracle GraalVM. Building your application is simple. You follow the <a href="https://paketo.io/docs/howto/java/#use-an-alternative-java-native-image-toolkit">process for selecting a Native Image Toolkit</a> and use the Oracle buildpack.</p>
+<p>For example, if we want to build the <a href="https://github.com/paketo-buildpacks/samples/tree/main/java/native-image/spring-boot-native-image-maven">Paketo Maven Spring Boot Sample App</a> with <code>pack</code>, we would simply run <code>pack build applications/native-image -b paketo-buildpacks/oracle -b urn:cnb:builder:paketo-buildpacks/java-native-image --builder paketobuildpacks/builder-jammy-tiny --env BP_MAVEN_ACTIVE_PROFILES=native</code>. This small change is all that&rsquo;s required to tell Paketo Buildpacks to override the default JDK distribution including Native Image, which is from Bellsoft, and instead use Oracle GraalVM.</p>
+<p>When you build your image, you&rsquo;ll now see the Paketo buildpacks download, install, and run Oracle&rsquo;s GraalVM for you.</p>
+<pre><code>...
+Paketo Buildpack for Oracle 3.11.0
+  https://github.com/paketo-buildpacks/oracle
+  Build Configuration:
+    $BP_JVM_JLINK_ARGS           --no-man-pages --no-header-files --strip-debug --compress=1  configure custom link arguments (--output must be omitted)
+    $BP_JVM_JLINK_ENABLED        false                                                        enables running jlink tool to generate custom JRE
+    $BP_JVM_TYPE                 JRE                                                          the JVM type - JDK or JRE
+    $BP_JVM_VERSION              17                                                           the Java version
+  Launch Configuration:
+    $BPL_DEBUG_ENABLED           false                                                        enables Java remote debugging support
+    $BPL_DEBUG_PORT              8000                                                         configure the remote debugging port
+    $BPL_DEBUG_SUSPEND           false                                                        configure whether to suspend execution until a debugger has attached
+    $BPL_HEAP_DUMP_PATH                                                                       write heap dumps on error to this path
+    $BPL_JAVA_NMT_ENABLED        true                                                         enables Java Native Memory Tracking (NMT)
+    $BPL_JAVA_NMT_LEVEL          summary                                                      configure level of NMT, summary or detail
+    $BPL_JFR_ARGS                                                                             configure custom Java Flight Recording (JFR) arguments
+    $BPL_JFR_ENABLED             false                                                        enables Java Flight Recording (JFR)
+    $BPL_JMX_ENABLED             false                                                        enables Java Management Extensions (JMX)
+    $BPL_JMX_PORT                5000                                                         configure the JMX port
+    $BPL_JVM_HEAD_ROOM           0                                                            the headroom in memory calculation
+    $BPL_JVM_LOADED_CLASS_COUNT  35% of classes                                               the number of loaded classes in memory calculation
+    $BPL_JVM_THREAD_COUNT        250                                                          the number of threads in memory calculation
+    $JAVA_TOOL_OPTIONS                                                                        the JVM launch flags
+    Using buildpack default Java version 17
+  Oracle GraalVM 17.0.9: Contributing to layer
+    Downloading from https://download.oracle.com/graalvm/17/archive/graalvm-jdk-17.0.9_linux-x64_bin.tar.gz
+    Verifying checksum
+    Expanding to /layers/paketo-buildpacks_oracle/native-image-svm
+    Adding 137 container CA certificates to JVM truststore
+    Writing env.build/JAVA_HOME.override
+    Writing env.build/JDK_HOME.override
+...
+</code></pre><p>This example shows one of my favorite features of buildpacks, which is that switching JVM and Native Image vendors is trivial. The Oracle GraalVM is fantastic, but if you want to switch to use the GraalVM Community Edition, that&rsquo;s easy too. Just swap in <code>paketo-buildpacks/graalvm</code> for <code>paketo-buildpacks/oracle</code>. A two-second change and you&rsquo;re building using a different vendor.</p>
+<p>Just as easily, you can swap versions too. The Oracle buildpack presently supports both Java 17 and 21, which you can select by setting the <code>BP_JVM_VERSION</code> flag. For example, <code>pack build applications/native-image -b paketobuildpacks/oracle -b urn:cnb:builder:paketo-buildpacks/java-native-image --builder paketobuildpacks/builder-jammy-tiny --env BP_MAVEN_ACTIVE_PROFILES=native --env BP_JVM_VERSION=21</code>. This makes trying out new versions trivial, which ultimately makes your upgrades easier.</p>
+<h3 id="spring-boot-build-tools">Spring Boot Build Tools</h3>
+<p>If you&rsquo;re using Spring Boot Build Tools to generate your application image, you can use Oracle GraalVM with the following changes.</p>
+<ol>
+<li>
+<p>Modify the image configuration block in your <code>pom.xml</code>.</p>
+<pre><code>...
+&lt;configuration&gt;
+    &lt;image&gt;
+        &lt;builder&gt;paketobuildpacks/builder-jammy-tiny:latest&lt;/builder&gt;
+        &lt;buildpacks&gt;
+            &lt;buildpack&gt;docker.io/paketobuildpacks/oracle&lt;/buildpack&gt;
+            &lt;buildpack&gt;urn:cnb:builder:paketo-buildpacks/java-native-image&lt;/buildpack&gt;
+        &lt;/buildpacks&gt;
+    &lt;/image&gt;
+&lt;/configuration&gt;
+...
+</code></pre></li>
+<li>
+<p>Then run <code>./mvnw spring-boot:build-image -Pnative</code> to build your image.</p>
+</li>
+</ol>
+<p>And the equivalent change with Gradle <code>build.gradle</code>:
+<code>... tasks.named(&quot;bootBuildImage&quot;) { builder = &quot;paketobuildpacks/builder-jammy-tiny:latest&quot; buildpacks = [&quot;docker.io/paketobuildpacks/oracle&quot;, &quot;urn:cnb:builder:paketo-buildpacks/java-native-image&quot;] } ...</code>
+2. Then run <code>./gradlew bootBuildImage</code> to build your image.</p>
+<h2 id="future-roadmap">Future Roadmap</h2>
+<p>At the moment, the Oracle buildpack supports using the <a href="https://www.oracle.com/java/technologies/downloads/">Oracle free JDK</a> for running your Java apps, and it supports using <a href="https://www.oracle.com/java/graalvm/">Oracle GraalVM</a> for building your Native Image apps. What&rsquo;s been left out at the moment is support to use Oracle GraalVM as a JDK to run your Java apps.</p>
+<p>This was something we left out of the initial support because it would have delayed the release more and that&rsquo;s something we didn&rsquo;t want to do. Also, we believe that future work in the Paketo project is going to make support for this significantly easier.</p>
+<p>What this all means is that for the moment, you can&rsquo;t run your Java apps with GraalVM. We&rsquo;ll be working hard to support this in the future, but in the meantime, we think you&rsquo;ll really enjoy using Oracle GraalVM to build your native images.</p>
+<p>As always, please post questions/comments on our <a href="https://github.com/orgs/paketo-buildpacks/discussions/categories/java-team">GitHub Discussion Page</a>, or Join the <a href="https://slack.paketo.io/">Paketo Slack</a> and chat with us in the <code>#java</code> room.</p>
+
+        </article>
+      </section>
+      <footer class="post">
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Paketo%20Buildpacks%20%7c%20Blog%20%7c%20Oracle%20GraalVM%20Support%20has%20Arrived!&amp;url=https://blog.paketo.io/posts/oracle-graalvm-support-has-arrived/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/twitter.png" />
+</a>
+
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://blog.paketo.io/posts/oracle-graalvm-support-has-arrived/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/linkedin.png" />
+</a>
+
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://blog.paketo.io/posts/oracle-graalvm-support-has-arrived/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/facebook.png" />
+</a>
+
+      </footer>
+    </div>
+  </body>
+</html>
