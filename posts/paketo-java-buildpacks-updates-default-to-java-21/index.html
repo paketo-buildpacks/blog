@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+  <head>
+      <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Paketo Java Buildpacks Updates Default to Java 21 | Paketo Buildpacks | Blog</title>
+<link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-language" content="en-us" />
+
+<meta property='og:site_name' content="Paketo Buildpacks | Blog">
+<meta property='og:title' content="Paketo Java Buildpacks Updates Default to Java 21">
+<meta property='og:url' content="https://blog.paketo.io/posts/paketo-java-buildpacks-updates-default-to-java-21/">
+<meta property='og:image' content='/images/logo512.png'/>
+<meta name="twitter:title" content="Paketo Buildpacks | Blog" />
+<meta name="twitter:url" content="https://blog.paketo.io/posts/paketo-java-buildpacks-updates-default-to-java-21/" />
+<meta name="twitter:card" content="" />
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TJMQZ5RDFG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TJMQZ5RDFG');
+</script><link rel="stylesheet" href="/scss/main.min.css">
+
+  </head>
+  <body>
+    <div class="post">
+      <header>
+        <a href="/">
+          <img class="logo" src="/images/logo512.png" />
+          <h1>Paketo Buildpacks | Blog</h1>
+        </a>
+      </header>
+      <section>
+        <h1>Paketo Java Buildpacks Updates Default to Java 21</h1>
+        <section class="author"><img src="/images/authors/dmikusa.jpg" /><name>Daniel Mikusa</name></section>
+        <date>Tuesday, Oct 8, 2024</date>
+        <article>
+          <p>It&rsquo;s that time again, time to update the default Java version in Paketo Java buildpacks!</p>
+<p>Through our community RFC process, the Paketo Java subteam <a href="https://github.com/paketo-buildpacks/rfcs/blob/main/text/java/0014-selecting-default-java-version.md">adopted an official policy on updating the default version of the JVM</a>, RFC #0014.</p>
+<p>The policy states that &ldquo;the default should be changed once the latest released LTS version of Java is at least one year old&rdquo;. Java 21 was released in September of 2023, and it&rsquo;s now October of 2024 which puts us over a year from the release.</p>
+<p>Because we realize this will impact users, we are providing advance notice of this change. We will be adjusting the default version of the JVM to Java 21 starting with the Java buildpack release scheduled for Friday November 1st, 2024.</p>
+<p>There are a few things you can do to prepare for this change:</p>
+<ol>
+<li>Upgrade to Java 21! It&rsquo;s another great release.</li>
+<li>If you can&rsquo;t upgrade, you can <a href="https://paketo.io/docs/howto/java/#install-a-specific-jvm-version">pin the major Java version</a> to your required version.</li>
+<li>Alternatively, you may be able to <a href="https://www.baeldung.com/java-source-target-options">set the Java source/target version</a> in your project.</li>
+</ol>
+<p>If you do pin the version, please make a note or set a reminder to come back and upgrade later.</p>
+<p>The project does not recommend pinning the buildpack version. This will prevent the application from being built using the latest patch release of Java and could leave your application vulnerable to know security issues.</p>
+<p>That&rsquo;s it! Go forth and modernize your Java apps!</p>
+
+        </article>
+      </section>
+      <footer class="post">
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Paketo%20Buildpacks%20%7c%20Blog%20%7c%20Paketo%20Java%20Buildpacks%20Updates%20Default%20to%20Java%2021&amp;url=https://blog.paketo.io/posts/paketo-java-buildpacks-updates-default-to-java-21/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/twitter.png" />
+</a>
+
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://blog.paketo.io/posts/paketo-java-buildpacks-updates-default-to-java-21/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/linkedin.png" />
+</a>
+
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://blog.paketo.io/posts/paketo-java-buildpacks-updates-default-to-java-21/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/facebook.png" />
+</a>
+
+      </footer>
+    </div>
+  </body>
+</html>

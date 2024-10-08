@@ -6,7 +6,18 @@
     <description>Recent content on Paketo Buildpacks | Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 11 Dec 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 08 Oct 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Paketo Java Buildpacks Updates Default to Java 21</title>
+      <link>https://blog.paketo.io/posts/paketo-java-buildpacks-updates-default-to-java-21/</link>
+      <pubDate>Tue, 08 Oct 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.paketo.io/posts/paketo-java-buildpacks-updates-default-to-java-21/</guid>
+      <description>It&amp;rsquo;s that time again, time to update the default Java version in Paketo Java buildpacks!
+Through our community RFC process, the Paketo Java subteam adopted an official policy on updating the default version of the JVM, RFC #0014.
+The policy states that &amp;ldquo;the default should be changed once the latest released LTS version of Java is at least one year old&amp;rdquo;. Java 21 was released in September of 2023, and it&amp;rsquo;s now October of 2024 which puts us over a year from the release.</description>
+    </item>
+    
     <item>
       <title>Oracle GraalVM Support has Arrived!</title>
       <link>https://blog.paketo.io/posts/oracle-graalvm-support-has-arrived/</link>
