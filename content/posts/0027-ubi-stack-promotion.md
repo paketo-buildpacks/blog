@@ -1,8 +1,8 @@
 ---
 title: Paketo UBI stack moving to paketo-buildpacks from paketo-community
-date: "2024-10-08"
+date: "2025-02-15"
 slug: paketo-ubi-stack-move-from-community-to-buildpacks
-author: dmikusa
+author: mhdawson
 ---
 
 The Paketo community has been working on [UBI](https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image)
