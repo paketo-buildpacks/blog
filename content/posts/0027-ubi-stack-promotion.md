@@ -37,6 +37,7 @@ container images:
 
 over to:
 
+* paketobuildpacks/build-ubi-base
 * paketobuildpacks/run-ubi-base
 * paketobuildpacks/run-nodejs-16-ubi-base
 * paketobuildpacks/run-nodejs-18-ubi-base
