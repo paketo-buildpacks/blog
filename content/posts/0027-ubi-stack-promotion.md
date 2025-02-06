@@ -25,6 +25,7 @@ For those using the builders, you can continue to follow the instructions in
 If you have specified the build or run container images specifically you will need to move from the following
 container images:
 
+* paketocommuntiy/build-ubi-base
 * paketocommuntiy/run-ubi-base
 * paketocommunity/run-nodejs-16-ubi-base
 * paketocommunity/run-nodejs-18-ubi-base
