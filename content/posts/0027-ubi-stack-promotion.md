@@ -14,7 +14,7 @@ Typically suport for new components starts in the
 [paketo-buildpacks](https://github.com/paketo-buildpacks) organization once it matures.
 
 It's now time to move the [ubi-base-stack](https://github.com/paketo-community/ubi-base-stack) over
-to the packet-buildpacks organization.
+to the packet-buildpacks organization. We plan to do the move Monday February 24th.
 
 We are publishing this blog post because this will impact users who have been specifying the stack container
 images on the command line or in their toml files (we expect this is a small number). If you are
