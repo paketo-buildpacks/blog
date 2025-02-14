@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+  <head>
+      <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Paketo UBI stack moving to paketo-buildpacks from paketo-community | Paketo Buildpacks | Blog</title>
+<link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-language" content="en-us" />
+
+<meta property='og:site_name' content="Paketo Buildpacks | Blog">
+<meta property='og:title' content="Paketo UBI stack moving to paketo-buildpacks from paketo-community">
+<meta property='og:url' content="https://blog.paketo.io/posts/paketo-ubi-stack-move-from-community-to-buildpacks/">
+<meta property='og:image' content='/images/logo512.png'/>
+<meta name="twitter:title" content="Paketo Buildpacks | Blog" />
+<meta name="twitter:url" content="https://blog.paketo.io/posts/paketo-ubi-stack-move-from-community-to-buildpacks/" />
+<meta name="twitter:card" content="" />
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TJMQZ5RDFG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TJMQZ5RDFG');
+</script><link rel="stylesheet" href="/scss/main.min.css">
+
+  </head>
+  <body>
+    <div class="post">
+      <header>
+        <a href="/">
+          <img class="logo" src="/images/logo512.png" />
+          <h1>Paketo Buildpacks | Blog</h1>
+        </a>
+      </header>
+      <section>
+        <h1>Paketo UBI stack moving to paketo-buildpacks from paketo-community</h1>
+        <section class="author"><img src="/images/authors/mhdawson.jpg" /><name>Michael Dawson</name></section>
+        <date>Friday, Feb 14, 2025</date>
+        <article>
+          <p>The Paketo community has been working on <a href="https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image">UBI</a>
+support over the last few years after agreeing on the direction in
+<a href="https://github.com/paketo-buildpacks/rfcs/blob/main/text/0056-ubi-based-stacks.md">0056-ubi-based-stacks.md</a>.</p>
+<p>Typically suport for new components starts in the
+<a href="https://github.com/paketo-community">paketo-community</a> organization and then is moved to the
+<a href="https://github.com/paketo-buildpacks">paketo-buildpacks</a> organization once it matures.</p>
+<p>It&rsquo;s now time to move the <a href="https://github.com/paketo-community/ubi-base-stack">ubi-base-stack</a> over
+to the packet-buildpacks organization. We plan to do the move Monday February 24th.</p>
+<p>We are publishing this blog post because this will impact users who have been specifying the stack container
+images on the command line or in their toml files (we expect this is a small number). If you are
+using the builders no changes are needed yet, we&rsquo;ll let you know when they are moved over.
+For those using the builders, you can continue to follow the instructions in
+<a href="https://developers.redhat.com/articles/2024/06/18/build-applications-paketo-buildpacks-and-red-hat-ubi-container-images">Build applications with Paketo Buildpacks and Red Hat UBI container images</a>.</p>
+<p>If you have specified the build or run container images specifically you will need to move from the following
+container images:</p>
+<ul>
+<li>paketocommuntiy/build-ubi-base</li>
+<li>paketocommuntiy/run-ubi-base</li>
+<li>paketocommunity/run-nodejs-16-ubi-base</li>
+<li>paketocommunity/run-nodejs-18-ubi-base</li>
+<li>paketocommunity/run-nodejs-20-ubi-base</li>
+<li>paketocommunity/run-java-8-ubi-base</li>
+<li>paketocommunity/run-java-11-ubi-base</li>
+<li>paketocommunity/run-java-17-ubi-base</li>
+<li>paketocommunity/run-java-21-ubi-base</li>
+</ul>
+<p>over to:</p>
+<ul>
+<li>paketobuildpacks/build-ubi-base</li>
+<li>paketobuildpacks/run-ubi-base</li>
+<li>paketobuildpacks/run-nodejs-16-ubi-base</li>
+<li>paketobuildpacks/run-nodejs-18-ubi-base</li>
+<li>paketobuildpacks/run-nodejs-20-ubi-base</li>
+<li>paketobuildpacks/run-java-8-ubi-base</li>
+<li>paketobuildpacks/run-java-11-ubi-base</li>
+<li>paketobuildpacks/run-java-17-ubi-base</li>
+<li>paketobuildpacks/run-java-21-ubi-base</li>
+</ul>
+<p>That&rsquo;s it. We&rsquo;ll let you know when the builders move over and until then let us know if you
+have any questions.</p>
+
+        </article>
+      </section>
+      <footer class="post">
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Paketo%20Buildpacks%20%7c%20Blog%20%7c%20Paketo%20UBI%20stack%20moving%20to%20paketo-buildpacks%20from%20paketo-community&amp;url=https://blog.paketo.io/posts/paketo-ubi-stack-move-from-community-to-buildpacks/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/twitter.png" />
+</a>
+
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://blog.paketo.io/posts/paketo-ubi-stack-move-from-community-to-buildpacks/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/linkedin.png" />
+</a>
+
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://blog.paketo.io/posts/paketo-ubi-stack-move-from-community-to-buildpacks/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/facebook.png" />
+</a>
+
+      </footer>
+    </div>
+  </body>
+</html>
