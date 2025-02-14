@@ -1,6 +1,6 @@
 ---
 title: Paketo UBI stack moving to paketo-buildpacks from paketo-community
-date: "2025-02-15"
+date: "2025-02-14"
 slug: paketo-ubi-stack-move-from-community-to-buildpacks
 author: mhdawson
 ---
@@ -46,7 +46,6 @@ over to:
 * paketobuildpacks/run-java-11-ubi-base
 * paketobuildpacks/run-java-17-ubi-base
 * paketobuildpacks/run-java-21-ubi-base
-
 
 That's it. We'll let you know when the builders move over and until then let us know if you
 have any questions.
