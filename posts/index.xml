@@ -6,7 +6,17 @@
     <description>Recent content in Posts on Paketo Buildpacks | Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 14 Feb 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 23 Feb 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Paketo Buildpacks Contributors Wanted</title>
+      <link>https://blog.paketo.io/posts/paketo-buildpacks-contributors-wanted/</link>
+      <pubDate>Sun, 23 Feb 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.paketo.io/posts/paketo-buildpacks-contributors-wanted/</guid>
+      <description>As an open-source project, Paketo Buildpacks depends on its maintainers to keep the project running day-to-day and to provide guidance to move the project forward. In a nutshell, maintainers keep the project running and produce all the software our users love.
+Unfortunately, we have had a few maintainers move on from the project recently. This is a part of open-source software. People&amp;rsquo;s lives change, jobs change, interests change and they move on to other things.</description>
+    </item>
+    
     <item>
       <title>Paketo UBI stack moving to paketo-buildpacks from paketo-community</title>
       <link>https://blog.paketo.io/posts/paketo-ubi-stack-move-from-community-to-buildpacks/</link>
