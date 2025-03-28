@@ -6,7 +6,17 @@
     <description>Recent content on Paketo Buildpacks | Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 23 Feb 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 28 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Paketo Buildpacks Sunsets GCR Images</title>
+      <link>https://blog.paketo.io/posts/paketo-gcr-registry-sunset/</link>
+      <pubDate>Fri, 28 Mar 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.paketo.io/posts/paketo-gcr-registry-sunset/</guid>
+      <description>Urgent News We have important news regarding project infrastructure that requires your immediate attention. The Paketo Buildpacks GCP (Google Cloud Platform) project is scheduled to be shutdown in the near future, likely within the next two week.
+I apologize that we cannot provide an exact date, as we do not have one ourselves. We were notified recently that our sponsor who was paying the bills for GCP will be halting that sponsorship.</description>
+    </item>
+    
     <item>
       <title>Paketo Buildpacks Contributors Wanted</title>
       <link>https://blog.paketo.io/posts/paketo-buildpacks-contributors-wanted/</link>

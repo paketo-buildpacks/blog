@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+  <head>
+      <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Paketo Buildpacks Sunsets GCR Images | Paketo Buildpacks | Blog</title>
+<link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-language" content="en-us" />
+
+<meta property='og:site_name' content="Paketo Buildpacks | Blog">
+<meta property='og:title' content="Paketo Buildpacks Sunsets GCR Images">
+<meta property='og:url' content="https://blog.paketo.io/posts/paketo-gcr-registry-sunset/">
+<meta property='og:image' content='/images/logo512.png'/>
+<meta name="twitter:title" content="Paketo Buildpacks | Blog" />
+<meta name="twitter:url" content="https://blog.paketo.io/posts/paketo-gcr-registry-sunset/" />
+<meta name="twitter:card" content="" />
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TJMQZ5RDFG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TJMQZ5RDFG');
+</script><link rel="stylesheet" href="/scss/main.min.css">
+
+  </head>
+  <body>
+    <div class="post">
+      <header>
+        <a href="/">
+          <img class="logo" src="/images/logo512.png" />
+          <h1>Paketo Buildpacks | Blog</h1>
+        </a>
+      </header>
+      <section>
+        <h1>Paketo Buildpacks Sunsets GCR Images</h1>
+        <section class="author"><img src="/images/authors/dmikusa.jpg" /><name>Daniel Mikusa</name></section>
+        <date>Friday, Mar 28, 2025</date>
+        <article>
+          <h2 id="urgent-news">Urgent News</h2>
+<p>We have important news regarding project infrastructure that requires your immediate attention. The Paketo Buildpacks GCP (Google Cloud Platform) project is scheduled to be shutdown in the near future, likely within the next two week.</p>
+<p>I apologize that we cannot provide an exact date, as we do not have one ourselves. We were notified recently that our sponsor who was paying the bills for GCP will be halting that sponsorship. As such, we will no longer be storing Paketo images on GCR.</p>
+<p>While this might sound concerning, the plan to migrate away from GCP/GCR has been in the works for a long time and most of the heavy lifting has been done for a while. Paketo made a strategic decision years ago to move image hosting to Docker Hub, and all of our buildpack assets have been publishing to Docker Hub for well over a year.</p>
+<h2 id="remaining-work-for-paketo">Remaining Work for Paketo</h2>
+<p>To complete the transition, the project is focusing on two remaining areas:</p>
+<ol>
+<li>
+<p><strong>Documentation Cleanup</strong>: We know that our docs mention GCR in places. We&rsquo;re working to update these to reference Docker Hub. Please bear with us as we get things updated.</p>
+</li>
+<li>
+<p><strong>Pipeline Updates</strong>: We&rsquo;re in the process of updating our continuous integration pipelines to stop publishing to GCR. As mentioned before, we have been publishing primarily to Docker Hub, but we had also continued to publish images to GCR. At this time, we&rsquo;ll simply stop publishing to GCR. We hope to get to all of these before the deadline, and are working as fast as possible to accomplish this. If you see any broken pipelines due to this change, please open an issue on Github and report them.</p>
+</li>
+</ol>
+<h2 id="action-items-for-you">Action Items for You</h2>
+<ol>
+<li>
+<p><strong>Check your pipelines &amp; build scripts</strong>. Look for references to <code>gcr.io</code>. If you are referring to an image, for example <code>gcr.io/paketo-buildpacks/bellsoft-liberica</code>, you need to make two changes to update that. First, change <code>gcr.io</code> to <code>docker.io</code>. Second, change <code>paketo-buildpacks</code> to <code>paketobuildpacks</code>. Docker Hub doesn&rsquo;t support <code>-</code>, so that needs to be removed. Alternatively, you can use a <a href="https://registry.buildpacks.io/">Buildpacks Registry</a> reference. The <code>pack</code> cli supports <code>paketo-buildpacks/bellsoft-liberica</code> or <code>urn:cnb:registry:paketo-buildpacks/bellsoft-liberica</code>. This will look up the buildpack in the registry and load the image to use from there. Note: Spring Boot build tools do not support registry lookup.</p>
+</li>
+<li>
+<p><strong>Lend a hand and help</strong>. If you have some spare cycles, please jump in and help us with the updates above. Send PRs to help update documentation or open issues to identify problems. It all helps and is appreciated.</p>
+</li>
+<li>
+<p><strong>Spread the word</strong>. Please help spreading awareness about this infrastructure change. Please share this article on your social networks or with anyone you know that&rsquo;s using Paketo buildpacks and may be affected.</p>
+</li>
+<li>
+<p><strong>Reach out</strong>. If you have any questions or concerns about the migration, please reach out on our <a href="https://github.com/orgs/paketo-buildpacks/discussions">discussions page</a>.</p>
+</li>
+</ol>
+
+        </article>
+      </section>
+      <footer class="post">
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Paketo%20Buildpacks%20%7c%20Blog%20%7c%20Paketo%20Buildpacks%20Sunsets%20GCR%20Images&amp;url=https://blog.paketo.io/posts/paketo-gcr-registry-sunset/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/twitter.png" />
+</a>
+
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://blog.paketo.io/posts/paketo-gcr-registry-sunset/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/linkedin.png" />
+</a>
+
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://blog.paketo.io/posts/paketo-gcr-registry-sunset/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/facebook.png" />
+</a>
+
+      </footer>
+    </div>
+  </body>
+</html>
