@@ -23,7 +23,7 @@ To complete the transition, the project is focusing on two remaining areas:
 
 ## Action Items for You
 
-1. **Check your pipelines & build scripts**. Make sure that you are not referencing `gcr.io` for any Paketo images. You can update to `docker.io` or you in most cases you can leave off the image registry and the tooling will use the [Buildpacks Registry](https://registry.buildpacks.io/) to look up the correct images.
+1. **Check your pipelines & build scripts**. Look for references to `gcr.io`. If you are referring to an image, for example `gcr.io/paketo-buildpacks/bellsoft-liberica`, you need to make two changes to update that. First, change `gcr.io` to `docker.io`. Second, change `paketo-buildpacks` to `paketobuildpacks`. Docker Hub doesn't support `-`, so that needs to be removed. Alternatively, you can use a [Buildpacks Registry](https://registry.buildpacks.io/) reference. The `pack` cli supports `paketo-buildpacks/bellsoft-liberica` or `urn:cnb:registry:paketo-buildpacks/bellsoft-liberica`. This will look up the buildpack in the registry and load the image to use from there. Note: Spring Boot build tools do not support registry lookup.
 
 2. **Lend a hand and help**. If you have some spare cycles, please jump in and help us with the updates above. Send PRs to help update documentation or open issues to identify problems. It all helps and is appreciated.
 
