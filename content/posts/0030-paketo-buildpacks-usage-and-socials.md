@@ -33,6 +33,7 @@ In case you don't want to use a public PaaS, you can still run Paketo Buildpacks
 
 * [kpack](https://github.com/buildpacks-community/kpack): allows you to define Kubernetes CRDs to define the source of the code you're going to build, as well as the builders and buildpacks you want to use
 * [Epinio](https://docs.epinio.io/): based on Kubernetes too, similar to Kpack
+* [Dokku](https://dokku.com/): a small self-hosted PaaS solution, supports [Cloud-Native Buildpacks & Paketo](https://dokku.com/docs/deployment/builders/cloud-native-buildpacks/#customizing-the-buildpack-stack-builder)
 
 ## Java Paketo Buildpacks in the news
 
