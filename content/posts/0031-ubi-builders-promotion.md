@@ -9,7 +9,7 @@ The Paketo community has been working on [UBI](https://www.redhat.com/en/blog/in
 support over the last few years after agreeing on the direction in
 [0056-ubi-based-stacks.md](https://github.com/paketo-buildpacks/rfcs/blob/main/text/0056-ubi-based-stacks.md).
 
-Typically suport for new components starts in the
+Typically support for new components starts in the
 [paketo-community](https://github.com/paketo-community) organization and then is moved to the
 [paketo-buildpacks](https://github.com/paketo-buildpacks) organization once it matures.
 
