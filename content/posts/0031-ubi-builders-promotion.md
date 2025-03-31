@@ -15,7 +15,7 @@ Typically support for new components starts in the
 
 It's now time to move the [builder-ubi-base](https://github.com/paketo-community/builder-ubi-base) and
 [builder-ubi-buildpackless-base](https://github.com/paketo-community/builder-ubi-buildpackless-base) over
-to the packet-buildpacks organization. We plan to do the move Wednesday April 16th.
+to the paketo-buildpacks organization. We plan to do the move Wednesday April 16th.
 
 We are publishing this blog post because this will impact users who have been using the builders to 
 build their application with pack. We plan to update the instructions in
