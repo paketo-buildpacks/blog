@@ -6,7 +6,17 @@
     <description>Recent content on Paketo Buildpacks | Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 28 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 31 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Paketo Buildpacks usage and socials</title>
+      <link>https://blog.paketo.io/posts/paketo-java-usage-socials/</link>
+      <pubDate>Mon, 31 Mar 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.paketo.io/posts/paketo-java-usage-socials/</guid>
+      <description>Paketo Buildpacks: where are they used? While preparing for a talk about PaaS, I found out that CNBs (Cloud Native Buildpacks), in particular Paketo Buildpacks, are widely used across the industry!
+Sure, there&amp;rsquo;s the Dockerfile as our main competition (with all its cons: maintainability, no SBOM generation, no third party agent nor a standard mechanism to include CA certs, etc.), but interestingly enough NixPacks (maintained by Railway but used in other PaaS too) are also gaining traction as our competitor.</description>
+    </item>
+    
     <item>
       <title>Paketo Buildpacks Sunsets GCR Images</title>
       <link>https://blog.paketo.io/posts/paketo-gcr-registry-sunset/</link>

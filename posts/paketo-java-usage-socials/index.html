@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+  <head>
+      <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Paketo Buildpacks usage and socials | Paketo Buildpacks | Blog</title>
+<link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-language" content="en-us" />
+
+<meta property='og:site_name' content="Paketo Buildpacks | Blog">
+<meta property='og:title' content="Paketo Buildpacks usage and socials">
+<meta property='og:url' content="https://blog.paketo.io/posts/paketo-java-usage-socials/">
+<meta property='og:image' content='/images/logo512.png'/>
+<meta name="twitter:title" content="Paketo Buildpacks | Blog" />
+<meta name="twitter:url" content="https://blog.paketo.io/posts/paketo-java-usage-socials/" />
+<meta name="twitter:card" content="" />
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TJMQZ5RDFG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TJMQZ5RDFG');
+</script><link rel="stylesheet" href="/scss/main.min.css">
+
+  </head>
+  <body>
+    <div class="post">
+      <header>
+        <a href="/">
+          <img class="logo" src="/images/logo512.png" />
+          <h1>Paketo Buildpacks | Blog</h1>
+        </a>
+      </header>
+      <section>
+        <h1>Paketo Buildpacks usage and socials</h1>
+        <section class="author"><img src="/images/authors/anthonydahanne.jpg" /><name>Anthony Dahanne</name></section>
+        <date>Monday, Mar 31, 2025</date>
+        <article>
+          <h2 id="paketo-buildpacks-where-are-they-used">Paketo Buildpacks: where are they used?</h2>
+<p><a href="https://blog.dahanne.net/2024/04/10/state-of-the-paas-in-2024/">While preparing for a talk about PaaS</a>, I found out that CNBs (Cloud Native Buildpacks), in particular <a href="https://github.com/paketo-buildpacks">Paketo Buildpacks</a>, are widely used across the industry!</p>
+<p>Sure, there&rsquo;s the Dockerfile as our main competition (with all its cons: maintainability, no SBOM generation, no third party agent nor a standard mechanism to include CA certs, etc.), but interestingly enough <a href="https://github.com/railwayapp/nixpacks">NixPacks</a> (maintained by Railway but used in other PaaS too) are also gaining traction as our competitor.</p>
+<p>Here&rsquo;s a non-complete list of PaaS where you can use Paketo Buildpacks to build your container images:</p>
+<ul>
+<li><a href="https://fly.io/docs/reference/builders/#buildpacks">Fly.io</a>: they support both the Dockerfile (if it&rsquo;s in your workspace, they&rsquo;ll pick it up) and Paketo Buildpacks (if no Dockerfile exists, they rely on them)</li>
+<li>Porter: also defaulting to Paketo Buildpacks</li>
+<li><a href="https://learn.microsoft.com/en-us/azure/container-apps/overview">Microsoft Azure Container Apps</a>: a mix of Paketo Buildpacks and Azure buildpacks, see this build output:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">pass: 
+azure-buildpacks/java-buildpack-msopenjdk@0.3.3
+paketo-buildpacks/syft@1.42.0
+paketo-buildpacks/maven@6.15.12
+paketo-buildpacks/executable-jar@6.8.3
+paketo-buildpacks/apache-tomcat@7.14.2
+azure-buildpacks/java-buildpack-telemetry@0.1.24
+</code></pre></div><ul>
+<li>Probably Heroku and Google Cloud Run, since they can run their own CNBs, it should be possible to override and use Paketo Buildpacks instead</li>
+</ul>
+<p>In case you don&rsquo;t want to use a public PaaS, you can still run Paketo Buildpacks with:</p>
+<ul>
+<li><a href="https://docs.cloudfoundry.org/buildpacks/cnb/index.html">Cloud Foundry</a>: since December 2024, it supports CNBs too, thanks to <a href="https://github.com/cloudfoundry/community/blob/main/toc/rfc/rfc-0017-add-cnbs.md">RFC 0017</a>, <a href="https://github.com/cloudfoundry/community/blob/main/toc/rfc/rfc-0028-cnb-lifecycle.md">RFC 0028</a> and <a href="https://github.com/cloudfoundry/community/blob/main/toc/rfc/rfc-0031-system-cnb.md">RFC 0031</a></li>
+<li><a href="https://github.com/buildpacks-community/kpack">kpack</a>: allows you to define Kubernetes CRDs to define the source of the code you&rsquo;re going to build, as well as the builders and buildpacks you want to use</li>
+<li><a href="https://docs.epinio.io/">Epinio</a>: based on Kubernetes too, similar to Kpack</li>
+<li><a href="https://dokku.com/">Dokku</a>: a small self-hosted PaaS solution, supports <a href="https://dokku.com/docs/deployment/builders/cloud-native-buildpacks/#customizing-the-buildpack-stack-builder">Cloud-Native Buildpacks &amp; Paketo</a></li>
+</ul>
+<p>You can also bookmark <a href="https://github.com/paketo-buildpacks/community/blob/main/ADOPTERS.md">this page that lists Paketo Buildpacks adopters</a>.</p>
+<h2 id="java-paketo-buildpacks-in-the-news">Java Paketo Buildpacks in the news</h2>
+<p>March 2025 <a href="https://github.com/paketo-buildpacks/java/releases/tag/v18.5.0">saw the addition of Java 24</a> (in replacement of Java 23), and in September, you can be sure Java 25 (LTS release) will be integrated the week it&rsquo;s out 🤞!</p>
+<p>Curious about what&rsquo;s happening with Java Paketo Buildpacks? you&rsquo;ll probably want to watch those recent interviews / talks:</p>
+<ul>
+<li>September 2024: <a href="https://www.youtube.com/watch?v=am4x5DNaJgs">Spring Office hours - Buildpacks with Anthony Dahanne</a></li>
+<li>February 2025: <a href="https://www.youtube.com/watch?v=hZWoL0balhY">Coffee Software with Anthony Dahanne on Buildpacks</a></li>
+</ul>
+<p>And don&rsquo;t miss out the free virtual <a href="https://jdconf.com/agenda.html#apac-session-07">JDConf 2025</a> where you&rsquo;ll listen to David O&rsquo;Sullivan and Anthony Dahanne explain how Paketo Buildpacks is the best way to build Java apps container image!</p>
+<p>Happy building, make sure you join us on <a href="https://paketo.io/community/">Slack or GitHub</a> for help and info!</p>
+<p>PS: want to add a PaaS, or a tool that leverages Paketo Buildpacks to the list? Please make a <a href="https://github.com/paketo-buildpacks/blog">Pull Request to the blog</a></p>
+
+        </article>
+      </section>
+      <footer class="post">
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Paketo%20Buildpacks%20%7c%20Blog%20%7c%20Paketo%20Buildpacks%20usage%20and%20socials&amp;url=https://blog.paketo.io/posts/paketo-java-usage-socials/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/twitter.png" />
+</a>
+
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://blog.paketo.io/posts/paketo-java-usage-socials/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/linkedin.png" />
+</a>
+
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://blog.paketo.io/posts/paketo-java-usage-socials/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/facebook.png" />
+</a>
+
+      </footer>
+    </div>
+  </body>
+</html>
