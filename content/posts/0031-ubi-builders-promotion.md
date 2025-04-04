@@ -1,4 +1,4 @@
---
+---
 title: Paketo UBI builders moving to paketo-buildpacks from paketo-community
 date: "2025-04-02"
 slug: paketo-ubi-builders-move-from-community-to-buildpacks
