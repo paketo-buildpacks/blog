@@ -6,7 +6,19 @@
     <description>Recent content in Posts on Paketo Buildpacks | Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 02 Apr 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 11 Apr 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Paketo Buildpacks Sunsets Java Azure Composite Buildpack</title>
+      <link>https://blog.paketo.io/posts/paketo-java-azure-sunsets/</link>
+      <pubDate>Fri, 11 Apr 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.paketo.io/posts/paketo-java-azure-sunsets/</guid>
+      <description>Urgent News The Paketo Buildpacks Java Azure composite buildpack is being sunset. It will be archived on May 9th, 2025.
+Please see the RFC for rationale and details.
+Action Items for You If you are using this buildpack, you have two choices on how to proceed.
+  You may migrate off it. The primary feature of this buildpack is that it includes the Microsoft OpenJDK JVM. You do not need this buildpack to use the Microsoft OpenJDK JVM though.</description>
+    </item>
+    
     <item>
       <title>Paketo UBI builders moving to paketo-buildpacks from paketo-community</title>
       <link>https://blog.paketo.io/posts/paketo-ubi-builders-move-from-community-to-buildpacks/</link>

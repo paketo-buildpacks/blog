@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+  <head>
+      <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Paketo Buildpacks Sunsets Java Azure Composite Buildpack | Paketo Buildpacks | Blog</title>
+<link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-language" content="en-us" />
+
+<meta property='og:site_name' content="Paketo Buildpacks | Blog">
+<meta property='og:title' content="Paketo Buildpacks Sunsets Java Azure Composite Buildpack">
+<meta property='og:url' content="https://blog.paketo.io/posts/paketo-java-azure-sunsets/">
+<meta property='og:image' content='/images/logo512.png'/>
+<meta name="twitter:title" content="Paketo Buildpacks | Blog" />
+<meta name="twitter:url" content="https://blog.paketo.io/posts/paketo-java-azure-sunsets/" />
+<meta name="twitter:card" content="" />
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TJMQZ5RDFG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TJMQZ5RDFG');
+</script><link rel="stylesheet" href="/scss/main.min.css">
+
+  </head>
+  <body>
+    <div class="post">
+      <header>
+        <a href="/">
+          <img class="logo" src="/images/logo512.png" />
+          <h1>Paketo Buildpacks | Blog</h1>
+        </a>
+      </header>
+      <section>
+        <h1>Paketo Buildpacks Sunsets Java Azure Composite Buildpack</h1>
+        <section class="author"><img src="/images/authors/dmikusa.jpg" /><name>Daniel Mikusa</name></section>
+        <date>Friday, Apr 11, 2025</date>
+        <article>
+          <h2 id="urgent-news">Urgent News</h2>
+<p>The <a href="https://github.com/paketo-buildpacks/java-azure">Paketo Buildpacks Java Azure</a> composite buildpack is being sunset. It will be archived on May 9th, 2025.</p>
+<p>Please <a href="https://github.com/paketo-buildpacks/rfcs/blob/main/text/java/0018-retire-java-azure-composite.md">see the RFC</a> for rationale and details.</p>
+<h2 id="action-items-for-you">Action Items for You</h2>
+<p>If you are using this buildpack, you have two choices on how to proceed.</p>
+<ol>
+<li>
+<p>You may migrate off it. The primary feature of this buildpack is that it includes the Microsoft OpenJDK JVM. You do not need this buildpack to use the Microsoft OpenJDK JVM though. To continue to using Microsoft OpenJDK and migrate off of the Java Azure composite buildpack, you need to use <a href="https://paketo.io/docs/howto/java/#use-an-alternative-jvm">the alternative JVM instructions</a> in the Paketo docs.</p>
+<p>For example, <code>pack build --buildpack paketo-buildpacks/microsoft-openjdk paketo-buildpacks/java ...</code> will perform a build with the Microsoft OpenJDK JVM instead of the default Bellsoft Liberica JVM.</p>
+</li>
+<li>
+<p>If you prefer to continue using the Paketo Buildpacks Java Azure composite buildpack, then you will need to fork it and maintain it on your own going forward.</p>
+<p>First, fork the buildpack on GitHub. Then make sure to rename any reference to Paketo Buildpacks to something else. You need to change the buildpack ID and also the image references, so that you are publishing your own copy of that buildpack.</p>
+</li>
+</ol>
+<p>The Paketo team strongly suggests option #1 as we believe it to be less work than option #2 for most users, and because it does not trigger any change in functionality.</p>
+<p>Please reach out to the team if you have any questions.</p>
+
+        </article>
+      </section>
+      <footer class="post">
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Paketo%20Buildpacks%20%7c%20Blog%20%7c%20Paketo%20Buildpacks%20Sunsets%20Java%20Azure%20Composite%20Buildpack&amp;url=https://blog.paketo.io/posts/paketo-java-azure-sunsets/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/twitter.png" />
+</a>
+
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://blog.paketo.io/posts/paketo-java-azure-sunsets/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/linkedin.png" />
+</a>
+
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://blog.paketo.io/posts/paketo-java-azure-sunsets/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/facebook.png" />
+</a>
+
+      </footer>
+    </div>
+  </body>
+</html>
