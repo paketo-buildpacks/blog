@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+  <head>
+      <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Paketo Buildpacks add support for Java 25 | Paketo Buildpacks | Blog</title>
+<link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-language" content="en-us" />
+
+<meta property='og:site_name' content="Paketo Buildpacks | Blog">
+<meta property='og:title' content="Paketo Buildpacks add support for Java 25">
+<meta property='og:url' content="https://blog.paketo.io/posts/paketo-java-25-support/">
+<meta property='og:image' content='/images/logo512.png'/>
+<meta name="twitter:title" content="Paketo Buildpacks | Blog" />
+<meta name="twitter:url" content="https://blog.paketo.io/posts/paketo-java-25-support/" />
+<meta name="twitter:card" content="" />
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TJMQZ5RDFG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TJMQZ5RDFG');
+</script><link rel="stylesheet" href="/scss/main.min.css">
+
+  </head>
+  <body>
+    <div class="post">
+      <header>
+        <a href="/">
+          <img class="logo" src="/images/logo512.png" />
+          <h1>Paketo Buildpacks | Blog</h1>
+        </a>
+      </header>
+      <section>
+        <h1>Paketo Buildpacks add support for Java 25</h1>
+        <section class="author"><img src="/images/authors/anthonydahanne.jpg" /><name>Anthony Dahanne</name></section>
+        <date>Friday, Sep 19, 2025</date>
+        <article>
+          <h2 id="java-25-is-now-available-from-java-buildpacks">Java 25 is now available from Java buildpacks</h2>
+<p>The Paketo Buildpacks team is excited to announce that, after only 3 days since the first Java 25 builds appeared, Java 25 is now an option for your Paketo Buildpacks Java builds.</p>
+<p>Check out those release notes!</p>
+<p><a href="https://github.com/paketo-buildpacks/java/releases/tag/v18.14.0">https://github.com/paketo-buildpacks/java/releases/tag/v18.14.0</a></p>
+<p><a href="https://github.com/paketo-buildpacks/java-native-image/releases/tag/v11.17.0">https://github.com/paketo-buildpacks/java-native-image/releases/tag/v11.17.0</a></p>
+<p>But even better, try them out now!</p>
+<h3 id="first-option-force-java-to-25-using-bp_jvm_version">First option: force Java to 25 using BP_JVM_VERSION</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cd paketo-buildpacks/samples/java/maven
+pack config default-builder paketobuildpacks/builder-noble-java-tiny:latest
+pack build applications/maven --env BP_JVM_VERSION<span style="color:#f92672">=</span><span style="color:#ae81ff">25</span>
+<span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>
+<span style="color:#f92672">[</span>builder<span style="color:#f92672">]</span>     Using Java version <span style="color:#ae81ff">25</span> from BP_JVM_VERSION
+<span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>
+</code></pre></div><h3 id="second-option-set-your-sdkmanrc-to-java-25">Second option: set your <code>.sdkmanrc</code> to Java 25</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cd paketo-buildpacks/samples/java/maven
+sdk install java 25-zulu
+sdk use java 25-zulu
+sdk env init
+cat .sdkmanrc 
+java<span style="color:#f92672">=</span>25-zulu
+
+pack config default-builder paketobuildpacks/builder-noble-java-tiny:latest
+pack build applications/maven
+<span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>
+<span style="color:#f92672">[</span>builder<span style="color:#f92672">]</span>     Using Java version <span style="color:#ae81ff">25</span> extracted from .sdkmanrc
+<span style="color:#f92672">[</span>builder<span style="color:#f92672">]</span>   BellSoft Liberica JDK 25.0.0: Contributing to layer
+<span style="color:#f92672">[</span>builder<span style="color:#f92672">]</span>     Downloading from https://github.com/bell-sw/Liberica/releases/download/25+37/bellsoft-jdk25+37-linux-aarch64.tar.gz
+<span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>
+</code></pre></div><h2 id="what-about-the-other-jdk--jre-distributions">What about the other JDK / JRE distributions?</h2>
+<p>At the time of writing: <a href="https://github.com/paketo-buildpacks/azul-zulu/releases/tag/v11.3.0">Azul Zulu</a>, <a href="https://github.com/paketo-buildpacks/bellsoft-liberica/releases/tag/v11.3.0">Bellsoft Liberica (not NIK yet)</a>, <a href="https://github.com/paketo-buildpacks/oracle/releases/tag/v4.2.0">Oracle and GraalVM</a>, <a href="https://github.com/paketo-buildpacks/sap-machine/releases/tag/v12.2.0">SAP Machine</a>, <a href="https://github.com/paketo-buildpacks/amazon-corretto/releases/tag/v9.3.0">Amazon Corretto</a> all got upgraded to support Java 25 (and lost support for Java 24)</p>
+<p>As a reminder, you can choose your JVM distribution specifying its buildpack:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">pack build applications/maven  --buildpack paketobuildpacks/azul-zulu:latest --buildpack paketobuildpacks/java:latest --env BP_JVM_VERSION<span style="color:#f92672">=</span><span style="color:#ae81ff">25</span>
+<span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>
+<span style="color:#f92672">[</span>builder<span style="color:#f92672">]</span>     Using Java version <span style="color:#ae81ff">25</span> from BP_JVM_VERSION
+<span style="color:#f92672">[</span>builder<span style="color:#f92672">]</span>   Azul Zulu JDK 25.0.0: Contributing to layer
+<span style="color:#f92672">[</span>builder<span style="color:#f92672">]</span>     Downloading from https://cdn.azul.com/zulu/bin/zulu25.28.85-ca-jdk25.0.0-linux_aarch64.tar.gz
+<span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>
+</code></pre></div><p>Alibaba Dragonwell, Microsoft OpenJDK, Adoptium, IBM Semeru OpenJ9, Adoptium Temurin did not publish JDK 25 builds yet.</p>
+<h2 id="what-about-java-24">What about Java 24?</h2>
+<p>Java 24 is not an LTS version, so we no longer bundle it.</p>
+<p>See the <a href="https://github.com/paketo-buildpacks/rfcs/blob/main/text/java/0014-selecting-default-java-version.md">RFC</a> for more explanation.</p>
+<h2 id="why-java-25-isnt-the-default">Why Java 25 isn&rsquo;t the default?</h2>
+<p>Java 25 is an LTS version, so in 1 year it will be the default.</p>
+<p>See the <a href="https://github.com/paketo-buildpacks/rfcs/blob/main/text/java/0014-selecting-default-java-version.md">RFC</a> for more explanation.</p>
+<h2 id="happy-migration-to-java-25">Happy migration to Java 25!</h2>
+<p>Please reach out to the team if you have any questions.</p>
+
+        </article>
+      </section>
+      <footer class="post">
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Paketo%20Buildpacks%20%7c%20Blog%20%7c%20Paketo%20Buildpacks%20add%20support%20for%20Java%2025&amp;url=https://blog.paketo.io/posts/paketo-java-25-support/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/twitter.png" />
+</a>
+
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://blog.paketo.io/posts/paketo-java-25-support/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/linkedin.png" />
+</a>
+
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://blog.paketo.io/posts/paketo-java-25-support/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/facebook.png" />
+</a>
+
+      </footer>
+    </div>
+  </body>
+</html>
