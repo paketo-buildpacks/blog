@@ -19,7 +19,7 @@ But even better, try them out now!
 
 ### First option: force Java to 25 using BP_JVM_VERSION
 
-```shell
+```
 cd paketo-buildpacks/samples/java/maven
 pack config default-builder paketobuildpacks/builder-noble-java-tiny:latest
 pack build applications/maven --env BP_JVM_VERSION=25
@@ -30,7 +30,7 @@ pack build applications/maven --env BP_JVM_VERSION=25
 
 ### Second option: set your `.sdkmanrc` to Java 25
 
-```shell
+```
 cd paketo-buildpacks/samples/java/maven
 sdk install java 25-zulu
 sdk use java 25-zulu
@@ -53,7 +53,7 @@ At the time of writing: [Azul Zulu](https://github.com/paketo-buildpacks/azul-zu
 
 As a reminder, you can choose your JVM distribution specifying its buildpack:
 
-```shell
+```
 pack build applications/maven  --buildpack paketobuildpacks/azul-zulu:latest --buildpack paketobuildpacks/java:latest --env BP_JVM_VERSION=25
 [...]
 [builder]     Using Java version 25 from BP_JVM_VERSION
