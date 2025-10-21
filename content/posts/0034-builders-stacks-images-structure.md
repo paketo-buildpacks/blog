@@ -33,7 +33,7 @@ For Ubuntu Jammy, each repository publishes the build and the run image, as foll
   1. docker.io/paketobuildpacks/build-jammy-static
   1. docker.io/paketobuildpacks/run-jammy-static
 
-Following the new structure based on the [core builder RFC](https://github.com/paketo-buildpacks/rfcs/blob/main/text/0061-core-builder.md), all the images will be published by a single repoitory. For Ubuntu Noble this results in:
+Following the new structure based on the [core builder RFC](https://github.com/paketo-buildpacks/rfcs/blob/main/text/0061-core-builder.md), all the images will be published from a single repository. For Ubuntu Noble this results in:
 
 [Ubuntu-noble-base-images](https://github.com/paketo-buildpacks/ubuntu-noble-base-images)
 
