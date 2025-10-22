@@ -1,5 +1,5 @@
 ---
-title: What has changed on how we ship the Builders and the base images.
+title: What has changed on how we ship the Builders and the base images
 date: "2025-10-20T23:25:07+02:00"
 slug: builders-stacks-base-images-restructure
 author: pacostas
