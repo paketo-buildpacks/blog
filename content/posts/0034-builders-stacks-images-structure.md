@@ -121,6 +121,6 @@ As you may notice:
 
 We hope this explanation makes things clear enough on how the structure of the builders and the base images has changed.
 
-If you would like to contribute under the Paketo implementation of CNCF buildpacks, feel free to take a look on the community instructions on how to [get involved](https://github.com/paketo-buildpacks/community?tab=readme-ov-file#how-to-get-involved).
+If you would like to contribute under the Paketo implementation of CNCF buildpacks, feel free to take a look on the community instructions on how to [get involved](https://github.com/paketo-buildpacks/community?tab=readme-ov-file#how-to-get-involved) or check out [this blog post on the topic](https://blog.paketo.io/posts/paketo-buildpacks-contributors-wanted/).
 
 Happy building !!!
