@@ -113,14 +113,15 @@ Based on the [core builder RFC](https://github.com/paketo-buildpacks/rfcs/blob/m
   1. docker.io/paketobuildpacks/ubi-9-builder
   1. docker.io/paketobuildpacks/ubi-9-builder-buildpackless
 
-As you may notice:
+What does this mean for you?
 
-- We have 5 builders instead of 10.
-- We have 3 repositories instead of 10.
-- The naming convention of the builders has slighty changed to include the name of the Operating System.
+- If you are presently using the Jammy `paketobuildpacks/builder-jammy-base` builder, then you should switch to using the `paketobuildpacks/ubuntu-noble-builder` builder. This is a direct swap of the builder.
 
-We hope this explanation makes things clear enough on how the structure of the builders and the base images has changed.
+- If you are presently using the Jammy `paketobuildpacks/builder-jammy-java-tiny` builder then you will switch to `paketobuildpacks/builder-noble-java-tiny`. This one is a direct swap.
 
+- If you are presently using the Jammy `paketobuildpacks/builder-jammy-tiny` builder (or the static builder), then you would switch to using the `paketobuildpacks/ubuntu-noble-builder` builder as well, but you would include the `--run-image` flag with your build command and specify `paketobuildpacks/ubuntu-noble-run-tiny` (or the `static` run image listed above) as your run image. This will use the base build image, but then create an application image based on the run image that you specify. If you are using a tool besides `pack` cli, check it's documentation. Most tools have a way to specify an alternative run image.
+
+- If you are presently using the Jammy `paketobuildpacks/builder-jammy-full` builder, then you will need to switch to using the `paketobuildpacks/ubuntu-noble-builder` builder. This is going to be a more impactful change though, because we are not offering a full builder or full base images with Noble. What you need to do instead is to find what packages are required by your application, that are not available on the base image and use the [Apt buildpack](https://github.com/dmikusa/apt-buildpack) to install those packages so that they are available for your application. We believe that this should work for many users, but if you're having issues or perhaps have a use case that's not supported, please reach out on our [discussion page](https://github.com/orgs/paketo-buildpacks/discussions).
 If you would like to contribute under the Paketo implementation of CNCF buildpacks, feel free to take a look on the community instructions on how to [get involved](https://github.com/paketo-buildpacks/community?tab=readme-ov-file#how-to-get-involved) or check out [this blog post on the topic](https://blog.paketo.io/posts/paketo-buildpacks-contributors-wanted/).
 
 Happy building !!!
