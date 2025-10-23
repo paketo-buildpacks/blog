@@ -125,6 +125,8 @@ What does this mean for you?
 
 - If you are presently using the UBI 8 `paketobuildpacks/builder-ubi8-base` builder, then you can switch to using the `paketobuildpacks/ubi-9-builder` builder. This is a direct swap of the builder. With UBI builders, there is no need to select the run image, as the extension (which is included on the ubi builders), it always selects the optimal run image for you. However, if you would like to experiment with a different run image (for example during development), you can override it using the [BP_UBI_RUN_IMAGE_OVERRIDE](https://github.com/paketo-buildpacks/ubi-nodejs-extension?tab=readme-ov-file#setting-explicitly-a-run-image-bp_ubi_run_image_override) environment variable.
 
+We hope this explanation clarifies how the structure of the builders and the base images has changed, as we head toward a model with a single builder and different variations of run images to choose from.
+
 If you would like to contribute under the Paketo implementation of CNCF buildpacks, feel free to take a look on the community instructions on how to [get involved](https://github.com/paketo-buildpacks/community?tab=readme-ov-file#how-to-get-involved) or check out [this blog post on the topic](https://blog.paketo.io/posts/paketo-buildpacks-contributors-wanted/).
 
 Happy building !!!
