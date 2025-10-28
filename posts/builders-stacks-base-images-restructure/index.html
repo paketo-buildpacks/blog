@@ -1,0 +1,221 @@
+<!doctype html>
+<html>
+  <head>
+      <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>What has changed on how we ship the Builders and the base images | Paketo Buildpacks | Blog</title>
+<link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-language" content="en-us" />
+
+<meta property='og:site_name' content="Paketo Buildpacks | Blog">
+<meta property='og:title' content="What has changed on how we ship the Builders and the base images">
+<meta property='og:url' content="https://blog.paketo.io/posts/builders-stacks-base-images-restructure/">
+<meta property='og:image' content='/images/logo512.png'/>
+<meta name="twitter:title" content="Paketo Buildpacks | Blog" />
+<meta name="twitter:url" content="https://blog.paketo.io/posts/builders-stacks-base-images-restructure/" />
+<meta name="twitter:card" content="" />
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TJMQZ5RDFG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TJMQZ5RDFG');
+</script><link rel="stylesheet" href="/scss/main.min.css">
+
+  </head>
+  <body>
+    <div class="post">
+      <header>
+        <a href="/">
+          <img class="logo" src="/images/logo512.png" />
+          <h1>Paketo Buildpacks | Blog</h1>
+        </a>
+      </header>
+      <section>
+        <h1>What has changed on how we ship the Builders and the base images</h1>
+        <section class="author"></section>
+        <date>Monday, Oct 20, 2025</date>
+        <article>
+          <h2 id="what-has-changed-on-how-we-ship-the-builders-and-the-base-images">What has changed on how we ship the Builders and the base images</h2>
+<p>We recently finished implementing the <a href="https://github.com/paketo-buildpacks/rfcs/blob/main/text/0061-core-builder.md">core builder RFC</a>. This means quite a few changes across the Paketo Buildpacks organization, so we would like to walk you through the new structure (noble/UBI9) by comparing it with the old structure (jammy/UBI8) to highlight the differences.</p>
+<h2 id="changes-to-base-images-former-stacks">Changes to Base images (former stacks)</h2>
+<p>For Ubuntu Jammy, each repository publishes the build and the run image, as follows:</p>
+<ul>
+<li>
+<p><a href="https://github.com/paketo-buildpacks/jammy-full-stack">Jammy-full-stack</a></p>
+<ol>
+<li>docker.io/paketobuildpacks/build-jammy-full</li>
+<li>docker.io/paketobuildpacks/run-jammy-full</li>
+</ol>
+</li>
+<li>
+<p><a href="https://github.com/paketo-buildpacks/jammy-base-stack">Jammy-base-stack</a></p>
+<ol>
+<li>docker.io/paketobuildpacks/build-jammy-base</li>
+<li>docker.io/paketobuildpacks/run-jammy-base</li>
+</ol>
+</li>
+<li>
+<p><a href="https://github.com/paketo-buildpacks/jammy-tiny-stack">Jammy-tiny-stack</a></p>
+<ol>
+<li>docker.io/paketobuildpacks/build-jammy-tiny</li>
+<li>docker.io/paketobuildpacks/run-jammy-tiny</li>
+</ol>
+</li>
+<li>
+<p><a href="https://github.com/paketo-buildpacks/jammy-static-stack">Jammy-static-stack</a></p>
+<ol>
+<li>docker.io/paketobuildpacks/build-jammy-static</li>
+<li>docker.io/paketobuildpacks/run-jammy-static</li>
+</ol>
+</li>
+</ul>
+<p>Following the new structure based on the <a href="https://github.com/paketo-buildpacks/rfcs/blob/main/text/0061-core-builder.md">core builder RFC</a>, all the images will be published from a single repository. For Ubuntu Noble this results in:</p>
+<p><a href="https://github.com/paketo-buildpacks/ubuntu-noble-base-images">Ubuntu-noble-base-images</a></p>
+<ol>
+<li>docker.io/paketobuildpacks/ubuntu-noble-build</li>
+<li>docker.io/paketobuildpacks/ubuntu-noble-run</li>
+<li>docker.io/paketobuildpacks/ubuntu-noble-run-tiny</li>
+<li>docker.io/paketobuildpacks/ubuntu-noble-run-static</li>
+</ol>
+<p>The key differences between Noble and Jammy are:</p>
+<ul>
+<li>The repository inclues the <code>images</code> keyword instead of <code>stack</code>.</li>
+<li>There is only one build image.</li>
+<li>The <code>base</code> build and run image do not have the <code>base</code> keyword.</li>
+<li>The <code>full</code> run and build images have been deprecated.</li>
+</ul>
+<p>There are no changes for the <a href="https://github.com/paketo-buildpacks/ubi8-base-stack">UBI8-base-stack</a> and <a href="https://github.com/paketo-buildpacks/ubi-9-base-images">UBI-9-base-images</a> repositories, except the name of the repositories, as the images are being published as they used to, preserving the same naming convention as before.</p>
+<h2 id="changes-to-builders">Changes to Builders</h2>
+<p>In addition to base/stack images, we have also made changes to the builders.</p>
+<p>So far for the Ubuntu Jammy and UBI8 builders, each builder is being published by a separate repository:</p>
+<ul>
+<li>
+<p><a href="https://github.com/paketo-buildpacks/builder-jammy-java-tiny">Builder-jammy-java-tiny</a></p>
+<ol>
+<li>docker.io/paketobuildpacks/builder-jammy-java-tiny</li>
+</ol>
+</li>
+<li>
+<p><a href="https://github.com/paketo-buildpacks/builder-jammy-tiny">Builder-jammy-tiny</a></p>
+<ol>
+<li>docker.io/paketobuildpacks/builder-jammy-tiny</li>
+</ol>
+</li>
+<li>
+<p><a href="https://github.com/paketo-buildpacks/builder-jammy-base">Builder-jammy-base</a></p>
+<ol>
+<li>docker.io/paketobuildpacks/builder-jammy-base</li>
+</ol>
+</li>
+<li>
+<p><a href="https://github.com/paketo-buildpacks/builder-jammy-full">Builder-jammy-full</a></p>
+<ol>
+<li>docker.io/paketobuildpacks/builder-jammy-full</li>
+</ol>
+</li>
+<li>
+<p><a href="https://github.com/paketo-buildpacks/builder-jammy-buildpackless-tiny">Builder-jammy-buildpackless-tiny</a></p>
+<ol>
+<li>docker.io/paketobuildpacks/builder-jammy-tiny</li>
+</ol>
+</li>
+<li>
+<p><a href="https://github.com/paketo-buildpacks/builder-jammy-buildpackless-static">Builder-jammy-buildpackless-static</a></p>
+<ol>
+<li>docker.io/paketobuildpacks/builder-jammy-buildpackless-static</li>
+</ol>
+</li>
+<li>
+<p><a href="https://github.com/paketo-buildpacks/builder-jammy-buildpackless-base">Builder-jammy-buildpackless-base</a></p>
+<ol>
+<li>docker.io/paketobuildpacks/builder-jammy-buildpackless-base</li>
+</ol>
+</li>
+<li>
+<p><a href="https://github.com/paketo-buildpacks/builder-jammy-buildpackless-full">Builder-jammy-buildpackless-full</a></p>
+<ol>
+<li>docker.io/paketobuildpacks/builder-jammy-buildpackless-full</li>
+</ol>
+</li>
+<li>
+<p><a href="https://github.com/paketo-buildpacks/builder-ubi8-base">Builder-ubi8-base</a></p>
+<ol>
+<li>docker.io/paketobuildpacks/builder-ubi8-base</li>
+</ol>
+</li>
+<li>
+<p><a href="https://github.com/paketo-buildpacks/builder-ubi8-buildpackless-base">Builder-ubi8-buildpackless-base</a></p>
+<ol>
+<li>docker.io/paketobuildpacks/builder-ubi8-buildpackless-base</li>
+</ol>
+</li>
+</ul>
+<p>Based on the <a href="https://github.com/paketo-buildpacks/rfcs/blob/main/text/0061-core-builder.md">core builder RFC</a> the structure of the repositories for the Ubuntu Noble buiders and UBI9 builders has changed to the following:</p>
+<ul>
+<li>
+<p><a href="https://github.com/paketo-buildpacks/ubuntu-noble-builder">Ubuntu-noble-builder</a></p>
+<ol>
+<li>docker.io/paketobuildpacks/ubuntu-noble-builder</li>
+<li>docker.io/paketobuildpacks/ubuntu-noble-builder-buildpackless</li>
+</ol>
+</li>
+<li>
+<p><a href="https://github.com/paketo-buildpacks/builder-noble-java-tiny">Builder-noble-java-tiny</a></p>
+<ol>
+<li>docker.io/paketobuildpacks/builder-noble-java-tiny</li>
+</ol>
+</li>
+<li>
+<p><a href="https://github.com/paketo-buildpacks/ubi-9-builder">Ubi-9-builder</a></p>
+<ol>
+<li>docker.io/paketobuildpacks/ubi-9-builder</li>
+<li>docker.io/paketobuildpacks/ubi-9-builder-buildpackless</li>
+</ol>
+</li>
+</ul>
+<p>What does this mean for you?</p>
+<ul>
+<li>
+<p>If you are presently using the Jammy <code>paketobuildpacks/builder-jammy-base</code> builder, then you should switch to using the <code>paketobuildpacks/ubuntu-noble-builder</code> builder. This is a direct swap of the builder.</p>
+</li>
+<li>
+<p>If you are presently using the Jammy <code>paketobuildpacks/builder-jammy-java-tiny</code> builder then you will switch to <code>paketobuildpacks/builder-noble-java-tiny</code>. This one is a direct swap.</p>
+</li>
+<li>
+<p>If you are presently using the Jammy <code>paketobuildpacks/builder-jammy-tiny</code> builder (or the static builder), then you would switch to using the <code>paketobuildpacks/ubuntu-noble-builder</code> builder as well, but you would include the <code>--run-image</code> flag with your build command and specify <code>paketobuildpacks/ubuntu-noble-run-tiny</code> (or the <code>static</code> run image listed above) as your run image. This will use the base build image, but then create an application image based on the run image that you specify. If you are using a tool besides <code>pack</code> cli, check it&rsquo;s documentation. Most tools have a way to specify an alternative run image.</p>
+</li>
+<li>
+<p>If you are presently using the Jammy <code>paketobuildpacks/builder-jammy-full</code> builder, then you will need to switch to using the <code>paketobuildpacks/ubuntu-noble-builder</code> builder. This is going to be a more impactful change though, because we are not offering a full builder or full base images with Noble. What you need to do instead is to find what packages are required by your application, that are not available on the base image and use the <a href="https://github.com/dmikusa/apt-buildpack">Apt buildpack</a> to install those packages so that they are available for your application. We believe that this should work for many users, but if you&rsquo;re having issues or perhaps have a use case that&rsquo;s not supported, please reach out on our <a href="https://github.com/orgs/paketo-buildpacks/discussions">discussion page</a>.</p>
+</li>
+<li>
+<p>If you are presently using the UBI 8 <code>paketobuildpacks/builder-ubi8-base</code> builder, then you can switch to using the <code>paketobuildpacks/ubi-9-builder</code> builder. This is a direct swap of the builder. With UBI builders, there is no need to select the run image, as the extension (which is included on the ubi builders), it always selects the optimal run image for you. However, if you would like to experiment with a different run image (for example during development), you can override it using the <a href="https://github.com/paketo-buildpacks/ubi-nodejs-extension?tab=readme-ov-file#setting-explicitly-a-run-image-bp_ubi_run_image_override">BP_UBI_RUN_IMAGE_OVERRIDE</a> environment variable.</p>
+</li>
+</ul>
+<p>We hope this explanation clarifies how the structure of the builders and the base images has changed, as we head toward a model with a single builder and different variations of run images to choose from.</p>
+<p>If you would like to contribute under the Paketo implementation of CNCF buildpacks, feel free to take a look on the community instructions on how to <a href="https://github.com/paketo-buildpacks/community?tab=readme-ov-file#how-to-get-involved">get involved</a> or check out <a href="https://blog.paketo.io/posts/paketo-buildpacks-contributors-wanted/">this blog post on the topic</a>.</p>
+<p>Happy building !!!</p>
+
+        </article>
+      </section>
+      <footer class="post">
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Paketo%20Buildpacks%20%7c%20Blog%20%7c%20What%20has%20changed%20on%20how%20we%20ship%20the%20Builders%20and%20the%20base%20images&amp;url=https://blog.paketo.io/posts/builders-stacks-base-images-restructure/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/twitter.png" />
+</a>
+
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://blog.paketo.io/posts/builders-stacks-base-images-restructure/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/linkedin.png" />
+</a>
+
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://blog.paketo.io/posts/builders-stacks-base-images-restructure/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/facebook.png" />
+</a>
+
+      </footer>
+    </div>
+  </body>
+</html>

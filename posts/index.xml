@@ -6,7 +6,17 @@
     <description>Recent content in Posts on Paketo Buildpacks | Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 19 Sep 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.paketo.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 20 Oct 2025 23:25:07 +0200</lastBuildDate><atom:link href="https://blog.paketo.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>What has changed on how we ship the Builders and the base images</title>
+      <link>https://blog.paketo.io/posts/builders-stacks-base-images-restructure/</link>
+      <pubDate>Mon, 20 Oct 2025 23:25:07 +0200</pubDate>
+      
+      <guid>https://blog.paketo.io/posts/builders-stacks-base-images-restructure/</guid>
+      <description>What has changed on how we ship the Builders and the base images We recently finished implementing the core builder RFC. This means quite a few changes across the Paketo Buildpacks organization, so we would like to walk you through the new structure (noble/UBI9) by comparing it with the old structure (jammy/UBI8) to highlight the differences.
+Changes to Base images (former stacks) For Ubuntu Jammy, each repository publishes the build and the run image, as follows:</description>
+    </item>
+    
     <item>
       <title>Paketo Buildpacks add support for Java 25</title>
       <link>https://blog.paketo.io/posts/paketo-java-25-support/</link>

@@ -3,17 +3,22 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://blog.paketo.io/posts/paketo-java-25-support/</loc>
-    <lastmod>2025-09-19T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://blog.paketo.io/</loc>
-    <lastmod>2025-09-19T00:00:00+00:00</lastmod>
+    <lastmod>2025-10-20T23:25:07+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.paketo.io/posts/</loc>
+    <lastmod>2025-10-20T23:25:07+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.paketo.io/posts/builders-stacks-base-images-restructure/</loc>
+    <lastmod>2025-10-20T23:25:07+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.paketo.io/posts/paketo-java-25-support/</loc>
     <lastmod>2025-09-19T00:00:00+00:00</lastmod>
   </url>
   
