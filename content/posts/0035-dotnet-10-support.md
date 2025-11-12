@@ -1,5 +1,5 @@
 ---
-title: Paketo Buildpacks add support for .NET Core 10
+title: Paketo Buildpacks add support for .NET 10
 date: "2025-11-12"
 slug: paketo-dotnet-10-support
 author: bmcdonald
