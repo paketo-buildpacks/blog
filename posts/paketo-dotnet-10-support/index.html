@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+  <head>
+      <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Paketo Buildpacks add support for .NET 10 | Paketo Buildpacks | Blog</title>
+<link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-language" content="en-us" />
+
+<meta property='og:site_name' content="Paketo Buildpacks | Blog">
+<meta property='og:title' content="Paketo Buildpacks add support for .NET 10">
+<meta property='og:url' content="https://blog.paketo.io/posts/paketo-dotnet-10-support/">
+<meta property='og:image' content='/images/logo512.png'/>
+<meta name="twitter:title" content="Paketo Buildpacks | Blog" />
+<meta name="twitter:url" content="https://blog.paketo.io/posts/paketo-dotnet-10-support/" />
+<meta name="twitter:card" content="" />
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TJMQZ5RDFG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TJMQZ5RDFG');
+</script><link rel="stylesheet" href="/scss/main.min.css">
+
+  </head>
+  <body>
+    <div class="post">
+      <header>
+        <a href="/">
+          <img class="logo" src="/images/logo512.png" />
+          <h1>Paketo Buildpacks | Blog</h1>
+        </a>
+      </header>
+      <section>
+        <h1>Paketo Buildpacks add support for .NET 10</h1>
+        <section class="author"><img src="/images/authors/bmcdonald.jpg" /><name>Brynley McDonald</name></section>
+        <date>Wednesday, Nov 12, 2025</date>
+        <article>
+          <h2 id="net-10-is-now-available">.NET 10 is now available</h2>
+<p>The Paketo Buildpacks team is excited to announce that the same day .NET 10 was released, it is now available to
+be used in your Paketo Buildpacks builds!</p>
+<p>All you need to do is update the target framework to <code>net10.0</code> in your <code>.csproj</code> file, and the buildpack will
+automatically use the latest SDK and ASP.NET Core runtime.</p>
+<p>Please reach out to the team if you have any questions.</p>
+<h3 id="supported-net-versions">Supported .NET versions</h3>
+<p>In addition to .NET 10, the Paketo Buildpacks will continue to support both .NET 8 and .NET 9 until at least their EOL
+date in November 2026.</p>
+<h3 id="ubuntu-noble-support">Ubuntu Noble support</h3>
+<p>The Paketo Buildpacks for .NET now also support Ubuntu 24.04 aka Noble.</p>
+<p>For now, this is only works when using the builder <code>paketo-buildpacks/ubuntu-noble-builder-buildpackless</code> and then
+specifying the buildpack with <code>--buildpack paketo-buildpacks/dotnet-core</code>.</p>
+<p>Very soon, the Paketo Buildpacks for .NET will also support ARM64, and will be available in
+<code>paketo-buildpacks/ubuntu-noble-builder</code> which includes automatic detection including other languages like Java and NodeJS.</p>
+<p>For more information, check out <a href="https://blog.paketo.io/posts/builders-stacks-base-images-restructure/">this blog post about the new builders</a>.</p>
+
+        </article>
+      </section>
+      <footer class="post">
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Paketo%20Buildpacks%20%7c%20Blog%20%7c%20Paketo%20Buildpacks%20add%20support%20for%20.NET%2010&amp;url=https://blog.paketo.io/posts/paketo-dotnet-10-support/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/twitter.png" />
+</a>
+
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://blog.paketo.io/posts/paketo-dotnet-10-support/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/linkedin.png" />
+</a>
+
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://blog.paketo.io/posts/paketo-dotnet-10-support/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/facebook.png" />
+</a>
+
+      </footer>
+    </div>
+  </body>
+</html>
