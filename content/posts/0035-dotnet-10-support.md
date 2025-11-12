@@ -24,14 +24,10 @@ date in November 2026.
 
 The Paketo Buildpacks for .NET now also support Ubuntu 24.04 aka Noble.
 
-This builder comes in two flavours:
+For now, this is only works when using the builder `paketo-buildpacks/ubuntu-noble-builder-buildpackless` and then
+specifying the buildpack with `--buildpack paketo-buildpacks/dotnet-core`.
 
-- `paketo-buildpacks/ubuntu-noble-builder` which automatically detects and builds for .NET, Java, and NodeJS.
-- `paketo-buildpacks/ubuntu-noble-builder-buildpackless` which requires specifying the buildpack to use
-   eg `--buildpack paketo-buildpacks/dotnet-core`.
+Very soon, the Paketo Buildpacks for .NET will also support ARM64, and will be available in
+`paketo-buildpacks/ubuntu-noble-builder` which includes automatic detection including other languages like Java and NodeJS.
 
 For more information, check out [this blog post about the new builders](https://blog.paketo.io/posts/builders-stacks-base-images-restructure/).
-
-### ARM64 support
-
-While not yet complete, work is also in progress to support ARM64 for .NET Paketo Buildpacks - so stay tuned!
