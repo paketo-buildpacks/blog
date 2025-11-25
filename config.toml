@@ -1,6 +1,7 @@
 baseURL = "https://blog.paketo.io"
 languageCode = "en-us"
 title = "Paketo Buildpacks | Blog"
+enableEmoji = true
 
 [params.authors]
   dmikusa = "Daniel Mikusa"
