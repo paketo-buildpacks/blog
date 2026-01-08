@@ -3,17 +3,22 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://blog.paketo.io/posts/paketo-buildpacks-user-survey-2025/</loc>
-    <lastmod>2025-11-24T00:00:00+00:00</lastmod>
+    <loc>https://blog.paketo.io/</loc>
+    <lastmod>2026-01-08T12:32:49+01:00</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.paketo.io/</loc>
-    <lastmod>2025-11-24T00:00:00+00:00</lastmod>
+    <loc>https://blog.paketo.io/posts/default-version-bump-node-24/</loc>
+    <lastmod>2026-01-08T12:32:49+01:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.paketo.io/posts/</loc>
+    <lastmod>2026-01-08T12:32:49+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.paketo.io/posts/paketo-buildpacks-user-survey-2025/</loc>
     <lastmod>2025-11-24T00:00:00+00:00</lastmod>
   </url>
   

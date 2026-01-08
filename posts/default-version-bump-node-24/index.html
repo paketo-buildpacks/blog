@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+  <head>
+      <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Paketo Node.js Buildpacks updates default to Node.js 24 | Paketo Buildpacks | Blog</title>
+<link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-language" content="en-us" />
+
+<meta property='og:site_name' content="Paketo Buildpacks | Blog">
+<meta property='og:title' content="Paketo Node.js Buildpacks updates default to Node.js 24">
+<meta property='og:url' content="https://blog.paketo.io/posts/default-version-bump-node-24/">
+<meta property='og:image' content='/images/logo512.png'/>
+<meta name="twitter:title" content="Paketo Buildpacks | Blog" />
+<meta name="twitter:url" content="https://blog.paketo.io/posts/default-version-bump-node-24/" />
+<meta name="twitter:card" content="" />
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TJMQZ5RDFG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TJMQZ5RDFG');
+</script><link rel="stylesheet" href="/scss/main.min.css">
+
+  </head>
+  <body>
+    <div class="post">
+      <header>
+        <a href="/">
+          <img class="logo" src="/images/logo512.png" />
+          <h1>Paketo Buildpacks | Blog</h1>
+        </a>
+      </header>
+      <section>
+        <h1>Paketo Node.js Buildpacks updates default to Node.js 24</h1>
+        <section class="author"><img src="/images/authors/pacostas.jpg" /><name>Costas Papastathis</name></section>
+        <date>Thursday, Jan 8, 2026</date>
+        <article>
+          <p><strong>Node.js 24 entered active status</strong> in October 2025 according to the Node.js <a href="https://nodejs.org/en/about/previous-releases">release schedule</a>.
+We are excited to announce that it is now the default version for the <a href="https://github.com/paketo-buildpacks/nodejs">Paketo Node.js buildpacks</a>!
+This means that if no Node.js version is specified via the <code>package.json</code> file, <code>.node-version</code> file, <code>.nvmrc</code> file or through the <code>BP_NODE_VERSION</code> environment variable, the selected Node.js version will default to 24!</p>
+<p>Although Node.js 24 has been available on Paketo Buildpacks since <strong>November 4th, 2025</strong>, via the <a href="https://github.com/paketo-buildpacks/node-engine/pull/1356">node-engine buildpack</a>, we had to ensure that all the Paketo Node.js buildpacks have been tested against it through their testing suite, before setting it as default. This ensures that the current behavior of the Paketo Node.js Buildpacks implementation remains stable.</p>
+<p>Aside from setting Node.js 24 as the default, nothing else has changed. Older versions of Node.js <strong>will remain available</strong>, even if they have reached End-Of-Life (EOL) status from the Node.js Project.</p>
+<p>If you would like to <strong>contribute to</strong> the Node.js Buildpacks or the Paketo implementation of CNCF buildpacks in general, feel free to take a look at the community instructions on how to <a href="https://github.com/paketo-buildpacks/community?tab=readme-ov-file#how-to-get-involved">get involved</a> or check out <a href="https://blog.paketo.io/posts/paketo-buildpacks-contributors-wanted/">this blog post on the topic</a>.</p>
+<p>Happy building !!!</p>
+
+        </article>
+      </section>
+      <footer class="post">
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Paketo%20Buildpacks%20%7c%20Blog%20%7c%20Paketo%20Node.js%20Buildpacks%20updates%20default%20to%20Node.js%2024&amp;url=https://blog.paketo.io/posts/default-version-bump-node-24/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/twitter.png" />
+</a>
+
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://blog.paketo.io/posts/default-version-bump-node-24/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/linkedin.png" />
+</a>
+
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://blog.paketo.io/posts/default-version-bump-node-24/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/facebook.png" />
+</a>
+
+      </footer>
+    </div>
+  </body>
+</html>

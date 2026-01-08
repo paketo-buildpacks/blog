@@ -40,6 +40,22 @@
       
         <article>
   <div>
+    <h2><a href="/posts/default-version-bump-node-24/">Paketo Node.js Buildpacks updates default to Node.js 24</a></h2>
+    Node.js 24 entered active status in October 2025 according to the Node.js release schedule. We are excited to announce that it is now the default version for the Paketo Node.js buildpacks! This means that if no Node.js version is specified via the package.json file, .node-version file, .nvmrc file or through the BP_NODE_VERSION environment variable, the selected Node.js version will default to 24!
+Although Node.js 24 has been available on Paketo Buildpacks since November 4th, 2025, via the node-engine buildpack, we had to ensure that all the Paketo Node.
+    
+      <a href="/posts/default-version-bump-node-24/">…</a>
+    
+    <div class="metadata">
+      <section class="author"><img src="/images/authors/pacostas.jpg" /><name>Costas Papastathis</name></section>
+      <span class="date">Thursday, Jan 8, 2026</span>
+    </div>
+  </div>
+</article>
+
+      
+        <article>
+  <div>
     <h2><a href="/posts/paketo-buildpacks-user-survey-2025/">Paketo Buildpacks User Survey</a></h2>
     User Survey 2025 As long as I have been working on Paketo Buildpacks, it has been a challenge to understand how our users make use of the project. What buildpacks get used? What features are important? Where should we spend project time and resources? We just don&rsquo;t know 🤷‍♂️
 This is because for your privacy, Paketo Buildpacks do not have telemetry in them nor do they capture any information about your usage patterns.
@@ -74,13 +90,15 @@ Please reach out to the team if you have any questions.
         <article>
   <div>
     <h2><a href="/posts/builders-stacks-base-images-restructure/">What has changed on how we ship the Builders and the base images</a></h2>
-    What has changed on how we ship the Builders and the base images We recently finished implementing the core builder RFC. This means quite a few changes across the Paketo Buildpacks organization, so we would like to walk you through the new structure (noble/UBI9) by comparing it with the old structure (jammy/UBI8) to highlight the differences.
+    We recently finished implementing the core builder RFC. This means quite a few changes across the Paketo Buildpacks organization, so we would like to walk you through the new structure (noble/UBI9) by comparing it with the old structure (jammy/UBI8) to highlight the differences.
 Changes to Base images (former stacks) For Ubuntu Jammy, each repository publishes the build and the run image, as follows:
+  Jammy-full-stack
+ docker.io/paketobuildpacks/build-jammy-full docker.io/paketobuildpacks/run-jammy-full    Jammy-base-stack
     
       <a href="/posts/builders-stacks-base-images-restructure/">…</a>
     
     <div class="metadata">
-      <section class="author"><name>Costas Papastathis</name></section>
+      <section class="author"><img src="/images/authors/pacostas.jpg" /><name>Costas Papastathis</name></section>
       <span class="date">Monday, Oct 20, 2025</span>
     </div>
   </div>
