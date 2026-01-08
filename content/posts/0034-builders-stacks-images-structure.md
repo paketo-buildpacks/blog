@@ -5,8 +5,6 @@ slug: builders-stacks-base-images-restructure
 author: pacostas
 ---
 
-## What has changed on how we ship the Builders and the base images
-
 We recently finished implementing the [core builder RFC](https://github.com/paketo-buildpacks/rfcs/blob/main/text/0061-core-builder.md). This means quite a few changes across the Paketo Buildpacks organization, so we would like to walk you through the new structure (noble/UBI9) by comparing it with the old structure (jammy/UBI8) to highlight the differences.
 
 ## Changes to Base images (former stacks)
