@@ -21,19 +21,8 @@ jobs:
         ref: main
         path: build-environment
 
-    - name: Install Hugo
-      run: |
-        mkdir -p build-environment/.bin
-        curl "https://github.com/gohugoio/hugo/releases/download/v0.80.0/hugo_extended_0.80.0_Linux-64bit.tar.gz" \
-          --silent \
-          --location \
-          --output /tmp/hugo.tar.gz
-        tar -xOzvf /tmp/hugo.tar.gz 'hugo' > build-environment/.bin/hugo
-        chmod +x build-environment/.bin/hugo
-        rm /tmp/hugo.tar.gz
-
     - name: Build
-      run: cd build-environment && .bin/hugo
+      run: ./build-environment/scripts/build.sh --token "${{ github.token }}"
 
     - name: Update
       run: |
