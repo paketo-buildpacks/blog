@@ -22,7 +22,10 @@ jobs:
         path: build-environment
 
     - name: Build
-      run: ./build-environment/scripts/build.sh --token "${{ github.token }}"
+      run: |
+        pushd build-environment > /dev/null
+        ./scripts/build.sh --token "${{ github.token }}"
+        popd > /dev/null
 
     - name: Update
       run: |
@@ -45,3 +48,22 @@ jobs:
     - name: Push
       if: ${{ steps.commit.outputs.commit_sha != '' }}
       run: git push origin gh-pages
+
+  failure:
+    name: Alert on Failure
+    runs-on: ubuntu-24.04
+    needs: [deploy]
+    if: ${{ always() && needs.deploy.result == 'failure' }}
+    steps:
+    - name: File Failure Alert Issue
+      uses: paketo-buildpacks/github-config/actions/issue/file@main
+      with:
+        token: ${{ github.token }}
+        repo: ${{ github.repository }}
+        label: "failure:deploy-blog"
+        comment_if_exists: true
+        issue_title: "Failure: Deploy Blog workflow"
+        issue_body: |
+          Deploy Blog workflow [failed](https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}).
+        comment_body: |
+          Another failure occurred: https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}
