@@ -3,7 +3,7 @@ et -eu
 set -o pipefail
 
 readonly PROGDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-readonly BUILDPACKDIR="$(cd "${PROGDIR}/.." && pwd)"
+readonly ROOTDIR="$(cd "${PROGDIR}/.." && pwd)"
 
 # shellcheck source=SCRIPTDIR/.util/tools.sh
 source "${PROGDIR}/.util/tools.sh"
@@ -54,7 +54,7 @@ function main() {
   post_file="posts/${name}.md"
 
   util::print::title "Creating new post: ${post_file}"
-  "${BUILDPACKDIR}/.bin/hugo" new "${post_file}"
+  "${ROOTDIR}/.bin/hugo" new "${post_file}"
 
   util::print::success "Post created: content/${post_file}"
 }
@@ -74,6 +74,15 @@ EXAMPLE
   ./scripts/new.sh --name 0038-my-new-post
   # Creates: content/posts/0038-my-new-post.md
 USAGE
+}
+
+function tools::install() {
+  local token
+  token="${1}"
+
+  util::tools::hugo::install \
+    --directory "${ROOTDIR}/.bin" \
+    --token "${token}"
 }
 
 main "${@:-}"

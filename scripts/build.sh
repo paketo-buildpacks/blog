@@ -59,5 +59,14 @@ OPTIONS
 USAGE
 }
 
+function tools::install() {
+  local token
+  token="${1}"
+
+  util::tools::hugo::install \
+    --directory "${ROOTDIR}/.bin" \
+    --token "${token}"
+}
+
 main "${@:-}"
 

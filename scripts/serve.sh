@@ -4,7 +4,7 @@ set -eu
 set -o pipefail
 
 readonly PROGDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-readonly BUILDPACKDIR="$(cd "${PROGDIR}/.." && pwd)"
+readonly ROOTDIR="$(cd "${PROGDIR}/.." && pwd)"
 
 # shellcheck source=SCRIPTDIR/.util/tools.sh
 source "${PROGDIR}/.util/tools.sh"
@@ -42,7 +42,7 @@ function main() {
   tools::install "${token}"
 
   util::print::title "Starting Hugo server..."
-  "${BUILDPACKDIR}/.bin/hugo" server -D
+  "${ROOTDIR}/.bin/hugo" server -D
 }
 
 function usage() {
@@ -55,6 +55,15 @@ OPTIONS
   --help   -h         prints the command usage
   --token  -t <token> Token used to download assets from GitHub (optional)
 USAGE
+}
+
+function tools::install() {
+  local token
+  token="${1}"
+
+  util::tools::hugo::install \
+    --directory "${ROOTDIR}/.bin" \
+    --token "${token}"
 }
 
 main "${@:-}"

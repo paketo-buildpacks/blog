@@ -118,13 +118,3 @@ function util::tools::hugo::install() {
     util::print::info "Using $("${dir}"/hugo version)"
   fi
 }
-
-function tools::install() {
-  local token
-  token="${1:-}"
-
-  util::tools::hugo::install \
-    --directory "${BUILDPACKDIR}/.bin" \
-    --token "${token}"
-}
-
