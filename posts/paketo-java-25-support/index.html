@@ -47,14 +47,14 @@
 <p><a href="https://github.com/paketo-buildpacks/java-native-image/releases/tag/v11.17.0">https://github.com/paketo-buildpacks/java-native-image/releases/tag/v11.17.0</a></p>
 <p>But even better, try them out now!</p>
 <h3 id="first-option-force-java-to-25-using-bp_jvm_version">First option: force Java to 25 using BP_JVM_VERSION</h3>
-<pre><code>cd paketo-buildpacks/samples/java/maven
+<pre tabindex="0"><code>cd paketo-buildpacks/samples/java/maven
 pack config default-builder paketobuildpacks/builder-noble-java-tiny:latest
 pack build applications/maven --env BP_JVM_VERSION=25
 [...]
 [builder]     Using Java version 25 from BP_JVM_VERSION
 [...]
 </code></pre><h3 id="second-option-set-your-sdkmanrc-to-java-25">Second option: set your <code>.sdkmanrc</code> to Java 25</h3>
-<pre><code>cd paketo-buildpacks/samples/java/maven
+<pre tabindex="0"><code>cd paketo-buildpacks/samples/java/maven
 sdk install java 25-zulu
 sdk use java 25-zulu
 sdk env init
@@ -71,7 +71,7 @@ pack build applications/maven
 </code></pre><h2 id="what-about-the-other-jdk--jre-distributions">What about the other JDK / JRE distributions?</h2>
 <p>At the time of writing: <a href="https://github.com/paketo-buildpacks/azul-zulu/releases/tag/v11.3.0">Azul Zulu</a>, <a href="https://github.com/paketo-buildpacks/bellsoft-liberica/releases/tag/v11.3.0">Bellsoft Liberica (not NIK yet)</a>, <a href="https://github.com/paketo-buildpacks/oracle/releases/tag/v4.2.0">Oracle and GraalVM</a>, <a href="https://github.com/paketo-buildpacks/sap-machine/releases/tag/v12.2.0">SAP Machine</a>, <a href="https://github.com/paketo-buildpacks/amazon-corretto/releases/tag/v9.3.0">Amazon Corretto</a> all got upgraded to support Java 25 (and lost support for Java 24)</p>
 <p>As a reminder, you can choose your JVM distribution specifying its buildpack:</p>
-<pre><code>pack build applications/maven  --buildpack paketobuildpacks/azul-zulu:latest --buildpack paketobuildpacks/java:latest --env BP_JVM_VERSION=25
+<pre tabindex="0"><code>pack build applications/maven  --buildpack paketobuildpacks/azul-zulu:latest --buildpack paketobuildpacks/java:latest --env BP_JVM_VERSION=25
 [...]
 [builder]     Using Java version 25 from BP_JVM_VERSION
 [builder]   Azul Zulu JDK 25.0.0: Contributing to layer

@@ -45,7 +45,7 @@
 <p>With this first release, you can build native image applications with Oracle GraalVM. Building your application is simple. You follow the <a href="https://paketo.io/docs/howto/java/#use-an-alternative-java-native-image-toolkit">process for selecting a Native Image Toolkit</a> and use the Oracle buildpack.</p>
 <p>For example, if we want to build the <a href="https://github.com/paketo-buildpacks/samples/tree/main/java/native-image/spring-boot-native-image-maven">Paketo Maven Spring Boot Sample App</a> with <code>pack</code>, we would simply run <code>pack build applications/native-image -b paketo-buildpacks/oracle -b urn:cnb:builder:paketo-buildpacks/java-native-image --builder paketobuildpacks/builder-jammy-tiny --env BP_MAVEN_ACTIVE_PROFILES=native</code>. This small change is all that&rsquo;s required to tell Paketo Buildpacks to override the default JDK distribution including Native Image, which is from Bellsoft, and instead use Oracle GraalVM.</p>
 <p>When you build your image, you&rsquo;ll now see the Paketo buildpacks download, install, and run Oracle&rsquo;s GraalVM for you.</p>
-<pre><code>...
+<pre tabindex="0"><code>...
 Paketo Buildpack for Oracle 3.11.0
   https://github.com/paketo-buildpacks/oracle
   Build Configuration:
@@ -84,7 +84,7 @@ Paketo Buildpack for Oracle 3.11.0
 <ol>
 <li>
 <p>Modify the image configuration block in your <code>pom.xml</code>.</p>
-<pre><code>...
+<pre tabindex="0"><code>...
 &lt;configuration&gt;
     &lt;image&gt;
         &lt;builder&gt;paketobuildpacks/builder-jammy-tiny:latest&lt;/builder&gt;

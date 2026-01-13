@@ -53,7 +53,7 @@
 <h3 id="jvm-provider">JVM Provider</h3>
 <p>By default, the Paketo Java Buildpack uses the Bellsoft Liberica JVM. To use an alternative JVM, you can specify it as a <code>--buildpack</code> argument before the Paketo Java Buildpack.</p>
 <p>Example (to install the Amazon Corretto JVM):</p>
-<pre><code> pack build apps/sample \
+<pre tabindex="0"><code> pack build apps/sample \
  --buildpack gcr.io/paketo-buildpacks/amazon-corretto \
  --buildpack paketo-buildpacks/java
 </code></pre><p>A table of alternative JVM providers can be found <a href="https://paketo.io/docs/howto/java/#use-an-alternative-jvm">here</a>.</p>
@@ -62,7 +62,7 @@
 <p><code>BP_JVM_TYPE</code> - defaults to <code>JRE</code>, this can be set to <code>JDK</code> to specify which JVM type is installed in the final run image.</p>
 <p><code>BP_JVM_VERSION</code> - defaults to the latest 11.x version available for the JVM provider. You can set this value to another major version to get the latest patch release, e.g. <code>17</code></p>
 <p>Example to specify a full JDK &amp; the latest v11 patch:</p>
-<pre><code>pack build apps/sample \
+<pre tabindex="0"><code>pack build apps/sample \
 --env BP_JVM_TYPE=JDK \
 --env BP_JVM_VERSION=11
 </code></pre><h2 id="new-features">New Features</h2>
@@ -74,7 +74,7 @@
 <p><code>BPL_JAVA_NMT_ENABLED</code> - set to <code>true</code> by default, however the tracking can cause a 5-10% performance overhead, so this variable can be set to <code>false</code> to disable memory tracking when the JVM starts.</p>
 <p><code>BPL_JAVA_NMT_LEVEL</code> - set to <code>summary</code> by default, this specifies the level of detail for the memory usage data captured. For a more detailed output, it can be set to <code>detail</code>.</p>
 <p>The following default NMT arguments are passed to the JVM:</p>
-<pre><code>-XX:+UnlockDiagnosticVMOptions
+<pre tabindex="0"><code>-XX:+UnlockDiagnosticVMOptions
 -XX:NativeMemoryTracking=summary
 -XX:+PrintNMTStatistics`
 </code></pre><p>Example:</p>
@@ -98,12 +98,12 @@
 <p><code>-XX:StartFlightRecording=dumponexit=true,filename=/tmp/recording.jfr</code></p>
 <p>Example:</p>
 <p>To start a docker container with JFR enabled, setting some custom arguments, run the following:</p>
-<pre><code>docker run \
+<pre tabindex="0"><code>docker run \
 --env BPL_JFR_ENABLED=true \
 --env BPL_JFR_ARGS=filename=/tmp/my-recording.jfr,duration=60s \
 samples/java
 </code></pre><p>When you wish to retrieve the recording file, you can run the following to copy it from the container (the location specified in the above &lsquo;filename&rsquo; argument) to your local current directory:</p>
-<pre><code>docker cp &lt;container-id&gt;:/tmp/my-recording.jfr .
+<pre tabindex="0"><code>docker cp &lt;container-id&gt;:/tmp/my-recording.jfr .
 </code></pre><h2 id="newly-integrated-features">Newly Integrated Features</h2>
 <p>In addition to the new features now supported by the buildpack, two features which previously required a user to rebuild their image are now integrated into the Paketo Java Buildpack directly. These can simply be enabled at runtime using an environment variable.</p>
 <h3 id="java-management-extensions-jmx">Java Management Extensions (JMX)</h3>
@@ -111,7 +111,7 @@ samples/java
 <p><code>BPL_JMX_ENABLED</code> - set to <code>false</code> by default, set this to <code>true</code> to allow incoming connections</p>
 <p><code>BPL_JMX_PORT</code> - set to <code>5000</code> by default, this can be set to your desired port for connections.</p>
 <p>When enabled, these default JMX arguments will be passed to the JVM:</p>
-<pre><code>-Djava.rmi.server.hostname=127.0.0.1
+<pre tabindex="0"><code>-Djava.rmi.server.hostname=127.0.0.1
 -Dcom.sun.management.jmxremote.authenticate=false
 -Dcom.sun.management.jmxremote.ssl=false
 -Dcom.sun.management.jmxremote.rmi.port=5000
@@ -121,14 +121,14 @@ samples/java
 <p><code>BPL_DEBUG_PORT</code> - set to <code>8000</code> by default, this can be set to your desired port for connections.</p>
 <p><code>BPL_DEBUG_SUSPEND</code> - set to <code>false</code> by default, configures whether execution should be suspended until a remote debugger is attached.</p>
 <p>When enabled, these default debug arguments will be passed to the JVM:</p>
-<pre><code>-agentlib:jdwp=transport=dt_socket,server=y,address=*:8000,suspend=n
+<pre tabindex="0"><code>-agentlib:jdwp=transport=dt_socket,server=y,address=*:8000,suspend=n
 </code></pre><h3 id="jvm-kill-agent">JVM Kill Agent</h3>
 <p>The JVM Kill Agent was previously installed by the Paketo Java Buildpack to all container images. Its primary purpose was to cause the JVM process to exit when there was an Out Of Memory Error (OOME). Due to the JVM being run as a ‘direct’ process type, as PID1, it is not possible for the agent to terminate the JVM.</p>
 <p>Functionality to fulfill the same purpose is now included in the JVM itself via the following flag, which is now passed to the JVM by the buildpack by default:</p>
 <p><code>-XX:+ExitOnOutOfMemoryError</code></p>
 <p>Related to this functionality, the buildpack also provides a runtime environment variable which allows you to specify the location of a file to write a heap dump to if an OOME occurs:</p>
 <p><code>BPL_HEAP_DUMP_PATH</code> - empty by default, and no file is written. If a path is specified, the file will be created and the heap dump will be written there. This will also add two JVM flags to support this functionality:</p>
-<pre><code>-XX:+HeapDumpOnOutOfMemoryError
+<pre tabindex="0"><code>-XX:+HeapDumpOnOutOfMemoryError
 -XX:HeapDumpPath=&lt;path&gt;
 </code></pre><h2 id="notes">Notes</h2>
 <p>The following new buildpacks are now available:</p>

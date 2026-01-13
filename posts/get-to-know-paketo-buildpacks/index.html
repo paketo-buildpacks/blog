@@ -113,19 +113,19 @@ using a local Minikube cluster for this demo.</p>
 <p>You can find the demo app source code
 <a href="https://github.com/paketo-buildpacks/samples/tree/master/demo-apps/app-source">here</a>.</p>
 <p>Let’s build a simple Node.js app using pack and the Node.js Paketo Buildpack.</p>
-<pre><code>$ pack build paketo-demo-app -p &lt;/path/to/app/source&gt; --builder gcr.io/paketo-buildpacks/builder:base
+<pre tabindex="0"><code>$ pack build paketo-demo-app -p &lt;/path/to/app/source&gt; --builder gcr.io/paketo-buildpacks/builder:base
 </code></pre><p><img src="/images/posts/0001/demo-1.gif" alt="Demo 1"></p>
 <p>Now, let’s quickly validate that our app is working as expected.</p>
-<pre><code>$ docker run -p 8080:8080 -e PORT=8080 paketo-demo-app &amp;
+<pre tabindex="0"><code>$ docker run -p 8080:8080 -e PORT=8080 paketo-demo-app &amp;
 $ curl localhost:8080/greeting
 </code></pre><p><img src="/images/posts/0001/demo-2.gif" alt="Demo 2"></p>
 <p>Awesome, it works! Now let’s tag our image and publish it to a registry
 location. We’re using a GCR registry for this demo.</p>
-<pre><code>$ docker tag paketo-demo-app &lt;/registry/path/to/demo/image&gt;
+<pre tabindex="0"><code>$ docker tag paketo-demo-app &lt;/registry/path/to/demo/image&gt;
 $ docker push &lt;/registry/path/to/demo/image&gt;
 </code></pre><p><img src="/images/posts/0001/demo-3.gif" alt="Demo 3"></p>
 <p>Finally, let’s deploy our app image to our live Kubernetes cluster.</p>
-<pre><code>$ kubectl create deployment paketo-node --image=&lt;/registry/path/to/demo/image&gt;
+<pre tabindex="0"><code>$ kubectl create deployment paketo-node --image=&lt;/registry/path/to/demo/image&gt;
 $ kubectl expose deployment paketo-node --type=LoadBalancer --port=8080
 $ minikube service paketo-node
 </code></pre><p><img src="/images/posts/0001/demo-4.gif" alt="Demo 4"></p>

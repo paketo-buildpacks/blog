@@ -46,14 +46,14 @@
 <p>This means that updates have not been published for the Bionic Builder or any of its buildpacks <strong>for almost six months</strong>. That&rsquo;s a long time in the software world, which is why we&rsquo;re saying that it&rsquo;s not safe to use this stack.</p>
 <p>Despite this, we are still seeing users performing builds against the Bionic stacks. This comes up in forum posts, Stack Overflow questions, Slack questions, and other channels. We believe that users are not getting the message or are not noticing that they are still using an old builder.</p>
 <h2 id="the-plan">The Plan</h2>
-<p>To help notify users that they need to change, <strong>we are going to move forward with a brownout for the Bionic Builder on W, November 27th, 2023. It will run from 10 AM EST to 2 PM EST</strong>. We believe this will cover a time range across EMEA, the US East, and the US West. We hope this will be a long enough period that it will break some users' builds/CI systems, and users will notice thus being encouraged to upgrade.</p>
+<p>To help notify users that they need to change, <strong>we are going to move forward with a brownout for the Bionic Builder on W, November 27th, 2023. It will run from 10 AM EST to 2 PM EST</strong>. We believe this will cover a time range across EMEA, the US East, and the US West. We hope this will be a long enough period that it will break some users&rsquo; builds/CI systems, and users will notice thus being encouraged to upgrade.</p>
 <p>This will be implemented by temporarily removing the image tags from the Bionic builder images (full, base, and tiny). Once the brownout is finished, the image tags will be restored. This will fix user builds.</p>
 <p>We hope this will be sufficient to alert any users still on the Bionic Builder.</p>
 <h2 id="what-does-this-mean-for-you">What Does This Mean for You?</h2>
 <h3 id="check-your-desktop">Check your Desktop</h3>
 <p>All users should check their systems and confirm the builder that they are using</p>
 <p>With <code>pack</code>, users should run <code>pack config default-builder</code>. It should say that they are using a Jammy builder.</p>
-<pre><code>&gt; pack config default-builder
+<pre tabindex="0"><code>&gt; pack config default-builder
 The current default builder is paketobuildpacks/builder-jammy-base
 </code></pre><p>If it does not, then run <code>pack config default-builder paketobuildpacks/builder-jammy-base</code> (or <code>-full</code> or <code>-tiny</code>, based on your needs).</p>
 <h3 id="check-your-ci-pipelines">Check your CI pipelines</h3>

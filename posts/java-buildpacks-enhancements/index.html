@@ -70,24 +70,24 @@
 <h2 id="better-spring-boot-native-detection">Better Spring Boot Native detection</h2>
 <p>Since first-class native builds were added in Spring Boot 3.0, Paketo buildpacks support Spring Boot native builds; using a combination of the <code>bellsoft-liberica</code>, <code>spring-boot</code> and <code>native-image</code> buildpacks.</p>
 <p>Up until now, it could be tedious for users wanting to get a native build, to specify so many arguments:</p>
-<pre><code>pack build applications/native-image \
+<pre tabindex="0"><code>pack build applications/native-image \
   --builder paketobuildpacks/builder-jammy-tiny \
   --env BP_NATIVE_IMAGE=true \
-  --env BP_MAVEN_BUILD_ARGUMENTS=&quot;-Dmaven.test.skip=true --no-transfer-progress package -Pnative&quot; \
+  --env BP_MAVEN_BUILD_ARGUMENTS=&#34;-Dmaven.test.skip=true --no-transfer-progress package -Pnative&#34; \
   --env BP_JVM_VERSION=17
 </code></pre><p>Fortunately, we can simplify! Since the <code>bellosoft-liberica</code> buildpack <a href="https://github.com/paketo-buildpacks/bellsoft-liberica/releases/tag/v10.0.0">release 10.0.0 back in March 2023</a>, you no longer need to specify <code>BP_JVM_VERSION=17</code> since it&rsquo;s now the default version from 11.</p>
 <p>Also, the sharp-eyed reader might notice you can replace <code>BP_MAVEN_BUILD_ARGUMENTS=&quot;-Dmaven.test.skip=true --no-transfer-progress package -Pnative&quot;</code> with <code>BP_MAVEN_ACTIVE_PROFILES=&quot;native&quot;</code>.</p>
 <p>Making the previous invocation much simpler:</p>
-<pre><code>pack build applications/native-image \
+<pre tabindex="0"><code>pack build applications/native-image \
   --builder paketobuildpacks/builder-jammy-tiny \
   --env BP_MAVEN_ACTIVE_PROFILES=native \
 </code></pre><p>But that&rsquo;s only improving one use case of Spring Boot native builds (from source code).</p>
 <p>If you tried turning a Spring Boot jar built with AOT hints (using <code>./mvnw package -Pnative</code> for example), Paketo buildpacks would not know that you wanted a native image from it.</p>
 <p>You had to build using:</p>
-<pre><code>pack build -p target/spring-boot-demo-0.0.1-SNAPSHOT.jar my-image --env BP_NATIVE_IMAGE=true
+<pre tabindex="0"><code>pack build -p target/spring-boot-demo-0.0.1-SNAPSHOT.jar my-image --env BP_NATIVE_IMAGE=true
 </code></pre><p>which is not super intuitive&hellip;</p>
 <p>Thanks to <a href="https://github.com/paketo-buildpacks/spring-boot/issues/273">the Spring and Spring boot teams</a>, we found a way to be more clever about native detection: detecting the Spring-Boot-3.1-introduced <a href="https://github.com/spring-projects/spring-boot/issues/35205"><code>Spring-Boot-Native-Processed</code> META-INF/MANIFEST entry</a>; turning the previous <code>pack</code> invocation into:</p>
-<pre><code>pack build -p target/spring-boot-demo-0.0.1-SNAPSHOT.jar my-image
+<pre tabindex="0"><code>pack build -p target/spring-boot-demo-0.0.1-SNAPSHOT.jar my-image
 </code></pre><h2 id="next-steps">Next steps</h2>
 <p>Modern Java is still burgeoning! <a href="https://wiki.openjdk.org/display/crac">Coordinated</a> <a href="https://www.azul.com/products/components/crac/">Restore</a> at <a href="https://github.com/CRaC/docs">Checkpoint</a>, also known as  <a href="https://github.com/sdeleuze/spring-boot-crac-demo">CRaC</a>, <a href="https://medium.com/graalvm/a-new-graalvm-release-and-new-free-license-4aab483692f5">modern GraalVM distributions</a>, future <a href="https://openjdk.org/projects/jdk/21/">Java 21</a> should keep us busy!</p>
 <p>Of course, there can still be bugs and missing features we have not yet identified, feel free to create an issue to the appropriate Paketo project - if in doubt, <a href="https://github.com/paketo-buildpacks/java/issues/new/choose">paketo-buildpacks/java</a> is probably the best place to ask for a new feature or share a new bug.</p>

@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
   <head>
-	<meta name="generator" content="Hugo 0.80.0" />
+	<meta name="generator" content="Hugo 0.128.0">
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>Paketo Buildpacks | Blog</title>
@@ -57,7 +57,7 @@ Although Node.js 24 has been available on Paketo Buildpacks since November 4th, 
         <article>
   <div>
     <h2><a href="/posts/paketo-buildpacks-user-survey-2025/">Paketo Buildpacks User Survey</a></h2>
-    User Survey 2025 As long as I have been working on Paketo Buildpacks, it has been a challenge to understand how our users make use of the project. What buildpacks get used? What features are important? Where should we spend project time and resources? We just don&rsquo;t know 🤷‍♂️
+    User Survey 2025 As long as I have been working on Paketo Buildpacks, it has been a challenge to understand how our users make use of the project. What buildpacks get used? What features are important? Where should we spend project time and resources? We just don&rsquo;t know &#x1f937;&zwj;&#x2642;&#xfe0f;
 This is because for your privacy, Paketo Buildpacks do not have telemetry in them nor do they capture any information about your usage patterns.
     
       <a href="/posts/paketo-buildpacks-user-survey-2025/">…</a>
@@ -92,8 +92,9 @@ Please reach out to the team if you have any questions.
     <h2><a href="/posts/builders-stacks-base-images-restructure/">What has changed on how we ship the Builders and the base images</a></h2>
     We recently finished implementing the core builder RFC. This means quite a few changes across the Paketo Buildpacks organization, so we would like to walk you through the new structure (noble/UBI9) by comparing it with the old structure (jammy/UBI8) to highlight the differences.
 Changes to Base images (former stacks) For Ubuntu Jammy, each repository publishes the build and the run image, as follows:
-  Jammy-full-stack
- docker.io/paketobuildpacks/build-jammy-full docker.io/paketobuildpacks/run-jammy-full    Jammy-base-stack
+Jammy-full-stack
+docker.io/paketobuildpacks/build-jammy-full docker.io/paketobuildpacks/run-jammy-full Jammy-base-stack
+docker.io/paketobuildpacks/build-jammy-base docker.io/paketobuildpacks/run-jammy-base Jammy-tiny-stack
     
       <a href="/posts/builders-stacks-base-images-restructure/">…</a>
     
@@ -131,7 +132,7 @@ First option: force Java to 25 using BP_JVM_VERSION cd paketo-buildpacks/samples
     Urgent News The Paketo Buildpacks Java Azure composite buildpack is being sunset. It will be archived on May 9th, 2025.
 Please see the RFC for rationale and details.
 Action Items for You If you are using this buildpack, you have two choices on how to proceed.
-  You may migrate off it. The primary feature of this buildpack is that it includes the Microsoft OpenJDK JVM. You do not need this buildpack to use the Microsoft OpenJDK JVM though.
+You may migrate off it. The primary feature of this buildpack is that it includes the Microsoft OpenJDK JVM. You do not need this buildpack to use the Microsoft OpenJDK JVM though.
     
       <a href="/posts/paketo-java-azure-sunsets/">…</a>
     
@@ -415,7 +416,7 @@ To write a buildpack in the Go language, it helps if you have a library that imp
     <h2><a href="/posts/oss-contributor-of-the-month/">Introducing the Contributor of the Month initiative</a></h2>
     Why someone contributes to open source?
 The Open Source Way 2.0 guidebook describes some of the diverse motivations that lead individuals to participate in open source communities, including:
- Extrinsic motivation: contributing to OSS is part of their job, career advancement by developing code that it&rsquo;s in the open or to collaboratively solve a problem they are facing. Intrinsic motivation: a sense of purpose while contributing to a cause that is beneficial to a community, collaborative learning and the perceived professional benefit that it produces.
+Extrinsic motivation: contributing to OSS is part of their job, career advancement by developing code that it&rsquo;s in the open or to collaboratively solve a problem they are facing. Intrinsic motivation: a sense of purpose while contributing to a cause that is beneficial to a community, collaborative learning and the perceived professional benefit that it produces.
     
       <a href="/posts/oss-contributor-of-the-month/">…</a>
     
@@ -512,7 +513,7 @@ What&rsquo;s new? Breaking it down The rearchitecture has made it vastly easier 
     <h2><a href="/posts/2021-recap/">Paketo Buildpacks 2021 - A Year in Review</a></h2>
     Thanks so much to the Paketo community for all your hard work over the last year! The project made significant progress on the themes identified in our 2021 Roadmap. We won’t be able to cover everything in this blog post, but here are some highlights.
 Solidifying Existing Buildpacks While the work of standardizing our buildpacks continues, we are proud of the progres we have made, including:
- Moving to environment variables as the primary mode of configuration for all buildpacks Standardized handling of language-ecosystem environment variables such as JAVA_TOOL_OPTIONS and NODE_ENV Standardized versioning of buildpacks, stacks, and builders Standardized configuration options, including log levels and dependency mappings Inclusion of utility buildpacks in all language families, allowing users to:  Configure additional CA Certificates Apply custom image labels Set runtime environment variables Contribute additional process types    We also restructured the Python buildpack, improving modularity and composability.
+Moving to environment variables as the primary mode of configuration for all buildpacks Standardized handling of language-ecosystem environment variables such as JAVA_TOOL_OPTIONS and NODE_ENV Standardized versioning of buildpacks, stacks, and builders Standardized configuration options, including log levels and dependency mappings Inclusion of utility buildpacks in all language families, allowing users to: Configure additional CA Certificates Apply custom image labels Set runtime environment variables Contribute additional process types We also restructured the Python buildpack, improving modularity and composability.
     
       <a href="/posts/2021-recap/">…</a>
     
@@ -529,7 +530,7 @@ Solidifying Existing Buildpacks While the work of standardizing our buildpacks c
     <h2><a href="/posts/introducing-liberty-buildpack/">Introducing the Liberty buildpack</a></h2>
     Liberty is finally available in Paketo and included in the java buildpack! Liberty is an open application framework designed for the cloud. It’s small, lightweight, and designed with modern cloud-native application development in mind.
 With the Liberty buildpack, you can:
- Build Java apps from source or a pre-configured on-prem Liberty Install Liberty and user custom features Install Liberty interim fixes Create UBI-based OCI images  What do you need?  Your application source or a pre-configured on-prem Liberty Docker pack  Let&rsquo;s get started!
+Build Java apps from source or a pre-configured on-prem Liberty Install Liberty and user custom features Install Liberty interim fixes Create UBI-based OCI images What do you need? Your application source or a pre-configured on-prem Liberty Docker pack Let&rsquo;s get started!
     
       <a href="/posts/introducing-liberty-buildpack/">…</a>
     
@@ -545,7 +546,7 @@ With the Liberty buildpack, you can:
   <div>
     <h2><a href="/posts/buildpack-philosophy-part-1/">A Philosophy for Developing Paketo Buildpacks, Part 1</a></h2>
     Photo by Jon Flobrant on Unsplash
-  Sharing what we&rsquo;ve learned The Paketo Buildpacks Team has been developing our Cloud Native Buildpacks for the better part of 2 years now. In the process, we&rsquo;ve learned a lot about what works well and what doesn&rsquo;t. We&rsquo;ve made mistakes and interated toward solutions that are more flexible, easier to maintain, and provide better experiences for our users. In the process, we&rsquo;ve developed a set of guidelines – a philosophy, maybe – for how we think about developing buildpacks.
+Sharing what we&rsquo;ve learned The Paketo Buildpacks Team has been developing our Cloud Native Buildpacks for the better part of 2 years now. In the process, we&rsquo;ve learned a lot about what works well and what doesn&rsquo;t. We&rsquo;ve made mistakes and interated toward solutions that are more flexible, easier to maintain, and provide better experiences for our users. In the process, we&rsquo;ve developed a set of guidelines – a philosophy, maybe – for how we think about developing buildpacks.
     
       <a href="/posts/buildpack-philosophy-part-1/">…</a>
     
@@ -593,7 +594,7 @@ Buildpacks provide great out-of-box support for many languages, but what if you 
     <h2><a href="/posts/dotnet-core-rearchitecture/">Introducing a re-architected .NET Core Buildpack!</a></h2>
     On behalf of the Paketo contributors, I&rsquo;m pleased to unveil the new and improved .NET Core Buildpack! With the release of Paketo .NET Core Buildpack 0.1.0, you’ll enjoy a host of new features and improvements that will make containerizing your .NET apps a breeze. 🍃
 With the new buildpack, you can:
- Build .NET 5 apps Build your app from source code, from a framework-dependent deployment (FDD), from a framework-dependent executable (FDE), or from a self-contained deployment Build Visual Basic apps Have source code removed from final app image.
+Build .NET 5 apps Build your app from source code, from a framework-dependent deployment (FDD), from a framework-dependent executable (FDE), or from a self-contained deployment Build Visual Basic apps Have source code removed from final app image.
     
       <a href="/posts/dotnet-core-rearchitecture/">…</a>
     
@@ -609,7 +610,7 @@ With the new buildpack, you can:
   <div>
     <h2><a href="/posts/2021-roadmap/">2021 Paketo Buildpacks Roadmap</a></h2>
     We’re not even at the one year anniversary of the Paketo Buildpacks launch, but we’ve already got so much to celebrate 🎉. 2020 was a busy year for the Paketo Buildpacks core development team. Looking back on the last year, a few highlights stand out:
- Establishing our project governance and RFC process Moving all project tooling to Github-based workflows Building out a foundational set of buildpacks for some of the most popular languages including Java, Node.
+Establishing our project governance and RFC process Moving all project tooling to Github-based workflows Building out a foundational set of buildpacks for some of the most popular languages including Java, Node.
     
       <a href="/posts/2021-roadmap/">…</a>
     
@@ -641,7 +642,7 @@ So, we wanted to share Dan’s talk here and dive into a Q&amp;A of all of the q
   <div>
     <h2><a href="/posts/get-to-know-paketo-buildpacks/">Building apps for Kubernetes? Get to Know Paketo Buildpacks.</a></h2>
     I’m excited to announce the launch of Paketo Buildpacks, a collection of Cloud Native Buildpacks for the most popular languages and frameworks. Paketo Buildpacks make it easy for you to build and patch containerized apps so that you can spend all your time on the thing that matters the most… developing great software.
-First off… what are Paketo Buildpacks, and why would I use them?  Buildpacks provide a higher-level abstraction for building apps
+First off… what are Paketo Buildpacks, and why would I use them? Buildpacks provide a higher-level abstraction for building apps
     
       <a href="/posts/get-to-know-paketo-buildpacks/">…</a>
     

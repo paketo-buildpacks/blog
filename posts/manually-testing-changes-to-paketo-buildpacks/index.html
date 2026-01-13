@@ -50,24 +50,24 @@
 <h3 id="build-the-paketo-buildpack">Build the Paketo Buildpack</h3>
 <p>Most Paketo buildpacks provide a <code>scripts/build.sh</code> build script that you can use to build the <code>detect</code> and <code>build</code> binaries (luckily the required <code>buildpack.toml</code> is already at the root of the project).</p>
 <p>Just run the script and then check you have your buildpacks <code>bin</code> and <code>detect</code> executable files generated:</p>
-<pre><code>&gt; scripts/build.sh
+<pre tabindex="0"><code>&gt; scripts/build.sh
 &gt; ls bin                                                                                                                                 
 build  detect helper main
 </code></pre><h3 id="mac-arm64-note">Mac arm64 note</h3>
 <p>If you&rsquo;re using a Mac arm64 (M1, M2, etc.), you may need to prepend <code>GOARCH=&quot;amd64&quot;</code> to <code>scripts/build.sh</code> to specify that you want to build for <code>amd64</code> (it will help if you publish your image and then try to run it on a  Linux amd64 host); like this:</p>
-<pre><code>GOARCH=&quot;amd64&quot; ./scripts/build.sh
+<pre tabindex="0"><code>GOARCH=&#34;amd64&#34; ./scripts/build.sh
 </code></pre><p>If you don&rsquo;t, you could see such messages along the way:</p>
-<pre><code>===&gt; DETECTING
+<pre tabindex="0"><code>===&gt; DETECTING
 ======== Error: paketo-buildpacks/spring-boot@{{.version}} ========
 fork/exec /cnb/buildpacks/paketo-buildpacks_spring-boot/{{.version}}/bin/detect: exec format error
 </code></pre><h3 id="run-the-paketo-buildpack">Run the Paketo Buildpack</h3>
 <p>If you try to build a <a href="https://github.com/paketo-buildpacks/samples/tree/main/java/maven">sample Java project</a> using your newly build <code>spring-boot</code> buildpack:</p>
-<pre><code>pack build -p ~/workspaces/paketo-buildpacks/samples/java/maven applications/maven-app \
+<pre tabindex="0"><code>pack build -p ~/workspaces/paketo-buildpacks/samples/java/maven applications/maven-app \
   -b .
 </code></pre><p><code>-p</code> providing the path of the application to build an image for.</p>
 <p><code>-b .</code> providing the path of our buildpack we just built (it will be looking for <code>bin/detect</code> and <code>bin/build</code> under this folder)</p>
 <p>Well, you will get an error:</p>
-<pre><code>===&gt; DETECTING
+<pre tabindex="0"><code>===&gt; DETECTING
 ======== Results ========
 pass: paketo-buildpacks/spring-boot@{{.version}}
 Resolving plan... (try #1)
@@ -77,7 +77,7 @@ fail: paketo-buildpacks/spring-boot@{{.version}} requires jvm-application
 <h4 id="note-about-pack-build">Note about Pack build</h4>
 <p>You would think that <code>-b .</code> would just append our buildpack after the other detected buildpacks provided by the builder&hellip; Unfortunately, as soon as you use <code>-b</code> once, <code>pack</code> will only consider the buildpacks provided in the command line.</p>
 <p>There&rsquo;s a way not to spend hours to find the right incantation: observing what the chain is when you let your builder pick the needed <code>buildpacks</code>:</p>
-<pre><code>pack build -p ~/workspaces/paketo-buildpacks/samples/java/maven applications/maven-app
+<pre tabindex="0"><code>pack build -p ~/workspaces/paketo-buildpacks/samples/java/maven applications/maven-app
 [...]
 ===&gt; DETECTING
 10 of 26 buildpacks participating
@@ -93,7 +93,7 @@ paketo-buildpacks/dist-zip          5.6.1
 paketo-buildpacks/spring-boot       5.25.0
 [...]
 </code></pre><p>Now, that we know the full chain, we just need to replace the original <code>paketo-buildpacks/spring-boot</code> with ours.</p>
-<pre><code>pack build -p ~/workspaces/paketo-buildpacks/samples/java/maven applications/maven-app \
+<pre tabindex="0"><code>pack build -p ~/workspaces/paketo-buildpacks/samples/java/maven applications/maven-app \
   -b urn:cnb:builder:paketo-buildpacks/ca-certificates \
   -b urn:cnb:builder:paketo-buildpacks/bellsoft-liberica \
   -b urn:cnb:builder:paketo-buildpacks/syft \
@@ -124,12 +124,12 @@ paketo-buildpacks/spring-boot       {{.version}}
 <h3 id="publish-your-paketo-buildpack-changes">Publish your Paketo Buildpack changes</h3>
 <p>It&rsquo;s possible that when you&rsquo;re ready to make a Pull Request to the maintainers of the buildpack you&rsquo;re working on, the maintainers may ask questions on your changes.</p>
 <p>If you want to ease their task, you can publish your buildpack with:</p>
-<pre><code>pack buildpack package anthonydahanne/spring-boot:fix-273 --publish
+<pre tabindex="0"><code>pack buildpack package anthonydahanne/spring-boot:fix-273 --publish
 
 Successfully published package anthonydahanne/spring-boot:fix-273
 </code></pre><p>In this example, I published the image to my free DockerHub account; of course you could use any other public registry.</p>
 <p>Now in the PR comments, you can explain which sample you used to test your changes, along with a command-line that the maintainers can run immediately:</p>
-<pre><code>pack build -p ~/workspaces/paketo-buildpacks/samples/java/maven applications/maven-app \
+<pre tabindex="0"><code>pack build -p ~/workspaces/paketo-buildpacks/samples/java/maven applications/maven-app \
   -b urn:cnb:builder:paketo-buildpacks/ca-certificates \
   -b urn:cnb:builder:paketo-buildpacks/bellsoft-liberica \
   -b urn:cnb:builder:paketo-buildpacks/syft \
@@ -148,44 +148,44 @@ Successfully published package anthonydahanne/spring-boot:fix-273
 <p>A <code>composite</code> buildpack does not introduce any code; just a composition of <code>component</code> buildpacks.</p>
 <p>If we continue with the example of a <code>spring-boot</code> buildpack change, we need to update those files:</p>
 <p><strong>buildpack.toml</strong> Make sure to change <code>spring-boot</code> dependency version</p>
-<pre><code>   [[order.group]]
-     id = &quot;paketo-buildpacks/spring-boot&quot;
+<pre tabindex="0"><code>   [[order.group]]
+     id = &#34;paketo-buildpacks/spring-boot&#34;
      optional = true
--    version = &quot;5.25.0&quot;
-+    version = &quot;{{.version}}&quot;
+-    version = &#34;5.25.0&#34;
++    version = &#34;{{.version}}&#34;
 </code></pre><p><strong>package.toml</strong> Make sure to change the coordinates of the <code>spring-boot</code> buildpack to yours</p>
-<pre><code>[[dependencies]]
--  uri = &quot;docker://gcr.io/paketo-buildpacks/spring-boot:5.25.0&quot;
-+  uri = &quot;docker://anthonydahanne/spring-boot:fix-273&quot;
+<pre tabindex="0"><code>[[dependencies]]
+-  uri = &#34;docker://gcr.io/paketo-buildpacks/spring-boot:5.25.0&#34;
++  uri = &#34;docker://anthonydahanne/spring-boot:fix-273&#34;
 [... end of file ...]
 +
 +[buildpack]
-+uri = &quot;.&quot;
++uri = &#34;.&#34;
 </code></pre><p>Now you&rsquo;re good to go to publish your composite buildpack:</p>
-<pre><code>pack buildpack package anthonydahanne/java:fix-273 --config ./package.toml --publish
+<pre tabindex="0"><code>pack buildpack package anthonydahanne/java:fix-273 --config ./package.toml --publish
 
 Successfully published package anthonydahanne/java:fix-273
 </code></pre><p>And of course be able to use it:</p>
-<pre><code>pack build -p ~/workspaces/paketo-buildpacks/samples/java/maven applications/maven-app -b anthonydahanne/java:fix-273
+<pre tabindex="0"><code>pack build -p ~/workspaces/paketo-buildpacks/samples/java/maven applications/maven-app -b anthonydahanne/java:fix-273
 </code></pre><h5 id="updating-the-builder-itself">Updating the builder itself</h5>
 <p>Now that we can test that the buildpacks inside the composite work well together, we could go even further creating a Paketo builder that would embed this composite and other buildpacks; in case we want to make sure our buildpack is not breaking non-related buildpacks.</p>
 <p>Let&rsquo;s update the <a href="https://github.com/paketo-buildpacks/builder-jammy-tiny"><code>tiny</code> builder</a> to include our composite.</p>
 <p><strong>builder.toml</strong> Make sure to change the java buildpacks reference</p>
-<pre><code> [[buildpacks]]
--  uri = &quot;docker://gcr.io/paketo-buildpacks/java:9.7.0&quot;
--  version = &quot;9.7.0&quot;
-+  uri = &quot;docker://anthonydahanne/java:fix-273&quot;
-+  version = &quot;{{.version}}&quot;
+<pre tabindex="0"><code> [[buildpacks]]
+-  uri = &#34;docker://gcr.io/paketo-buildpacks/java:9.7.0&#34;
+-  version = &#34;9.7.0&#34;
++  uri = &#34;docker://anthonydahanne/java:fix-273&#34;
++  version = &#34;{{.version}}&#34;
    [[order.group]]
-     id = &quot;paketo-buildpacks/java&quot;
--    version = &quot;9.7.0&quot;
-+    version = &quot;{{.version}}&quot;
+     id = &#34;paketo-buildpacks/java&#34;
+-    version = &#34;9.7.0&#34;
++    version = &#34;{{.version}}&#34;
 </code></pre><p>Now, let&rsquo;s update it:</p>
-<pre><code>pack builder create anthonydahanne/tiny-builder:fix-273 --config builder.toml --publish
+<pre tabindex="0"><code>pack builder create anthonydahanne/tiny-builder:fix-273 --config builder.toml --publish
 Successfully created builder image anthonydahanne/tiny-builder:fix-273
 Tip: Run pack build &lt;image-name&gt; --builder anthonydahanne/tiny-builder:fix-273 to use this builder
 </code></pre><p>And finally use it:</p>
-<pre><code>pack build -p ~/workspaces/paketo-buildpacks/samples/java/maven applications/maven-app --builder=anthonydahanne/tiny-builder:fix-273
+<pre tabindex="0"><code>pack build -p ~/workspaces/paketo-buildpacks/samples/java/maven applications/maven-app --builder=anthonydahanne/tiny-builder:fix-273
 </code></pre><p>You&rsquo;ll find in the builders repository (<a href="https://github.com/paketo-buildpacks/builder-jammy-tiny"><code>tiny</code></a>, <a href="https://github.com/paketo-buildpacks/builder-jammy-base"><code>base</code></a> and <a href="https://github.com/paketo-buildpacks/builder-jammy-full"><code>full</code></a>) integration test that you could try your builder against; to make sure your changes did not break standard expectations.</p>
 <h2 id="final-notes">Final notes</h2>
 <p>With Paketo buildpacks, everything is in the open, so you can definitely test your changes from a single unit test to a full builder that includes your composite, that includes your changed component!</p>

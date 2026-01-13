@@ -49,14 +49,14 @@
 <li>Porter: also defaulting to Paketo Buildpacks</li>
 <li><a href="https://learn.microsoft.com/en-us/azure/container-apps/overview">Microsoft Azure Container Apps</a>: a mix of Paketo Buildpacks and Azure buildpacks, see this build output:</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">pass: 
-azure-buildpacks/java-buildpack-msopenjdk@0.3.3
-paketo-buildpacks/syft@1.42.0
-paketo-buildpacks/maven@6.15.12
-paketo-buildpacks/executable-jar@6.8.3
-paketo-buildpacks/apache-tomcat@7.14.2
-azure-buildpacks/java-buildpack-telemetry@0.1.24
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>pass: 
+</span></span><span style="display:flex;"><span>azure-buildpacks/java-buildpack-msopenjdk@0.3.3
+</span></span><span style="display:flex;"><span>paketo-buildpacks/syft@1.42.0
+</span></span><span style="display:flex;"><span>paketo-buildpacks/maven@6.15.12
+</span></span><span style="display:flex;"><span>paketo-buildpacks/executable-jar@6.8.3
+</span></span><span style="display:flex;"><span>paketo-buildpacks/apache-tomcat@7.14.2
+</span></span><span style="display:flex;"><span>azure-buildpacks/java-buildpack-telemetry@0.1.24
+</span></span></code></pre></div><ul>
 <li>Probably Heroku and Google Cloud Run, since they can run their own CNBs, it should be possible to override and use Paketo Buildpacks instead</li>
 </ul>
 <p>In case you don&rsquo;t want to use a public PaaS, you can still run Paketo Buildpacks with:</p>

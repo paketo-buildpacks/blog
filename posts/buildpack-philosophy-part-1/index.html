@@ -40,11 +40,10 @@
         <section class="author"><img src="/images/authors/rmoran.jpg" /><name>Ryan Moran</name></section>
         <date>Wednesday, Jan 26, 2022</date>
         <article>
-          <figure>
-    <img src="/images/posts/0000/road.jpg"
-         alt="A road through the wilderness"/> <figcaption>
-            <p>Photo by <a href="https://unsplash.com/@jonflobrant?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Jon Flobrant</a> on <a href="https://unsplash.com/collections/1666315/philosophy-topics?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></p>
-        </figcaption>
+          <figure><img src="/images/posts/0000/road.jpg"
+    alt="A road through the wilderness"><figcaption>
+      <p>Photo by <a href="https://unsplash.com/@jonflobrant?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Jon Flobrant</a> on <a href="https://unsplash.com/collections/1666315/philosophy-topics?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></p>
+    </figcaption>
 </figure>
 
 <h2 id="sharing-what-weve-learned">Sharing what we&rsquo;ve learned</h2>
@@ -146,10 +145,10 @@ phrasing.</p>
 bit about how it conveys information to the user. Let&rsquo;s take a look at some
 sample log output from the <a href="https://github.com/paketo-buildpacks/go">Go
 buildpack</a>.</p>
-<pre><code>Paketo Go Distribution Buildpack 0.4.0
+<pre tabindex="0"><code>Paketo Go Distribution Buildpack 0.4.0
   Resolving Go version
     Candidate version sources (in priority order):
-      go.mod -&gt; &quot;&gt;= 1.15&quot;
+      go.mod -&gt; &#34;&gt;= 1.15&#34;
 
     Selected Go version (using go.mod): 1.16.3
 
@@ -159,16 +158,16 @@ buildpack</a>.</p>
 
 Paketo Go Mod Vendor Buildpack 0.2.1
   Checking module graph
-    Running 'go mod graph'
+    Running &#39;go mod graph&#39;
       Completed in 310ms
 
   Executing build process
-    Running 'go mod vendor'
+    Running &#39;go mod vendor&#39;
       Completed in 315ms
 
 Paketo Go Build Buildpack 0.3.2
   Executing build process
-    Running 'go build -o /layers/paketo-buildpacks_go-build/targets/bin -buildmode pie .'
+    Running &#39;go build -o /layers/paketo-buildpacks_go-build/targets/bin -buildmode pie .&#39;
       Completed in 45.49s
 
   Assigning launch processes
@@ -230,7 +229,7 @@ buildpack</a> to set the launch
 process for the container to <code>npm start</code>. Unfortunately, this creates a process
 tree that prevents the application from receiving the <code>TERM</code> signal from the
 container runtime. Specifically, this process tree looks like the following:</p>
-<pre><code>UID  PID  PPID  C  STIME  TTY        TIME  CMD
+<pre tabindex="0"><code>UID  PID  PPID  C  STIME  TTY        TIME  CMD
 cnb    1     0  1  21:41  pts/0  00:00:01  npm
 cnb   32     1  0  21:41  pts/0  00:00:00  sh -c node server.js
 cnb   33    32  0  21:41  pts/0  00:00:00   \_ node server.js

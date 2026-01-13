@@ -58,28 +58,28 @@
 <h2 id="lets-get-started">Let&rsquo;s get started!</h2>
 <p>The following examples use the <a href="https://openliberty.io/guides/getting-started.html">Open Liberty starter</a> application as the application source.
 Download the Open Liberty starter application:</p>
-<pre><code>git clone https://github.com/openliberty/guide-getting-started.git
+<pre tabindex="0"><code>git clone https://github.com/openliberty/guide-getting-started.git
 cd guide-getting-started/start
 </code></pre><p>If you&rsquo;re new to buildpacks, I recommend you set a default builder as this removes the need to set a builder each time you build an image.</p>
-<pre><code>pack config default-builder gcr.io/paketo-buildpacks/builder:base
+<pre tabindex="0"><code>pack config default-builder gcr.io/paketo-buildpacks/builder:base
 </code></pre><p>Build the application with a minimal footprint with only the Liberty features required to run the application and IBM Semeru OpenJ9:</p>
-<pre><code> pack build --env BP_JAVA_APP_SERVER=liberty \
+<pre tabindex="0"><code> pack build --env BP_JAVA_APP_SERVER=liberty \
   --env BP_LIBERTY_PROFILE=jakartaee9 \
   --buildpack paketo-buildpacks/eclipse-openj9 --buildpack paketo-buildpacks/java myapp
 </code></pre><p>Your application is now transformed into an OCI image!</p>
 <h2 id="now-what">Now what?</h2>
 <p>With your OCI image, you can run your application locally with the <code>docker run</code> command.</p>
-<pre><code>docker run --rm -p 9080:9080 myapp
+<pre tabindex="0"><code>docker run --rm -p 9080:9080 myapp
 </code></pre><p>or deploy your application to any Kubernetes-based platform, such as <a href="https://www.redhat.com/en/technologies/cloud-computing/openshift">Red Hat OpenShift</a>, by using an <a href="https://github.com/OpenLiberty/open-liberty-operator">Open Liberty operator</a></p>
 <h2 id="build-your-app-from-an-on-prem-open-liberty-installation">Build your app from an on-prem Open Liberty installation</h2>
 <p>You can build from an on-prem Open Liberty installation by using a packaged Liberty server. Run the following command to package your server.</p>
-<pre><code>bin/server package defaultServer --include=usr
+<pre tabindex="0"><code>bin/server package defaultServer --include=usr
 </code></pre><p>You can then supply the packaged server to the build by using the <code>--path</code> argument:</p>
-<pre><code>pack build --path &lt;packaged-server-zip-path&gt; \
+<pre tabindex="0"><code>pack build --path &lt;packaged-server-zip-path&gt; \
  --buildpack paketo-buildpacks/eclipse-openj9 \
  --buildpack paketo-buildpacks/java myapp
 </code></pre><p>Alternatively, you can build from a Liberty server installation by changing your working directory to the installation root that contains the <code>wlp</code> directory and running the following command:</p>
-<pre><code>pack build  \
+<pre tabindex="0"><code>pack build  \
  --buildpack paketo-buildpacks/eclipse-openj9 \
  --buildpack paketo-buildpacks/java myapp
 </code></pre><h2 id="learn-more">Learn more:</h2>

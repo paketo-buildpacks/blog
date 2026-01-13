@@ -43,7 +43,7 @@
           <p>I am pleased to announce that <a href="https://www.ibm.com/cloud/websphere-liberty">WebSphere Liberty</a> is now included in the <a href="https://github.com/paketo-buildpacks/liberty">Paketo Liberty</a> buildpack and available to currently entitled WebSphere Liberty users. WebSphere Liberty is built on <a href="openliberty.io">Open Liberty</a> and is a lightweight, efficient, Java™ EE, Jakarta EE and MicroProfile cloud-native runtime.</p>
 <p>The Paketo Liberty buildpack now gives you a choice to use WebSphere Liberty or Open Liberty to run your application.</p>
 <p>To use WebSphere Liberty in your container, set the <code>BP_LIBERTY_INSTALL_TYPE</code> environment variable to specify the <a href="https://github.com/paketo-buildpacks/liberty#install-types">install type</a> <code>wlp</code>:</p>
-<pre><code> pack build --env BP_JAVA_APP_SERVER=liberty \
+<pre tabindex="0"><code> pack build --env BP_JAVA_APP_SERVER=liberty \
   --env BP_LIBERTY_INSTALL_TYPE=wlp \
   --buildpack paketo-buildpacks/eclipse-openj9 \
   --buildpack paketo-buildpacks/java myapp

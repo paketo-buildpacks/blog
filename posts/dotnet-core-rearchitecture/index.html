@@ -85,18 +85,18 @@ we&rsquo;ll have it up and running, <strong><em>without ever touching a Dockerfi
 CLI</a></li>
 <li>Install <a href="https://buildpacks.io/docs/tools/pack/#install"><code>pack</code></a></li>
 <li>Generate the sample app and have a look around
-<pre><code>dotnet new react -o dotnet-five-react &amp;&amp; cd dotnet-five-react &amp;&amp; ls -al
+<pre tabindex="0"><code>dotnet new react -o dotnet-five-react &amp;&amp; cd dotnet-five-react &amp;&amp; ls -al
 </code></pre></li>
 <li>Use <code>pack</code> with the new .NET Core buildpack to build the source code into a
 runnable image
-<pre><code>pack build dotnet-five-react --buildpack gcr.io/paketo-buildpacks/dotnet-core:0.1.1
+<pre tabindex="0"><code>pack build dotnet-five-react --buildpack gcr.io/paketo-buildpacks/dotnet-core:0.1.1
 </code></pre></li>
 <li>Run the app
-<pre><code>docker run -it --publish 8080:8080 dotnet-five-react
+<pre tabindex="0"><code>docker run -it --publish 8080:8080 dotnet-five-react
 </code></pre></li>
 <li>Check out the results in your browser at:
 <a href="http://0.0.0.0:8080">http://0.0.0.0:8080</a> or test out the app with <code>curl</code>
-<pre><code>curl 0.0.0.0:8080
+<pre tabindex="0"><code>curl 0.0.0.0:8080
 </code></pre></li>
 <li>You&rsquo;ve successfully containerized a .NET 5 app</li>
 </ol>

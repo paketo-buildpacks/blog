@@ -90,7 +90,7 @@ The following stacks and builders will no longer be supported, meaning</p>
 has a more or less 1:1 Jammy equivalent available in the project.</p>
 <p>If you are using the <code>pack</code> CLI version v0.29.0 or prior for your builds, you
 can set the default builder for your builds to Jammy via the <code>pack config default-builder</code> command:</p>
-<pre><code>pack config default-builder paketobuildpacks/builder-jammy-base
+<pre tabindex="0"><code>pack config default-builder paketobuildpacks/builder-jammy-base
 </code></pre><p>You may notice that current versions of <code>pack</code> still suggest using the Bionic builder if you run <code>pack builder suggest</code>. This is out-of-date and Paketo is waiting on a new release of <code>pack</code> which will correctly suggest the Jammy builders. Please ignore the output of <code>pack builder suggest</code> for now and use the builder listed above.
 Here is a complete list of the new builders:</p>
 <ul>
