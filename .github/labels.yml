@@ -1,0 +1,7 @@
+- name: "failure:deploy-blog"
+  description: An issue has arisen while deploying the blog.
+  color: f00a0a
+- name: "failure:update-tools"
+  description: An issue filed automatically when the tools update workflow fails.
+  color: f00a0a
+
