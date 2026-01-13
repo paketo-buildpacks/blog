@@ -23,5 +23,5 @@
   gtag('config', 'G-TJMQZ5RDFG');
 </script>
 
-{{- $style := resources.Get "scss/main.scss" | resources.ToCSS | resources.Minify -}}
+{{- $style := resources.Get "scss/main.scss" | css.Sass | minify -}}
 <link rel="stylesheet" href="{{ $style.RelPermalink }}">
