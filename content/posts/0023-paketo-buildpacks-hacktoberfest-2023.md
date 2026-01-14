@@ -23,7 +23,7 @@ Turns out maintainers already try and tag some issues with labels such as `note:
 
 If you ever wondered how your favorite buildpacks work, even if you could already contribute before Hacktoberfest, now is definitely the best moment to start having a look and get rewarded by the program (Hacktoberfest will plant a tree for the first 50000 contributors!)
 
-Not sure how to start? You can still reach the Paketo maintainers [on Slack](https://slack.paketo.io/); join in and ask away! We'll be happy to help!
+Not sure how to start? You can still reach the Paketo maintainers [on Slack](https://join.slack.com/t/paketobuildpacks/shared_invite/zt-2jayv12ro-eTP8AtcmvyIpEtlANfIb~g); join in and ask away! We'll be happy to help!
 
 ## Ready, set, go!
 

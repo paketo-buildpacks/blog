@@ -95,4 +95,4 @@ This was something we left out of the initial support because it would have dela
 
 What this all means is that for the moment, you can't run your Java apps with GraalVM. We'll be working hard to support this in the future, but in the meantime, we think you'll really enjoy using Oracle GraalVM to build your native images.
 
-As always, please post questions/comments on our [GitHub Discussion Page](https://github.com/orgs/paketo-buildpacks/discussions/categories/java-team), or Join the [Paketo Slack](https://slack.paketo.io/) and chat with us in the `#java` room.
+As always, please post questions/comments on our [GitHub Discussion Page](https://github.com/orgs/paketo-buildpacks/discussions/categories/java-team), or Join the [Paketo Slack](https://join.slack.com/t/paketobuildpacks/shared_invite/zt-2jayv12ro-eTP8AtcmvyIpEtlANfIb~g) and chat with us in the `#java` room.

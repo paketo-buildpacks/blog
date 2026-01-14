@@ -9,7 +9,7 @@ The Paketo team is pleased to introduce the [Web Servers buildpack](https://gith
 
 This buildpack allows you to serve static content using the popular NGINX or HTTPD web servers, with a variety of utilities for ease of use. Whether you have static files and a server configuration file that you want to package in an image, or you need to transform your dynamic content into static files and want the buildpack to generate the necessary server configuration file, the Web Servers buildpack has you covered.
 
-If the buildpack does not have the capability you need, please let us know on the [Paketo Slack](https://slack.paketo.io/) or by [filing an issue](https://github.com/paketo-buildpacks/web-servers/issues/new).
+If the buildpack does not have the capability you need, please let us know on the [Paketo Slack](https://join.slack.com/t/paketobuildpacks/shared_invite/zt-2jayv12ro-eTP8AtcmvyIpEtlANfIb~g) or by [filing an issue](https://github.com/paketo-buildpacks/web-servers/issues/new).
 
 While Paketo has had the [NGINX](https://github.com/paketo-buildpacks/nginx) and [HTTPD](https://github.com/paketo-buildpacks/httpd) buildpacks for some time, bringing them together in the new Web Servers buildpack enables the exciting capabilities listed below.
 

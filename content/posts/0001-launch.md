@@ -116,7 +116,7 @@ run `kubectl get services` to find the IP address of your deployed app.
 
 Ready to learn more? Check out these links.
 
-* Join us on [Slack](https://slack.paketo.io/) and start asking questions!
+* Join us on [Slack](https://join.slack.com/t/paketobuildpacks/shared_invite/zt-2jayv12ro-eTP8AtcmvyIpEtlANfIb~g) and start asking questions!
 * Walk through our
   [tutorial](https://paketo.io/docs/getting-started/build-an-example-app/) on
   [paketo.io](https://paketo.io/) to see how easy it is to use Paketo

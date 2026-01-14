@@ -88,7 +88,7 @@ issue](https://github.com/paketo-buildpacks/dotnet-core/issues).
 
 * Want to chat with .NET Buildpack maintainers? Join
 [#dotnet-core](https://paketobuildpacks.slack.com/archives/CUD6SEE7L)
-in [Paketo slack](https://slack.paketo.io/).
+in [Paketo slack](https://join.slack.com/t/paketobuildpacks/shared_invite/zt-2jayv12ro-eTP8AtcmvyIpEtlANfIb~g).
 
 * Want to contribute a bug fix (or buildpack!)? [Learn more](https://github.com/paketo-buildpacks/community) about our open source community.
 

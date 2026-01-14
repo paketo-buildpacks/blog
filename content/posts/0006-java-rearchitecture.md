@@ -188,7 +188,7 @@ This buildpack installs the [JAttach binary](https://github.com/apangin/jattach)
 
 * Further examples and features can be found in our ['How To' docs](https://paketo.io/docs/howto/java/)
 
-* Connect with our community in the [Paketo Slack](https://slack.paketo.io/) [#Java](https://paketobuildpacks.slack.com/archives/C0124SD3GTG) channel
+* Connect with our community in the [Paketo Slack](https://join.slack.com/t/paketobuildpacks/shared_invite/zt-2jayv12ro-eTP8AtcmvyIpEtlANfIb~g) [#Java](https://paketobuildpacks.slack.com/archives/C0124SD3GTG) channel
 
 [install-jvm-type]:{{< relref "#jvm-type--version" >}}
 [nmt]:{{< relref "#java-native-memory-tracking-nmt" >}}

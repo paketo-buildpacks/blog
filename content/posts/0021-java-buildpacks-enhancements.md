@@ -13,7 +13,7 @@ Let's discover what's new!
 
 Checkout the [samples repository for Java examples](https://github.com/paketo-buildpacks/samples/tree/main/java) and the [Paketo Buildpacks official documentation](https://paketo.io/docs/howto/java/) - those provide way more details about Paketo uses cases (native, certificates, network-less, etc.) than the different build plugins (Maven and Gradle) documentation.
 
-And they're always up-to-date! In the rare event they're not, create an [issue or Pull Request](https://github.com/paketo-buildpacks/java) or reach us on [Slack](https://slack.paketo.io/), and we will fix that!
+And they're always up-to-date! In the rare event they're not, create an [issue or Pull Request](https://github.com/paketo-buildpacks/java) or reach us on [Slack](https://join.slack.com/t/paketobuildpacks/shared_invite/zt-2jayv12ro-eTP8AtcmvyIpEtlANfIb~g), and we will fix that!
 
 ## No more Gradle welcome message
 This enhancement was pretty trivial to add, but we hope you will like it: we have disabled Gradle build default welcome message.

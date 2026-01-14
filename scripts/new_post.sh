@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-et -eu
+set -eu
 set -o pipefail
 
 readonly PROGDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -29,7 +29,7 @@ function main() {
         shift 2
         ;;
 
-      --name)
+      --name|-n)
         name="${2}"
         shift 2
         ;;
@@ -67,7 +67,7 @@ Creates a new blog post.
 
 OPTIONS
   --help   -h         prints the command usage
-  --name      <name>  post name (required, e.g. "0038-my-new-post")
+  --name   -n <name>  post name (required, e.g. "0038-my-new-post")
   --token  -t <token> Token used to download assets from GitHub (optional)
 
 EXAMPLE
