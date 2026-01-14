@@ -94,7 +94,7 @@ Another huge help is our buildpack [Bootstrapper](https://github.com/paketo-comm
 
 ## Connecting with our community
 My final piece of advice to make contributing a breeze is to connect with our community in any of our forums that suit you:
-- [Paketo Slack](https://slack.paketo.io): chat with Paketo maintainers in real time to get quick questions answered
+- [Paketo Slack](https://join.slack.com/t/paketobuildpacks/shared_invite/zt-2jayv12ro-eTP8AtcmvyIpEtlANfIb~g): chat with Paketo maintainers in real time to get quick questions answered
 - [Github Discussion forum](http://github.com/paketo-buildpacks/feedback/discussions): suggest ideas and get feedback asynchronously from the Paketo community
 - [RFC process](https://github.com/paketo-buildpacks/rfcs): formally propose your modification
 - [Paketo Working Group meetings](https://github.com/paketo-buildpacks/community#working-group-meetings): bring your ideas, RFCs, buildpacks, etc. for discussion in the weekly video call with Paketo maintainers and contributors

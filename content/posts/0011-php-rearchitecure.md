@@ -98,7 +98,7 @@ docs](https://paketo.io/docs/reference/php-reference/).
 issue](https://github.com/paketo-buildpacks/php/issues).
 
 * Want to chat with maintainers? Join
-`#php` in [Paketo slack](https://slack.paketo.io/).
+`#php` in [Paketo slack](https://join.slack.com/t/paketobuildpacks/shared_invite/zt-2jayv12ro-eTP8AtcmvyIpEtlANfIb~g).
 
 * Want to contribute a bug fix (or buildpack!)? [Learn
   more](https://github.com/paketo-buildpacks/community) about our open source

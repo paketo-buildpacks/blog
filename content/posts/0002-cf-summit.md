@@ -124,5 +124,5 @@ itself?
 
 * [Get to know Paketo Buildpacks](/posts/get-to-know-paketo-buildpacks)
 * Website — [https://paketo.io](https://paketo.io)
-* Slack — [https://slack.paketo.io](https://slack.paketo.io)
+* Slack — [https://join.slack.com/t/paketobuildpacks/shared_invite/zt-2jayv12ro-eTP8AtcmvyIpEtlANfIb~g](https://join.slack.com/t/paketobuildpacks/shared_invite/zt-2jayv12ro-eTP8AtcmvyIpEtlANfIb~g)
 * GitHub — [https://github.com/paketo-buildpacks](https://github.com/paketo-buildpacks)

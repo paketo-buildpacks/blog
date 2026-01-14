@@ -70,7 +70,7 @@ create a custom stack.
 
 ## Questions?
 If you have any questions, feel free to reach out to us in [Paketo
-slack](https://slack.paketo.io/):
+slack](https://join.slack.com/t/paketobuildpacks/shared_invite/zt-2jayv12ro-eTP8AtcmvyIpEtlANfIb~g):
 * Stacks-related questions: [#stacks](https://paketobuildpacks.slack.com/archives/C03K61JJ57A)
 * Builder-related questions: [#builders](https://paketobuildpacks.slack.com/archives/C01E8A03W9F)
 * General discussion: [#general](https://paketobuildpacks.slack.com/archives/CU8RVQZ1R)
