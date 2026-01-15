@@ -1,0 +1,390 @@
+<!doctype html>
+<html>
+  <head>
+      <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Paketo Buildpacks 2025 Year in Review | Paketo Buildpacks | Blog</title>
+<link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-language" content="en-us" />
+
+<meta property='og:site_name' content="Paketo Buildpacks | Blog">
+<meta property='og:title' content="Paketo Buildpacks 2025 Year in Review">
+<meta property='og:url' content="https://blog.paketo.io/posts/paketo-buildpacks-2025-year-in-review/">
+<meta property='og:image' content='/images/logo512.png'/>
+<meta name="twitter:title" content="Paketo Buildpacks | Blog" />
+<meta name="twitter:url" content="https://blog.paketo.io/posts/paketo-buildpacks-2025-year-in-review/" />
+<meta name="twitter:card" content="" />
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TJMQZ5RDFG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TJMQZ5RDFG');
+</script><link rel="stylesheet" href="/scss/main.min.css">
+
+  </head>
+  <body>
+    <div class="post">
+      <header>
+        <a href="/">
+          <img class="logo" src="/images/logo512.png" />
+          <h1>Paketo Buildpacks | Blog</h1>
+        </a>
+      </header>
+      <section>
+        <h1>Paketo Buildpacks 2025 Year in Review</h1>
+        <section class="author"><img src="/images/authors/dmikusa.jpg" /><name>Daniel Mikusa</name></section>
+        <date>Wednesday, Jan 14, 2026</date>
+        <article>
+          <p>As we welcome 2026, it&rsquo;s time to reflect on what has been a great year for the Paketo Buildpacks project. From all of us on the steering committee, we want to extend our gratitude to every contributor, maintainer, and user who has helped grow the project throughout 2025. Whether you&rsquo;ve been with us from the beginning or just discovered Paketo Buildpacks this past year, your engagement and feedback have been the driving force behind our continued growth and innovation. Join us as we look back at the milestones and successes of the project in 2025.</p>
+<h2 id="achievements-in-2025">Achievements in 2025</h2>
+<p>One of our biggest accomplishments in 2025 was significantly expanding ARM64 support across the Paketo ecosystem. The Web Servers, Go, Dotnet, and Python buildpacks all gained ARM64 compatibility this year, joining the Java and Utilities buildpacks which added support previously. This expansion means developers can now build and deploy applications on ARM-based infrastructure with confidence, whether they&rsquo;re targeting cloud platforms, edge computing environments, or Apple Silicon development machines.</p>
+<p>We also broadened our platform support by adding both Ubuntu Noble and UBI9 stacks and builders to our offering. This expansion gives teams more flexibility in choosing the base images that best fit their organizational requirements, whether that&rsquo;s aligning with specific compliance needs, enterprise support agreements, or preferred Linux distributions. Having multiple stack options ensures that Paketo Buildpacks can integrate seamlessly into diverse development and production environments.</p>
+<p>In a first for the project, we launched the Paketo Buildpacks user survey in 2025! This initiative represents an important step in our community engagement, allowing us to gather direct feedback from users about their experiences, needs, and priorities. If you haven&rsquo;t already participated, this is your last chance. The survey closes at the end of day on January 16th, 2026. Your input will directly shape the project&rsquo;s roadmap and priorities for the coming year. You can find the survey <a href="https://blog.paketo.io/posts/paketo-buildpacks-user-survey-2025">here</a>.</p>
+<p>Last but not least, our language-specific buildpacks saw tremendous progress throughout the year, keeping pace with the latest releases and features across multiple ecosystems. The Dotnet buildpack added support for Dotnet 10, while Java users gained access to Java 25, Spring Boot 4, and an exciting new AOT cache feature. Python developers can now use versions 3.13 and 3.14, Go support was extended to versions 1.24 and 1.25, and Node.js buildpacks added support for Node 24. Even the Ruby buildpack, despite having limited maintainer capacity, managed to add support for Ruby 3.4. These updates ensure that Paketo users can take advantage of the latest language features, performance improvements, and security patches as soon as they&rsquo;re available.</p>
+<h2 id="maintainers">Maintainers</h2>
+<p>Of course, none of these achievements would have been possible without the dedicated individuals who maintain our buildpacks. We want to send out a special thanks to our team of maintainers.</p>
+<p>I can&rsquo;t emphasize this enough, these are the folks that keep the Paketo project running. They ensure the buildpacks you&rsquo;re using day-to-day get released in a timely manner, review pull requests, triage issues, and keep our dependencies up to date. Without them, this project could not continue.</p>
+<p>Big thanks to the maintainer teams:</p>
+<table>
+<thead>
+<tr>
+<th>Team</th>
+<th>Maintainers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>APM Tools</td>
+<td>anthonydahanne, dmikusa, pivotal-david-osullivan</td>
+</tr>
+<tr>
+<td>Builders</td>
+<td>mhdawson, pacostas, jericop, ForestEckhardt</td>
+</tr>
+<tr>
+<td>Content</td>
+<td>anthonydahanne, ForestEckhardt</td>
+</tr>
+<tr>
+<td>Dotnet</td>
+<td>dmikusa, ForestEckhardt</td>
+</tr>
+<tr>
+<td>Go</td>
+<td>jericop, ForestEckhardt</td>
+</tr>
+<tr>
+<td>Java</td>
+<td>anthonydahanne, dmikusa, jericop, pivotal-david-osullivan, kevin-ortega</td>
+</tr>
+<tr>
+<td>Node.js</td>
+<td>mhdawson, pacostas</td>
+</tr>
+<tr>
+<td>Python</td>
+<td>sgaist, jericop</td>
+</tr>
+<tr>
+<td>Rust</td>
+<td>dmikusa, ForestEckhardt</td>
+</tr>
+<tr>
+<td>Stacks</td>
+<td>mhdawson, pacostas, jericop</td>
+</tr>
+<tr>
+<td>Tooling</td>
+<td>pacostas, jericop, ForestEckhardt, modulo11, nicolasbender</td>
+</tr>
+<tr>
+<td>Utilities</td>
+<td>anthonydahanne, dmikusa, jericop, ForestEckhardt, pivotal-david-osullivan</td>
+</tr>
+<tr>
+<td>Web Servers</td>
+<td>dmikusa, ForestEckhardt</td>
+</tr>
+<tr>
+<td>Ruby</td>
+<td><!-- raw HTML omitted --></td>
+</tr>
+<tr>
+<td>PHP</td>
+<td><!-- raw HTML omitted --></td>
+</tr>
+</tbody>
+</table>
+<h2 id="releases">Releases</h2>
+<p>The impact of our maintainer teams&rsquo; dedication is perhaps best illustrated by looking at the sheer volume of releases they&rsquo;ve shipped throughout 2025. These numbers represent not just code changes, but consistent, reliable delivery of improvements and updates to our users.</p>
+<table>
+<thead>
+<tr>
+<th>Repository</th>
+<th>Release Count</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>paketo-buildpacks/python</td>
+<td>58</td>
+</tr>
+<tr>
+<td>paketo-buildpacks/nodejs</td>
+<td>57</td>
+</tr>
+<tr>
+<td>paketo-buildpacks/web-servers</td>
+<td>53</td>
+</tr>
+<tr>
+<td>paketo-buildpacks/go</td>
+<td>51</td>
+</tr>
+<tr>
+<td>paketo-buildpacks/dotnet-core</td>
+<td>48</td>
+</tr>
+<tr>
+<td>paketo-buildpacks/java</td>
+<td>25</td>
+</tr>
+<tr>
+<td>paketo-buildpacks/ruby</td>
+<td>8</td>
+</tr>
+<tr>
+<td>paketo-buildpacks/php</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p>Five of these eight teams have basically shipped weekly releases, with another shipping by-weekly releases. This is a tremendous effort from our <strong>all volunteer</strong> team. Thank you all so much!</p>
+<h2 id="contributions">Contributions</h2>
+<p>While our maintainers keep the project running, they&rsquo;re supported by a broader community of contributors whose efforts deserve equal recognition. We&rsquo;re incredibly grateful for the dedication and hard work of everyone who has helped push the project forward throughout the year. We appreciate every pull request, since every single contribution, big or small, has made a meaningful impact on the project.</p>
+<p>The numbers below tell the story of our collective effort, but they represent so much more than just code changes. Behind each contribution is someone who took time from their day to help improve Paketo Buildpacks for the entire community. We want to recognize and thank each of these amazing individuals who have made 2025 such a productive year:</p>
+<table>
+<thead>
+<tr>
+<th>Contributor (GitHub Username)</th>
+<th>PR Count</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pacostas</td>
+<td>260</td>
+</tr>
+<tr>
+<td>dmikusa</td>
+<td>129</td>
+</tr>
+<tr>
+<td>jericop</td>
+<td>60</td>
+</tr>
+<tr>
+<td>anthonydahanne</td>
+<td>47</td>
+</tr>
+<tr>
+<td>ZephireNZ</td>
+<td>31</td>
+</tr>
+<tr>
+<td>mhdawson</td>
+<td>22</td>
+</tr>
+<tr>
+<td>nicolasbender</td>
+<td>16</td>
+</tr>
+<tr>
+<td>modulo11</td>
+<td>10</td>
+</tr>
+<tr>
+<td>miller79</td>
+<td>8</td>
+</tr>
+<tr>
+<td>c0d1ngm0nk3y</td>
+<td>8</td>
+</tr>
+<tr>
+<td>TheSuperiorStanislav</td>
+<td>7</td>
+</tr>
+<tr>
+<td>pbusko</td>
+<td>5</td>
+</tr>
+<tr>
+<td>kiril-keranov</td>
+<td>5</td>
+</tr>
+<tr>
+<td>sgaist</td>
+<td>4</td>
+</tr>
+<tr>
+<td>robdimsdale</td>
+<td>4</td>
+</tr>
+<tr>
+<td>kevin-ortega</td>
+<td>4</td>
+</tr>
+<tr>
+<td>loewenstein-sap</td>
+<td>3</td>
+</tr>
+<tr>
+<td>jnodorp-jaconi</td>
+<td>3</td>
+</tr>
+<tr>
+<td>tomkennedy513</td>
+<td>2</td>
+</tr>
+<tr>
+<td>SaschaSchwarze0</td>
+<td>2</td>
+</tr>
+<tr>
+<td>RealCLanger</td>
+<td>2</td>
+</tr>
+<tr>
+<td>mdipirro</td>
+<td>2</td>
+</tr>
+<tr>
+<td>krzysdabro</td>
+<td>2</td>
+</tr>
+<tr>
+<td>slandath</td>
+<td>1</td>
+</tr>
+<tr>
+<td>silvestre</td>
+<td>1</td>
+</tr>
+<tr>
+<td>mzuber</td>
+<td>1</td>
+</tr>
+<tr>
+<td>mtatheonly</td>
+<td>1</td>
+</tr>
+<tr>
+<td>MischaFrank</td>
+<td>1</td>
+</tr>
+<tr>
+<td>matejvasek</td>
+<td>1</td>
+</tr>
+<tr>
+<td>marinedayo</td>
+<td>1</td>
+</tr>
+<tr>
+<td>KrawczowaKris</td>
+<td>1</td>
+</tr>
+<tr>
+<td>kimkuan</td>
+<td>1</td>
+</tr>
+<tr>
+<td>jmonteiro</td>
+<td>1</td>
+</tr>
+<tr>
+<td>jaspreetssethi</td>
+<td>1</td>
+</tr>
+<tr>
+<td>HeavyWombat</td>
+<td>1</td>
+</tr>
+<tr>
+<td>gauron99</td>
+<td>1</td>
+</tr>
+<tr>
+<td>fxshlein</td>
+<td>1</td>
+</tr>
+<tr>
+<td>cslauritsen</td>
+<td>1</td>
+</tr>
+<tr>
+<td>cmoulliard</td>
+<td>1</td>
+</tr>
+<tr>
+<td>christopherclark</td>
+<td>1</td>
+</tr>
+<tr>
+<td>bugbounce</td>
+<td>1</td>
+</tr>
+<tr>
+<td>bitgully</td>
+<td>1</td>
+</tr>
+<tr>
+<td>arjun024</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Alchemik</td>
+<td>1</td>
+</tr>
+<tr>
+<td>AamnaZahid</td>
+<td>1</td>
+</tr>
+<tr>
+<td>a1flecke</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<h2 id="looking-ahead-opportunities-to-get-involved">Looking Ahead: Opportunities to Get Involved</h2>
+<p>As we celebrate these accomplishments, we also want to be transparent about where the project needs support going forward. The Ruby and PHP buildpacks, as you may have noticed in the release counts above, have fallen behind the pace of other language teams. We love these buildpacks and want to continue producing them, but the reality is that we currently don&rsquo;t have dedicated volunteer maintainers for either of these projects.</p>
+<p>We also have a number of maintainer teams that we believe we&rsquo;ll need some help as we move through 2026. Those include the Node.js team, the Rust team, the Dotnet team, the Go team, and the Web Servers team. These teams have or will soon have only a single maintainer, and for project continuity, we like to have at least two maintainers on a project.</p>
+<p>This is not all though. If you ❤️ one of the languages not not listed as needing help, we still welcome your contributions. We like to target having <em>at least</em> two maintainers on a project, with more being absolutely welcome.</p>
+<p>We also have a few cross team efforts that we&rsquo;re hoping to complete in 2026, which include changes to our CI system and upgrades to the core buildpack libraries (written in Go).</p>
+<p>If you&rsquo;re a fan of Paketo and you&rsquo;re interested in helping, please reach out. You <strong>can make a meaningful change</strong> to the Paketo project. It doesn&rsquo;t require working full time, and can often be done in as little as an evening. For more info, please checkout the <a href="https://blog.paketo.io/posts/paketo-buildpacks-contributors-wanted/">post I wrote previously on the subject</a>, or reach out on the <a href="https://join.slack.com/t/paketobuildpacks/shared_invite/zt-2jayv12ro-eTP8AtcmvyIpEtlANfIb~g">Paketo Slack</a>.</p>
+
+        </article>
+      </section>
+      <footer class="post">
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Paketo%20Buildpacks%20%7c%20Blog%20%7c%20Paketo%20Buildpacks%202025%20Year%20in%20Review&amp;url=https://blog.paketo.io/posts/paketo-buildpacks-2025-year-in-review/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/twitter.png" />
+</a>
+
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://blog.paketo.io/posts/paketo-buildpacks-2025-year-in-review/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/linkedin.png" />
+</a>
+
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://blog.paketo.io/posts/paketo-buildpacks-2025-year-in-review/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/facebook.png" />
+</a>
+
+      </footer>
+    </div>
+  </body>
+</html>

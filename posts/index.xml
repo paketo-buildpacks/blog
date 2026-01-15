@@ -6,8 +6,15 @@
     <description>Recent content in Posts on Paketo Buildpacks | Blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 08 Jan 2026 12:32:49 +0100</lastBuildDate>
+    <lastBuildDate>Wed, 14 Jan 2026 13:14:44 -0500</lastBuildDate>
     <atom:link href="https://blog.paketo.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Paketo Buildpacks 2025 Year in Review</title>
+      <link>https://blog.paketo.io/posts/paketo-buildpacks-2025-year-in-review/</link>
+      <pubDate>Wed, 14 Jan 2026 13:14:44 -0500</pubDate>
+      <guid>https://blog.paketo.io/posts/paketo-buildpacks-2025-year-in-review/</guid>
+      <description>As we welcome 2026, it&amp;rsquo;s time to reflect on what has been a great year for the Paketo Buildpacks project. From all of us on the steering committee, we want to extend our gratitude to every contributor, maintainer, and user who has helped grow the project throughout 2025. Whether you&amp;rsquo;ve been with us from the beginning or just discovered Paketo Buildpacks this past year, your engagement and feedback have been the driving force behind our continued growth and innovation.</description>
+    </item>
     <item>
       <title>Paketo Node.js Buildpacks updates default to Node.js 24</title>
       <link>https://blog.paketo.io/posts/default-version-bump-node-24/</link>
