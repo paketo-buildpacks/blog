@@ -25,23 +25,23 @@ I can't emphasize this enough, these are the folks that keep the Paketo project 
 
 Big thanks to the maintainer teams:
 
-| Team        | Maintainers                                                               |
-| ----------- | ------------------------------------------------------------------------- |
-| APM Tools   | anthonydahanne, dmikusa, pivotal-david-osullivan                          |
-| Builders    | mhdawson, pacostas, jericop, ForestEckhardt                               |
-| Content     | anthonydahanne, ForestEckhardt                                            |
-| Dotnet      | dmikusa, ForestEckhardt                                                   |
-| Go          | jericop, ForestEckhardt                                                   |
-| Java        | anthonydahanne, dmikusa, jericop, pivotal-david-osullivan, kevin-ortega   |
-| Node.js     | mhdawson, pacostas                                                        |
-| Python      | sgaist, jericop                                                           |
-| Rust        | dmikusa, ForestEckhardt                                                   |
-| Stacks      | mhdawson, pacostas, jericop                                               |
-| Tooling     | pacostas, jericop, ForestEckhardt, modulo11, nicolasbender                |
+| Team        | Maintainers                                                           |
+| ----------- | --------------------------------------------------------------------- |
+| APM Tools   | anthonydahanne, dmikusa, pivotal-david-osullivan                      |
+| Builders    | mhdawson, pacostas, jericop, ForestEckhardt                           |
+| Content     | anthonydahanne, ForestEckhardt                                        |
+| Dotnet      | dmikusa, ForestEckhardt                                               |
+| Go          | jericop, ForestEckhardt                                               |
+| Java        | anthonydahanne, dmikusa, jericop, pivotal-david-osullivan, kevin-ortega |
+| Node.js     | mhdawson, pacostas                                                    |
+| Python      | sgaist, jericop                                                       |
+| Rust        | dmikusa, ForestEckhardt                                               |
+| Stacks      | mhdawson, pacostas, jericop                                           |
+| Tooling     | pacostas, jericop, ForestEckhardt, modulo11, nicolasbender            |
 | Utilities   | anthonydahanne, dmikusa, jericop, ForestEckhardt, pivotal-david-osullivan |
-| Web Servers | dmikusa, ForestEckhardt                                                   |
-| Ruby        | <none>                                                                    |
-| PHP         | <none>                                                                    |
+| Web Servers | dmikusa, ForestEckhardt                                               |
+| Ruby        | none                                                                  |
+| PHP         | none                                                                  |
 
 ## Releases
 
