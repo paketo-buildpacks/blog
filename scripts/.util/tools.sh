@@ -109,12 +109,50 @@ function util::tools::hugo::install() {
       os_arch="darwin-universal"
     fi
 
-    curl "${curl_args[@]}" \
-      "https://github.com/gohugoio/hugo/releases/download/${version}/hugo_extended_${version_without_v}_${os_arch}.tar.gz" | \
-        tar xzf - -C "${dir}" hugo
+    local tarball_url
+    tarball_url="https://github.com/gohugoio/hugo/releases/download/${version}/hugo_extended_${version_without_v}_${os_arch}.tar.gz"
 
-    chmod +x "${dir}/hugo"
+    if curl "${curl_args[@]}" "${tarball_url}" | tar xzf - -C "${dir}" hugo 2>/dev/null; then
+      chmod +x "${dir}/hugo"
+    else
+      util::print::warn "Tarball ${tarball_url} not available, attempting Homebrew install instead"
+      util::tools::hugo::install_with_brew "${version_without_v}" "${dir}"
+    fi
   else
     util::print::info "Using $("${dir}"/hugo version)"
+  fi
+}
+
+function util::tools::hugo::install_with_brew() {
+  local version dir formula install_formula brew_prefix
+  version="${1}"
+  dir="${2}"
+  formula="hugo@${version}"
+  install_formula="${formula}"
+
+  if ! command -v brew >/dev/null 2>&1; then
+    util::print::error "Homebrew is required to install Hugo ${version} when the release tarball is unavailable"
+  fi
+
+  if ! brew info "${formula}" >/dev/null 2>&1; then
+    util::print::warn "Homebrew formula ${formula} not found, falling back to installing hugo"
+    install_formula="hugo"
+  fi
+
+  util::print::title "Installing ${install_formula} via Homebrew"
+  if ! brew list --versions "${install_formula}" >/dev/null 2>&1; then
+    brew install "${install_formula}"
+  fi
+
+  brew_prefix="$(brew --prefix "${install_formula}")"
+
+  if [[ ! -x "${brew_prefix}/bin/hugo" ]]; then
+    util::print::error "Homebrew did not install a hugo binary at ${brew_prefix}/bin/hugo"
+  fi
+
+  ln -sf "${brew_prefix}/bin/hugo" "${dir}/hugo"
+
+  if ! "${dir}/hugo" version | grep -q "v${version}"; then
+    util::print::error "Homebrew installed $("${dir}"/hugo version) which does not match requested v${version}"
   fi
 }
