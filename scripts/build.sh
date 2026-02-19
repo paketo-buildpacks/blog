@@ -15,6 +15,7 @@ source "${PROGDIR}/.util/print.sh"
 function main() {
   local token
   token=""
+  do_not_update="false"
 
   while [[ "${#}" != 0 ]]; do
     case "${1}" in
@@ -27,6 +28,11 @@ function main() {
       --token|-t)
         token="${2}"
         shift 2
+        ;;
+
+      --do-not-update)
+        do_not_update="true"
+        shift 1
         ;;
 
       "")
@@ -65,7 +71,8 @@ function tools::install() {
 
   util::tools::hugo::install \
     --directory "${ROOTDIR}/.bin" \
-    --token "${token}"
+    --token "${token}" \
+    --do-not-update "${do_not_update}"
 }
 
 main "${@:-}"

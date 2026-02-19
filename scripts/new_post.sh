@@ -15,6 +15,7 @@ function main() {
   local token name
   token=""
   name=""
+  do_not_update_tools="false"
 
   while [[ "${#}" != 0 ]]; do
     case "${1}" in
@@ -34,6 +35,11 @@ function main() {
         shift 2
         ;;
 
+      --do-not-update-tools)
+        do_not_update_tools="true"
+        shift 1
+        ;;
+
       "")
         # skip if the argument is empty
         shift 1
@@ -48,7 +54,7 @@ function main() {
     util::print::error "post name is required (use --name or -n)"
   fi
 
-  tools::install "${token}"
+  tools::install "${token}" "${do_not_update_tools}"
 
   local post_file
   post_file="posts/${name}.md"
@@ -69,6 +75,7 @@ OPTIONS
   --help   -h         prints the command usage
   --name   -n <name>  post name (required, e.g. "0038-my-new-post")
   --token  -t <token> Token used to download assets from GitHub (optional)
+  --do-not-update  do not update tools (optional)
 
 EXAMPLE
   ./scripts/new.sh --name 0038-my-new-post
@@ -82,7 +89,8 @@ function tools::install() {
 
   util::tools::hugo::install \
     --directory "${ROOTDIR}/.bin" \
-    --token "${token}"
+    --token "${token}" \
+    --do-not-update-tools "${do_not_update_tools}"
 }
 
 main "${@:-}"

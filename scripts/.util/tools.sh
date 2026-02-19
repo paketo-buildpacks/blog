@@ -61,6 +61,7 @@ function util::tools::path::export() {
 function util::tools::hugo::install() {
   local dir token
   token=""
+  do_not_update="false"
 
   while [[ "${#}" != 0 ]]; do
     case "${1}" in
@@ -74,6 +75,11 @@ function util::tools::hugo::install() {
         shift 2
         ;;
 
+      --do-not-update)
+        do_not_update="${2}"
+        shift 2
+        ;;
+
       *)
         util::print::error "unknown argument \"${1}\""
     esac
@@ -83,76 +89,59 @@ function util::tools::hugo::install() {
   util::tools::path::export "${dir}"
 
   if [[ ! -f "${dir}/hugo" ]]; then
-    local version curl_args os arch
+    local version curl_args os arch os_arch tarball_url
 
     version="$(jq -r .hugo "$(dirname "${BASH_SOURCE[0]}")/tools.json")"
-
-    curl_args=(
-      "--fail"
-      "--silent"
-      "--location"
-    )
-
-    if [[ "${token}" != "" ]]; then
-      curl_args+=("--header" "Authorization: Token ${token}")
-    fi
-
-    util::print::title "Installing hugo ${version} (extended)"
-
+    version="${version#v}"
     os=$(util::tools::os)
     arch=$(util::tools::arch --format-amd64-64bit)
 
-    local version_without_v="${version#v}"
-    local os_arch="${os}-${arch}"
+    util::print::title "Installing hugo version:${version}"
 
-    if [[ "${os}" == "darwin" ]]; then
-      os_arch="darwin-universal"
-    fi
+    if [[ "${os}" == "linux" ]]; then
+      curl_args=(
+        "--fail"
+        "--silent"
+        "--location"
+      )
 
-    local tarball_url
-    tarball_url="https://github.com/gohugoio/hugo/releases/download/${version}/hugo_extended_${version_without_v}_${os_arch}.tar.gz"
+      if [[ "${token}" != "" ]]; then
+        curl_args+=("--header" "Authorization: Token ${token}")
+      fi
 
-    if curl "${curl_args[@]}" "${tarball_url}" | tar xzf - -C "${dir}" hugo 2>/dev/null; then
+      os_arch="${os}-${arch}"
+      tarball_url="https://github.com/gohugoio/hugo/releases/download/v${version}/hugo_extended_${version}_${os_arch}.tar.gz"
+      curl "${curl_args[@]}" "${tarball_url}" | tar xzf - -C "${dir}" hugo
       chmod +x "${dir}/hugo"
+    elif [[ "${os}" == "darwin" ]]; then
+      local formula brew_prefix
+      formula="hugo@${version}"
+
+      if ! command -v brew >/dev/null 2>&1; then
+        util::print::error "Homebrew is required to install Hugo ${version} when the release tarball is unavailable"
+      fi
+
+      if ! brew info "${formula}" >/dev/null 2>&1; then
+        util::print::error "Homebrew formula ${formula} not found"
+      fi
+
+      brew_prefix="$(brew --prefix "${formula}")"
+
+      if [[ ! -x "${brew_prefix}/bin/hugo" ]]; then
+        util::print::error "Homebrew did not install a hugo binary at ${brew_prefix}/bin/hugo"
+      fi
+
+      if ! "${dir}/hugo" version | grep -q "v${version}"; then
+        util::print::error "Homebrew installed $("${dir}"/hugo version) which does not match requested v${version}"
+      fi
+
+      ln -sf "${brew_prefix}/bin/hugo" "${dir}/hugo"
+
     else
-      util::print::warn "Tarball ${tarball_url} not available, attempting Homebrew install instead"
-      util::tools::hugo::install_with_brew "${version_without_v}" "${dir}"
+      util::print::error "Unsupported OS for Hugo install: ${os}"
+      exit 1
     fi
   else
     util::print::info "Using $("${dir}"/hugo version)"
-  fi
-}
-
-function util::tools::hugo::install_with_brew() {
-  local version dir formula install_formula brew_prefix
-  version="${1}"
-  dir="${2}"
-  formula="hugo@${version}"
-  install_formula="${formula}"
-
-  if ! command -v brew >/dev/null 2>&1; then
-    util::print::error "Homebrew is required to install Hugo ${version} when the release tarball is unavailable"
-  fi
-
-  if ! brew info "${formula}" >/dev/null 2>&1; then
-    util::print::warn "Homebrew formula ${formula} not found, falling back to installing hugo"
-    install_formula="hugo"
-  fi
-
-  util::print::title "Installing ${install_formula} via Homebrew"
-  if ! brew list --versions "${install_formula}" >/dev/null 2>&1; then
-    brew install "${install_formula}"
-  fi
-
-  brew_prefix="$(brew --prefix "${install_formula}")"
-
-  if [[ ! -x "${brew_prefix}/bin/hugo" ]]; then
-    util::print::error "Homebrew did not install a hugo binary at ${brew_prefix}/bin/hugo"
-  fi
-
-  ln -sf "${brew_prefix}/bin/hugo" "${dir}/hugo"
-
-  if ! "${dir}/hugo" version | grep -q "v${version}"; then
-    util::print::error "Homebrew installed $("${dir}"/hugo version) which does not match requested v${version}"
   fi
 }
