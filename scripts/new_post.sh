@@ -75,7 +75,7 @@ OPTIONS
   --help   -h         prints the command usage
   --name   -n <name>  post name (required, e.g. "0038-my-new-post")
   --token  -t <token> Token used to download assets from GitHub (optional)
-  --do-not-update  do not update tools (optional)
+  --do-not-update-tools  do not update tools (optional) (default: false)
 
 EXAMPLE
   ./scripts/new.sh --name 0038-my-new-post
@@ -84,13 +84,14 @@ USAGE
 }
 
 function tools::install() {
-  local token
+  local token do_not_update_tools
   token="${1}"
+  do_not_update_tools="${2}"
 
   util::tools::hugo::install \
     --directory "${ROOTDIR}/.bin" \
     --token "${token}" \
-    --do-not-update-tools "${do_not_update_tools}"
+    --do-not-update "${do_not_update_tools}"
 }
 
 main "${@:-}"

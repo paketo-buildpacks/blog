@@ -15,7 +15,7 @@ source "${PROGDIR}/.util/print.sh"
 function main() {
   local token
   token=""
-  do_not_update="false"
+  do_not_update_tools="false"
 
   while [[ "${#}" != 0 ]]; do
     case "${1}" in
@@ -30,8 +30,8 @@ function main() {
         shift 2
         ;;
 
-      --do-not-update)
-        do_not_update="true"
+      --do-not-update-tools)
+        do_not_update_tools="true"
         shift 1
         ;;
 
@@ -45,7 +45,7 @@ function main() {
     esac
   done
 
-  tools::install "${token}"
+  tools::install "${token}" "${do_not_update_tools}"
 
   util::print::title "Building Hugo site..."
   "${ROOTDIR}/.bin/hugo"
@@ -62,17 +62,19 @@ Builds the Hugo site.
 OPTIONS
   --help   -h         prints the command usage
   --token  -t <token> Token used to download assets from GitHub (optional)
+  --do-not-update-tools  do not update tools (optional) (default: false)
 USAGE
 }
 
 function tools::install() {
-  local token
+  local token do_not_update_tools
   token="${1}"
+  do_not_update_tools="${2}"
 
   util::tools::hugo::install \
     --directory "${ROOTDIR}/.bin" \
     --token "${token}" \
-    --do-not-update "${do_not_update}"
+    --do-not-update "${do_not_update_tools}"
 }
 
 main "${@:-}"

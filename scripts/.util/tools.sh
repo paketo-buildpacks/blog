@@ -88,15 +88,41 @@ function util::tools::hugo::install() {
   mkdir -p "${dir}"
   util::tools::path::export "${dir}"
 
-  if [[ ! -f "${dir}/hugo" ]]; then
-    local version curl_args os arch os_arch tarball_url
+  local version current_version
 
-    version="$(jq -r .hugo "$(dirname "${BASH_SOURCE[0]}")/tools.json")"
-    version="${version#v}"
+  version="$(jq -r .hugo "$(dirname "${BASH_SOURCE[0]}")/tools.json")"
+  version="${version#v}"
+
+  if [[ -f "${dir}/hugo" ]]; then
+    current_version="$("${dir}/hugo" version 2>/dev/null | grep -oE "v[0-9]+\.[0-9]+\.[0-9]+" | head -1)"
+    current_version="${current_version#v}"
+  else
+    current_version=""
+  fi
+
+  if [[ "${current_version}" == "${version}" ]]; then
+    util::print::info "Using $("${dir}"/hugo version)"
+    return
+  fi
+
+  if [[ "${current_version}" != "${version}" && "${do_not_update}" == "true" && "${current_version}" != "" ]]; then
+    util::print::info "Skipping hugo update"
+    return
+  fi
+
+  if [[ "${current_version}" != "${version}"  && "${do_not_update}" == "false" ]]; then
+    util::print::info "Updating hugo to version:${version}"
+    rm -f "${dir}/hugo"
+  fi
+
+  if [[ ! -f "${dir}/hugo" ]]; then
+    local curl_args os arch os_arch tarball_url
+
+    util::print::title "Installing hugo version:${version}"
+
     os=$(util::tools::os)
     arch=$(util::tools::arch --format-amd64-64bit)
 
-    util::print::title "Installing hugo version:${version}"
 
     if [[ "${os}" == "linux" ]]; then
       curl_args=(
@@ -131,8 +157,8 @@ function util::tools::hugo::install() {
         util::print::error "Homebrew did not install a hugo binary at ${brew_prefix}/bin/hugo"
       fi
 
-      if ! "${dir}/hugo" version | grep -q "v${version}"; then
-        util::print::error "Homebrew installed $("${dir}"/hugo version) which does not match requested v${version}"
+      if ! "${brew_prefix}/bin/hugo" version | grep -q "v${version}"; then
+        util::print::error "Homebrew installed $("${brew_prefix}/bin/hugo" version) which does not match requested v${version}"
       fi
 
       ln -sf "${brew_prefix}/bin/hugo" "${dir}/hugo"
