@@ -23,10 +23,9 @@ jobs:
 
     - name: Fetch Latest Hugo
       id: latest-hugo
-      uses: paketo-buildpacks/github-config/actions/tools/latest@main
-      with:
-        token: ${{ github.token }}
-        repo: gohugoio/hugo
+      run: |
+        version=$(curl -sL https://formulae.brew.sh/api/formula/hugo.json | jq -r '.versions.stable')
+        echo "version=v${version}" >> $GITHUB_OUTPUT
 
     - name: Update scripts/tools.json
       env:
