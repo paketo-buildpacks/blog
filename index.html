@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
   <head>
-	<meta name="generator" content="Hugo 0.128.0">
+	<meta name="generator" content="Hugo 0.155.3">
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>Paketo Buildpacks | Blog</title>
@@ -41,7 +41,7 @@
         <article>
   <div>
     <h2><a href="/posts/paketo-buildpacks-2025-year-in-review/">Paketo Buildpacks 2025 Year in Review</a></h2>
-    As we welcome 2026, it&rsquo;s time to reflect on what has been a great year for the Paketo Buildpacks project. From all of us on the steering committee, we want to extend our gratitude to every contributor, maintainer, and user who has helped grow the project throughout 2025. Whether you&rsquo;ve been with us from the beginning or just discovered Paketo Buildpacks this past year, your engagement and feedback have been the driving force behind our continued growth and innovation.
+    <p>As we welcome 2026, it&rsquo;s time to reflect on what has been a great year for the Paketo Buildpacks project. From all of us on the steering committee, we want to extend our gratitude to every contributor, maintainer, and user who has helped grow the project throughout 2025. Whether you&rsquo;ve been with us from the beginning or just discovered Paketo Buildpacks this past year, your engagement and feedback have been the driving force behind our continued growth and innovation. Join us as we look back at the milestones and successes of the project in 2025.</p>
     
       <a href="/posts/paketo-buildpacks-2025-year-in-review/">…</a>
     
@@ -56,8 +56,10 @@
         <article>
   <div>
     <h2><a href="/posts/default-version-bump-node-24/">Paketo Node.js Buildpacks updates default to Node.js 24</a></h2>
-    Node.js 24 entered active status in October 2025 according to the Node.js release schedule. We are excited to announce that it is now the default version for the Paketo Node.js buildpacks! This means that if no Node.js version is specified via the package.json file, .node-version file, .nvmrc file or through the BP_NODE_VERSION environment variable, the selected Node.js version will default to 24!
-Although Node.js 24 has been available on Paketo Buildpacks since November 4th, 2025, via the node-engine buildpack, we had to ensure that all the Paketo Node.
+    <p><strong>Node.js 24 entered active status</strong> in October 2025 according to the Node.js <a href="https://nodejs.org/en/about/previous-releases">release schedule</a>.
+We are excited to announce that it is now the default version for the <a href="https://github.com/paketo-buildpacks/nodejs">Paketo Node.js buildpacks</a>!
+This means that if no Node.js version is specified via the <code>package.json</code> file, <code>.node-version</code> file, <code>.nvmrc</code> file or through the <code>BP_NODE_VERSION</code> environment variable, the selected Node.js version will default to 24!</p>
+<p>Although Node.js 24 has been available on Paketo Buildpacks since <strong>November 4th, 2025</strong>, via the <a href="https://github.com/paketo-buildpacks/node-engine/pull/1356">node-engine buildpack</a>, we had to ensure that all the Paketo Node.js buildpacks have been tested against it through their testing suite, before setting it as default. This ensures that the current behavior of the Paketo Node.js Buildpacks implementation remains stable.</p>
     
       <a href="/posts/default-version-bump-node-24/">…</a>
     
@@ -72,8 +74,9 @@ Although Node.js 24 has been available on Paketo Buildpacks since November 4th, 
         <article>
   <div>
     <h2><a href="/posts/paketo-buildpacks-user-survey-2025/">Paketo Buildpacks User Survey</a></h2>
-    User Survey 2025 As long as I have been working on Paketo Buildpacks, it has been a challenge to understand how our users make use of the project. What buildpacks get used? What features are important? Where should we spend project time and resources? We just don&rsquo;t know &#x1f937;&zwj;&#x2642;&#xfe0f;
-This is because for your privacy, Paketo Buildpacks do not have telemetry in them nor do they capture any information about your usage patterns.
+    <h2 id="user-survey-2025">User Survey 2025</h2>
+<p>As long as I have been working on Paketo Buildpacks, it has been a challenge to understand how our users make use of the project. What buildpacks get used? What features are important? Where should we spend project time and resources? We just don&rsquo;t know &#x1f937;&zwj;&#x2642;&#xfe0f;</p>
+<p>This is because for your privacy, Paketo Buildpacks do not have telemetry in them nor do they capture any information about your usage patterns. Because we do not capture telemetry, it does make it difficult for the project to plan and prioritize work for our buildpacks.</p>
     
       <a href="/posts/paketo-buildpacks-user-survey-2025/">…</a>
     
@@ -88,9 +91,12 @@ This is because for your privacy, Paketo Buildpacks do not have telemetry in the
         <article>
   <div>
     <h2><a href="/posts/paketo-dotnet-10-support/">Paketo Buildpacks add support for .NET 10</a></h2>
-    .NET 10 is now available The Paketo Buildpacks team is excited to announce that the same day .NET 10 was released, it is now available to be used in your Paketo Buildpacks builds!
-All you need to do is update the target framework to net10.0 in your .csproj file, and the buildpack will automatically use the latest SDK and ASP.NET Core runtime.
-Please reach out to the team if you have any questions.
+    <h2 id="net-10-is-now-available">.NET 10 is now available</h2>
+<p>The Paketo Buildpacks team is excited to announce that the same day .NET 10 was released, it is now available to
+be used in your Paketo Buildpacks builds!</p>
+<p>All you need to do is update the target framework to <code>net10.0</code> in your <code>.csproj</code> file, and the buildpack will
+automatically use the latest SDK and ASP.NET Core runtime.</p>
+<p>Please reach out to the team if you have any questions.</p>
     
       <a href="/posts/paketo-dotnet-10-support/">…</a>
     
@@ -105,11 +111,33 @@ Please reach out to the team if you have any questions.
         <article>
   <div>
     <h2><a href="/posts/builders-stacks-base-images-restructure/">What has changed on how we ship the Builders and the base images</a></h2>
-    We recently finished implementing the core builder RFC. This means quite a few changes across the Paketo Buildpacks organization, so we would like to walk you through the new structure (noble/UBI9) by comparing it with the old structure (jammy/UBI8) to highlight the differences.
-Changes to Base images (former stacks) For Ubuntu Jammy, each repository publishes the build and the run image, as follows:
-Jammy-full-stack
-docker.io/paketobuildpacks/build-jammy-full docker.io/paketobuildpacks/run-jammy-full Jammy-base-stack
-docker.io/paketobuildpacks/build-jammy-base docker.io/paketobuildpacks/run-jammy-base Jammy-tiny-stack
+    <p>We recently finished implementing the <a href="https://github.com/paketo-buildpacks/rfcs/blob/main/text/0061-core-builder.md">core builder RFC</a>. This means quite a few changes across the Paketo Buildpacks organization, so we would like to walk you through the new structure (noble/UBI9) by comparing it with the old structure (jammy/UBI8) to highlight the differences.</p>
+<h2 id="changes-to-base-images-former-stacks">Changes to Base images (former stacks)</h2>
+<p>For Ubuntu Jammy, each repository publishes the build and the run image, as follows:</p>
+<ul>
+<li>
+<p><a href="https://github.com/paketo-buildpacks/jammy-full-stack">Jammy-full-stack</a></p>
+<ol>
+<li>docker.io/paketobuildpacks/build-jammy-full</li>
+<li>docker.io/paketobuildpacks/run-jammy-full</li>
+</ol>
+</li>
+<li>
+<p><a href="https://github.com/paketo-buildpacks/jammy-base-stack">Jammy-base-stack</a></p>
+<ol>
+<li>docker.io/paketobuildpacks/build-jammy-base</li>
+<li>docker.io/paketobuildpacks/run-jammy-base</li>
+</ol>
+</li>
+<li>
+<p><a href="https://github.com/paketo-buildpacks/jammy-tiny-stack">Jammy-tiny-stack</a></p>
+<ol>
+<li>docker.io/paketobuildpacks/build-jammy-tiny</li>
+<li>docker.io/paketobuildpacks/run-jammy-tiny</li>
+</ol>
+</li>
+<li>
+<p><a href="https://github.com/paketo-buildpacks/jammy-static-stack">Jammy-static-stack</a></p>
     
       <a href="/posts/builders-stacks-base-images-restructure/">…</a>
     
@@ -124,12 +152,36 @@ docker.io/paketobuildpacks/build-jammy-base docker.io/paketobuildpacks/run-jammy
         <article>
   <div>
     <h2><a href="/posts/paketo-java-25-support/">Paketo Buildpacks add support for Java 25</a></h2>
-    Java 25 is now available from Java buildpacks The Paketo Buildpacks team is excited to announce that, after only 3 days since the first Java 25 builds appeared, Java 25 is now an option for your Paketo Buildpacks Java builds.
-Check out those release notes!
-https://github.com/paketo-buildpacks/java/releases/tag/v18.14.0
-https://github.com/paketo-buildpacks/java-native-image/releases/tag/v11.17.0
-But even better, try them out now!
-First option: force Java to 25 using BP_JVM_VERSION cd paketo-buildpacks/samples/java/maven pack config default-builder paketobuildpacks/builder-noble-java-tiny:latest pack build applications/maven --env BP_JVM_VERSION=25 [.
+    <h2 id="java-25-is-now-available-from-java-buildpacks">Java 25 is now available from Java buildpacks</h2>
+<p>The Paketo Buildpacks team is excited to announce that, after only 3 days since the first Java 25 builds appeared, Java 25 is now an option for your Paketo Buildpacks Java builds.</p>
+<p>Check out those release notes!</p>
+<p><a href="https://github.com/paketo-buildpacks/java/releases/tag/v18.14.0">https://github.com/paketo-buildpacks/java/releases/tag/v18.14.0</a></p>
+<p><a href="https://github.com/paketo-buildpacks/java-native-image/releases/tag/v11.17.0">https://github.com/paketo-buildpacks/java-native-image/releases/tag/v11.17.0</a></p>
+<p>But even better, try them out now!</p>
+<h3 id="first-option-force-java-to-25-using-bp_jvm_version">First option: force Java to 25 using BP_JVM_VERSION</h3>
+<pre tabindex="0"><code>cd paketo-buildpacks/samples/java/maven
+pack config default-builder paketobuildpacks/builder-noble-java-tiny:latest
+pack build applications/maven --env BP_JVM_VERSION=25
+[...]
+[builder]     Using Java version 25 from BP_JVM_VERSION
+[...]
+</code></pre><h3 id="second-option-set-your-sdkmanrc-to-java-25">Second option: set your <code>.sdkmanrc</code> to Java 25</h3>
+<pre tabindex="0"><code>cd paketo-buildpacks/samples/java/maven
+sdk install java 25-zulu
+sdk use java 25-zulu
+sdk env init
+cat .sdkmanrc 
+java=25-zulu
+
+pack config default-builder paketobuildpacks/builder-noble-java-tiny:latest
+pack build applications/maven
+[...]
+[builder]     Using Java version 25 extracted from .sdkmanrc
+[builder]   BellSoft Liberica JDK 25.0.0: Contributing to layer
+[builder]     Downloading from https://github.com/bell-sw/Liberica/releases/download/25+37/bellsoft-jdk25+37-linux-aarch64.tar.gz
+[...]
+</code></pre><h2 id="what-about-the-other-jdk--jre-distributions">What about the other JDK / JRE distributions?</h2>
+<p>At the time of writing: <a href="https://github.com/paketo-buildpacks/azul-zulu/releases/tag/v11.3.0">Azul Zulu</a>, <a href="https://github.com/paketo-buildpacks/bellsoft-liberica/releases/tag/v11.3.0">Bellsoft Liberica (not NIK yet)</a>, <a href="https://github.com/paketo-buildpacks/oracle/releases/tag/v4.2.0">Oracle and GraalVM</a>, <a href="https://github.com/paketo-buildpacks/sap-machine/releases/tag/v12.2.0">SAP Machine</a>, <a href="https://github.com/paketo-buildpacks/amazon-corretto/releases/tag/v9.3.0">Amazon Corretto</a> all got upgraded to support Java 25 (and lost support for Java 24)</p>
     
       <a href="/posts/paketo-java-25-support/">…</a>
     
@@ -144,10 +196,14 @@ First option: force Java to 25 using BP_JVM_VERSION cd paketo-buildpacks/samples
         <article>
   <div>
     <h2><a href="/posts/paketo-java-azure-sunsets/">Paketo Buildpacks Sunsets Java Azure Composite Buildpack</a></h2>
-    Urgent News The Paketo Buildpacks Java Azure composite buildpack is being sunset. It will be archived on May 9th, 2025.
-Please see the RFC for rationale and details.
-Action Items for You If you are using this buildpack, you have two choices on how to proceed.
-You may migrate off it. The primary feature of this buildpack is that it includes the Microsoft OpenJDK JVM. You do not need this buildpack to use the Microsoft OpenJDK JVM though.
+    <h2 id="urgent-news">Urgent News</h2>
+<p>The <a href="https://github.com/paketo-buildpacks/java-azure">Paketo Buildpacks Java Azure</a> composite buildpack is being sunset. It will be archived on May 9th, 2025.</p>
+<p>Please <a href="https://github.com/paketo-buildpacks/rfcs/blob/main/text/java/0018-retire-java-azure-composite.md">see the RFC</a> for rationale and details.</p>
+<h2 id="action-items-for-you">Action Items for You</h2>
+<p>If you are using this buildpack, you have two choices on how to proceed.</p>
+<ol>
+<li>
+<p>You may migrate off it. The primary feature of this buildpack is that it includes the Microsoft OpenJDK JVM. You do not need this buildpack to use the Microsoft OpenJDK JVM though. To continue to using Microsoft OpenJDK and migrate off of the Java Azure composite buildpack, you need to use <a href="https://paketo.io/docs/howto/java/#use-an-alternative-jvm">the alternative JVM instructions</a> in the Paketo docs.</p>
     
       <a href="/posts/paketo-java-azure-sunsets/">…</a>
     
@@ -162,10 +218,19 @@ You may migrate off it. The primary feature of this buildpack is that it include
         <article>
   <div>
     <h2><a href="/posts/paketo-ubi-builders-move-from-community-to-buildpacks/">Paketo UBI builders moving to paketo-buildpacks from paketo-community</a></h2>
-    The Paketo community has been working on UBI support over the last few years after agreeing on the direction in 0056-ubi-based-stacks.md.
-Typically support for new components starts in the paketo-community organization and then is moved to the paketo-buildpacks organization once it matures.
-It&rsquo;s now time to move the builder-ubi-base and builder-ubi-buildpackless-base over to the paketo-buildpacks organization. We plan to do the move Wednesday April 16th.
-We are publishing this blog post because this will impact users who have been using the builders to build their application with pack.
+    <p>The Paketo community has been working on <a href="https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image">UBI</a>
+support over the last few years after agreeing on the direction in
+<a href="https://github.com/paketo-buildpacks/rfcs/blob/main/text/0056-ubi-based-stacks.md">0056-ubi-based-stacks.md</a>.</p>
+<p>Typically support for new components starts in the
+<a href="https://github.com/paketo-community">paketo-community</a> organization and then is moved to the
+<a href="https://github.com/paketo-buildpacks">paketo-buildpacks</a> organization once it matures.</p>
+<p>It&rsquo;s now time to move the <a href="https://github.com/paketo-community/builder-ubi-base">builder-ubi-base</a> and
+<a href="https://github.com/paketo-community/builder-ubi-buildpackless-base">builder-ubi-buildpackless-base</a> over
+to the paketo-buildpacks organization. We plan to do the move Wednesday April 16th.</p>
+<p>We are publishing this blog post because this will impact users who have been using the builders to
+build their application with pack. We plan to update the instructions in
+<a href="https://developers.redhat.com/articles/2024/06/18/build-applications-paketo-buildpacks-and-red-hat-ubi-container-images">Build applications with Paketo Buildpacks and Red Hat UBI container images</a>.
+to point to the new builder name after the move.</p>
     
       <a href="/posts/paketo-ubi-builders-move-from-community-to-buildpacks/">…</a>
     
@@ -180,8 +245,9 @@ We are publishing this blog post because this will impact users who have been us
         <article>
   <div>
     <h2><a href="/posts/paketo-java-usage-socials/">Paketo Buildpacks usage and socials</a></h2>
-    Paketo Buildpacks: where are they used? While preparing for a talk about PaaS, I found out that CNBs (Cloud Native Buildpacks), in particular Paketo Buildpacks, are widely used across the industry!
-Sure, there&rsquo;s the Dockerfile as our main competition (with all its cons: maintainability, no SBOM generation, no third party agent nor a standard mechanism to include CA certs, etc.), but interestingly enough NixPacks (maintained by Railway but used in other PaaS too) are also gaining traction as our competitor.
+    <h2 id="paketo-buildpacks-where-are-they-used">Paketo Buildpacks: where are they used?</h2>
+<p><a href="https://blog.dahanne.net/2024/04/10/state-of-the-paas-in-2024/">While preparing for a talk about PaaS</a>, I found out that CNBs (Cloud Native Buildpacks), in particular <a href="https://github.com/paketo-buildpacks">Paketo Buildpacks</a>, are widely used across the industry!</p>
+<p>Sure, there&rsquo;s the Dockerfile as our main competition (with all its cons: maintainability, no SBOM generation, no third party agent nor a standard mechanism to include CA certs, etc.), but interestingly enough <a href="https://github.com/railwayapp/nixpacks">NixPacks</a> (maintained by Railway but used in other PaaS too) are also gaining traction as our competitor.</p>
     
       <a href="/posts/paketo-java-usage-socials/">…</a>
     
@@ -196,8 +262,9 @@ Sure, there&rsquo;s the Dockerfile as our main competition (with all its cons: m
         <article>
   <div>
     <h2><a href="/posts/paketo-gcr-registry-sunset/">Paketo Buildpacks Sunsets GCR Images</a></h2>
-    Urgent News We have important news regarding project infrastructure that requires your immediate attention. The Paketo Buildpacks GCP (Google Cloud Platform) project is scheduled to be shutdown in the near future, likely within the next two week.
-I apologize that we cannot provide an exact date, as we do not have one ourselves. We were notified recently that our sponsor who was paying the bills for GCP will be halting that sponsorship.
+    <h2 id="urgent-news">Urgent News</h2>
+<p>We have important news regarding project infrastructure that requires your immediate attention. The Paketo Buildpacks GCP (Google Cloud Platform) project is scheduled to be shutdown in the near future, likely within the next two week.</p>
+<p>I apologize that we cannot provide an exact date, as we do not have one ourselves. We were notified recently that our sponsor who was paying the bills for GCP will be halting that sponsorship. As such, we will no longer be storing Paketo images on GCR.</p>
     
       <a href="/posts/paketo-gcr-registry-sunset/">…</a>
     
@@ -212,8 +279,8 @@ I apologize that we cannot provide an exact date, as we do not have one ourselve
         <article>
   <div>
     <h2><a href="/posts/paketo-buildpacks-contributors-wanted/">Paketo Buildpacks Contributors Wanted</a></h2>
-    As an open-source project, Paketo Buildpacks depends on its maintainers to keep the project running day-to-day and to provide guidance to move the project forward. In a nutshell, maintainers keep the project running and produce all the software our users love.
-Unfortunately, we have had a few maintainers move on from the project recently. This is a part of open-source software. People&rsquo;s lives change, jobs change, interests change and they move on to other things.
+    <p>As an open-source project, Paketo Buildpacks depends on its maintainers to keep the project running day-to-day and to provide guidance to move the project forward. In a nutshell, maintainers keep the project running and produce all the software our users love.</p>
+<p>Unfortunately, we have had a few maintainers move on from the project recently. This is a part of open-source software. People&rsquo;s lives change, jobs change, interests change and they move on to other things. It happens, and it&rsquo;s OK. Thank you to our departing maintainers, we&rsquo;re grateful for your contributions, we&rsquo;ll miss you, and we wish you the best.</p>
     
       <a href="/posts/paketo-buildpacks-contributors-wanted/">…</a>
     
@@ -228,10 +295,19 @@ Unfortunately, we have had a few maintainers move on from the project recently. 
         <article>
   <div>
     <h2><a href="/posts/paketo-ubi-stack-move-from-community-to-buildpacks/">Paketo UBI stack moving to paketo-buildpacks from paketo-community</a></h2>
-    The Paketo community has been working on UBI support over the last few years after agreeing on the direction in 0056-ubi-based-stacks.md.
-Typically suport for new components starts in the paketo-community organization and then is moved to the paketo-buildpacks organization once it matures.
-It&rsquo;s now time to move the ubi-base-stack over to the packet-buildpacks organization. We plan to do the move Monday February 24th.
-We are publishing this blog post because this will impact users who have been specifying the stack container images on the command line or in their toml files (we expect this is a small number).
+    <p>The Paketo community has been working on <a href="https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image">UBI</a>
+support over the last few years after agreeing on the direction in
+<a href="https://github.com/paketo-buildpacks/rfcs/blob/main/text/0056-ubi-based-stacks.md">0056-ubi-based-stacks.md</a>.</p>
+<p>Typically suport for new components starts in the
+<a href="https://github.com/paketo-community">paketo-community</a> organization and then is moved to the
+<a href="https://github.com/paketo-buildpacks">paketo-buildpacks</a> organization once it matures.</p>
+<p>It&rsquo;s now time to move the <a href="https://github.com/paketo-community/ubi-base-stack">ubi-base-stack</a> over
+to the packet-buildpacks organization. We plan to do the move Monday February 24th.</p>
+<p>We are publishing this blog post because this will impact users who have been specifying the stack container
+images on the command line or in their toml files (we expect this is a small number). If you are
+using the builders no changes are needed yet, we&rsquo;ll let you know when they are moved over.
+For those using the builders, you can continue to follow the instructions in
+<a href="https://developers.redhat.com/articles/2024/06/18/build-applications-paketo-buildpacks-and-red-hat-ubi-container-images">Build applications with Paketo Buildpacks and Red Hat UBI container images</a>.</p>
     
       <a href="/posts/paketo-ubi-stack-move-from-community-to-buildpacks/">…</a>
     
@@ -246,9 +322,9 @@ We are publishing this blog post because this will impact users who have been sp
         <article>
   <div>
     <h2><a href="/posts/paketo-java-buildpacks-updates-default-to-java-21/">Paketo Java Buildpacks Updates Default to Java 21</a></h2>
-    It&rsquo;s that time again, time to update the default Java version in Paketo Java buildpacks!
-Through our community RFC process, the Paketo Java subteam adopted an official policy on updating the default version of the JVM, RFC #0014.
-The policy states that &ldquo;the default should be changed once the latest released LTS version of Java is at least one year old&rdquo;. Java 21 was released in September of 2023, and it&rsquo;s now October of 2024 which puts us over a year from the release.
+    <p>It&rsquo;s that time again, time to update the default Java version in Paketo Java buildpacks!</p>
+<p>Through our community RFC process, the Paketo Java subteam <a href="https://github.com/paketo-buildpacks/rfcs/blob/main/text/java/0014-selecting-default-java-version.md">adopted an official policy on updating the default version of the JVM</a>, RFC #0014.</p>
+<p>The policy states that &ldquo;the default should be changed once the latest released LTS version of Java is at least one year old&rdquo;. Java 21 was released in September of 2023, and it&rsquo;s now October of 2024 which puts us over a year from the release.</p>
     
       <a href="/posts/paketo-java-buildpacks-updates-default-to-java-21/">…</a>
     
@@ -263,8 +339,9 @@ The policy states that &ldquo;the default should be changed once the latest rele
         <article>
   <div>
     <h2><a href="/posts/oracle-graalvm-support-has-arrived/">Oracle GraalVM Support has Arrived!</a></h2>
-    Oracle GraalVM Support has Arrived! Today marks the start of support for building native image applications with Oracle GraalVM. Since Oracle released Oracle GraalVM under the GraalVM Free License, we&rsquo;ve been receiving lots of feedback to add support for it. Starting with the 3.11.0 release of the Paketo Buildpack for Oracle we now have official support!
-With this first release, you can build native image applications with Oracle GraalVM. Building your application is simple.
+    <h2 id="oracle-graalvm-support-has-arrived">Oracle GraalVM Support has Arrived!</h2>
+<p>Today marks the start of support for building native image applications with <a href="https://www.oracle.com/java/graalvm/">Oracle GraalVM</a>. Since Oracle released Oracle GraalVM under the <a href="https://blogs.oracle.com/java/post/graalvm-free-license">GraalVM Free License</a>, we&rsquo;ve been receiving lots of feedback to add support for it. Starting with the 3.11.0 release of the Paketo Buildpack for Oracle we now have official support!</p>
+<p>With this first release, you can build native image applications with Oracle GraalVM. Building your application is simple. You follow the <a href="https://paketo.io/docs/howto/java/#use-an-alternative-java-native-image-toolkit">process for selecting a Native Image Toolkit</a> and use the Oracle buildpack.</p>
     
       <a href="/posts/oracle-graalvm-support-has-arrived/">…</a>
     
@@ -279,8 +356,9 @@ With this first release, you can build native image applications with Oracle Gra
         <article>
   <div>
     <h2><a href="/posts/paketo-bionic-builder-is-unsafe/">Paketo&#39;s Bionic Builder Is Unsafe</a></h2>
-    Paketo&rsquo;s Bionic Builder Is Unsafe It&rsquo;s a strange thing for the Paketo Project to call out its builder as being unsafe, but the key detail here is that it&rsquo;s the Ubuntu Bionic Builder we&rsquo;re saying is unsafe.
-On May 31st, 2023, Ubuntu 18.04 (Bionic Beaver) went out of support for OSS customers (source). At the same time, the Paketo Project stopped supporting its Bionic Stacks and Builders based on Ubuntu 18.
+    <h2 id="paketos-bionic-builder-is-unsafe">Paketo&rsquo;s Bionic Builder Is Unsafe</h2>
+<p>It&rsquo;s a strange thing for the Paketo Project to call out its builder as being unsafe, but the key detail here is that it&rsquo;s the <strong>Ubuntu Bionic Builder</strong> we&rsquo;re saying is unsafe.</p>
+<p>On May 31st, 2023, Ubuntu 18.04 (Bionic Beaver) went out of support for OSS customers (<a href="https://ubuntu.com/blog/18-04-end-of-standard-support">source</a>). At the same time, the Paketo Project <a href="https://github.com/paketo-buildpacks/rfcs/blob/main/text/0057-bionic-eos.md">stopped supporting its Bionic Stacks and Builders based on Ubuntu 18.04</a>. This was further communicated in a <a href="https://blog.paketo.io/posts/bionic-eos/">blog post on July 28, 2023</a>.</p>
     
       <a href="/posts/paketo-bionic-builder-is-unsafe/">…</a>
     
@@ -295,10 +373,11 @@ On May 31st, 2023, Ubuntu 18.04 (Bionic Beaver) went out of support for OSS cust
         <article>
   <div>
     <h2><a href="/posts/paketo-buildpacks-hacktoberfest-2023/">Paketo buildpacks team is welcoming new contributors from Hacktoberfest!</a></h2>
-    What is Hacktoberfest? Hacktoberfest is a recurring (yearly) event that lasts the whole month of October and encourages participants to contribute to Open Source projects.
-The contributions can be technical (code) but also about documentation - the goal is to make a new population of developers familiar with Open Source.
-Digital Ocean and other companies organize this event each year and of course you win awards participating!
-You already have a Github account?
+    <h2 id="what-is-hacktoberfest">What is Hacktoberfest?</h2>
+<p><a href="https://hacktoberfest.com/">Hacktoberfest</a> is a recurring (yearly) event that lasts the whole month of October and encourages participants to contribute to Open Source projects.</p>
+<p>The contributions can be technical (code) but also about documentation -  the goal is to make a new population of developers familiar with Open Source.</p>
+<p><a href="https://hacktoberfest.com/about/">Digital Ocean and other companies</a> organize this event each year and of course you win awards participating!</p>
+<p>You already have a Github account? that&rsquo;s all you need to participate! <a href="https://hacktoberfest.com/auth/">Go ahead and register now</a>!</p>
     
       <a href="/posts/paketo-buildpacks-hacktoberfest-2023/">…</a>
     
@@ -313,9 +392,16 @@ You already have a Github account?
         <article>
   <div>
     <h2><a href="/posts/bionic-eos/">Bionic End of Support</a></h2>
-    As of May 31, 2023, Ubuntu 18.04 (Bionic Beaver) is out of support for open-source customers.
-As a result, Paketo will stop supporting Bionic in the project. If you currently depend on our Bionic-based offerings, this blog post will contain all of the relevant information about what this means and how to migrate.
-End of Support Details The removal of Bionic support in Paketo was announced and ratified in the Bionic End of Support RFC.
+    <p>As of May 31, 2023, Ubuntu 18.04 (Bionic Beaver) is <a href="https://ubuntu.com/blog/18-04-end-of-standard-support">out of
+support</a> for open-source
+customers.</p>
+<p>As a result, Paketo will stop supporting Bionic in the project. If you
+currently depend on our Bionic-based offerings, this blog post will contain
+all of the relevant information about what this means and how to migrate.</p>
+<h2 id="end-of-support-details">End of Support Details</h2>
+<p>The removal of Bionic support in Paketo was announced and ratified in the
+<a href="https://github.com/paketo-buildpacks/rfcs/blob/main/text/0057-bionic-eos.md">Bionic End of Support RFC</a>.
+The following stacks and builders will no longer be supported, meaning</p>
     
       <a href="/posts/bionic-eos/">…</a>
     
@@ -330,10 +416,11 @@ End of Support Details The removal of Bionic support in Paketo was announced and
         <article>
   <div>
     <h2><a href="/posts/java-buildpacks-enhancements/">Java Buildpacks enhancements</a></h2>
-    During the last few weeks, some enhancements were brought to buildpacks related to the Java ecosystem.
-Let&rsquo;s discover what&rsquo;s new!
-TL;DR Checkout the samples repository for Java examples and the Paketo Buildpacks official documentation - those provide way more details about Paketo uses cases (native, certificates, network-less, etc.) than the different build plugins (Maven and Gradle) documentation.
-And they&rsquo;re always up-to-date! In the rare event they&rsquo;re not, create an issue or Pull Request or reach us on Slack, and we will fix that!
+    <p>During the last few weeks, some enhancements were brought to buildpacks related to the Java ecosystem.</p>
+<p>Let&rsquo;s discover what&rsquo;s new!</p>
+<h3 id="tldr">TL;DR</h3>
+<p>Checkout the <a href="https://github.com/paketo-buildpacks/samples/tree/main/java">samples repository for Java examples</a> and the <a href="https://paketo.io/docs/howto/java/">Paketo Buildpacks official documentation</a> - those provide way more details about Paketo uses cases (native, certificates, network-less, etc.) than the different build plugins (Maven and Gradle) documentation.</p>
+<p>And they&rsquo;re always up-to-date! In the rare event they&rsquo;re not, create an <a href="https://github.com/paketo-buildpacks/java">issue or Pull Request</a> or reach us on <a href="https://join.slack.com/t/paketobuildpacks/shared_invite/zt-2jayv12ro-eTP8AtcmvyIpEtlANfIb~g">Slack</a>, and we will fix that!</p>
     
       <a href="/posts/java-buildpacks-enhancements/">…</a>
     
@@ -348,9 +435,10 @@ And they&rsquo;re always up-to-date! In the rare event they&rsquo;re not, create
         <article>
   <div>
     <h2><a href="/posts/manually-testing-changes-to-paketo-buildpacks/">Manually testing changes to a Paketo Buildpack</a></h2>
-    While this article is mainly about how to manually test Java family Paketo buildpacks, still, most of the instructions should work fine with other Paketo buildpacks; and even non Paketo buildpacks!
-Suppose that you started working on a new feature for the spring-boot buildpack&hellip;
-Unit tests first Of course, during your development, you will make sure that you did not break any tests, regularly running go test -v ./... but you would also add new tests covering your new code; the classic combination go test -v .
+    <p><em>While this article is mainly about how to manually test Java family Paketo buildpacks, still, most of the instructions should work fine with other Paketo buildpacks; and even non Paketo buildpacks!</em></p>
+<p>Suppose that you started working on a new feature for the <a href="https://github.com/paketo-buildpacks/spring-boot/"><code>spring-boot</code></a> buildpack&hellip;</p>
+<h2 id="unit-tests-first">Unit tests first</h2>
+<p>Of course, during your development, you will make sure that you did not break any tests, regularly running <code>go test -v ./...</code> but you would also add new tests covering your new code; the classic combination <code>go test -v ./... -coverprofile=coverage.out</code> followed with <code>go tool cover -html=coverage.out</code> will allow you to verify you did not forget to test some errors or edge cases.</p>
     
       <a href="/posts/manually-testing-changes-to-paketo-buildpacks/">…</a>
     
@@ -365,8 +453,8 @@ Unit tests first Of course, during your development, you will make sure that you
         <article>
   <div>
     <h2><a href="/posts/paketo-java-buildpacks-updates-its-default-jvm-version/">Paketo Java Buildpacks Updates its Default JVM Version</a></h2>
-    Time and tides wait for no one, nor does software. The Oracle and the OpenJDK project have been steadily releasing new versions of Java for years now, with new Java versions every six months and now long-term support releases every two years (with Java 21, it&rsquo;s dropped to two years from three).
-As of writing this post, the Java buildpack is currently using Java 11 as its default. This has been the same default version since the Paketo Java buildpack was released, but we&rsquo;re falling behind and it&rsquo;s time for a change.
+    <p>Time and tides wait for no one, nor does software. The Oracle and the OpenJDK project have been steadily releasing new versions of Java for years now, with new Java versions every six months and now long-term support releases every two years (with Java 21, it&rsquo;s dropped to two years from three).</p>
+<p>As of writing this post, the Java buildpack is currently using Java 11 as its default. This has been the same default version since the Paketo Java buildpack was released, but we&rsquo;re falling behind and it&rsquo;s time for a change.</p>
     
       <a href="/posts/paketo-java-buildpacks-updates-its-default-jvm-version/">…</a>
     
@@ -381,8 +469,13 @@ As of writing this post, the Java buildpack is currently using Java 11 as its de
         <article>
   <div>
     <h2><a href="/posts/2023-roadmap/">Paketo Buildpacks 2023 - Onward and Upward</a></h2>
-    This last year was a big one for the project. We grew significantly, matured our buildpack and stack offerings, and found new ways to engage with our users. For 2023, we hope for all of that and more.
-We want to thank everyone who contributed to the project in 2022. Whether that was direct contibution to our codebases or feedback in the form of issues, discussions, or Slack messages, you&rsquo;ve been a big part of the success we&rsquo;ve had this year.
+    <p>This last year was a big one for the project. We grew significantly, matured
+our buildpack and stack offerings, and found new ways to engage with our users.
+For 2023, we hope for all of that and more.</p>
+<p>We want to thank everyone who contributed to the project in 2022. Whether that
+was direct contibution to our codebases or feedback in the form of issues,
+discussions, or Slack messages, you&rsquo;ve been a big part of the success we&rsquo;ve had
+this year.</p>
     
       <a href="/posts/2023-roadmap/">…</a>
     
@@ -397,8 +490,17 @@ We want to thank everyone who contributed to the project in 2022. Whether that w
         <article>
   <div>
     <h2><a href="/posts/2022-recap/">Paketo Buildpacks 2022 - Another Year in Review</a></h2>
-    In 2022, the major roadmap themes were improvements and expansions of our stack offerings, paying down significant technical debt in our dependency management system, and making efforts to improve buildpack authoring tools.
-Improving and Expanding our Base Image / Stack / Builder Offering We launched sweeping support for Ubuntu 2022.04 Jammy Jellyfish across our stacks, buildpacks, and builders. This was a tremendous effort with contributions across the entire Paketo Core team and community.
+    <p><img src="/images/posts/0003/logo.png" alt="Logo"></p>
+<p>In 2022, the major roadmap themes were improvements and expansions of our stack
+offerings, paying down significant technical debt in our dependency management
+system, and making efforts to improve buildpack authoring tools.</p>
+<h2 id="improving-and-expanding-our-base-image--stack--builder-offering">Improving and Expanding our Base Image / Stack / Builder Offering</h2>
+<p>We launched sweeping support for Ubuntu 2022.04 Jammy Jellyfish across our
+stacks, buildpacks, and builders. This was a tremendous effort with
+contributions across the entire Paketo Core team and community. It touched
+every buildpack and took the better part of 9 months to complete as we resolved
+huge amounts of technical debt in the process. If you are more interested in
+what happened on this front, check out the RFCs below:</p>
     
       <a href="/posts/2022-recap/">…</a>
     
@@ -413,8 +515,8 @@ Improving and Expanding our Base Image / Stack / Builder Offering We launched sw
         <article>
   <div>
     <h2><a href="/posts/buildpack-dev-selecting-a-library/">Buildpack Development: Selecting a Cloud-Native Buildpacks Library</a></h2>
-    In the Paketo Buildpacks community, we’ve standardized around writing our buildpacks using the Go language. Go works great for buildpack development because it compiles down to a relatively compact static binary, so our buildpack images are small, and it runs very fast, so our buildpacks run fast. It also provides great support for testing and since we want to have rock solid buildpacks, testing is very important as well.
-To write a buildpack in the Go language, it helps if you have a library that implements the Cloud-Native Buildpacks (CNB) specification.
+    <p>In the Paketo Buildpacks community, we’ve standardized around writing our buildpacks using the Go language. Go works great for buildpack development because it compiles down to a relatively compact static binary, so our buildpack images are small, and it runs very fast, so our buildpacks run fast. It also provides great support for testing and since we want to have rock solid buildpacks, testing is very important as well.</p>
+<p>To write a buildpack in the Go language, it helps if you have a library that implements the Cloud-Native Buildpacks (CNB) specification. You could certainly write buildpacks without a library, but it’s going to require more work and you then need to validate that your buildpack follows the specification.</p>
     
       <a href="/posts/buildpack-dev-selecting-a-library/">…</a>
     
@@ -429,9 +531,13 @@ To write a buildpack in the Go language, it helps if you have a library that imp
         <article>
   <div>
     <h2><a href="/posts/oss-contributor-of-the-month/">Introducing the Contributor of the Month initiative</a></h2>
-    Why someone contributes to open source?
-The Open Source Way 2.0 guidebook describes some of the diverse motivations that lead individuals to participate in open source communities, including:
-Extrinsic motivation: contributing to OSS is part of their job, career advancement by developing code that it&rsquo;s in the open or to collaboratively solve a problem they are facing. Intrinsic motivation: a sense of purpose while contributing to a cause that is beneficial to a community, collaborative learning and the perceived professional benefit that it produces.
+    <p>Why someone contributes to open source?</p>
+<p><em>The Open Source Way 2.0</em> <a href="https://www.theopensourceway.org/the_open_source_way-guidebook-2.0.html#_why_do_people_participate_in_open_source_communities">guidebook</a> describes some of the diverse motivations that lead individuals to participate in open source communities, including:</p>
+<ul>
+<li>Extrinsic motivation: contributing to OSS is part of their job, career advancement by developing code that it&rsquo;s in the open or to collaboratively solve a problem they are facing.</li>
+<li>Intrinsic motivation: a sense of purpose while contributing to a cause that is beneficial to a community, collaborative learning and the perceived professional benefit that it produces.</li>
+</ul>
+<p>While intrinsic motivation is the kind of altruist behavior usually associated with OSS contributions, extrinsic motivation and rewards also play an important role on encouraging and recognizing the diverse forms of contributions an open source project wants and needs.</p>
     
       <a href="/posts/oss-contributor-of-the-month/">…</a>
     
@@ -446,9 +552,9 @@ Extrinsic motivation: contributing to OSS is part of their job, career advanceme
         <article>
   <div>
     <h2><a href="/posts/websphere-liberty-now-included-in-liberty-buildpack/">WebSphere Liberty now available</a></h2>
-    I am pleased to announce that WebSphere Liberty is now included in the Paketo Liberty buildpack and available to currently entitled WebSphere Liberty users. WebSphere Liberty is built on Open Liberty and is a lightweight, efficient, Java™ EE, Jakarta EE and MicroProfile cloud-native runtime.
-The Paketo Liberty buildpack now gives you a choice to use WebSphere Liberty or Open Liberty to run your application.
-To use WebSphere Liberty in your container, set the BP_LIBERTY_INSTALL_TYPE environment variable to specify the install type wlp:
+    <p>I am pleased to announce that <a href="https://www.ibm.com/cloud/websphere-liberty">WebSphere Liberty</a> is now included in the <a href="https://github.com/paketo-buildpacks/liberty">Paketo Liberty</a> buildpack and available to currently entitled WebSphere Liberty users. WebSphere Liberty is built on <a href="openliberty.io">Open Liberty</a> and is a lightweight, efficient, Java™ EE, Jakarta EE and MicroProfile cloud-native runtime.</p>
+<p>The Paketo Liberty buildpack now gives you a choice to use WebSphere Liberty or Open Liberty to run your application.</p>
+<p>To use WebSphere Liberty in your container, set the <code>BP_LIBERTY_INSTALL_TYPE</code> environment variable to specify the <a href="https://github.com/paketo-buildpacks/liberty#install-types">install type</a> <code>wlp</code>:</p>
     
       <a href="/posts/websphere-liberty-now-included-in-liberty-buildpack/">…</a>
     
@@ -463,8 +569,8 @@ To use WebSphere Liberty in your container, set the BP_LIBERTY_INSTALL_TYPE envi
         <article>
   <div>
     <h2><a href="/posts/oss-health-assessment/">Growing a healthy open source community, one metric at a time</a></h2>
-    In this post, I plan to share the framework the Paketo Buildpacks project will be using to approach the goal of building and sustaining an inclusive community of users, contributors and maintainers; and how it translates to a set of action items we will be executing during the remaining of 2022.
-Currently, the project follows the Community Engagement guidelines and best practices outlined here as they represent a diverse set of initiatives designed to provide the community with tools and processes for improved collaboration.
+    <p>In this post, I plan to share the framework the Paketo Buildpacks project will be using to approach the goal of building and sustaining an inclusive community of users, contributors and maintainers; and how it translates to a set of action items we will be executing during the remaining of 2022.</p>
+<p>Currently, the project follows the Community Engagement guidelines and best practices <a href="https://github.com/vmware-tanzu/community-engagement/blob/main/GUIDELINES.md">outlined here</a> as they represent a diverse set of initiatives designed to provide the community with tools and processes for improved collaboration. To make sure we are doing it effectively, an assessment is conducted twice per year, providing recommendations and an action plan to address the possible findings.</p>
     
       <a href="/posts/oss-health-assessment/">…</a>
     
@@ -479,8 +585,8 @@ Currently, the project follows the Community Engagement guidelines and best prac
         <article>
   <div>
     <h2><a href="/posts/webservers-rearchitecture/">Introducing the Paketo Web Servers Buildpack</a></h2>
-    The Paketo team is pleased to introduce the Web Servers buildpack, available in the Paketo Full Builder as of version 0.2.74.
-This buildpack allows you to serve static content using the popular NGINX or HTTPD web servers, with a variety of utilities for ease of use. Whether you have static files and a server configuration file that you want to package in an image, or you need to transform your dynamic content into static files and want the buildpack to generate the necessary server configuration file, the Web Servers buildpack has you covered.
+    <p>The Paketo team is pleased to introduce the <a href="https://github.com/paketo-buildpacks/web-servers">Web Servers buildpack</a>, available in the Paketo Full Builder as of <a href="https://github.com/paketo-buildpacks/full-builder/releases/tag/v0.2.74">version 0.2.74</a>.</p>
+<p>This buildpack allows you to serve static content using the popular NGINX or HTTPD web servers, with a variety of utilities for ease of use. Whether you have static files and a server configuration file that you want to package in an image, or you need to transform your dynamic content into static files and want the buildpack to generate the necessary server configuration file, the Web Servers buildpack has you covered.</p>
     
       <a href="/posts/webservers-rearchitecture/">…</a>
     
@@ -495,8 +601,23 @@ This buildpack allows you to serve static content using the popular NGINX or HTT
         <article>
   <div>
     <h2><a href="/posts/php-rearchitecture/">Reintroducing the PHP Buildpack</a></h2>
-    There&rsquo;s a new and exciting development in the Paketo Buildpacks project! The Paketo PHP Buildpack has been fully re-architected and is ready to make containerizing PHP applications simple and transparent. With the rearchitecture, the same base set of functionality is supported as in the original PHP buildpack, but the buildpacks have been modernized using the newest Paketo tooling and modularized to separate concerns into individual buildpacks.
-What&rsquo;s new? Breaking it down The rearchitecture has made it vastly easier for maintainers and contributors to add new functionality to the language family, by breaking down what used to be three larger buildpacks, into 10+ new buildpacks responsible for single parts of the build process.
+    <p>There&rsquo;s a new and exciting development in the Paketo Buildpacks project! The
+<a href="https://github.com/paketo-buildpacks/php">Paketo PHP Buildpack</a> has been fully
+re-architected and is ready to make containerizing PHP applications simple and
+transparent. With the rearchitecture, the same base set of functionality is
+supported as in the original PHP buildpack, but the buildpacks have been
+modernized using the newest Paketo tooling and modularized to separate concerns
+into individual buildpacks.</p>
+<h2 id="whats-new">What&rsquo;s new?</h2>
+<h3 id="breaking-it-down">Breaking it down</h3>
+<p>The rearchitecture has made it vastly easier for maintainers and contributors
+to add new functionality to the language family, by breaking down
+what used to be three larger buildpacks, into 10+ new buildpacks responsible
+for single parts of the build process. This may sound like a lot of new
+buildpacks, but small lighter-weight buildpacks are actually what we strive
+for in the project. This concept is well-described in the <a href="https://blog.paketo.io/posts/buildpack-philosophy-part-1/">Paketo Buildpacks
+Philosophy Part 1 blog
+post</a>.</p>
     
       <a href="/posts/php-rearchitecture/">…</a>
     
@@ -511,7 +632,12 @@ What&rsquo;s new? Breaking it down The rearchitecture has made it vastly easier 
         <article>
   <div>
     <h2><a href="/posts/2022-roadmap/">Paketo Buildpacks 2022 - Full speed ahead</a></h2>
-    Before we share the big plans we have for 2022, the Paketo Buildpacks Steering Committee would like to thank everyone that joined in the 2022 roadmap discussion, as well as everyone that’s provided feedback across all of the Paketo Buildpacks in 2021. The team is grateful for all of the feedback that we receive, as it helps to shape the project and ensure we’re building the tools that everyone wants to use.
+    <p>Before we share the big plans we have for 2022, the Paketo Buildpacks Steering
+Committee would like to thank everyone that joined in the 2022 roadmap
+discussion, as well as everyone that’s provided feedback across all of the
+Paketo Buildpacks in 2021. The team is grateful for all of the feedback that we
+receive, as it helps to shape the project and ensure we’re building the tools
+that everyone wants to use.</p>
     
       <a href="/posts/2022-roadmap/">…</a>
     
@@ -526,9 +652,46 @@ What&rsquo;s new? Breaking it down The rearchitecture has made it vastly easier 
         <article>
   <div>
     <h2><a href="/posts/2021-recap/">Paketo Buildpacks 2021 - A Year in Review</a></h2>
-    Thanks so much to the Paketo community for all your hard work over the last year! The project made significant progress on the themes identified in our 2021 Roadmap. We won’t be able to cover everything in this blog post, but here are some highlights.
-Solidifying Existing Buildpacks While the work of standardizing our buildpacks continues, we are proud of the progres we have made, including:
-Moving to environment variables as the primary mode of configuration for all buildpacks Standardized handling of language-ecosystem environment variables such as JAVA_TOOL_OPTIONS and NODE_ENV Standardized versioning of buildpacks, stacks, and builders Standardized configuration options, including log levels and dependency mappings Inclusion of utility buildpacks in all language families, allowing users to: Configure additional CA Certificates Apply custom image labels Set runtime environment variables Contribute additional process types We also restructured the Python buildpack, improving modularity and composability.
+    <p><img src="/images/posts/0003/logo.png" alt="Logo"></p>
+<p>Thanks so much to the Paketo community for all your hard work over the last
+year! The project made significant progress on the themes identified in our
+<a href="https://blog.paketo.io/posts/2021-roadmap/">2021 Roadmap</a>. We won’t be able to
+cover everything in this blog post, but here are some highlights.</p>
+<h2 id="solidifying-existing-buildpacks">Solidifying Existing Buildpacks</h2>
+<p>While the work of standardizing our buildpacks continues, we are proud of the
+progres we have made, including:</p>
+<ul>
+<li>Moving to <a href="https://github.com/paketo-buildpacks/rfcs/blob/main/text/0026-environment-variable-configuration-of-buildpacks.md">environment
+variables</a>
+as the primary mode of configuration for all buildpacks</li>
+<li>Standardized handling of <a href="https://github.com/paketo-buildpacks/rfcs/blob/main/text/0019-buildpack-set-env-vars-defaults.md">language-ecosystem environment
+variables</a>
+such as <code>JAVA_TOOL_OPTIONS</code> and <code>NODE_ENV</code></li>
+<li><a href="https://github.com/paketo-buildpacks/rfcs/blob/main/text/0029-semantic-versioning.md">Standardized
+versioning</a>
+of buildpacks, stacks, and builders</li>
+<li>Standardized configuration options, including <a href="https://github.com/paketo-buildpacks/rfcs/blob/main/text/0027-log-levels.md">log
+levels</a>
+and <a href="https://github.com/paketo-buildpacks/rfcs/blob/main/text/0010-dependency-mappings.md">dependency
+mappings</a></li>
+<li>Inclusion of utility buildpacks in all language families, allowing users to:
+<ul>
+<li><a href="https://paketo.io/docs/howto/configuration/#ca-certificates">Configure additional CA
+Certificates</a></li>
+<li><a href="https://paketo.io/docs/howto/configuration/#applying-custom-labels">Apply custom image
+labels</a></li>
+<li><a href="https://github.com/paketo-buildpacks/environment-variables">Set runtime environment
+variables</a></li>
+<li><a href="https://paketo.io/docs/howto/configuration/#procfiles">Contribute additional process
+types</a></li>
+</ul>
+</li>
+</ul>
+<p>We also <a href="https://github.com/paketo-buildpacks/rfcs/blob/main/text/python/0001-restructure.md">restructured the Python
+buildpack</a>,
+improving modularity and composability. A similar <a href="https://github.com/paketo-buildpacks/rfcs/blob/main/text/php/0001-restructure.md">restructure of the PHP
+buildpack</a>
+is nearing completion.</p>
     
       <a href="/posts/2021-recap/">…</a>
     
@@ -543,9 +706,24 @@ Moving to environment variables as the primary mode of configuration for all bui
         <article>
   <div>
     <h2><a href="/posts/introducing-liberty-buildpack/">Introducing the Liberty buildpack</a></h2>
-    Liberty is finally available in Paketo and included in the java buildpack! Liberty is an open application framework designed for the cloud. It’s small, lightweight, and designed with modern cloud-native application development in mind.
-With the Liberty buildpack, you can:
-Build Java apps from source or a pre-configured on-prem Liberty Install Liberty and user custom features Install Liberty interim fixes Create UBI-based OCI images What do you need? Your application source or a pre-configured on-prem Liberty Docker pack Let&rsquo;s get started!
+    <p><img src="/images/posts/0008/open-liberty-logo.png" alt="Open Liberty Logo"></p>
+<p><a href="https://github.com/paketo-buildpacks/liberty">Liberty</a> is finally available in Paketo and included in the <a href="https://github.com/paketo-buildpacks/java">java</a> buildpack! Liberty is an open application framework designed for the cloud. It’s small, lightweight, and designed with modern cloud-native application development in mind.</p>
+<p>With the Liberty buildpack, you can:</p>
+<ul>
+<li>Build Java apps from source or a pre-configured on-prem Liberty</li>
+<li>Install Liberty and user custom features</li>
+<li>Install Liberty interim fixes</li>
+<li>Create UBI-based OCI images</li>
+</ul>
+<h2 id="what-do-you-need">What do you need?</h2>
+<ul>
+<li>Your application source or a pre-configured on-prem Liberty</li>
+<li><a href="https://hub.docker.com/search?type=edition&amp;offering=community">Docker</a></li>
+<li><a href="https://buildpacks.io/docs/tools/pack/">pack</a></li>
+</ul>
+<h2 id="lets-get-started">Let&rsquo;s get started!</h2>
+<p>The following examples use the <a href="https://openliberty.io/guides/getting-started.html">Open Liberty starter</a> application as the application source.
+Download the Open Liberty starter application:</p>
     
       <a href="/posts/introducing-liberty-buildpack/">…</a>
     
@@ -560,8 +738,20 @@ Build Java apps from source or a pre-configured on-prem Liberty Install Liberty 
         <article>
   <div>
     <h2><a href="/posts/buildpack-philosophy-part-1/">A Philosophy for Developing Paketo Buildpacks, Part 1</a></h2>
-    Photo by Jon Flobrant on Unsplash
-Sharing what we&rsquo;ve learned The Paketo Buildpacks Team has been developing our Cloud Native Buildpacks for the better part of 2 years now. In the process, we&rsquo;ve learned a lot about what works well and what doesn&rsquo;t. We&rsquo;ve made mistakes and interated toward solutions that are more flexible, easier to maintain, and provide better experiences for our users. In the process, we&rsquo;ve developed a set of guidelines – a philosophy, maybe – for how we think about developing buildpacks.
+    <figure><img src="/images/posts/0000/road.jpg"
+    alt="A road through the wilderness"><figcaption>
+      <p>Photo by <a href="https://unsplash.com/@jonflobrant?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Jon Flobrant</a> on <a href="https://unsplash.com/collections/1666315/philosophy-topics?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></p>
+    </figcaption>
+</figure>
+
+<h2 id="sharing-what-weve-learned">Sharing what we&rsquo;ve learned</h2>
+<p>The Paketo Buildpacks Team has been developing our Cloud Native Buildpacks for
+the better part of 2 years now. In the process, we&rsquo;ve learned a lot about what
+works well and what doesn&rsquo;t. We&rsquo;ve made mistakes and interated toward solutions
+that are more flexible, easier to maintain, and provide better experiences for
+our users. In the process, we&rsquo;ve developed a set of guidelines – a philosophy,
+maybe – for how we think about developing buildpacks. These guidelines don&rsquo;t
+always apply, but they are what we strive for in the vast majority of cases.</p>
     
       <a href="/posts/buildpack-philosophy-part-1/">…</a>
     
@@ -576,7 +766,7 @@ Sharing what we&rsquo;ve learned The Paketo Buildpacks Team has been developing 
         <article>
   <div>
     <h2><a href="/posts/java-rearchitecture/">Java Buildpack Support and Debug Enhancements</a></h2>
-    I’m pleased to announce that the Paketo Java Buildpack has been enhanced to make it even easier to analyze and debug your JVM based applications. A host of features have been added or integrated in the form of environment variable flags, and some features which previously required image rebuilds can now simply be toggled at runtime. This post will outline how to both configure the JVM itself and make use of the following features:
+    <p>I’m pleased to announce that the Paketo Java Buildpack has been enhanced to make it even easier to analyze and debug your JVM based applications. A host of features have been added or integrated in the form of environment variable flags, and some features which previously required image rebuilds can now simply be toggled at runtime. This post will outline how to both configure the JVM itself and make use of the following features:</p>
     
       <a href="/posts/java-rearchitecture/">…</a>
     
@@ -591,8 +781,8 @@ Sharing what we&rsquo;ve learned The Paketo Buildpacks Team has been developing 
         <article>
   <div>
     <h2><a href="/posts/building-a-cloud-native-buildpack-isnt-as-hard-as-you-think/">Building a Cloud Native Buildpack Isn’t as Hard as You Think</a></h2>
-    Maybe you’ve heard that many companies today are transitioning to, or have already transitioned to, a container-based platform like Kubernetes. With this movement comes the need to containerize your applications, new and old. Buildpacks provide a seamless mechanism for doing that without Dockerfiles. Paketo Buildpacks is a community-driven project that provides Cloud Native Buildpacks implementations for the most popular languages.
-Buildpacks provide great out-of-box support for many languages, but what if you need a buildpack that doesn’t exist yet?
+    <p>Maybe you’ve heard that many companies today are transitioning to, or have already transitioned to, a container-based platform like Kubernetes. With this movement comes the need to containerize your applications, new and old. Buildpacks provide a seamless mechanism for doing that <em>without Dockerfiles.</em> <a href="https://paketo.io">Paketo Buildpacks</a> is a community-driven project that provides <a href="https://buildpacks.io">Cloud Native Buildpacks</a> implementations for the most popular languages.</p>
+<p>Buildpacks provide great out-of-box support for many languages, but <strong>what if you need a buildpack that doesn’t exist yet?</strong> As a community-driven initiative, it may feel like the onus is on you to create that buildpack. Where would you even begin? 🤯</p>
     
       <a href="/posts/building-a-cloud-native-buildpack-isnt-as-hard-as-you-think/">…</a>
     
@@ -607,9 +797,30 @@ Buildpacks provide great out-of-box support for many languages, but what if you 
         <article>
   <div>
     <h2><a href="/posts/dotnet-core-rearchitecture/">Introducing a re-architected .NET Core Buildpack!</a></h2>
-    On behalf of the Paketo contributors, I&rsquo;m pleased to unveil the new and improved .NET Core Buildpack! With the release of Paketo .NET Core Buildpack 0.1.0, you’ll enjoy a host of new features and improvements that will make containerizing your .NET apps a breeze. 🍃
-With the new buildpack, you can:
-Build .NET 5 apps Build your app from source code, from a framework-dependent deployment (FDD), from a framework-dependent executable (FDE), or from a self-contained deployment Build Visual Basic apps Have source code removed from final app image.
+    <p><img src="/images/posts/0004/dotnet-core-logo.png" alt=".NET Core Logo"></p>
+<p>On behalf of the Paketo contributors, I&rsquo;m pleased to unveil the new and
+improved .NET Core Buildpack! With the release of <a href="https://github.com/paketo-buildpacks/dotnet-core/releases">Paketo .NET Core Buildpack
+0.1.0</a>, you’ll enjoy
+a host of new features and improvements that will make containerizing your .NET
+apps a breeze. 🍃</p>
+<p>With the new buildpack, you can:</p>
+<ul>
+<li>Build .NET 5 apps</li>
+<li>Build your app from source code, from a framework-dependent deployment
+(FDD), from a framework-dependent executable (FDE), or from a
+self-contained deployment</li>
+<li>Build Visual Basic apps</li>
+<li>Have source code removed from final app image. Your app container will
+only contain the built artifacts</li>
+<li>Use a
+<a href="https://paketo.io/docs/buildpacks/configuration/#procfiles">Procfile</a> to
+specify custom start processes</li>
+</ul>
+<p>We also re-wrote the buildpacks using
+<a href="https://github.com/paketo-buildpacks/packit">packit</a>, our library for
+buildpack developers. This will ensure that the buildpack benefits from future
+innovations in the <a href="https://github.com/buildpacks/spec/blob/main/buildpack.md">Cloud Native Buildpacks
+specification</a>.</p>
     
       <a href="/posts/dotnet-core-rearchitecture/">…</a>
     
@@ -624,8 +835,28 @@ Build .NET 5 apps Build your app from source code, from a framework-dependent de
         <article>
   <div>
     <h2><a href="/posts/2021-roadmap/">2021 Paketo Buildpacks Roadmap</a></h2>
-    We’re not even at the one year anniversary of the Paketo Buildpacks launch, but we’ve already got so much to celebrate 🎉. 2020 was a busy year for the Paketo Buildpacks core development team. Looking back on the last year, a few highlights stand out:
-Establishing our project governance and RFC process Moving all project tooling to Github-based workflows Building out a foundational set of buildpacks for some of the most popular languages including Java, Node.
+    <p><img src="/images/posts/0003/logo.png" alt="Logo"></p>
+<p>We’re not even at the one year anniversary of the Paketo Buildpacks launch, but
+we’ve already got so much to celebrate 🎉. 2020 was a busy year for the Paketo
+Buildpacks core development team. Looking back on the last year, a few
+highlights stand out:</p>
+<ul>
+<li>Establishing our <a href="https://github.com/paketo-buildpacks/community/blob/main/GOVERNANCE.md">project
+governance</a>
+and <a href="https://github.com/paketo-buildpacks/rfcs">RFC process</a></li>
+<li>Moving all project tooling to Github-based workflows</li>
+<li>Building out a foundational set of buildpacks for some of the most popular
+languages including <a href="https://github.com/paketo-buildpacks/java">Java</a>,
+<a href="https://github.com/paketo-buildpacks/nodejs">Node.js</a>, <a href="https://github.com/paketo-buildpacks/dotnet-core">.Net
+Core</a>,
+<a href="https://github.com/paketo-buildpacks/go">Go</a>, and
+<a href="https://github.com/paketo-buildpacks/ruby">Ruby</a>.</li>
+</ul>
+<p>For 2021, one of our most important goals is to align on a community-driven
+project roadmap. We started a discussion
+<a href="https://github.com/paketo-buildpacks/feedback/discussions/2">thread</a> at the
+start of the new year to solicit interest in areas of development for this year
+and received a lot of responses.</p>
     
       <a href="/posts/2021-roadmap/">…</a>
     
@@ -640,8 +871,18 @@ Establishing our project governance and RFC process Moving all project tooling t
         <article>
   <div>
     <h2><a href="/posts/paketo-buildpacks-hot-topic-at-cf-summit/">Paketo Buildpacks Hot Topic at Cloud Foundry Summit</a></h2>
-    Paketo Buildpacks were a hot topic at the recently concluded Cloud Foundry Summit, the first virtual Summit run by the Cloud Foundry Foundation. The Summit featured project updates, particularly in the Kubernetes space, including a talk on Paketo Buildpacks. Dan Thornton, an engineer contributing to the Paketo Buildpacks project, maintained that they are the ideal tool for transforming app source code into container images.
-So, we wanted to share Dan’s talk here and dive into a Q&amp;A of all of the questions we didn’t get to answer during this session.
+    <p><img src="/images/posts/0002/logo.jpg" alt="Logo"></p>
+<p>Paketo Buildpacks were a hot topic at the recently concluded <a href="https://www.cloudfoundry.org/events/summit/na-virtual-2020/">Cloud Foundry
+Summit</a>, the first
+<strong>virtual Summit run by the Cloud Foundry Foundation</strong>. The Summit featured project
+updates, particularly in the Kubernetes space, including a talk on Paketo
+Buildpacks. Dan Thornton, an engineer contributing to the Paketo Buildpacks
+project, maintained that they are the ideal tool for transforming app source
+code into container images.</p>
+<p>So, we wanted to share Dan’s talk here and dive into a Q&amp;A of all of the
+questions we didn’t get to answer during this session. A comprehensive list of
+other sessions can be found on the Cloud Foundry <a href="https://www.youtube.com/channel/UC0ZYS0Y7b5oiVLvxGf4magw">YouTube
+channel</a>.</p>
     
       <a href="/posts/paketo-buildpacks-hot-topic-at-cf-summit/">…</a>
     
@@ -656,8 +897,15 @@ So, we wanted to share Dan’s talk here and dive into a Q&amp;A of all of the q
         <article>
   <div>
     <h2><a href="/posts/get-to-know-paketo-buildpacks/">Building apps for Kubernetes? Get to Know Paketo Buildpacks.</a></h2>
-    I’m excited to announce the launch of Paketo Buildpacks, a collection of Cloud Native Buildpacks for the most popular languages and frameworks. Paketo Buildpacks make it easy for you to build and patch containerized apps so that you can spend all your time on the thing that matters the most… developing great software.
-First off… what are Paketo Buildpacks, and why would I use them? Buildpacks provide a higher-level abstraction for building apps
+    <p><img src="/images/posts/0001/logo.png" alt="Logo"></p>
+<p>I’m excited to announce the launch of <a href="https://paketo.io/">Paketo Buildpacks</a>,
+a collection of Cloud Native Buildpacks for the most popular languages and
+frameworks. Paketo Buildpacks make it easy for you to build and patch
+containerized apps so that you can spend all your time on the thing that
+matters the most… <strong>developing great software</strong>.</p>
+<h2 id="first-off-what-are-paketo-buildpacks-and-why-would-i-use-them">First off… what are Paketo Buildpacks, and why would I use them?</h2>
+<blockquote>
+<p>Buildpacks provide a higher-level abstraction for building apps</p>
     
       <a href="/posts/get-to-know-paketo-buildpacks/">…</a>
     
