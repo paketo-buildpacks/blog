@@ -140,29 +140,19 @@ function util::tools::hugo::install() {
       curl "${curl_args[@]}" "${tarball_url}" | tar xzf - -C "${dir}" hugo
       chmod +x "${dir}/hugo"
     elif [[ "${os}" == "darwin" ]]; then
-      local formula brew_prefix
-      formula="hugo@${version}"
+      local brew_prefix
 
       if ! command -v brew >/dev/null 2>&1; then
         util::print::error "Homebrew is required to install Hugo ${version} when the release tarball is unavailable"
       fi
 
-      if ! brew info "${formula}" >/dev/null 2>&1; then
-        util::print::error "Homebrew formula ${formula} not found"
-      fi
+      # we always install the latest version of hugo
+      # as brew does not support installing a specific version
+      brew install hugo
 
-      brew_prefix="$(brew --prefix "${formula}")"
-
-      if [[ ! -x "${brew_prefix}/bin/hugo" ]]; then
-        util::print::error "Homebrew did not install a hugo binary at ${brew_prefix}/bin/hugo"
-      fi
-
-      if ! "${brew_prefix}/bin/hugo" version | grep -q "v${version}"; then
-        util::print::error "Homebrew installed $("${brew_prefix}/bin/hugo" version) which does not match requested v${version}"
-      fi
+      brew_prefix="$(brew --prefix hugo)"
 
       ln -sf "${brew_prefix}/bin/hugo" "${dir}/hugo"
-
     else
       util::print::error "Unsupported OS for Hugo install: ${os}"
       exit 1
