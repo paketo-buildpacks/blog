@@ -48,7 +48,7 @@ function main() {
   tools::install "${token}" "${do_not_update_tools}"
 
   util::print::title "Building Hugo site..."
-  "${ROOTDIR}/.bin/hugo"
+  "${ROOTDIR}/.bin/hugo" build --panicOnWarning
 
   util::print::success "Site built successfully!"
 }
