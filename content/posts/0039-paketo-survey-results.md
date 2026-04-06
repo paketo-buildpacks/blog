@@ -45,7 +45,7 @@ AMD64/x86_64 remains dominant and rated as highly important by the vast majority
 
 ### Build Tools
 
-The `pack` CLI leads at 61.1%, which makes sense as it's the most direct way to use Paketo Buildpacks. The Spring Boot Maven plugin (44.4%) and Gradle plugin (38.9%) are also heavily used, reinforcing how central the Java/Spring ecosystem is to our community. kpack comes in at 16.7%, and small but meaningful minorities are integrating through Tekton, Jenkins, GitLab, and GitHub Actions.
+The `pack` CLI leads at 61.1%, which makes sense as it's the most direct way to use Paketo Buildpacks. The [Spring Boot Maven plugin](https://docs.spring.io/spring-boot/maven-plugin/build-image.html) (44.4%) and [Gradle plugin](https://docs.spring.io/spring-boot/gradle-plugin/packaging-oci-image.html) (38.9%) are also heavily used, reinforcing how central the Java/Spring ecosystem is to our community. [kpack](https://buildpacks.io/docs/for-platform-operators/how-to/integrate-ci/kpack/) comes in at 16.7%, and small but meaningful minorities are integrating through Tekton, Jenkins, GitLab, and GitHub Actions.
 
 ### How Users Get News
 
