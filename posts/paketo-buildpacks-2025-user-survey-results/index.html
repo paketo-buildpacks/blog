@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+  <head>
+      <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Paketo Buildpacks 2025 User Survey Results | Paketo Buildpacks | Blog</title>
+<link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-language" content="en-us" />
+
+<meta property='og:site_name' content="Paketo Buildpacks | Blog">
+<meta property='og:title' content="Paketo Buildpacks 2025 User Survey Results">
+<meta property='og:url' content="https://blog.paketo.io/posts/paketo-buildpacks-2025-user-survey-results/">
+<meta property='og:image' content='/images/logo512.png'/>
+<meta name="twitter:title" content="Paketo Buildpacks | Blog" />
+<meta name="twitter:url" content="https://blog.paketo.io/posts/paketo-buildpacks-2025-user-survey-results/" />
+<meta name="twitter:card" content="" />
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TJMQZ5RDFG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TJMQZ5RDFG');
+</script><link rel="stylesheet" href="/scss/main.min.css">
+
+  </head>
+  <body>
+    <div class="post">
+      <header>
+        <a href="/">
+          <img class="logo" src="/images/logo512.png" />
+          <h1>Paketo Buildpacks | Blog</h1>
+        </a>
+      </header>
+      <section>
+        <h1>Paketo Buildpacks 2025 User Survey Results</h1>
+        <section class="author"><img src="/images/authors/dmikusa.jpg" /><name>Daniel Mikusa</name></section>
+        <date>Thursday, Apr 2, 2026</date>
+        <article>
+          <p>Earlier this year, we ran the Paketo Buildpacks User Survey to better understand how people are using the project and what they&rsquo;d like to see from it. We&rsquo;re excited to share the results and how we&rsquo;re going to incorporate your feedback.</p>
+<p>Thank you to everyone who took the time to fill it out. Your feedback genuinely helps shape the direction of the project.</p>
+<h2 id="survey-results">Survey Results</h2>
+<h3 id="overview">Overview</h3>
+<p>We received 18 responses from a broad mix of users, ranging from individual developers working on side projects to engineers at enterprise organizations. The diversity of use cases gives us a good cross-section of how Paketo Buildpacks is being used in the wild.</p>
+<h3 id="number-of-applications">Number of Applications</h3>
+<p>Users are building anywhere from 4 to 100 applications with Paketo Buildpacks. There&rsquo;s a noticeable cluster at the lower end (4–6 apps), reflecting smaller teams or individual projects, but a healthy number of respondents are running at much larger scales — 20, 25, 30, and even 50–100 applications. Paketo Buildpacks is serving both early-stage users and large-scale enterprise deployments, and we need to keep both audiences in mind as we evolve the project.</p>
+<h3 id="language-support">Language Support</h3>
+<p>Java, .NET Core, and Go are the primary languages in use. Java in particular stands out, not just in usage, but also in terms of the feature requests we received in the survey. Java users are among the most active and engaged segment of the community.</p>
+<p>One respondent also called out <strong>Zig</strong> as a language they&rsquo;d like to see Paketo support. Zig continues to mature as a systems programming language and gain broader adoption, so we&rsquo;ll continue to track it. If you&rsquo;re interested in seeing a Zig buildpack, we&rsquo;d love to <a href="https://github.com/orgs/paketo-buildpacks/discussions/categories/general">hear from you</a>.</p>
+<h3 id="base-images-and-stacks">Base Images and Stacks</h3>
+<p>This section produced some of the clearest signal in the entire survey. Users want <strong>secure, minimal base images</strong>.</p>
+<p>The top results:</p>
+<ul>
+<li><strong>Chainguard Wolfi</strong> — highest interest at 38.5%</li>
+<li><strong>Distroless Base</strong> — 30.8%</li>
+<li><strong>Alpine</strong> and <strong>Distroless Static</strong> — 23.1% each</li>
+</ul>
+<p>Ubuntu Jammy and Noble remain important and they will continue to be our primary option for users, including our own Ubuntu-based tiny &amp; static base images. But the indication we&rsquo;re seeing from users is toward hardened, minimal images with smaller attack surfaces so we&rsquo;re planning to move in that direction.</p>
+<p>We also received some feedback about increasing our options with <a href="https://blog.paketo.io/posts/paketo-ubi-builders-move-from-community-to-buildpacks/">UBI stacks</a>, and that is another area where the project can grow. If you have thoughts about that, please add some feedback to the discussion thread linked below.</p>
+<h3 id="architecture-support">Architecture Support</h3>
+<p>AMD64/x86_64 remains dominant and rated as highly important by the vast majority of respondents. ARM64 is clearly gaining ground though, with a significant number of users rating it as important to them. We&rsquo;ve been adding support for ARM64 to Paketo buildpacks (Java buildpacks were completed first) and are getting close to having all of our buildpacks ARM64 compatible. For example, we&rsquo;ve recently added ARM64 initial support for Ruby &amp; PHP. We&rsquo;ll continue adding support until we support for ARM64 reaches pairity with AMD64.</p>
+<h3 id="build-tools">Build Tools</h3>
+<p>The <code>pack</code> CLI leads at 61.1%, which makes sense as it&rsquo;s the most direct way to use Paketo Buildpacks. The <a href="https://docs.spring.io/spring-boot/maven-plugin/build-image.html">Spring Boot Maven plugin</a> (44.4%) and <a href="https://docs.spring.io/spring-boot/gradle-plugin/packaging-oci-image.html">Gradle plugin</a> (38.9%) are also heavily used, reinforcing how central the Java/Spring ecosystem is to our community. <a href="https://buildpacks.io/docs/for-platform-operators/how-to/integrate-ci/kpack/">kpack</a> comes in at 16.7%, and small but meaningful minorities are integrating through Tekton, Jenkins, GitLab, and GitHub Actions.</p>
+<h3 id="how-users-get-news">How Users Get News</h3>
+<p>The Paketo Blog is the preferred channel at 55.6%, with Paketo Slack second at 27.8%. Twitter, LinkedIn, Mastodon, and CNCF Slack each have smaller but present followings.</p>
+<p>If you&rsquo;re not already subscribed via RSS, point your reader at <a href="https://blog.paketo.io/index.xml">https://blog.paketo.io/index.xml</a>. And if you prefer live conversation, come find us in <a href="https://join.slack.com/t/paketobuildpacks/shared_invite/zt-2jayv12ro-eTP8AtcmvyIpEtlANfIb~g">Paketo Slack</a>.</p>
+<hr>
+<h2 id="action-items-from-your-feedback">Action Items from your Feedback</h2>
+<p>Survey feedback is only useful if it leads to action. We&rsquo;ve identified four topics that came up repeatedly and that deserve dedicated community discussion. For each one, we&rsquo;ve opened a GitHub Discussions thread where you can share your thoughts, ask questions, and — if you&rsquo;re up for it — help make it happen.</p>
+<p>Paketo is an all-volunteer project. We don&rsquo;t have a dedicated team waiting to implement a roadmap on a schedule. What we do have is a group of people who care about the project and the time to work on things that matter to them. If any of these topics matter to you, the best thing you can do is participate in the discussions and where possible help by contributing code changes.</p>
+<h3 id="secure-base-images">Secure Base Images</h3>
+<p><a href="https://github.com/orgs/paketo-buildpacks/discussions/405">[Discussion Link]</a></p>
+<p>The survey was clear on this one. Users want hardened, minimal base images — Chainguard Wolfi, Distroless, and similar options are in high demand. We want to have a broader conversation about what this should look like for Paketo: which images to prioritize, what official support means, and how to structure the work.</p>
+<p>If you&rsquo;re a user with security requirements you&rsquo;d like to share, or someone who wants to help build and maintain a solution, come join the thread.</p>
+<h3 id="sbom-standardization-with-cyclonedx">SBOM Standardization with CycloneDX</h3>
+<p><a href="https://github.com/orgs/paketo-buildpacks/discussions/407">[Discussion Link]</a></p>
+<p>In the survey, we heard the need to standardize on CycloneDX as the SBOM format across all Paketo buildpacks. We understand that our present SBOM support is not perfect and want to do better. If you have experience with Paketo Buildpacks and SBOM, and you can share your experiences, we&rsquo;d love to hear it.</p>
+<h3 id="production-ready-ubi-buildpacks">Production-Ready UBI Buildpacks</h3>
+<p><a href="https://github.com/orgs/paketo-buildpacks/discussions/406">[Discussion Link]</a></p>
+<p>Support for Red Hat&rsquo;s Universal Base Image (UBI) came up in the survey, particularly around pulling dependencies from custom mirrors using Red Hat subscriptions. We&rsquo;re interested in exploring this further, but we&rsquo;d like to better understand what &ldquo;production-ready&rdquo; actually means for users in this space before committing to a direction. If you&rsquo;re running or planning to run Paketo Buildpacks on UBI, please share your environment and requirements in the thread. The more context, the better.</p>
+<h3 id="a-cross-stack-package-manager-buildpack">A Cross-Stack Package Manager Buildpack</h3>
+<p><a href="https://github.com/orgs/paketo-buildpacks/discussions/408">[Discussion Link]</a></p>
+<p>We recently shipped an official <code>apt-buildpack</code> for installing packages into Ubuntu-based stacks. Users on RPM-based stacks (like UBI or Amazon Linux) don&rsquo;t have an equivalent. We believe there&rsquo;s room for an official, Go-based Paketo buildpack that supports installing libraries across multiple package managers (i.e. <code>apt</code>, <code>rpm</code>, and potentially others) in a consistent way. If you&rsquo;re have thoughts on this topic or you are interested in helping design or implement this, especially if you have experience with RPM-based stacks, come join the conversation.</p>
+<hr>
+<h2 id="smaller-issues">Smaller Issues</h2>
+<p>A couple of more targeted issues came up in the survey feedback as well. I wanted to respond to this as well.</p>
+<ol>
+<li>There&rsquo;s an existing open issue around native image support for include/exclude of files: <a href="https://github.com/paketo-buildpacks/native-image/issues/280">paketo-buildpacks/native-image#280</a>.</li>
+<li>There&rsquo;s a  open issue around adding support to the Java memory calculator for virtual thread support: <a href="https://github.com/paketo-buildpacks/jvm-vendors/issues/33">paketo-buildpacks/jvm-vendors#33</a>.</li>
+</ol>
+<p>If either of these affects you and you&rsquo;re interested in contributing, please take a look and reach out on <a href="https://join.slack.com/t/paketobuildpacks/shared_invite/zt-2jayv12ro-eTP8AtcmvyIpEtlANfIb~g">Paketo Slack</a> or comment directly on the issue. We are looking for help to implement these features which we know are important to our user base.</p>
+<hr>
+<p>From the entire Paketo Steering Committee &amp; all of our maintainers, thanks again to everyone who filled out the survey! We&rsquo;re happy to hear from you and we&rsquo;re looking forward to the conversations ahead.</p>
+
+        </article>
+      </section>
+      <footer class="post">
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Paketo%20Buildpacks%20%7c%20Blog%20%7c%20Paketo%20Buildpacks%202025%20User%20Survey%20Results&amp;url=https://blog.paketo.io/posts/paketo-buildpacks-2025-user-survey-results/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/twitter.png" />
+</a>
+
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://blog.paketo.io/posts/paketo-buildpacks-2025-user-survey-results/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/linkedin.png" />
+</a>
+
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://blog.paketo.io/posts/paketo-buildpacks-2025-user-survey-results/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/facebook.png" />
+</a>
+
+      </footer>
+    </div>
+  </body>
+</html>

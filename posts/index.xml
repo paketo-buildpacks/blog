@@ -6,8 +6,15 @@
     <description>Recent content in Posts on Paketo Buildpacks | Blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 14 Jan 2026 13:14:44 -0500</lastBuildDate>
+    <lastBuildDate>Thu, 02 Apr 2026 14:14:44 -0500</lastBuildDate>
     <atom:link href="https://blog.paketo.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Paketo Buildpacks 2025 User Survey Results</title>
+      <link>https://blog.paketo.io/posts/paketo-buildpacks-2025-user-survey-results/</link>
+      <pubDate>Thu, 02 Apr 2026 14:14:44 -0500</pubDate>
+      <guid>https://blog.paketo.io/posts/paketo-buildpacks-2025-user-survey-results/</guid>
+      <description>&lt;p&gt;Earlier this year, we ran the Paketo Buildpacks User Survey to better understand how people are using the project and what they&amp;rsquo;d like to see from it. We&amp;rsquo;re excited to share the results and how we&amp;rsquo;re going to incorporate your feedback.&lt;/p&gt;&#xA;&lt;p&gt;Thank you to everyone who took the time to fill it out. Your feedback genuinely helps shape the direction of the project.&lt;/p&gt;&#xA;&lt;h2 id=&#34;survey-results&#34;&gt;Survey Results&lt;/h2&gt;&#xA;&lt;h3 id=&#34;overview&#34;&gt;Overview&lt;/h3&gt;&#xA;&lt;p&gt;We received 18 responses from a broad mix of users, ranging from individual developers working on side projects to engineers at enterprise organizations. The diversity of use cases gives us a good cross-section of how Paketo Buildpacks is being used in the wild.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Paketo Buildpacks 2025 Year in Review</title>
       <link>https://blog.paketo.io/posts/paketo-buildpacks-2025-year-in-review/</link>
