@@ -41,7 +41,7 @@ We also received some feedback about increasing our options with UBI stacks, and
 
 ### Architecture Support
 
-AMD64/x86_64 remains dominant and rated as highly important by the vast majority of respondents. ARM64 is clearly gaining ground though, with a significant number of users rating it as important to them. We've been adding support for ARM64 to Paketo buildpacks and are getting close to having all of our buildpacks ARM64 compatible. For example, we've recently added ARM64 initial support for Ruby & PHP. We'll continue adding support until we support for ARM64 reaches pairity with AMD64.
+AMD64/x86_64 remains dominant and rated as highly important by the vast majority of respondents. ARM64 is clearly gaining ground though, with a significant number of users rating it as important to them. We've been adding support for ARM64 to Paketo buildpacks (Java buildpacks were completed first) and are getting close to having all of our buildpacks ARM64 compatible. For example, we've recently added ARM64 initial support for Ruby & PHP. We'll continue adding support until we support for ARM64 reaches pairity with AMD64.
 
 ### Build Tools
 
