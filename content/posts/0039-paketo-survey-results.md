@@ -37,7 +37,7 @@ The top results:
 
 Ubuntu Jammy and Noble remain important and they will continue to be our primary option for users, including our own Ubuntu-based tiny & static base images. But the indication we're seeing from users is toward hardened, minimal images with smaller attack surfaces so we're planning to move in that direction.
 
-We also received some feedback about increasing our options with UBI stacks, and that is another area where the project can grow. If you have thoughts about that, please add some feedback here.
+We also received some feedback about increasing our options with [UBI stacks](https://blog.paketo.io/posts/paketo-ubi-builders-move-from-community-to-buildpacks/), and that is another area where the project can grow. If you have thoughts about that, please add some feedback to the discussion thread linked below.
 
 ### Architecture Support
 
