@@ -73,7 +73,7 @@ If you're a user with security requirements you'd like to share, or someone who 
 
 [[Discussion Link]](https://github.com/orgs/paketo-buildpacks/discussions/407)
 
-In the survey, we heard the need to standardize on CycloneDX as the SBOM format across all Paketo buildpacks. We understand that our present SBOM support is not perfect and want to do better. If you have experience with Paketo Buildpacks and SBOM, and you can shared your experiences, we'd love to hear it.
+In the survey, we heard the need to standardize on CycloneDX as the SBOM format across all Paketo buildpacks. We understand that our present SBOM support is not perfect and want to do better. If you have experience with Paketo Buildpacks and SBOM, and you can share your experiences, we'd love to hear it.
 
 ### Production-Ready UBI Buildpacks
 
