@@ -3,6 +3,9 @@ locale = "en-us"
 title = "Paketo Buildpacks | Blog"
 enableEmoji = true
 
+[markup.highlight]
+  style = "emacs"
+
 [params.authors]
   dmikusa = "Daniel Mikusa"
   dosullivan = "David O'Sullivan"
