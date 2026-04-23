@@ -11,7 +11,7 @@ The `spring-boot` buildpack is a Paketo Buildpack that is used to build Spring B
 
 But what is so special about a Spring Boot application compared to other Java applications?
 
-The Spring ecosystem, the integration with cloud environment and performance optimizations are peculiar to this Java framework; let's dive into how this buildpack helps you get the most of Spring Boot.
+The Spring ecosystem, the integration with cloud environment and performance optimizations are particular to this Java framework; let's dive into how this buildpack helps you get the most of Spring Boot.
 
 **Some content in this article was generated with Generative AI; the entirety of the article was reviewed by humans though.**
 
