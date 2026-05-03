@@ -30,7 +30,7 @@ versatile tool to replace them all.
 
 ## What about Paketo Buildpacks?
 
-Starting with Paketo Python Buildpack release 2.45, both `uv` and `pixi` are available as package manager
+Starting with Paketo Python Buildpack release [2.45.0](https://github.com/paketo-buildpacks/python/releases/tag/v2.45.0), both `uv` and `pixi` are available as package manager
 for your Python projects. In the same spirit as their sibling, you can create
 projects using these tools and then point `pack` to them as usual to generate
 OCI/Docker images for your needs.
