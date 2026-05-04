@@ -6,8 +6,15 @@
     <description>Recent content on Paketo Buildpacks | Blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 02 Apr 2026 14:14:44 -0500</lastBuildDate>
+    <lastBuildDate>Wed, 29 Apr 2026 20:53:59 +0200</lastBuildDate>
     <atom:link href="https://blog.paketo.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>uv and Pixi Now Available</title>
+      <link>https://blog.paketo.io/posts/uv-and-pixi-now-available/</link>
+      <pubDate>Wed, 29 Apr 2026 20:53:59 +0200</pubDate>
+      <guid>https://blog.paketo.io/posts/uv-and-pixi-now-available/</guid>
+      <description>&lt;p&gt;The Python package manager ecosystem is not set in stone. Most people know the&#xA;big players such as pip, its brother pipenv, after which came poetry, and from&#xA;the scientific world conda.&lt;/p&gt;&#xA;&lt;p&gt;Sounds like an already impressive list of options. However this did not stop the&#xA;Pythonistas from trying to innovate on that subject.&lt;/p&gt;&#xA;&lt;p&gt;These past years have seen quite a lot of movement with goals such as better&#xA;performance, reproducibility and ease of use.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Paketo Buildpacks 2025 User Survey Results</title>
       <link>https://blog.paketo.io/posts/paketo-buildpacks-2025-user-survey-results/</link>
