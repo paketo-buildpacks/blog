@@ -15,6 +15,9 @@
         <h1>{{ .Title }}</h1>
         {{ partial "author.html" . }}
         <date>{{ dateFormat "Monday, Jan 2, 2006" .Date }}</date>
+        {{ if .Params.toc }}
+        <nav class="toc">{{ .TableOfContents }}</nav>
+        {{ end }}
         <article>
           {{ .Content }}
         </article>
