@@ -11,7 +11,7 @@ concurrency: tools_update
 jobs:
   update:
     name: Update
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout
       uses: actions/checkout@v6
@@ -20,6 +20,7 @@ jobs:
       uses: paketo-buildpacks/github-config/actions/pull-request/checkout-branch@main
       with:
         branch: automation/tools/update
+        start-point: origin/main
 
     - name: Fetch Latest Hugo
       id: latest-hugo
@@ -35,6 +36,10 @@ jobs:
            --sort-keys \
            --arg hugo "${HUGO_VERSION}" \
            '{ hugo: $hugo }' > ./scripts/.util/tools.json
+
+    - name: Build
+      id: build
+      run: ./scripts/build.sh
 
     - name: Commit
       id: commit
