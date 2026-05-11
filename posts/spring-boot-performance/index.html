@@ -1,0 +1,638 @@
+<!doctype html>
+<html>
+  <head>
+      <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>From deprecation warnings to Spring Boot performance - the spring-boot buildpack in 2026 | Paketo Buildpacks | Blog</title>
+<link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-language" content="en-us" />
+
+<meta property='og:site_name' content="Paketo Buildpacks | Blog">
+<meta property='og:title' content="From deprecation warnings to Spring Boot performance - the spring-boot buildpack in 2026">
+<meta property='og:url' content="https://blog.paketo.io/posts/spring-boot-performance/">
+<meta property='og:image' content='/images/logo512.png'/>
+<meta name="twitter:title" content="Paketo Buildpacks | Blog" />
+<meta name="twitter:url" content="https://blog.paketo.io/posts/spring-boot-performance/" />
+<meta name="twitter:card" content="" />
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TJMQZ5RDFG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TJMQZ5RDFG');
+</script><link rel="stylesheet" href="/scss/main.min.css">
+
+  </head>
+  <body>
+    <div class="post">
+      <header>
+        <a href="/">
+          <img class="logo" src="/images/logo512.png" />
+          <h1>Paketo Buildpacks | Blog</h1>
+        </a>
+      </header>
+      <section>
+        <h1>From deprecation warnings to Spring Boot performance - the spring-boot buildpack in 2026</h1>
+        <section class="author"><img src="/images/authors/anthonydahanne.jpg" /><name>Anthony Dahanne</name></section>
+        <date>Monday, May 4, 2026</date>
+        
+        <nav class="toc"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#spring-generations">Spring Generations</a></li>
+    <li><a href="#spring-cloud-bindings">Spring Cloud Bindings</a>
+      <ul>
+        <li><a href="#two-versions-automatically-selected">Two versions, automatically selected</a></li>
+        <li><a href="#where-the-jar-ends-up-in-the-container">Where the jar ends up in the container</a></li>
+        <li><a href="#runtime-activation">Runtime activation</a></li>
+        <li><a href="#opting-out-entirely-at-build-time">Opting out entirely at build time</a></li>
+      </ul>
+    </li>
+    <li><a href="#performance-optimization-with-the-spring-boot-buildpack">Performance optimization with the Spring Boot buildpack</a>
+      <ul>
+        <li><a href="#simple-things-that-can-be-tried-before-digging-into-spring-boot-buildpack-performance-features">Simple things that can be tried before digging into Spring-Boot Buildpack performance features</a></li>
+        <li><a href="#lets-explore-the-spring-boot-buildpack-performance-features">Let&rsquo;s explore the Spring Boot buildpack performance features</a></li>
+        <li><a href="#build-the-container-image-using-the-pack-cli">Build the container image using the <code>pack</code> CLI</a></li>
+        <li><a href="#build-the-container-image-using-the-spring-boot-maven-plugin">Build the container image using the Spring Boot maven plugin:</a></li>
+      </ul>
+    </li>
+    <li><a href="#spring-boot-performance-options-spring-boot-extract-layout-spring-aot-crac-native-build-and-aot-caching-previously-known-as-cds">Spring Boot performance options: Spring Boot extract layout, Spring AOT, CRaC, Native build and AOT Caching (previously known as CDS)</a>
+      <ul>
+        <li><a href="#spring-boot-extract">Spring Boot extract</a></li>
+        <li><a href="#spring-aot">Spring AOT</a></li>
+        <li><a href="#spring-native">Spring native</a></li>
+        <li><a href="#spring-crac">Spring CRaC</a></li>
+        <li><a href="#spring-aot-cache-previously-known-as-cds">Spring AOT Cache (previously known as CDS)</a></li>
+      </ul>
+    </li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ul>
+</nav></nav>
+        
+        <article>
+          <h2 id="introduction">Introduction</h2>
+<p>The <code>spring-boot</code> buildpack is a Paketo Buildpack that is used to build Spring Boot applications.</p>
+<p>But what is so special about a Spring Boot application compared to other Java applications?</p>
+<p>The Spring ecosystem, the integration with cloud environment and performance optimizations are particular to this Java framework; let&rsquo;s dive into how this buildpack helps you get the most of Spring Boot. <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<h2 id="spring-generations">Spring Generations</h2>
+<p>One of the less known but useful features of the <code>spring-boot</code> buildpack is that it will warn you when you are building an application that uses an end-of-life version of Spring Boot.</p>
+<p>How does it work? The buildpack reads the <code>Spring-Boot-Version</code> entry from your application&rsquo;s <code>META-INF/MANIFEST.MF</code> at build time, then checks it against a bundled <code>spring-generations.toml</code> file that tracks the full lifecycle of every Spring project — Spring Boot, Spring Cloud, Spring Data, Spring Security, and more.</p>
+<p>That file is kept automatically up to date by a <a href="https://github.com/paketo-buildpacks/spring-boot/blob/main/.github/workflows/update-spring-generations.yml">weekly workflow</a> that queries the <a href="https://api.spring.io">Spring API</a> and opens a patch-bump pull request whenever new lifecycle data is available.</p>
+<p>The content of <code>spring-generations.toml</code> looks like this:</p>
+<pre tabindex="0"><code>[[projects]]
+  name = &#34;Spring Boot&#34;
+  slug = &#34;spring-boot&#34;
+  status = &#34;ACTIVE&#34;
+
+    [[Projects.Generations]]
+    Name = &#34;3.3.x&#34;
+    OSS = &#34;2025-06-30&#34;
+    
+    [[Projects.Generations]]
+    Name = &#34;3.4.x&#34;
+    OSS = &#34;2025-12-31&#34;
+    
+    [[Projects.Generations]]
+    Name = &#34;3.5.x&#34;
+    OSS = &#34;2026-06-30&#34;
+</code></pre><p>At build time, if the detected Spring Boot version falls into a generation whose <code>oss-end-of-life</code> date has already passed, the buildpack emits a clearly visible warning:</p>
+<pre tabindex="0"><code>This application uses Spring Boot 2.0.0.RELEASE. Open Source updates for 2.0.x ended on 2019-03-31.
+</code></pre><p>The warning is printed in bold yellow so it is hard to miss in your build logs, but it does <strong>not</strong> fail the build — it is purely informational. That said, if you don&rsquo;t look closely at your build logs, you could miss it; you could &ldquo;watch&rdquo; your logs in CI and trigger an alarm based on this warning message though.</p>
+<p>This is a small but practical safety net: if you are building an image from a dependency-locked project that nobody has touched in a while, the buildpack will surface the EOL status without you having to check the Spring release calendar manually.</p>
+<h2 id="spring-cloud-bindings">Spring Cloud Bindings</h2>
+<p><a href="https://github.com/spring-cloud/spring-cloud-bindings">Spring Cloud Bindings</a> is a library that implements the <a href="https://servicebinding.io/#specification">Kubernetes Service Binding Specification</a>. When a Service Binding is mounted in your pod, the library detects it and automatically translates the raw binding files into Spring Boot <code>Environment</code> properties — so your app can connect to a bound MySQL, PostgreSQL, Redis, RabbitMQ, Kafka (and more) without you writing any boilerplate configuration.</p>
+<p>The <code>spring-boot</code> buildpack injects this jar automatically unless you explicitly opt out.</p>
+<h3 id="two-versions-automatically-selected">Two versions, automatically selected</h3>
+<p>There are two active release lines of the library, and the buildpack picks the right one based on the Spring Boot version found in your <code>META-INF/MANIFEST.MF</code>:</p>
+<table>
+  <thead>
+      <tr>
+          <th>Detected Spring Boot version</th>
+          <th>Injected library version</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>≤ 3.0.0 (Spring Boot 2.x)</td>
+          <td><code>spring-cloud-bindings</code> 1.x (e.g. 1.13.0)</td>
+      </tr>
+      <tr>
+          <td>&gt; 3.0.0 (Spring Boot 3.x)</td>
+          <td><code>spring-cloud-bindings</code> 2.x (e.g. 2.0.4)</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="where-the-jar-ends-up-in-the-container">Where the jar ends up in the container</h3>
+<p>The buildpack places the jar in its own layer, then creates a <strong>symlink</strong> into the Spring Boot fat-jar&rsquo;s lib directory. This is how it looks inside the running container:</p>
+<pre tabindex="0"><code>/layers/
+└── paketo-buildpacks_spring-boot/
+    └── spring-cloud-bindings/         ← CNB layer (launch=true)
+        └── spring-cloud-bindings-2.0.4.jar
+
+/workspace/
+└── BOOT-INF/
+    └── lib/
+        ├── spring-core-6.2.x.jar
+        ├── spring-context-6.2.x.jar
+        ├── ...
+        └── spring-cloud-bindings-2.0.4.jar  ← symlink → /layers/.../spring-cloud-bindings-2.0.4.jar
+</code></pre><p>Because it lands in <code>BOOT-INF/lib/</code>, the Spring Boot classloader picks it up automatically — no <code>CLASSPATH</code> manipulation, no <code>loader.path</code> tricks. From the application&rsquo;s perspective, the jar was always there.</p>
+<h3 id="runtime-activation">Runtime activation</h3>
+<p>The library&rsquo;s auto-configuration is activated at runtime via a system property that the buildpack sets through its launch environment:</p>
+<pre tabindex="0"><code>org.springframework.cloud.bindings.boot.enable=true
+</code></pre><p>This is wired up via the <code>BPL_SPRING_CLOUD_BINDINGS_DISABLED</code> environment variable (default: <code>false</code>, meaning bindings are <strong>enabled</strong>). You can turn it off at runtime without rebuilding:</p>
+<pre tabindex="0"><code>docker run -e BPL_SPRING_CLOUD_BINDINGS_DISABLED=true petclinic:main
+</code></pre><h3 id="opting-out-entirely-at-build-time">Opting out entirely at build time</h3>
+<p>If you deploy to an environment that does not use Service Bindings — or if you prefer to include the library explicitly in your <code>pom.xml</code> so that your security team can track it — you can tell the buildpack not to inject it at all:</p>
+<pre tabindex="0"><code>pack build --env BP_SPRING_CLOUD_BINDINGS_DISABLED=true petclinic:main
+</code></pre><p>Or with the Spring Boot Maven plugin (as shown in the examples throughout this article):</p>
+<pre tabindex="0"><code>&lt;BP_SPRING_CLOUD_BINDINGS_DISABLED&gt;true&lt;/BP_SPRING_CLOUD_BINDINGS_DISABLED&gt;
+</code></pre><p>When this flag is set, no jar is added and no symlink is created — the layer simply does not appear in the image.</p>
+<h2 id="performance-optimization-with-the-spring-boot-buildpack">Performance optimization with the Spring Boot buildpack</h2>
+<p>Optimizing a Spring Boot app for less memory consumption and/or for better start times is obviously something all developers want.</p>
+<p>But optimizing an app can have drawbacks too; let&rsquo;s explore in this post the different ways Paketo Buildpacks can help you optimize your Spring Boot apps.</p>
+<p>I invite you to first read the articles on the Spring Blog and documentation site, introducing all the concepts I am going to enable here with the Paketo Buildpacks:</p>
+<ul>
+<li><a href="https://spring.io/blog/2023/12/04/cds-with-spring-framework-6-1">CDS with Spring Framework 6.1</a>: this is where CDS was introduced to Spring users</li>
+<li><a href="https://spring.io/blog/2024/08/29/spring-boot-cds-support-and-project-leyden-anticipation">Spring Boot CDS support and Project Leyden anticipation</a>: Project Leyden is getting near and will rename and enhance CDS with AOT Cache</li>
+<li><a href="https://docs.spring.io/spring-boot/reference/packaging/aot-cache.html">AOT Cache</a>: with Java 24+ comes AOT Cache, which is the evolution of CDS</li>
+</ul>
+<p>We&rsquo;ll be using the <a href="https://github.com/spring-projects/spring-petclinic">Spring Petclinic</a> as the example app, and BellSoft Liberica 25 (Petclinic only requires Java 17 but using the latest runtime is usually&hellip; faster! and allows for modern optimization features) as the compiler / runtime.</p>
+<h3 id="simple-things-that-can-be-tried-before-digging-into-spring-boot-buildpack-performance-features">Simple things that can be tried before digging into Spring-Boot Buildpack performance features</h3>
+<h4 id="virtual-threads">Virtual threads</h4>
+<p><a href="https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.2-Release-Notes#virtual-threads">Spring Boot 3.2 (November 2023)</a> introduced first-class support for Java 21 virtual threads (with that said, Java 24 (via <a href="https://openjdk.org/jeps/491">JEP 491</a>) solves the virtual thread pinning issue <a href="https://www.danvega.dev/blog/jdk-24-virtual-threads-without-pinning">by allowing virtual threads to use synchronized blocks and methods without pinning their underlying carrier threads</a>). With a single property, Spring replaces its default platform-thread executor with virtual threads: each request is handled by a lightweight, JVM-managed thread that parks (instead of blocking an OS thread) during I/O. For a web application like Petclinic that spends most of its time waiting on database queries, this can meaningfully improve throughput under load without touching a line of application code.</p>
+<p>There is nothing to change at build time. Enable it at runtime:</p>
+<pre tabindex="0"><code>docker run -e SPRING_THREADS_VIRTUAL_ENABLED=true petclinic:main
+</code></pre><p>Spring Boot&rsquo;s <a href="https://docs.spring.io/spring-boot/reference/features/external-config.html#features.external-config.typesafe-configuration-properties.relaxed-binding.environment-variables">relaxed binding</a> automatically maps <code>SPRING_THREADS_VIRTUAL_ENABLED</code> to <code>spring.threads.virtual.enabled</code>, so no code change is required.</p>
+<h4 id="jep-519-compact-object-headers">JEP 519: Compact Object Headers</h4>
+<p><a href="https://openjdk.org/jeps/519">JEP 519</a>, delivered as a production-ready feature in Java 25, shrinks every Java object header from 96–128 bits down to 64 bits. This is a pure memory win with no functional trade-offs: fewer bytes per object means lower heap pressure and better cache locality. Since we are already targeting Java 25, enabling it requires a single JVM flag at runtime via <code>JAVA_TOOL_OPTIONS</code>:</p>
+<pre tabindex="0"><code>docker run -e JAVA_TOOL_OPTIONS=&#34;-XX:+UseCompactObjectHeaders&#34; petclinic:main
+</code></pre><p>There is already a <a href="https://openjdk.org/jeps/8361187">draft JEP</a> proposing to make it the default in a future Java release; enabling it today is simply opting in early.</p>
+<h3 id="lets-explore-the-spring-boot-buildpack-performance-features">Let&rsquo;s explore the Spring Boot buildpack performance features</h3>
+<p>After a fresh checkout of <code>main</code>, get rid of gradle configuration: Spring Petclinic supports both Gradle and Maven, and Gradle is evaluated first (by the Java buildpack) although I want this post to be Maven based since that&rsquo;s still what most developers use today&hellip;</p>
+<pre tabindex="0"><code>&gt; rm -rf build.gradle settings.gradle gradle gradlew gradlew.bat
+</code></pre><h3 id="build-the-container-image-using-the-pack-cli">Build the container image using the <code>pack</code> CLI</h3>
+<pre tabindex="0"><code># let&#39;s choose a decent builder, based on latest Ubuntu LTS, and with only Java related buildpacks
+&gt; pack config default-builder paketobuildpacks/builder-noble-java-tiny
+Builder paketobuildpacks/builder-noble-java-tiny is now the default builder
+&gt; pack build --env BP_JVM_VERSION=25 --env BP_SPRING_CLOUD_BINDINGS_DISABLED=true petclinic:main
+&gt; docker run -it petclinic:main
+[...]
+Started PetClinicApplication in 2.379 seconds
+&gt; docker container stats
+MEM USAGE / LIMIT
+391.8MiB / 15.6GiB
+</code></pre><h3 id="build-the-container-image-using-the-spring-boot-maven-plugin">Build the container image using the Spring Boot maven plugin:</h3>
+<pre tabindex="0"><code>    &lt;profile&gt;
+      &lt;id&gt;main&lt;/id&gt;
+      &lt;build&gt;
+        &lt;plugins&gt;
+          &lt;plugin&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+            &lt;configuration&gt;
+              &lt;imageBuilder&gt;paketobuildpacks/builder-noble-java-tiny:latest&lt;/imageBuilder&gt;
+              &lt;image&gt;
+                &lt;env&gt;
+                  &lt;BP_JVM_VERSION&gt;25&lt;/BP_JVM_VERSION&gt;
+                  &lt;!-- Spring Cloud Bindings jar injection is only needed if you deploy to a Service Binding aware Kubernetes environment --&gt;
+                  &lt;BP_SPRING_CLOUD_BINDINGS_DISABLED&gt;true&lt;/BP_SPRING_CLOUD_BINDINGS_DISABLED&gt;
+                &lt;/env&gt;
+              &lt;/image&gt;
+            &lt;/configuration&gt;
+          &lt;/plugin&gt;
+        &lt;/plugins&gt;
+      &lt;/build&gt;
+    &lt;/profile&gt;
+</code></pre><p>You can see <a href="https://github.com/anthonydahanne/spring-petclinic/tree/maven-plugin-profile">the commit here</a>.</p>
+<pre tabindex="0"><code>./mvnw spring-boot:build-image -Pmain
+</code></pre><p>This is going to be our baseline for this article</p>
+<p>A few notes:</p>
+<ul>
+<li>this post does not intend to be a benchmark article; I&rsquo;m just gathering some memory / startup time metrics to give an idea</li>
+<li>You don&rsquo;t need to specify <code>BP_JVM_VERSION=25</code> if you use an <code>.sdkmanrc</code> with <code>java=25-zulu</code></li>
+<li>I have disabled Spring Cloud bindings <code>BP_SPRING_CLOUD_BINDINGS_DISABLED=true</code> because it injects the <a href="https://github.com/spring-cloud/spring-cloud-bindings">spring-cloud-bindings jar</a> that is only helpful if you deploy to a <a href="https://servicebinding.io/#specification">Service Binding</a> aware Kubernetes environment - if you need it, I&rsquo;d advise you to include it in your <code>pom.xml</code></li>
+<li>Always keep a mind a <code>pack</code> build and a <code>./mvnw spring-boot:build-image</code> build have a slightly different behaviour using <code>pack</code> both the jar and the image will be built by Paketo Buildpacks (the <code>maven</code> build pack will be used); using the Spring Boot plugin, the jar will be built by your local machine (<code>maven</code> buildpack not used) - that said if you <code>pack build -p path/to/jar</code> you will have the same result as using a <code>mvn</code> build.</li>
+</ul>
+<h2 id="spring-boot-performance-options-spring-boot-extract-layout-spring-aot-crac-native-build-and-aot-caching-previously-known-as-cds">Spring Boot performance options: Spring Boot extract layout, Spring AOT, CRaC, Native build and AOT Caching (previously known as CDS)</h2>
+<h3 id="spring-boot-extract">Spring Boot extract</h3>
+<p><a href="https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.3.0-M3-Release-Notes#cds-support">Spring Boot extract was introduced with Spring Boot 3.3 in May 2024, although previous versions, not specific to CDS requirement, existed since Spring Boot 2.3 (2020)</a>, it extracts the Spring Boot jar content into a &ldquo;plain jar&rdquo; with regular MANIFEST.MF and classpath libs (no Spring Boot classloader)</p>
+<p>This deployment optimization does not have any drawbacks, so&hellip; use it and maybe in the future we&rsquo;ll make it the default!</p>
+<h4 id="what-does-it-look-like">What does it look like?</h4>
+<p>A standard Spring Boot fat jar bundles everything: the Spring Boot classloader, all dependency jars nested inside <code>BOOT-INF/lib/</code>, and your application classes inside <code>BOOT-INF/classes/</code>:</p>
+<pre tabindex="0"><code>└── workspace      
+  ├── BOOT-INF                                                                        
+  │   ├── classes                                    
+  │   │   ├── application.properties                 
+  │   │   └── io                                     
+  │   │       └── paketo                             
+  │   │           └── demo                           
+  │   │               └── DemoApplication.class      
+  │   ├── classpath.idx                              
+  │   ├── layers.idx       
+  │   └── lib    
+  │       ├── HdrHistogram-2.2.2.jar                     
+  │       ├── LatencyUtils-2.0.3.jar                     
+  │       ├── commons-logging-1.3.6.jar
+  │       ├── etc.
+  │       ├── spring-expression-7.0.7.jar                
+  │       ├── spring-web-7.0.7.jar                       
+  │       ├── spring-webflux-7.0.7.jar         
+  ├── META-INF                                       
+  │   ├── MANIFEST.MF                                
+  │   ├── maven                                      
+  │   │   └── io.paketo                              
+  │   │       └── demo                               
+  │   │           ├── pom.properties                 
+  │   │           └── pom.xml                        
+  │   └── services                                   
+  │       └── java.nio.file.spi.FileSystemProvider       
+  └── org                                            
+      └── springframework                                                          
+              └── loader                             
+                  ├── jar                            
+                  │   ├── JarEntriesStream$InputStrea
+                  │   ├── etc. more spring-boot loader classes
+</code></pre><p>At runtime, <code>JarLauncher</code> reads the nested jars and builds a custom classloader hierarchy which works, but adds overhead on every start.</p>
+<p>When <code>BP_UNPACK_LAYOUT_ONLY=true</code>, the buildpack runs the following during image creation:</p>
+<pre tabindex="0"><code>java -Djarmode=tools -jar petclinic.jar extract --destination /workspace
+</code></pre><p>This unpacks the fat jar into a flat layout directly in the workspace:</p>
+<pre tabindex="0"><code>└── workspace                                          
+  ├── lib                                            
+  │   ├── HdrHistogram-2.2.2.jar                     
+  │   ├── LatencyUtils-2.0.3.jar                     
+  │   ├── commons-logging-1.3.6.jar
+  │   ├── etc.
+  │   ├── spring-expression-7.0.7.jar                
+  │   ├── spring-web-7.0.7.jar                       
+  │   └── spring-webflux-7.0.7.jar                   
+  └── runner.jar  -&gt; thin jar: just your app classes + META-INF
+</code></pre><p>The application then starts as a plain <code>java -cp runner.jar:lib/* com.example.MyApp</code>, with no custom classloader in the way. The JVM can load classes directly from the filesystem, which is faster and uses less memory than navigating nested zip entries.</p>
+<h4 id="super-easy-to-do-with-the-spring-boot-buildpack">Super easy to do with the spring-boot buildpack!</h4>
+<p>After a fresh checkout of <code>main</code>:</p>
+<pre tabindex="0"><code>&gt; pack build \
+ --env BP_JVM_VERSION=25 \
+ --env BP_SPRING_CLOUD_BINDINGS_DISABLED=true \
+ --env BP_UNPACK_LAYOUT_ONLY=true \
+   petclinic:unpack --clear-cache
+&gt; docker run -it petclinic:unpack
+[...]
+Starting PetClinicApplication v4.0.0-SNAPSHOT using Java 25.0.2 with PID 1 (/workspace/runner.jar started by cnb in /workspace)
+[...]
+Started PetClinicApplication in 2.31 seconds (process running for 2.559)
+&gt; docker container stats
+MEM USAGE / LIMIT
+319.5MiB / 15.6GiB
+</code></pre><p>Using the Spring Boot maven plugin:</p>
+<pre tabindex="0"><code>&lt;profile&gt;
+    &lt;id&gt;unpack&lt;/id&gt;
+    &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+                &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+                &lt;configuration&gt;
+                    &lt;imageBuilder&gt;paketobuildpacks/builder-noble-java-tiny:latest&lt;/imageBuilder&gt;
+                    &lt;image&gt;
+                        &lt;name&gt;unpack&lt;/name&gt;
+                        &lt;env&gt;
+                            &lt;BP_JVM_VERSION&gt;25&lt;/BP_JVM_VERSION&gt;
+                            &lt;BP_SPRING_CLOUD_BINDINGS_DISABLED&gt;true&lt;/BP_SPRING_CLOUD_BINDINGS_DISABLED&gt;
+                            &lt;BP_UNPACK_LAYOUT_ONLY&gt;true&lt;/BP_UNPACK_LAYOUT_ONLY&gt;
+                        &lt;/env&gt;
+                    &lt;/image&gt;
+                &lt;/configuration&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+&lt;/profile&gt;
+</code></pre><h3 id="spring-aot">Spring AOT</h3>
+<p><a href="https://youtu.be/mitWK_DwKGs?si=69JOrH2ji9wpvpUX&amp;t=1308">Spring AOT (Ahead of Time processing) was introduced with Spring Boot 3 back in 2022</a>, it moves wiring and configuration operations to the build phase, for example.</p>
+<p>This is a great way to reduce startup time and memory consumption; but unfortunately it makes your application less dynamic, as AOT class generation and compilation will make assumptions (configured with hints) about your runtime deployment.
+For example: if your app has several profiles, the AOT processing will only apply to a given profile chosen during the AOT process (use H2 in dev and MySQL in prod? you have to choose which profile you want AOT to run on)</p>
+<p><strong>Careful! This is not AOT Caching yet!</strong> the names are similar, but they are different and can be combined, more on that in the next chapters.</p>
+<p>After a fresh checkout of <code>main</code>:</p>
+<pre tabindex="0"><code>&gt; pack build \
+ --env BP_JVM_VERSION=25 \
+ --env BP_SPRING_CLOUD_BINDINGS_DISABLED=true \
+ --env BP_SPRING_AOT_ENABLED=true \
+ --env BP_MAVEN_BUILD_ARGUMENTS=&#34;-batch-mode -Dmaven.test.skip=true --no-transfer-progress spring-boot:process-aot package&#34; \
+   petclinic:aot --clear-cache
+&gt; docker run -it petclinic:aot
+[...]
+Starting AOT-processed PetClinicApplication v4.0.0-SNAPSHOT using Java 25.0.1 with PID 1 (/workspace/BOOT-INF/classes started by cnb in /workspace)
+[...]
+Started PetClinicApplication in 2.011 seconds
+&gt; docker container stats
+MEM USAGE / LIMIT
+309.5MiB / 15.6GiB
+</code></pre><p>Using the Spring Boot maven plugin:</p>
+<pre tabindex="0"><code>&lt;profile&gt;
+    &lt;id&gt;aot&lt;/id&gt;
+    &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+                &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;id&gt;process-aot&lt;/id&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;process-aot&lt;/goal&gt;
+                        &lt;/goals&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+                &lt;configuration&gt;
+                    &lt;imageBuilder&gt;paketobuildpacks/builder-noble-java-tiny:latest&lt;/imageBuilder&gt;
+                    &lt;image&gt;
+                        &lt;env&gt;
+                            &lt;BP_JVM_VERSION&gt;25&lt;/BP_JVM_VERSION&gt;
+                            &lt;BP_SPRING_CLOUD_BINDINGS_DISABLED&gt;true&lt;/BP_SPRING_CLOUD_BINDINGS_DISABLED&gt;
+                            &lt;BP_SPRING_AOT_ENABLED&gt;true&lt;/BP_SPRING_AOT_ENABLED&gt;
+                        &lt;/env&gt;
+                    &lt;/image&gt;
+                &lt;/configuration&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+&lt;/profile&gt;
+</code></pre><h3 id="spring-native">Spring native</h3>
+<p><a href="https://spring.io/blog/2022/09/26/native-support-in-spring-boot-3-0-0-m5">GraalVM Native Image compilation for Spring Boot was made production-ready with Spring Boot 3.0 in November 2022</a>, and it represents the most aggressive performance option available: instead of running on a JVM, your application is compiled ahead of time into a self-contained native binary.</p>
+<p>The trade-offs are real though:</p>
+<ul>
+<li>the build is <strong>significantly slower</strong> (several minutes vs. seconds for a regular JVM build)</li>
+<li><strong>no JIT compiler</strong> at runtime — peak throughput may be lower than a warmed-up JVM</li>
+<li><strong>dynamic features</strong> (reflection, proxies, serialization) require explicit configuration hints; Spring Boot&rsquo;s AOT processing generates most of them, but edge cases exist</li>
+<li>the resulting image is <strong>platform-specific</strong> (linux/amd64 vs. linux/arm64 — no fat jar portability)</li>
+</ul>
+<p>In practice, Native Image is the right choice when <strong>startup time and memory footprint</strong> matter more than throughput — think serverless functions, CLI tools, or cost-sensitive autoscaling workloads.</p>
+<p>Two buildpacks collaborate here: the <code>spring-boot</code> buildpack runs <code>spring-boot:process-aot</code> during the Maven build, producing the <code>META-INF/native-image</code> reachability metadata; the <code>native-image</code> buildpack then invokes <code>native-image</code> to compile everything into a binary. You do not need to orchestrate this yourself — enabling <code>BP_NATIVE_IMAGE=true</code> is enough for the buildpack group to do the right thing.</p>
+<p>After a fresh checkout of <code>main</code>:</p>
+<pre tabindex="0"><code>&gt; pack build \
+ --env BP_JVM_VERSION=25 \
+ --env BP_SPRING_CLOUD_BINDINGS_DISABLED=true \
+ --env BP_NATIVE_IMAGE=true \
+ --env BP_MAVEN_BUILD_ARGUMENTS=&#34;-batch-mode -Dmaven.test.skip=true --no-transfer-progress spring-boot:process-aot package&#34; \
+   petclinic:native --clear-cache
+&gt; docker run -it petclinic:native
+[...]
+Starting AOT-processed PetClinicApplication v4.0.0-SNAPSHOT using Java 25.0.1 with PID 1 (/workspace/petclinic started by cnb in /workspace)
+[...]
+Started PetClinicApplication in 0.117 seconds
+&gt; docker container stats
+MEM USAGE / LIMIT
+90.2MiB / 15.6GiB
+</code></pre><p>Using the Spring Boot Maven plugin:</p>
+<pre tabindex="0"><code>&lt;profile&gt;
+    &lt;id&gt;native&lt;/id&gt;
+    &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+                &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;id&gt;process-aot&lt;/id&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;process-aot&lt;/goal&gt;
+                        &lt;/goals&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+                &lt;configuration&gt;
+                    &lt;imageBuilder&gt;paketobuildpacks/builder-noble-java-tiny:latest&lt;/imageBuilder&gt;
+                    &lt;image&gt;
+                        &lt;name&gt;petclinic:native&lt;/name&gt;
+                        &lt;env&gt;
+                            &lt;BP_JVM_VERSION&gt;25&lt;/BP_JVM_VERSION&gt;
+                            &lt;BP_SPRING_CLOUD_BINDINGS_DISABLED&gt;true&lt;/BP_SPRING_CLOUD_BINDINGS_DISABLED&gt;
+                            &lt;BP_NATIVE_IMAGE&gt;true&lt;/BP_NATIVE_IMAGE&gt;
+                        &lt;/env&gt;
+                    &lt;/image&gt;
+                &lt;/configuration&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+&lt;/profile&gt;
+</code></pre><pre tabindex="0"><code>./mvnw spring-boot:build-image -Pnative
+</code></pre><p>Note that when using the Spring Boot Maven plugin the local Maven build already runs <code>process-aot</code> (via the execution declared above), so the jar handed to the buildpack already contains the <code>META-INF/native-image</code> folder — no extra <code>BP_MAVEN_BUILD_ARGUMENTS</code> is required.</p>
+<h3 id="spring-crac">Spring CRaC</h3>
+<p><a href="https://openjdk.org/projects/crac/">CRaC (Coordinated Restore at Checkpoint)</a> was introduced to Spring Boot in 3.2 (November 2023). The idea is compelling: take a checkpoint of a fully initialized, warmed-up JVM process, store it as an image layer, and restore from that snapshot on every subsequent start, bringing startup times close to native without giving up the JIT compiler at steady-state throughput.</p>
+<p>There is, however, <strong>no Paketo buildpack support for CRaC</strong>, and there is no plan to add it. The fundamental problem is architectural: CRaC requires Linux&rsquo;s <a href="https://criu.org">CRIU</a> to snapshot a <em>running</em> process, and that must happen at runtime (after the application has fully started), not at build time. Concretely:</p>
+<ul>
+<li>checkpointing requires <code>CAP_CHECKPOINT_RESTORE</code> (and often <code>SYS_PTRACE</code>), privileges that standard buildpack builds deliberately do not have</li>
+<li>the checkpoint must happen inside a running container, mid-execution, after Spring context refresh, not during the layer-contribution phase that buildpacks are designed for (that said we could use the property <code>-Dspring.context.exit=onRefresh</code> to trigger a checkpoint at the end of the refresh)</li>
+<li>the resulting snapshot contains in-memory state (open file descriptors, active connections, environment variables 😱) that is inherently application - and environment-specific, making it impossible to produce generically in a build pipeline</li>
+</ul>
+<p>If you want to use CRaC today, the established path is to drive it yourself outside of the buildpack: run your application in a privileged container with a CRaC-enabled JDK (e.g. Azul Zulu CRaC or BellSoft Liberica CRaC), trigger the checkpoint via <code>jcmd &lt;pid&gt; JDK.checkpoint</code>, then commit the running container to a new image. That flow is well documented by <a href="https://docs.azul.com/core/crac/crac-guidelines">Azul</a> and <a href="https://bell-sw.com/blog/how-to-use-crac-with-spring-boot-apps-in-a-docker-container/">BellSoft</a>, but it sits entirely outside the Paketo buildpack model.</p>
+<h3 id="spring-aot-cache-previously-known-as-cds">Spring AOT Cache (previously known as CDS)</h3>
+<p>Let&rsquo;s talk JEP (JDK enhancements proposals) and Spring Boot support:</p>
+<ul>
+<li><a href="https://openjdk.org/jeps/350">JEP-350</a> is not exactly new (2018-2021), but it introduced the concept of CDS (Class Data Sharing) that eventually Spring Boot 3.3 started leveraging. The spring-boot buildpack then added <code>BP_JVM_CDS_ENABLED</code> to support this feature, introducing the concept of &ldquo;training run&rdquo; during the buildpack execution. The &ldquo;training run&rdquo; being a short-lived execution of the JVM, just the time to load all the beans, and then exits with&hellip; a caching file containing a cached version of many classes.</li>
+<li><a href="https://openjdk.org/jeps/483">JEP-483</a> now we move into Project Leyden territory: JEP-483 was an intermediate support for AOT Cache in the JVM (the successor to CDS), that shipped with Java 24 - <code>AOTMode=record</code> + <code>AOTMode=create</code></li>
+<li><a href="https://openjdk.org/jeps/514">JEP-514</a> came with Java 25, with simpler ergonomics. Spring Boot 3.5 started leveraging this feature, so eventually the <a href="https://github.com/paketo-buildpacks/spring-boot/issues/571">spring-boot buildpack implemented its support</a></li>
+</ul>
+<h4 id="what-does-it-look-like-1">What does it look like?</h4>
+<p>The trick behind AOT Cache is a <strong>training run</strong>: a short-lived execution of the application that happens <em>during the image build</em>, inside the container being assembled. The JVM starts, Spring loads and wires all beans, the context finishes refreshing — and then the process exits cleanly (via <code>-Dspring.context.exit=onRefresh</code>) leaving behind a binary snapshot of everything it parsed and compiled.</p>
+<p>The buildpack picks the right JVM flags based on the Java version it detects at build time:</p>
+<table>
+  <thead>
+      <tr>
+          <th>Java version</th>
+          <th>Training run flag</th>
+          <th>Cache file</th>
+          <th>Production run flag</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>25+ (JEP-514)</td>
+          <td><code>-XX:AOTCacheOutput=application.aot</code></td>
+          <td><code>application.aot</code></td>
+          <td><code>-XX:AOTCache=application.aot</code></td>
+      </tr>
+      <tr>
+          <td>&lt; 25 (JEP-350/483)</td>
+          <td><code>-XX:ArchiveClassesAtExit=application.jsa</code></td>
+          <td><code>application.jsa</code></td>
+          <td><code>-XX:SharedArchiveFile=application.jsa</code></td>
+      </tr>
+  </tbody>
+</table>
+<p>The full training run command executed by the buildpack looks like this (Java 25 path):</p>
+<pre tabindex="0"><code>java \
+  -Dspring.context.exit=onRefresh \
+  -Dspring.aot.enabled=true \
+  -XX:AOTCacheOutput=application.aot \
+  -cp runner.jar:lib/* \
+  org.springframework.samples.petclinic.PetClinicApplication
+</code></pre><p>After the training run completes, the cache file is present alongside the application in the workspace:</p>
+<pre tabindex="0"><code>/workspace/
+├── runner.jar
+├── lib/
+│   ├── spring-core-6.2.x.jar
+│   └── ...
+└── application.aot      ← written by the training run, baked into the image layer
+</code></pre><p>On every subsequent container start, the JVM is handed <code>-XX:AOTCache=application.aot</code> and skips re-parsing and re-compiling those classes entirely.</p>
+<p><strong>Good to know: this caching file can be large (133MB for PetClinicApplication), so keep that in mind.</strong>
+<strong>Critical constraint: the JVM and the filesystem layout must be byte-for-byte identical between the training run and the production run.</strong></p>
+<p>The cache encodes absolute paths to every class file and jar that was loaded. If the JVM binary is at a different path, if a jar is at a different location, or if the JVM version differs even by a patch release, the JVM will silently discard the cache and fall back to a cold start. In a container built by Paketo this is guaranteed — the training run and the production run both happen inside the same image, with the same JVM installed at <code>/layers/...</code> and the same application laid out in <code>/workspace/</code>. You should never copy an <code>application.aot</code> file from one image into another.</p>
+<h4 id="super-easy-to-do-with-the-spring-boot-buildpack-1">Super easy to do with the spring-boot buildpack!</h4>
+<p>After a fresh checkout of <code>main</code>:</p>
+<pre tabindex="0"><code>&gt; pack build \
+ --env BP_JVM_VERSION=25 \
+ --env BP_SPRING_CLOUD_BINDINGS_DISABLED=true \
+ --env BP_SPRING_AOT_ENABLED=true \
+ --env BP_JVM_AOTCACHE_ENABLED=true \
+ --env BP_MAVEN_BUILD_ARGUMENTS=&#34;-batch-mode -Dmaven.test.skip=true --no-transfer-progress spring-boot:process-aot package&#34; \
+   petclinic:aot-cache --clear-cache
+&gt; docker run -it petclinic:aot-cache
+[...]
+Starting AOT-processed PetClinicApplication v4.0.0-SNAPSHOT using Java 25.0.1 with PID 1 (/workspace/BOOT-INF/classes started by cnb in /workspace)
+[...]
+Started PetClinicApplication in 0.579 seconds (process running for 0.76)
+&gt; docker container stats
+MEM USAGE / LIMIT
+309.5MiB / 15.6GiB
+</code></pre><p>Using the Spring Boot maven plugin:</p>
+<pre tabindex="0"><code>&lt;profile&gt;
+    &lt;id&gt;aot-cache&lt;/id&gt;
+    &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+                &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;id&gt;process-aot&lt;/id&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;process-aot&lt;/goal&gt;
+                        &lt;/goals&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+                &lt;configuration&gt;
+                    &lt;imageBuilder&gt;paketobuildpacks/builder-noble-java-tiny:latest&lt;/imageBuilder&gt;
+                    &lt;image&gt;
+                        &lt;env&gt;
+                            &lt;BP_JVM_VERSION&gt;25&lt;/BP_JVM_VERSION&gt;
+                            &lt;BP_SPRING_CLOUD_BINDINGS_DISABLED&gt;true&lt;/BP_SPRING_CLOUD_BINDINGS_DISABLED&gt;
+                            &lt;BP_SPRING_AOT_ENABLED&gt;true&lt;/BP_SPRING_AOT_ENABLED&gt;
+                            &lt;BP_JVM_AOTCACHE_ENABLED&gt;true&lt;/BP_JVM_AOTCACHE_ENABLED&gt;
+                        &lt;/env&gt;
+                    &lt;/image&gt;
+                &lt;/configuration&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+&lt;/profile&gt;
+</code></pre><p>And here is a configuration for Java 25 with the most performance improvements turned on:</p>
+<pre tabindex="0"><code>&lt;profile&gt;
+    &lt;id&gt;aot-cache&lt;/id&gt;
+    &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+                &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+                &lt;configuration&gt;
+                    &lt;imageBuilder&gt;paketobuildpacks/builder-noble-java-tiny:latest&lt;/imageBuilder&gt;
+                    &lt;image&gt;
+                        &lt;env&gt;
+                            &lt;BP_JVM_VERSION&gt;25&lt;/BP_JVM_VERSION&gt;
+                            &lt;BP_SPRING_CLOUD_BINDINGS_DISABLED&gt;true&lt;/BP_SPRING_CLOUD_BINDINGS_DISABLED&gt;
+                            &lt;BP_JVM_AOTCACHE_ENABLED&gt;true&lt;/BP_JVM_AOTCACHE_ENABLED&gt;
+                            &lt;JAVA_TOOL_OPTIONS&gt;-XX:+UseCompactObjectHeaders -Dspring.threads.virtual.enabled=true&lt;/JAVA_TOOL_OPTIONS&gt;
+                            &lt;BPE_DELIM_JAVA_TOOL_OPTIONS xml:space=&#34;preserve&#34;&gt; &lt;/BPE_DELIM_JAVA_TOOL_OPTIONS&gt;
+                            &lt;BPE_APPEND_JAVA_TOOL_OPTIONS&gt;-XX:+UseCompactObjectHeaders -Dspring.threads.virtual.enabled=true&lt;/BPE_APPEND_JAVA_TOOL_OPTIONS&gt;
+                        &lt;/env&gt;
+                    &lt;/image&gt;
+                &lt;/configuration&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+&lt;/profile&gt;
+</code></pre><h5 id="but-why-didnt-i-use-regular-aot-in-this-last-example">But why didn&rsquo;t I use regular AOT in this last example?</h5>
+<p>You might wonder why the &ldquo;best of everything&rdquo; profile above includes <code>BP_JVM_AOTCACHE_ENABLED</code> but not <code>BP_SPRING_AOT_ENABLED</code>. The short answer: combining both is harder than it looks, and the buildpack actively prevents one of the problematic combinations.</p>
+<p>The root issue is the training run. When AOT Cache is enabled, the buildpack starts your application inside the build container — just long enough for the JVM to warm up and produce the cache file, then exits. With plain <code>BP_JVM_AOTCACHE_ENABLED</code>, the training run uses the standard fat jar with no AOT processing, which is forgiving: most beans are created lazily or conditionally, and the context exits cleanly via <code>-Dspring.context.exit=onRefresh</code> before it ever tries to reach an external service.</p>
+<p>When you add <code>BP_SPRING_AOT_ENABLED=true</code>, Spring has already baked <em>all</em> conditional decisions into generated classes at Maven <code>process-aot</code> time — including, for example, the Flyway migrator bean or a database connection pool. Those beans are now unconditionally wired. When the training run starts, it tries to actually connect to Flyway, to a database, to whatever your app needs — and there is nothing there inside the build container.</p>
+<p>The natural workaround is to pass <code>TRAINING_RUN_JAVA_TOOL_OPTIONS=-Dspring.flyway.enabled=false ...</code> to suppress those beans at training time. But the buildpack <a href="https://github.com/paketo-buildpacks/spring-boot/pull/494">has a hard gate</a> rejects exactly this combination:</p>
+<pre tabindex="0"><code>TRAINING_RUN_JAVA_TOOL_OPTIONS set
+  AND BP_JVM_AOTCACHE_ENABLED=true
+  AND BP_SPRING_AOT_ENABLED=true
+</code></pre><p>There is no bypass flag. The reason it was introduced is that suppressing beans via <code>-D</code> flags at training time does not actually work when AOT is enabled: since AOT has already pre-baked the bean definitions into generated source code during the Maven build, passing <code>-Dspring.flyway.enabled=false</code> to the JVM at training run time has no effect — the Flyway bean is hardwired into the AOT classes regardless.</p>
+<p>The real fix is to bake the disabling into the AOT processing itself, by activating a dedicated Maven profile during <code>process-aot</code>. The <a href="https://github.com/spring-projects/spring-lifecycle-smoke-tests/blob/main/README.adoc">Spring lifecycle smoke tests</a> project is the reference for how the Spring team itself validates these combinations — and it shows exactly this pattern:</p>
+<pre tabindex="0"><code>&lt;plugin&gt;
+  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+  &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+  &lt;configuration&gt;
+    &lt;profiles&gt;
+      &lt;profile&gt;training&lt;/profile&gt;
+    &lt;/profiles&gt;
+  &lt;/configuration&gt;
+&lt;/plugin&gt;
+</code></pre><p>With <code>src/main/resources/application-training.properties</code> containing:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-properties" data-lang="properties"><span style="display:flex;"><span><span style="color:#a6e22e">spring.flyway.enabled</span><span style="color:#f92672">=</span><span style="color:#e6db74">false</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">spring.liquibase.enabled</span><span style="color:#f92672">=</span><span style="color:#e6db74">false</span>
+</span></span></code></pre></div><p>This way, the AOT-generated classes are produced <em>as if</em> those beans were disabled — so the training run starts cleanly. See the <a href="https://docs.spring.io/spring-boot/reference/packaging/aot.html">Spring Boot AOT documentation</a> for more on profile-based AOT configuration.</p>
+<p>For the last example in this article, rather than adding that extra profile machinery to the Petclinic repo, I kept it simple: <code>BP_JVM_AOTCACHE_ENABLED</code> alone already accounts for the lion&rsquo;s share of the startup improvement, and <code>BP_SPRING_AOT_ENABLED</code> can always be layered on top once you have a training profile in place.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Running Spring Boot efficiently in a container is not a single choice — it is a spectrum, and every step along it is accessible with the Paketo <code>spring-boot</code> buildpack.</p>
+<p>At one end, two zero-cost JVM flags (<code>-XX:+UseCompactObjectHeaders</code>, <code>SPRING_THREADS_VIRTUAL_ENABLED</code>) require no rebuild at all and are worth enabling unconditionally on Java 25. A step further, <code>BP_UNPACK_LAYOUT_ONLY=true</code> removes the Spring Boot classloader overhead with no functional trade-offs: it really should be your default today. Then Spring AOT and AOT Cache take things further still: they push wiring and class-parsing work to build time, cutting startup from 2.3 s to under 0.6 s in our Petclinic app. And at the far end of the spectrum, GraalVM Native Image delivers 0.117 s startup and a 90 MiB footprint for workloads where that matters most.</p>
+<p>The right choice depends on your application:</p>
+<table>
+  <thead>
+      <tr>
+          <th>If your priority is…</th>
+          <th>Recommended approach</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>No trade-offs, easy wins</td>
+          <td>Unpack layout + compact object headers + virtual threads</td>
+      </tr>
+      <tr>
+          <td>Faster startup, standard JVM</td>
+          <td>Spring AOT + AOT Cache</td>
+      </tr>
+      <tr>
+          <td>Minimum memory + fastest startup, a lambda or a CLI</td>
+          <td>Native Image</td>
+      </tr>
+      <tr>
+          <td>High concurrency, I/O-bound workloads</td>
+          <td>Any of the above + virtual threads</td>
+      </tr>
+  </tbody>
+</table>
+<p>Regardless of which path you pick, the pattern is always the same: set a few environment variables, and the Paketo buildpack takes care of the rest — the training run, the AOT processing, the classpath layout, the JVM flag wiring. You do not need to maintain a custom Dockerfile, patch a base image, or understand the low-level JVM internals to benefit from these optimizations. That is precisely the value Paketo Buildpacks bring: production-grade container images for Spring Boot applications, from the simplest CRUD service to the most performance-sensitive workload, with a single command.</p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>Entire article written by human, parts reviewed and edited by AI. (AI used to provide feedback and rewrite parts)&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
+        </article>
+      </section>
+      <footer class="post">
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Paketo%20Buildpacks%20%7c%20Blog%20%7c%20From%20deprecation%20warnings%20to%20Spring%20Boot%20performance%20-%20the%20spring-boot%20buildpack%20in%202026&amp;url=https://blog.paketo.io/posts/spring-boot-performance/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/twitter.png" />
+</a>
+
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://blog.paketo.io/posts/spring-boot-performance/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/linkedin.png" />
+</a>
+
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://blog.paketo.io/posts/spring-boot-performance/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/facebook.png" />
+</a>
+
+      </footer>
+    </div>
+  </body>
+</html>
