@@ -109,22 +109,22 @@
 <h3 id="two-versions-automatically-selected">Two versions, automatically selected</h3>
 <p>There are two active release lines of the library, and the buildpack picks the right one based on the Spring Boot version found in your <code>META-INF/MANIFEST.MF</code>:</p>
 <table>
-  <thead>
-      <tr>
-          <th>Detected Spring Boot version</th>
-          <th>Injected library version</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>≤ 3.0.0 (Spring Boot 2.x)</td>
-          <td><code>spring-cloud-bindings</code> 1.x (e.g. 1.13.0)</td>
-      </tr>
-      <tr>
-          <td>&gt; 3.0.0 (Spring Boot 3.x)</td>
-          <td><code>spring-cloud-bindings</code> 2.x (e.g. 2.0.4)</td>
-      </tr>
-  </tbody>
+	<thead>
+			<tr>
+					<th>Detected Spring Boot version</th>
+					<th>Injected library version</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>≤ 3.0.0 (Spring Boot 2.x)</td>
+					<td><code>spring-cloud-bindings</code> 1.x (e.g. 1.13.0)</td>
+			</tr>
+			<tr>
+					<td>&gt; 3.0.0 (Spring Boot 3.x)</td>
+					<td><code>spring-cloud-bindings</code> 2.x (e.g. 2.0.4)</td>
+			</tr>
+	</tbody>
 </table>
 <h3 id="where-the-jar-ends-up-in-the-container">Where the jar ends up in the container</h3>
 <p>The buildpack places the jar in its own layer, then creates a <strong>symlink</strong> into the Spring Boot fat-jar&rsquo;s lib directory. This is how it looks inside the running container:</p>
@@ -439,28 +439,28 @@ MEM USAGE / LIMIT
 <p>The trick behind AOT Cache is a <strong>training run</strong>: a short-lived execution of the application that happens <em>during the image build</em>, inside the container being assembled. The JVM starts, Spring loads and wires all beans, the context finishes refreshing — and then the process exits cleanly (via <code>-Dspring.context.exit=onRefresh</code>) leaving behind a binary snapshot of everything it parsed and compiled.</p>
 <p>The buildpack picks the right JVM flags based on the Java version it detects at build time:</p>
 <table>
-  <thead>
-      <tr>
-          <th>Java version</th>
-          <th>Training run flag</th>
-          <th>Cache file</th>
-          <th>Production run flag</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>25+ (JEP-514)</td>
-          <td><code>-XX:AOTCacheOutput=application.aot</code></td>
-          <td><code>application.aot</code></td>
-          <td><code>-XX:AOTCache=application.aot</code></td>
-      </tr>
-      <tr>
-          <td>&lt; 25 (JEP-350/483)</td>
-          <td><code>-XX:ArchiveClassesAtExit=application.jsa</code></td>
-          <td><code>application.jsa</code></td>
-          <td><code>-XX:SharedArchiveFile=application.jsa</code></td>
-      </tr>
-  </tbody>
+	<thead>
+			<tr>
+					<th>Java version</th>
+					<th>Training run flag</th>
+					<th>Cache file</th>
+					<th>Production run flag</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>25+ (JEP-514)</td>
+					<td><code>-XX:AOTCacheOutput=application.aot</code></td>
+					<td><code>application.aot</code></td>
+					<td><code>-XX:AOTCache=application.aot</code></td>
+			</tr>
+			<tr>
+					<td>&lt; 25 (JEP-350/483)</td>
+					<td><code>-XX:ArchiveClassesAtExit=application.jsa</code></td>
+					<td><code>application.jsa</code></td>
+					<td><code>-XX:SharedArchiveFile=application.jsa</code></td>
+			</tr>
+	</tbody>
 </table>
 <p>The full training run command executed by the buildpack looks like this (Java 25 path):</p>
 <pre tabindex="0"><code>java \
@@ -582,30 +582,30 @@ MEM USAGE / LIMIT
 <p>At one end, two zero-cost JVM flags (<code>-XX:+UseCompactObjectHeaders</code>, <code>SPRING_THREADS_VIRTUAL_ENABLED</code>) require no rebuild at all and are worth enabling unconditionally on Java 25. A step further, <code>BP_UNPACK_LAYOUT_ONLY=true</code> removes the Spring Boot classloader overhead with no functional trade-offs: it really should be your default today. Then Spring AOT and AOT Cache take things further still: they push wiring and class-parsing work to build time, cutting startup from 2.3 s to under 0.6 s in our Petclinic app. And at the far end of the spectrum, GraalVM Native Image delivers 0.117 s startup and a 90 MiB footprint for workloads where that matters most.</p>
 <p>The right choice depends on your application:</p>
 <table>
-  <thead>
-      <tr>
-          <th>If your priority is…</th>
-          <th>Recommended approach</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>No trade-offs, easy wins</td>
-          <td>Unpack layout + compact object headers + virtual threads</td>
-      </tr>
-      <tr>
-          <td>Faster startup, standard JVM</td>
-          <td>Spring AOT + AOT Cache</td>
-      </tr>
-      <tr>
-          <td>Minimum memory + fastest startup, a lambda or a CLI</td>
-          <td>Native Image</td>
-      </tr>
-      <tr>
-          <td>High concurrency, I/O-bound workloads</td>
-          <td>Any of the above + virtual threads</td>
-      </tr>
-  </tbody>
+	<thead>
+			<tr>
+					<th>If your priority is…</th>
+					<th>Recommended approach</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>No trade-offs, easy wins</td>
+					<td>Unpack layout + compact object headers + virtual threads</td>
+			</tr>
+			<tr>
+					<td>Faster startup, standard JVM</td>
+					<td>Spring AOT + AOT Cache</td>
+			</tr>
+			<tr>
+					<td>Minimum memory + fastest startup, a lambda or a CLI</td>
+					<td>Native Image</td>
+			</tr>
+			<tr>
+					<td>High concurrency, I/O-bound workloads</td>
+					<td>Any of the above + virtual threads</td>
+			</tr>
+	</tbody>
 </table>
 <p>Regardless of which path you pick, the pattern is always the same: set a few environment variables, and the Paketo buildpack takes care of the rest — the training run, the AOT processing, the classpath layout, the JVM flag wiring. You do not need to maintain a custom Dockerfile, patch a base image, or understand the low-level JVM internals to benefit from these optimizations. That is precisely the value Paketo Buildpacks bring: production-grade container images for Spring Boot applications, from the simplest CRUD service to the most performance-sensitive workload, with a single command.</p>
 <div class="footnotes" role="doc-endnotes">
