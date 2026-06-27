@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+  <head>
+      <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Containerize your Node.js applications with Red Hat UBI 9 &amp; 10 Builders | Paketo Buildpacks | Blog</title>
+<link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-language" content="en-us" />
+
+<meta property='og:site_name' content="Paketo Buildpacks | Blog">
+<meta property='og:title' content="Containerize your Node.js applications with Red Hat UBI 9 &amp; 10 Builders">
+<meta property='og:url' content="https://blog.paketo.io/posts/ubi-9-and-10-builders-available/">
+<meta property='og:image' content='/images/logo512.png'/>
+<meta name="twitter:title" content="Paketo Buildpacks | Blog" />
+<meta name="twitter:url" content="https://blog.paketo.io/posts/ubi-9-and-10-builders-available/" />
+<meta name="twitter:card" content="" />
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TJMQZ5RDFG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TJMQZ5RDFG');
+</script><link rel="stylesheet" href="/scss/main.min.css">
+
+  </head>
+  <body>
+    <div class="post">
+      <header>
+        <a href="/">
+          <img class="logo" src="/images/logo512.png" />
+          <h1>Paketo Buildpacks | Blog</h1>
+        </a>
+      </header>
+      <section>
+        <h1>Containerize your Node.js applications with Red Hat UBI 9 &amp; 10 Builders</h1>
+        <section class="author"><img src="/images/authors/pacostas.jpg" /><name>Costas Papastathis</name></section>
+        <date>Tuesday, Apr 21, 2026</date>
+        
+        <article>
+          <p>Over the past year, builders based on <a href="https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image">Universal Base Image (UBI)</a> 9 and UBI 10 have been published to Paketo Buildpacks. You can build applications on Red Hat Enterprise Linux (RHEL) 9 and RHEL 10 using Paketo buildpacks.</p>
+<p>In this post we show where those builders live on GitHub and Docker Hub, and we build a sample Node.js application with the UBI 9 and UBI 10 builders.</p>
+<h2 id="repositories-and-container-images">Repositories and container images</h2>
+<h3 id="for-ubi-9">For UBI 9</h3>
+<p>All UBI 9 builder source code lives in <a href="https://github.com/paketo-buildpacks/ubi-9-builder">github.com/paketo-buildpacks/ubi-9-builder</a>. Published images on Docker Hub are:</p>
+<ul>
+<li><code>paketobuildpacks/ubi-9-builder</code> (includes the buildpacks and extensions needed to build an application; currently only Node.js is supported)</li>
+<li><code>paketobuildpacks/ubi-9-builder-buildpackless</code> (no buildpacks included)</li>
+</ul>
+<p>You can find the base images that each builder uses in the <a href="https://github.com/paketo-buildpacks/ubi-9-base-images/releases">release notes</a> of the <a href="https://github.com/paketo-buildpacks/ubi-9-base-images">ubi-9-base-images</a> repository.</p>
+<h3 id="for-ubi-10">For UBI 10</h3>
+<p>UBI 10 follows the same pattern: builder source code is in <a href="https://github.com/paketo-buildpacks/ubi-10-builder">github.com/paketo-buildpacks/ubi-10-builder</a>, and published images are on Docker Hub:</p>
+<ul>
+<li><code>paketobuildpacks/ubi-10-builder</code> (includes the buildpacks and extensions needed to build an application; currently only Node.js is supported)</li>
+<li><code>paketobuildpacks/ubi-10-builder-buildpackless</code> (no buildpacks included)</li>
+</ul>
+<p><a href="https://github.com/paketo-buildpacks/ubi-10-base-images">UBI 10 base images</a> are listed in the ubi-10-builder <a href="https://github.com/paketo-buildpacks/ubi-10-builder/releases">release notes</a>.</p>
+<h2 id="build-a-nodejs-application-with-podmandocker-and-ubi-9-or-10-builders">Build a Node.js application with Podman/Docker and UBI 9 or 10 builders</h2>
+<p>We assume the host operating system is Fedora Linux; the steps are the same on other supported OSes, and links are included where installation differs.</p>
+<p>Before we build our application, we want to ensure the following tools are installed and configured. The instructions for configuring Podman where we describe below, are based on the <a href="https://buildpacks.io/docs/for-app-developers/how-to/special-cases/build-on-podman/">instructions</a> from the Cloud Native Buildpacks (CNB) project.</p>
+<h3 id="installing-and-configuring-podman">Installing and configuring Podman</h3>
+<p>Use Podman version 5.1.0 or newer.</p>
+<p><strong>Note:</strong> To install Podman on another OS, follow the <a href="https://podman.io/docs/installation">Podman installation instructions</a>.</p>
+<p>Expose the service using systemd:</p>
+<pre tabindex="0"><code>systemctl enable --user podman.socket
+systemctl start --user podman.socket
+</code></pre><p>Route the Docker CLI to Podman:</p>
+<pre tabindex="0"><code>export DOCKER_HOST=&#34;unix://$(podman info -f &#34;{{.Host.RemoteSocket.Path}}&#34;)&#34;
+</code></pre><h4 id="installing-docker">Installing Docker</h4>
+<p>If you use Docker Engine instead of Podman, install it from the <a href="https://docs.docker.com/engine/install/">Docker Engine install documentation</a>. No further configuration is needed beyond what that documentation describes.</p>
+<h3 id="installing-and-configuring-pack-cli">Installing and configuring Pack CLI</h3>
+<p>On Fedora:</p>
+<pre tabindex="0"><code>dnf install pack
+</code></pre><p><strong>Note:</strong> To install the Pack CLI on another OS, follow the CNB project instructions under <a href="https://buildpacks.io/docs/for-platform-operators/how-to/integrate-ci/pack/#install">Install pack</a>.</p>
+<p>Enable experimental options in the Pack CLI when using UBI builders; the Node.js extension is still experimental.</p>
+<pre tabindex="0"><code>pack config experimental true
+</code></pre><h3 id="building-a-nodejs-application">Building a Node.js application</h3>
+<p>You need a builder and an application. This walkthrough uses the Paketo samples repo; any Node.js application will work.</p>
+<pre tabindex="0"><code>git clone https://github.com/paketo-buildpacks/samples
+</code></pre><p>Build with <code>pack</code> and the UBI 9 builder:</p>
+<pre tabindex="0"><code>pack --docker-host=inherit build nodejs-app \
+--builder index.docker.io/paketobuildpacks/ubi-9-builder \
+--path ./samples/nodejs/npm
+</code></pre><p>To use the UBI 10 builder instead, pass <code>--builder index.docker.io/paketobuildpacks/ubi-10-builder</code>.</p>
+<p>When the build finishes, the logs should include:</p>
+<pre tabindex="0"><code>Successfully built image nodejs-app
+</code></pre><p>You should then see your Node.js app image in your Podman or Docker image list.</p>
+<p>Run the application with Podman</p>
+<pre tabindex="0"><code>podman run -d -p 8080:8080 nodejs-app`
+</code></pre><p>or Docker (pick one)</p>
+<pre tabindex="0"><code>docker run -d -p 8080:8080 nodejs-app`
+</code></pre><p>Verify the application responds:</p>
+<pre tabindex="0"><code>curl http://localhost:8080
+</code></pre><p>If you receive <code>HTTP/1.1 200 OK</code>, the application is running.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>If you would like to contribute under the Paketo implementation of CNCF buildpacks, feel free to take a look on the community instructions on how to <a href="https://github.com/paketo-buildpacks/community?tab=readme-ov-file#how-to-get-involved">get involved</a> or check out <a href="https://blog.paketo.io/posts/paketo-buildpacks-contributors-wanted/">this blog post on the topic</a>.</p>
+<p>Happy building!</p>
+
+        </article>
+      </section>
+      <footer class="post">
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Paketo%20Buildpacks%20%7c%20Blog%20%7c%20Containerize%20your%20Node.js%20applications%20with%20Red%20Hat%20UBI%209%20&amp;%2010%20Builders&amp;url=https://blog.paketo.io/posts/ubi-9-and-10-builders-available/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/twitter.png" />
+</a>
+
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://blog.paketo.io/posts/ubi-9-and-10-builders-available/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/linkedin.png" />
+</a>
+
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://blog.paketo.io/posts/ubi-9-and-10-builders-available/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/facebook.png" />
+</a>
+
+      </footer>
+    </div>
+  </body>
+</html>

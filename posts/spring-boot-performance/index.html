@@ -573,8 +573,8 @@ MEM USAGE / LIMIT
   &lt;/configuration&gt;
 &lt;/plugin&gt;
 </code></pre><p>With <code>src/main/resources/application-training.properties</code> containing:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-properties" data-lang="properties"><span style="display:flex;"><span><span style="color:#a6e22e">spring.flyway.enabled</span><span style="color:#f92672">=</span><span style="color:#e6db74">false</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">spring.liquibase.enabled</span><span style="color:#f92672">=</span><span style="color:#e6db74">false</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-properties" data-lang="properties"><span style="display:flex;"><span><span style="color:#b44">spring.flyway.enabled</span><span style="color:#666">=</span><span style="color:#b44">false</span>
+</span></span><span style="display:flex;"><span><span style="color:#b44">spring.liquibase.enabled</span><span style="color:#666">=</span><span style="color:#b44">false</span>
 </span></span></code></pre></div><p>This way, the AOT-generated classes are produced <em>as if</em> those beans were disabled — so the training run starts cleanly. See the <a href="https://docs.spring.io/spring-boot/reference/packaging/aot.html">Spring Boot AOT documentation</a> for more on profile-based AOT configuration.</p>
 <p>For the last example in this article, rather than adding that extra profile machinery to the Petclinic repo, I kept it simple: <code>BP_JVM_AOTCACHE_ENABLED</code> alone already accounts for the lion&rsquo;s share of the startup improvement, and <code>BP_SPRING_AOT_ENABLED</code> can always be layered on top once you have a training profile in place.</p>
 <h2 id="conclusion">Conclusion</h2>
