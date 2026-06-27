@@ -1,6 +1,6 @@
 ---
 title: Containerize your Node.js applications with Red Hat UBI 9 & 10 Builders
-date: "2026-04-21T16:27:10+02:00"
+date: "2026-06-26T16:27:10+02:00"
 slug: ubi-9-and-10-builders-available
 author: pacostas
 ---
