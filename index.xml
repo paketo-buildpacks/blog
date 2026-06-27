@@ -10,9 +10,16 @@
 		
 		
 		
-			<lastBuildDate>Mon, 04 May 2026 00:00:00 +0000</lastBuildDate>
+			<lastBuildDate>Fri, 26 Jun 2026 16:27:10 +0200</lastBuildDate>
 		
 			<atom:link href="https://blog.paketo.io/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Containerize your Node.js applications with Red Hat UBI 9 &amp; 10 Builders</title>
+				<link>https://blog.paketo.io/posts/ubi-9-and-10-builders-available/</link>
+				<pubDate>Fri, 26 Jun 2026 16:27:10 +0200</pubDate>
+				<guid>https://blog.paketo.io/posts/ubi-9-and-10-builders-available/</guid>
+				<description>&lt;p&gt;Over the past year, builders based on &lt;a href=&#34;https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image&#34;&gt;Universal Base Image (UBI)&lt;/a&gt; 9 and UBI 10 have been published to Paketo Buildpacks. You can build applications on Red Hat Enterprise Linux (RHEL) 9 and RHEL 10 using Paketo buildpacks.&lt;/p&gt;&#xA;&lt;p&gt;In this post we show where those builders live on GitHub and Docker Hub, and we build a sample Node.js application with the UBI 9 and UBI 10 builders.&lt;/p&gt;&#xA;&lt;h2 id=&#34;repositories-and-container-images&#34;&gt;Repositories and container images&lt;/h2&gt;&#xA;&lt;h3 id=&#34;for-ubi-9&#34;&gt;For UBI 9&lt;/h3&gt;&#xA;&lt;p&gt;All UBI 9 builder source code lives in &lt;a href=&#34;https://github.com/paketo-buildpacks/ubi-9-builder&#34;&gt;github.com/paketo-buildpacks/ubi-9-builder&lt;/a&gt;. Published images on Docker Hub are:&lt;/p&gt;</description>
+			</item>
 			<item>
 				<title>From deprecation warnings to Spring Boot performance - the spring-boot buildpack in 2026</title>
 				<link>https://blog.paketo.io/posts/spring-boot-performance/</link>
@@ -26,13 +33,6 @@
 				<pubDate>Wed, 29 Apr 2026 20:53:59 +0200</pubDate>
 				<guid>https://blog.paketo.io/posts/uv-and-pixi-now-available/</guid>
 				<description>&lt;p&gt;The Python package manager ecosystem is not set in stone. Most people know the&#xA;big players such as pip, its brother pipenv, after which came poetry, and from&#xA;the scientific world conda.&lt;/p&gt;&#xA;&lt;p&gt;Sounds like an already impressive list of options. However this did not stop the&#xA;Pythonistas from trying to innovate on that subject.&lt;/p&gt;&#xA;&lt;p&gt;These past years have seen quite a lot of movement with goals such as better&#xA;performance, reproducibility and ease of use.&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Containerize your Node.js applications with Red Hat UBI 9 &amp; 10 Builders</title>
-				<link>https://blog.paketo.io/posts/ubi-9-and-10-builders-available/</link>
-				<pubDate>Tue, 21 Apr 2026 16:27:10 +0200</pubDate>
-				<guid>https://blog.paketo.io/posts/ubi-9-and-10-builders-available/</guid>
-				<description>&lt;p&gt;Over the past year, builders based on &lt;a href=&#34;https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image&#34;&gt;Universal Base Image (UBI)&lt;/a&gt; 9 and UBI 10 have been published to Paketo Buildpacks. You can build applications on Red Hat Enterprise Linux (RHEL) 9 and RHEL 10 using Paketo buildpacks.&lt;/p&gt;&#xA;&lt;p&gt;In this post we show where those builders live on GitHub and Docker Hub, and we build a sample Node.js application with the UBI 9 and UBI 10 builders.&lt;/p&gt;&#xA;&lt;h2 id=&#34;repositories-and-container-images&#34;&gt;Repositories and container images&lt;/h2&gt;&#xA;&lt;h3 id=&#34;for-ubi-9&#34;&gt;For UBI 9&lt;/h3&gt;&#xA;&lt;p&gt;All UBI 9 builder source code lives in &lt;a href=&#34;https://github.com/paketo-buildpacks/ubi-9-builder&#34;&gt;github.com/paketo-buildpacks/ubi-9-builder&lt;/a&gt;. Published images on Docker Hub are:&lt;/p&gt;</description>
 			</item>
 			<item>
 				<title>Paketo Buildpacks 2025 User Survey Results</title>
