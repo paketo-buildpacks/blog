@@ -1,6 +1,6 @@
 ---
 title: The Python consolidation (and deprecation)
-date: "2026-05-08T17:10:21+02:00"
+date: "2026-08-15T08:00:00+02:00"
 slug: the-python-consolidation
 author: sgaist
 ---
