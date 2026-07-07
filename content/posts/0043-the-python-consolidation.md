@@ -131,7 +131,9 @@ So to summaries:
 - 6 months opt-out
 - removal of the old buildpacks
 
-The Docker images will automatically get deleted over time by policy.
+The GitHub releases for the old buildpacks, as well as the Docker images hosted
+on Docker hub, will stay available for backward compatibility however no new
+update will be provided.
 
 In case of issues, you are welcome to contact the maintainers either on Slack or
 open an issue in the corresponding GitHub repositories.
