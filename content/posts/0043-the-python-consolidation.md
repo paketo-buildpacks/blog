@@ -135,5 +135,9 @@ The GitHub releases for the old buildpacks, as well as the Docker images hosted
 on Docker hub, will stay available for backward compatibility however no new
 update will be provided.
 
+Their long term availability have no guarantees and should be considered only for
+their historical value. They should not be used in new software development
+especially as their replacements are drop in.
+
 In case of issues, you are welcome to contact the maintainers either on Slack or
 open an issue in the corresponding GitHub repositories.
