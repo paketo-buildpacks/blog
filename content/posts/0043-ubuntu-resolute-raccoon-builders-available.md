@@ -24,7 +24,7 @@ These builders can create application images based on the [Ubuntu Resolute run i
 ### `no-stacks` base images
 
 - `paketobuildpacks/ubuntu-resolute-build-no-stacks`
-- `paketobuildpacks/ubuntu-resolute-run-no-stacks`
+- `paketobuildpacks/ubuntu-resolute-run-no-stacks` *default*
 - `paketobuildpacks/ubuntu-resolute-run-tiny-no-stacks`
 - `paketobuildpacks/ubuntu-resolute-run-static-no-stacks`
 
