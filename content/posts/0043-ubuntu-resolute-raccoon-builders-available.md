@@ -14,7 +14,7 @@ Available builders:
 - `paketobuildpacks/ubuntu-resolute-builder` (includes buildpacks for Java, Node.js etc.)
 - `paketobuildpacks/ubuntu-resolute-builder-buildpackless` (no buildpacks included)
 
-These builders run on [Ubuntu Resolute base images](https://github.com/paketo-buildpacks/ubuntu-resolute-base-images). Published base images are listed on the [releases page](https://github.com/paketo-buildpacks/ubuntu-resolute-base-images/releases):
+These builders can create application images based on the [Ubuntu Resolute run images](https://github.com/paketo-buildpacks/ubuntu-resolute-base-images). Published run images are listed on the [releases page](https://github.com/paketo-buildpacks/ubuntu-resolute-base-images/releases):
 
 - `paketobuildpacks/ubuntu-resolute-build`
 - `paketobuildpacks/ubuntu-resolute-run`
