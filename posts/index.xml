@@ -10,9 +10,16 @@
 		
 		
 		
-			<lastBuildDate>Fri, 26 Jun 2026 16:27:10 +0200</lastBuildDate>
+			<lastBuildDate>Mon, 10 Aug 2026 08:00:00 +0200</lastBuildDate>
 		
 			<atom:link href="https://blog.paketo.io/posts/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>The Python consolidation (and deprecation)</title>
+				<link>https://blog.paketo.io/posts/the-python-consolidation/</link>
+				<pubDate>Mon, 10 Aug 2026 08:00:00 +0200</pubDate>
+				<guid>https://blog.paketo.io/posts/the-python-consolidation/</guid>
+				<description>&lt;h3 id=&#34;tldr&#34;&gt;TL;DR&lt;/h3&gt;&#xA;&lt;p&gt;The consolidation of Python buildpacks reduces the number of buildpacks handling&#xA;package managers from ten to two. This will simplify the life of maintainers as&#xA;well as their users. The new buildpacks, &lt;a href=&#34;https://github.com/paketo-buildpacks/python-package-managers-install/&#34;&gt;python-package-managers-install&lt;/a&gt;&#xA;and &lt;a href=&#34;https://github.com/paketo-buildpacks/python-package-managers-run/&#34;&gt;python-package-managers-run&lt;/a&gt;,&#xA;handle package managers installation and usage, respectively.&lt;/p&gt;&#xA;&lt;p&gt;These two buildpacks are already known and used as they provide uv and Pixi.&lt;/p&gt;&#xA;&lt;p&gt;The transition to use only the new buildpacks will be gradual, with a two-month&#xA;opt-in period, a six-month opt-out period, and eventual removal of the old&#xA;buildpacks.&lt;/p&gt;</description>
+			</item>
 			<item>
 				<title>Containerize your Node.js applications with Red Hat UBI 9 &amp; 10 Builders</title>
 				<link>https://blog.paketo.io/posts/ubi-9-and-10-builders-available/</link>

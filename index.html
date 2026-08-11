@@ -40,6 +40,30 @@
       
         <article>
   <div>
+    <h2><a href="/posts/the-python-consolidation/">The Python consolidation (and deprecation)</a></h2>
+    <h3 id="tldr">TL;DR</h3>
+<p>The consolidation of Python buildpacks reduces the number of buildpacks handling
+package managers from ten to two. This will simplify the life of maintainers as
+well as their users. The new buildpacks, <a href="https://github.com/paketo-buildpacks/python-package-managers-install/">python-package-managers-install</a>
+and <a href="https://github.com/paketo-buildpacks/python-package-managers-run/">python-package-managers-run</a>,
+handle package managers installation and usage, respectively.</p>
+<p>These two buildpacks are already known and used as they provide uv and Pixi.</p>
+<p>The transition to use only the new buildpacks will be gradual, with a two-month
+opt-in period, a six-month opt-out period, and eventual removal of the old
+buildpacks.</p>
+    
+      <a href="/posts/the-python-consolidation/">…</a>
+    
+    <div class="metadata">
+      <section class="author"><img src="/images/authors/sgaist.jpg" /><name>Samuel Gaist</name></section>
+      <span class="date">Monday, Aug 10, 2026</span>
+    </div>
+  </div>
+</article>
+
+      
+        <article>
+  <div>
     <h2><a href="/posts/ubi-9-and-10-builders-available/">Containerize your Node.js applications with Red Hat UBI 9 &amp; 10 Builders</a></h2>
     <p>Over the past year, builders based on <a href="https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image">Universal Base Image (UBI)</a> 9 and UBI 10 have been published to Paketo Buildpacks. You can build applications on Red Hat Enterprise Linux (RHEL) 9 and RHEL 10 using Paketo buildpacks.</p>
 <p>In this post we show where those builders live on GitHub and Docker Hub, and we build a sample Node.js application with the UBI 9 and UBI 10 builders.</p>

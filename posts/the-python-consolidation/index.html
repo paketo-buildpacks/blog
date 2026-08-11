@@ -1,0 +1,175 @@
+<!doctype html>
+<html>
+  <head>
+      <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>The Python consolidation (and deprecation) | Paketo Buildpacks | Blog</title>
+<link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-language" content="en-us" />
+
+<meta property='og:site_name' content="Paketo Buildpacks | Blog">
+<meta property='og:title' content="The Python consolidation (and deprecation)">
+<meta property='og:url' content="https://blog.paketo.io/posts/the-python-consolidation/">
+<meta property='og:image' content='/images/logo512.png'/>
+<meta name="twitter:title" content="Paketo Buildpacks | Blog" />
+<meta name="twitter:url" content="https://blog.paketo.io/posts/the-python-consolidation/" />
+<meta name="twitter:card" content="" />
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TJMQZ5RDFG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TJMQZ5RDFG');
+</script><link rel="stylesheet" href="/scss/main.min.css">
+
+  </head>
+  <body>
+    <div class="post">
+      <header>
+        <a href="/">
+          <img class="logo" src="/images/logo512.png" />
+          <h1>Paketo Buildpacks | Blog</h1>
+        </a>
+      </header>
+      <section>
+        <h1>The Python consolidation (and deprecation)</h1>
+        <section class="author"><img src="/images/authors/sgaist.jpg" /><name>Samuel Gaist</name></section>
+        <date>Monday, Aug 10, 2026</date>
+        
+        <article>
+          <h3 id="tldr">TL;DR</h3>
+<p>The consolidation of Python buildpacks reduces the number of buildpacks handling
+package managers from ten to two. This will simplify the life of maintainers as
+well as their users. The new buildpacks, <a href="https://github.com/paketo-buildpacks/python-package-managers-install/">python-package-managers-install</a>
+and <a href="https://github.com/paketo-buildpacks/python-package-managers-run/">python-package-managers-run</a>,
+handle package managers installation and usage, respectively.</p>
+<p>These two buildpacks are already known and used as they provide uv and Pixi.</p>
+<p>The transition to use only the new buildpacks will be gradual, with a two-month
+opt-in period, a six-month opt-out period, and eventual removal of the old
+buildpacks.</p>
+<p>See <a href="/posts/the-python-consolidation#the-plan">the plan</a> for more details.</p>
+<h2 id="the-consolidation">The consolidation</h2>
+<h3 id="why">Why</h3>
+<p>The <a href="https://www.idiap.ch">Idiap Research Institute</a> has been a long time user of
+buildpacks through either explicit use of the pack command, GitLab Auto DevOps
+pipelines or more recently, the local deployment of the <a href="https://renkulab.io/">Renku platform</a>
+that was created by the <a href="https://datascience.ch/">Swiss Data Science Center</a> and
+is now co-developed with Idiap. This platform offers the option to create a
+development environment out of your source code through
+<a href="https://shipwright.io/">Shipwright</a> using a build strategy based on the
+buildpack&rsquo;s lifecycle.</p>
+<p>Idiap&rsquo;s researchers, but also from other academic centers, have adopted uv as
+well as Pixi as respectively package and environment managers. However, Paketo&rsquo;s
+Python buildpacks supported neither at the time. Bringing the researchers to the
+platform meant uv and Pixi support was a must have.</p>
+<p>Looking at the available implementation, things did not seem complicated. Pixi is
+close to miniconda and uv is somewhere in between poetry and pip (from a
+buildpack point of view). So, code wise, nothing really hard. I wrote a PoC for
+each of them with the long term goal of donating these new buildpacks to Paketo
+so the whole community could benefit. <a href="https://github.com/paketo-buildpacks/python/issues/977">Issue 977</a>
+in the <code>python</code> buildpack repository was also proof that more people where
+interested to have them as options.</p>
+<p>Something lurking in the back of my brain made me think again about this
+strategy&hellip; So I did some math:</p>
+<ul>
+<li>For both uv and Pixi, two buildpacks are required:
+<ul>
+<li>One to install the package manager</li>
+<li>One to use the package manager</li>
+</ul>
+</li>
+<li><code>python-start</code> must be updated to support the new package managers</li>
+<li><code>python</code> must be updated to add the new buildpacks and, very important, add all
+the permutations to handle them</li>
+</ul>
+<p>This meant, in fact, four additional buildpacks to maintain and a higher degree
+of complexity for the <code>python</code> buildpack.</p>
+<p>While most of the mundane tasks such as dependency or tooling update and docker
+image creation have been nicely automated, the realty is that there would be
+four additional repositories to watch for.</p>
+<p>All in all, not the nicest thing for the maintainers. There had to be a better
+way. While walking around eating an apple and thinking about it, an idea came:
+why not bring them all under one roof ?</p>
+<h3 id="how">How</h3>
+<p>Their logic was mostly the same: check for some specific configuration file and
+if found, install the corresponding package manager. This should be doable
+within one buildpack rather than spread around multiple.</p>
+<p>After some preliminary exploration work, the creation of <a href="https://github.com/paketo-buildpacks/rfcs/blob/main/text/python/0008-consolidate-python-package-managers.md">Paketo Python RFC 0008</a>: Consolidate python package managers
+was the real starting point.</p>
+<p>Let&rsquo;s summarize the main items:</p>
+<ul>
+<li>Smash together all package managers buildpacks -&gt; two in place of eight
+(or twelve if you count the new uv and Pixi buildpacks)</li>
+<li>Simpler <code>python</code> buildpack -&gt; less permutations required</li>
+<li>Less overhead for maintainers in the long term</li>
+<li>Easier for contributors to participate</li>
+<li>Easier for buildpack users</li>
+</ul>
+<p>This resulted in the creation of:</p>
+<ul>
+<li><a href="https://github.com/paketo-buildpacks/python-package-managers-install/">python-package-managers-install</a></li>
+<li><a href="https://github.com/paketo-buildpacks/python-package-managers-run/">python-package-managers-run</a></li>
+</ul>
+<p>that originated in Idiap&rsquo;s GitHub organization and were later transferred to
+Paketo once they were deemed mature enough. The former contains all the code
+required to install a Python package manager and the latter, the code that makes
+use of them.</p>
+<p>Once the original set of buildpacks was implemented, uv and Pixi were added. It
+was way easier as only two buildpacks needed to be updated (not taking into
+account <code>python-start</code> and <code>python</code>). One other important point is that now,
+more package managers are using <code>python.toml</code> where only poetry was doing it
+when its buildpack was created. Having them all together allows for better
+handling of the detection when that file is present.</p>
+<p>So now, after adding uv and Pixi support to <code>python-start</code> as well as <code>python</code>,
+there is one last thing to do: get rid of the old buildpacks!</p>
+<h2 id="the-deprecation">The deprecation</h2>
+<p>Since we have now everything under two buildpacks, we can say goodbye to the old
+ones. However, this won&rsquo;t happen abruptly so that you, as Paketo users, have
+time to ensure your workflows are running smoothly and catch regressions if any
+has crept in.</p>
+<h3 id="the-plan">The plan</h3>
+<p>For the next two months, the switch to the new buildpacks is an opt in. Set the
+<code>BP_ENABLE_PACKAGE_MANAGERS</code> environment variable to <code>true</code> when building your
+images and the detection phase will require and provide the new buildpacks.</p>
+<p>After this period, we will switch the flag so you can still opt out if you need
+more time to do tests.</p>
+<p>Finally, after six more months, we will remove the flag, remove the old
+buildpacks from the main <code>python</code> buildpack and archive the repositories.</p>
+<p>So to summaries:</p>
+<ul>
+<li>2 months opt-in</li>
+<li>6 months opt-out</li>
+<li>removal of the old buildpacks</li>
+</ul>
+<p>The GitHub releases for the old buildpacks, as well as the Docker images hosted
+on Docker hub, will stay available for backward compatibility however no new
+update will be provided.</p>
+<p>Their long term availability have no guarantees and should be considered only for
+their historical value. They should not be used in new software development
+especially as their replacements are drop in.</p>
+<p>In case of issues, you are welcome to contact the maintainers either on Slack or
+open an issue in the corresponding GitHub repositories.</p>
+
+        </article>
+      </section>
+      <footer class="post">
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Paketo%20Buildpacks%20%7c%20Blog%20%7c%20The%20Python%20consolidation%20%28and%20deprecation%29&amp;url=https://blog.paketo.io/posts/the-python-consolidation/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/twitter.png" />
+</a>
+
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://blog.paketo.io/posts/the-python-consolidation/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/linkedin.png" />
+</a>
+
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://blog.paketo.io/posts/the-python-consolidation/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/facebook.png" />
+</a>
+
+      </footer>
+    </div>
+  </body>
+</html>
