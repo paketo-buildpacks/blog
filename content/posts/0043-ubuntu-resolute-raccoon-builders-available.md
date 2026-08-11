@@ -16,7 +16,6 @@ Available builders:
 
 These builders can create application images based on the [Ubuntu Resolute run images](https://github.com/paketo-buildpacks/ubuntu-resolute-base-images). Published run images are listed on the [releases page](https://github.com/paketo-buildpacks/ubuntu-resolute-base-images/releases):
 
-- `paketobuildpacks/ubuntu-resolute-build`
 - `paketobuildpacks/ubuntu-resolute-run` *default*
 - `paketobuildpacks/ubuntu-resolute-run-tiny`
 - `paketobuildpacks/ubuntu-resolute-run-static`
