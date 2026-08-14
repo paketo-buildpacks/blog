@@ -1,0 +1,5 @@
+{{- $text := printf "%s | %s" .Site.Title .Title -}}
+{{- $href := printf "https://x.com/intent/tweet?text=%s&url=%s" $text .Permalink -}}
+<a class="x-share-button" href="{{ $href }}" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/x.png" alt="Share on X" />
+</a>
