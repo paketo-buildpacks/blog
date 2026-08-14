@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+  <head>
+      <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Ubuntu 26.04 LTS (Resolute Raccoon) builders are available on Paketo | Paketo Buildpacks | Blog</title>
+<link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-language" content="en-us" />
+
+<meta property='og:site_name' content="Paketo Buildpacks | Blog">
+<meta property='og:title' content="Ubuntu 26.04 LTS (Resolute Raccoon) builders are available on Paketo">
+<meta property='og:url' content="https://blog.paketo.io/posts/ubuntu-26.04-resolute-raccoon-on-paketo-buildpacks/">
+<meta property='og:image' content='/images/logo512.png'/>
+<meta name="twitter:title" content="Paketo Buildpacks | Blog" />
+<meta name="twitter:url" content="https://blog.paketo.io/posts/ubuntu-26.04-resolute-raccoon-on-paketo-buildpacks/" />
+<meta name="twitter:card" content="" />
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TJMQZ5RDFG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TJMQZ5RDFG');
+</script><link rel="stylesheet" href="/scss/main.min.css">
+
+  </head>
+  <body>
+    <div class="post">
+      <header>
+        <a href="/">
+          <img class="logo" src="/images/logo512.png" />
+          <h1>Paketo Buildpacks | Blog</h1>
+        </a>
+      </header>
+      <section>
+        <h1>Ubuntu 26.04 LTS (Resolute Raccoon) builders are available on Paketo</h1>
+        <section class="author"><img src="/images/authors/pacostas.jpg" /><name>Costas Papastathis</name></section>
+        <date>Thursday, Aug 6, 2026</date>
+        
+        <article>
+          <p>You can now build applications with Paketo builders based on Ubuntu 26.04 Long Term Support (LTS), also known as Resolute Raccoon.</p>
+<p>Builder source and images live in the <a href="https://github.com/paketo-buildpacks/ubuntu-resolute-builder">ubuntu-resolute-builder repository</a>. See the <a href="https://github.com/paketo-buildpacks/ubuntu-resolute-builder/releases">releases page</a> for published tags.</p>
+<p>Available builders:</p>
+<ul>
+<li><code>paketobuildpacks/ubuntu-resolute-builder</code> (includes buildpacks for Java, Node.js etc.)</li>
+<li><code>paketobuildpacks/ubuntu-resolute-builder-buildpackless</code> (no buildpacks included)</li>
+</ul>
+<p>These builders can create application images based on the <a href="https://github.com/paketo-buildpacks/ubuntu-resolute-base-images">Ubuntu Resolute run images</a>. Published run images are listed on the <a href="https://github.com/paketo-buildpacks/ubuntu-resolute-base-images/releases">releases page</a>:</p>
+<ul>
+<li><code>paketobuildpacks/ubuntu-resolute-run</code> <em>default</em></li>
+<li><code>paketobuildpacks/ubuntu-resolute-run-tiny</code></li>
+<li><code>paketobuildpacks/ubuntu-resolute-run-static</code></li>
+</ul>
+<h3 id="no-stacks-base-images"><code>no-stacks</code> base images</h3>
+<ul>
+<li><code>paketobuildpacks/ubuntu-resolute-run-no-stacks</code> <em>default</em></li>
+<li><code>paketobuildpacks/ubuntu-resolute-run-tiny-no-stacks</code></li>
+<li><code>paketobuildpacks/ubuntu-resolute-run-static-no-stacks</code></li>
+</ul>
+<p>Images with the <code>no-stacks</code> suffix match the standard base images but omit <code>io.buildpacks.stack.id</code> from image metadata. Use them while you test the move from stacks to base images, as stacks are deprecated.</p>
+<h2 id="using-the-resolute-builders">Using the Resolute builders</h2>
+<p>You need the <a href="https://buildpacks.io/docs/for-platform-operators/how-to/integrate-ci/pack/#install">Pack CLI</a> installed.</p>
+<p>A sample application</p>
+<pre tabindex="0"><code>git clone https://github.com/paketo-buildpacks/samples
+</code></pre><p>To build with the Resolute builder:</p>
+<pre tabindex="0"><code>pack build nodejs-app \
+    --path ./samples/nodejs/no-package-manager \
+    --builder paketobuildpacks/ubuntu-resolute-builder
+</code></pre><p>When the build finishes, the logs should include:</p>
+<pre tabindex="0"><code>Successfully built image nodejs-app
+</code></pre><p>Run the application</p>
+<pre tabindex="0"><code>docker run -d -p 8080:8080 nodejs-app
+</code></pre><p>Verify the application responds:</p>
+<pre tabindex="0"><code>curl http://localhost:8080
+</code></pre><p>If you receive <code>HTTP/1.1 200 OK</code>, the application is running.</p>
+<p>For a smaller application image, set the <code>tiny</code> run image with <code>--run-image</code>:</p>
+<pre tabindex="0"><code>pack build nodejs-app \
+    --path ./samples/nodejs/no-package-manager \
+    --builder paketobuildpacks/ubuntu-resolute-builder \
+    --run-image paketobuildpacks/ubuntu-resolute-run-tiny
+</code></pre><h2 id="conclusion">Conclusion</h2>
+<p>If you would like to contribute to the Paketo implementation of Cloud Native Computing Foundation (CNCF) buildpacks, see the community instructions on how to <a href="https://github.com/paketo-buildpacks/community?tab=readme-ov-file#how-to-get-involved">get involved</a> or read <a href="https://blog.paketo.io/posts/paketo-buildpacks-contributors-wanted/">this blog post on the topic</a>.</p>
+<p>Happy building!</p>
+
+        </article>
+      </section>
+      <footer class="post">
+        <a class="x-share-button" href="https://x.com/intent/tweet?text=Paketo%20Buildpacks%20%7c%20Blog%20%7c%20Ubuntu%2026.04%20LTS%20%28Resolute%20Raccoon%29%20builders%20are%20available%20on%20Paketo&amp;url=https://blog.paketo.io/posts/ubuntu-26.04-resolute-raccoon-on-paketo-buildpacks/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/x.png" alt="Share on X" />
+</a>
+
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://blog.paketo.io/posts/ubuntu-26.04-resolute-raccoon-on-paketo-buildpacks/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/linkedin.png" />
+</a>
+
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://blog.paketo.io/posts/ubuntu-26.04-resolute-raccoon-on-paketo-buildpacks/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/facebook.png" />
+</a>
+
+      </footer>
+    </div>
+  </body>
+</html>
