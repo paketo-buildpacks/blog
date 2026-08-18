@@ -63,7 +63,7 @@ In practice, `Pack` used the Noble builder’s `build` image to build the app, t
 
 What if you want to optimize your app, by choosing a smaller run image, such as `ubuntu-noble-run-tiny` instead of the default `paketobuildpacks/ubuntu-noble-run`?
 
-**Note:** See the [full list](https://github.com/paketo-buildpacks/ubuntu-noble-base-images/releases) of available Ubuntu Noble `run` and `build` images.
+**Note:** See the [full list](https://github.com/paketo-buildpacks/ubuntu-noble-base-images/releases) of available Ubuntu Noble `run` and builder images.
 
 You can either create a new builder that defaults to `paketobuildpacks/ubuntu-noble-run-tiny`, or pass `--run-image` at build time. The second option is much easier:
 
