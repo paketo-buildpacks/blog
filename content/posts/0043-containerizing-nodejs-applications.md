@@ -54,7 +54,7 @@ Stop and remove the container:
 docker stop noble-nodejs-container
 ```
 
-In practice, `Pack` used the Noble builder’s `build` image to build the app, then placed the result on the builder’s default `run` image. The Noble [builder.toml](https://github.com/paketo-buildpacks/ubuntu-noble-builder/blob/main/builders/builder/builder.toml) specifies the run image like this:
+In practice, `Pack` used the Noble builder’s image to build the app, then places the result on the builder’s default `run` image. The Noble [builder.toml](https://github.com/paketo-buildpacks/ubuntu-noble-builder/blob/main/builders/builder/builder.toml) specifies the default run image like this:
 
 ```toml
   [[run.images]]
