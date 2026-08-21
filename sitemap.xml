@@ -2,11 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://blog.paketo.io/posts/containerizing-nodejs-apps/</loc>
+    <lastmod>2026-08-21T14:48:19+02:00</lastmod>
+  </url><url>
     <loc>https://blog.paketo.io/</loc>
-    <lastmod>2026-08-10T08:00:00+02:00</lastmod>
+    <lastmod>2026-08-21T14:48:19+02:00</lastmod>
   </url><url>
     <loc>https://blog.paketo.io/posts/</loc>
-    <lastmod>2026-08-10T08:00:00+02:00</lastmod>
+    <lastmod>2026-08-21T14:48:19+02:00</lastmod>
   </url><url>
     <loc>https://blog.paketo.io/posts/the-python-consolidation/</loc>
     <lastmod>2026-08-10T08:00:00+02:00</lastmod>

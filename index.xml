@@ -10,9 +10,16 @@
 		
 		
 		
-			<lastBuildDate>Mon, 10 Aug 2026 08:00:00 +0200</lastBuildDate>
+			<lastBuildDate>Fri, 21 Aug 2026 14:48:19 +0200</lastBuildDate>
 		
 			<atom:link href="https://blog.paketo.io/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Containerizing and Optimizing Node.js Applications with Paketo Buildpacks</title>
+				<link>https://blog.paketo.io/posts/containerizing-nodejs-apps/</link>
+				<pubDate>Fri, 21 Aug 2026 14:48:19 +0200</pubDate>
+				<guid>https://blog.paketo.io/posts/containerizing-nodejs-apps/</guid>
+				<description>&lt;p&gt;Recently we introduced Ubuntu Noble and Resolute builders, which change how we containerize applications.&#xA;This post shows how to containerize and optimize a &lt;strong&gt;Node.js&lt;/strong&gt; application with Paketo Buildpacks on Ubuntu and Red Hat Universal Base Image (UBI) builders.&lt;/p&gt;&#xA;&lt;h4 id=&#34;prerequisites&#34;&gt;Prerequisites:&lt;/h4&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://buildpacks.io/docs/for-platform-operators/how-to/integrate-ci/pack/#install&#34;&gt;Pack CLI&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://podman.io/docs/installation&#34;&gt;Podman&lt;/a&gt; or &lt;a href=&#34;https://docs.docker.com/engine/install/&#34;&gt;Docker&lt;/a&gt;. If you use Podman, follow the &lt;a href=&#34;https://buildpacks.io/docs/for-app-developers/how-to/special-cases/build-on-podman/&#34;&gt;build-on-Podman instructions&lt;/a&gt;.&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://git-scm.com/install/&#34;&gt;git&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;You also need a Node.js application. If you do not have one, clone the Paketo Buildpacks samples repository:&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git clone https://github.com/paketo-buildpacks/samples&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;containerize-with-ubuntu-noble-builders&#34;&gt;Containerize with Ubuntu Noble builders&lt;/h2&gt;&#xA;&lt;p&gt;With buildpacks, it is as simple as this command:&lt;/p&gt;</description>
+			</item>
 			<item>
 				<title>The Python consolidation (and deprecation)</title>
 				<link>https://blog.paketo.io/posts/the-python-consolidation/</link>

@@ -1,0 +1,304 @@
+<!doctype html>
+<html>
+  <head>
+      <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Containerizing and Optimizing Node.js Applications with Paketo Buildpacks | Paketo Buildpacks | Blog</title>
+<link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-language" content="en-us" />
+
+<meta property='og:site_name' content="Paketo Buildpacks | Blog">
+<meta property='og:title' content="Containerizing and Optimizing Node.js Applications with Paketo Buildpacks">
+<meta property='og:url' content="https://blog.paketo.io/posts/containerizing-nodejs-apps/">
+<meta property='og:image' content='/images/logo512.png'/>
+<meta name="twitter:title" content="Paketo Buildpacks | Blog" />
+<meta name="twitter:url" content="https://blog.paketo.io/posts/containerizing-nodejs-apps/" />
+<meta name="twitter:card" content="" />
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TJMQZ5RDFG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TJMQZ5RDFG');
+</script><link rel="stylesheet" href="/scss/main.min.css">
+
+  </head>
+  <body>
+    <div class="post">
+      <header>
+        <a href="/">
+          <img class="logo" src="/images/logo512.png" />
+          <h1>Paketo Buildpacks | Blog</h1>
+        </a>
+      </header>
+      <section>
+        <h1>Containerizing and Optimizing Node.js Applications with Paketo Buildpacks</h1>
+        <section class="author"><img src="/images/authors/pacostas.jpg" /><name>Costas Papastathis</name></section>
+        <date>Friday, Aug 21, 2026</date>
+        
+        <article>
+          <p>Recently we introduced Ubuntu Noble and Resolute builders, which change how we containerize applications.
+This post shows how to containerize and optimize a <strong>Node.js</strong> application with Paketo Buildpacks on Ubuntu and Red Hat Universal Base Image (UBI) builders.</p>
+<h4 id="prerequisites">Prerequisites:</h4>
+<ul>
+<li><a href="https://buildpacks.io/docs/for-platform-operators/how-to/integrate-ci/pack/#install">Pack CLI</a></li>
+<li><a href="https://podman.io/docs/installation">Podman</a> or <a href="https://docs.docker.com/engine/install/">Docker</a>. If you use Podman, follow the <a href="https://buildpacks.io/docs/for-app-developers/how-to/special-cases/build-on-podman/">build-on-Podman instructions</a>.</li>
+<li><a href="https://git-scm.com/install/">git</a></li>
+</ul>
+<p>You also need a Node.js application. If you do not have one, clone the Paketo Buildpacks samples repository:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>git clone https://github.com/paketo-buildpacks/samples
+</span></span></code></pre></div><h2 id="containerize-with-ubuntu-noble-builders">Containerize with Ubuntu Noble builders</h2>
+<p>With buildpacks, it is as simple as this command:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>pack build noble-nodejs-container-image <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --path samples/nodejs/npm <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --builder paketobuildpacks/ubuntu-noble-builder
+</span></span></code></pre></div><p>After a successful build, the logs should include:</p>
+<pre tabindex="0"><code>Successfully built image noble-nodejs-container-image
+</code></pre><p>Run the application with <code>docker</code> or <code>podman</code>:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>docker run -d --rm --name noble-nodejs-container -p 8080:8080 noble-nodejs-container-image
+</span></span></code></pre></div><p>Validate that the application responds with <code>curl</code>, or open the URL in a browser:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>curl http://localhost:8080
+</span></span></code></pre></div><p>Stop and remove the container:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>docker stop noble-nodejs-container
+</span></span></code></pre></div><p>In practice, <code>Pack</code> used the Noble builder’s image to build the app, then places the result on the builder’s default <code>run</code> image. The Noble <a href="https://github.com/paketo-buildpacks/ubuntu-noble-builder/blob/main/builders/builder/builder.toml">builder.toml</a> specifies the default run image like this:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span>  [[run.images]]
+</span></span><span style="display:flex;"><span>    image = <span style="color:#b44">&#34;docker.io/paketobuildpacks/ubuntu-noble-run:latest&#34;</span>
+</span></span></code></pre></div><p>What if you want to optimize your app, by choosing a smaller run image, such as <code>ubuntu-noble-run-tiny</code> instead of the default <code>paketobuildpacks/ubuntu-noble-run</code>?</p>
+<p><strong>Note:</strong> See the <a href="https://github.com/paketo-buildpacks/ubuntu-noble-base-images/releases">full list</a> of available Ubuntu Noble <code>run</code> and builder images.</p>
+<p>You can either create a new builder that defaults to <code>paketobuildpacks/ubuntu-noble-run-tiny</code>, or pass <code>--run-image</code> at build time. The second option is much easier:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>pack build noble-nodejs-container-image-optimized <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --path samples/nodejs/npm <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --builder paketobuildpacks/ubuntu-noble-builder <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --run-image paketobuildpacks/ubuntu-noble-run-tiny
+</span></span></code></pre></div><p>Run the application (omitting <code>-d</code>) to view the logs:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>docker run --rm --name nodejs-container-optimized -p 8080:8080 noble-nodejs-container-image-optimized
+</span></span></code></pre></div><p>You&rsquo;ll see it immediately crash with this error:</p>
+<pre tabindex="0"><code>ERROR: failed to launch: path lookup: exec: &#34;sh&#34;: executable file not found in $PATH
+</code></pre><p>Why this happens: The <code>tiny</code> run image does not have a shell, which npm start <a href="https://github.com/paketo-buildpacks/npm-start/blob/main/constants.go">script</a> relies on by default.</p>
+<p>We can bypass the shell by using the <a href="https://github.com/paketo-buildpacks/tini">tini buildpack</a>. Since <code>tini</code> doesn&rsquo;t evaluate shell syntax (like &amp;&amp; or echo), first simplify the start script in your samples/nodejs/npm/package.json:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#b44">&#34;start&#34;</span><span style="">:</span> <span style="color:#b44">&#34;node server.js&#34;</span>
+</span></span></code></pre></div><p>Then, rebuild the image using the <code>BP_LAUNCH_WITH_TINI</code> variable:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>pack build noble-nodejs-container-image-optimized <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --path samples/nodejs/npm <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --builder paketobuildpacks/ubuntu-noble-builder <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --run-image paketobuildpacks/ubuntu-noble-run-tiny <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --env <span style="color:#b8860b">BP_LAUNCH_WITH_TINI</span><span style="color:#666">=</span><span style="color:#a2f">true</span>
+</span></span></code></pre></div><p>Run the optimized image:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>docker run -d --rm --name nodejs-container-optimized -p 8080:8080 noble-nodejs-container-image-optimized
+</span></span></code></pre></div><p>Validate that the application responds:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>curl http://localhost:8080
+</span></span></code></pre></div><p>Stop and remove the container:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>docker stop nodejs-container-optimized
+</span></span></code></pre></div><p>Comparing the two images shows a reduction of about <strong>92 MB</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>docker image ls | grep noble-nodejs-container-image
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Image</th>
+					<th>ID</th>
+					<th>Disk Usage</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>noble-nodejs-container-image-optimized:latest</td>
+					<td>f5f8b343a7d6</td>
+					<td>304MB</td>
+			</tr>
+			<tr>
+					<td>noble-nodejs-container-image:latest</td>
+					<td>6778f8ce70a2</td>
+					<td>396MB</td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="containerize-with-ubuntu-jammy-builders">Containerize with Ubuntu Jammy builders</h2>
+<p>The same pattern works on Jammy builders. Keep the simplified <code>scripts.start</code> from the Noble section (<code>node server.js</code>), then build:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>pack build jammy-base-build-tiny-run-nodejs-container-image <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --path samples/nodejs/npm <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --builder paketobuildpacks/builder-jammy-base <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --run-image paketobuildpacks/run-jammy-tiny <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --env <span style="color:#b8860b">BP_LAUNCH_WITH_TINI</span><span style="color:#666">=</span><span style="color:#a2f">true</span>
+</span></span></code></pre></div><p>Run the application:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>docker run -d --rm --name jammy-nodejs-container-optimized -p 8080:8080 jammy-base-build-tiny-run-nodejs-container-image
+</span></span></code></pre></div><p>Validate that the application responds:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>curl http://localhost:8080
+</span></span></code></pre></div><p>Stop and remove the container:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>docker stop jammy-nodejs-container-optimized
+</span></span></code></pre></div><p><strong>Note:</strong> Jammy has a tiny builder, but this command fails because that builder does not include the Node.js buildpacks:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>pack build jammy-base-nodejs-container-image <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --path samples/nodejs/npm <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --builder paketobuildpacks/builder-jammy-tiny
+</span></span></code></pre></div><pre tabindex="0"><code>ERROR: No buildpack groups passed detection.
+</code></pre><p>So in the first Jammy example, we build with the base Jammy builder and use the tiny builder’s run image.</p>
+<p>Available Jammy base images:</p>
+<ul>
+<li><a href="https://github.com/paketo-buildpacks/jammy-full-stack/releases">Jammy full</a></li>
+<li><a href="https://github.com/paketo-buildpacks/jammy-base-stack/releases">Jammy base</a></li>
+<li><a href="https://github.com/paketo-buildpacks/jammy-tiny-stack/releases">Jammy tiny</a></li>
+<li><a href="https://github.com/paketo-buildpacks/jammy-static-stack/releases">Jammy static</a></li>
+</ul>
+<p>The following table compares results from building with the <code>full</code> and <code>base</code> builders, with and without <code>--run-image</code> pointing at the tiny run image:</p>
+<table>
+	<thead>
+			<tr>
+					<th>Image</th>
+					<th>ID</th>
+					<th>Disk Usage</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>jammy-<strong>full</strong>-build-<strong>full</strong>-run-nodejs-container-image:latest</td>
+					<td>1b0396b30edf</td>
+					<td>996MB</td>
+			</tr>
+			<tr>
+					<td>jammy-<strong>full</strong>-build-<strong>tiny</strong>-run-nodejs-container-image:latest</td>
+					<td>3199d20d41bd</td>
+					<td>304MB</td>
+			</tr>
+			<tr>
+					<td>jammy-<strong>base</strong>-build-<strong>base</strong>-run-nodejs-container-image:latest</td>
+					<td>57d2525236ab</td>
+					<td>390MB</td>
+			</tr>
+			<tr>
+					<td>jammy-<strong>base</strong>-build-<strong>tiny</strong>-run-nodejs-container-image:latest</td>
+					<td>3199d20d41bd</td>
+					<td>304MB</td>
+			</tr>
+	</tbody>
+</table>
+<p>You might notice the following:</p>
+<ol>
+<li>Image size drops by about <strong>~692 MB</strong> on the full builder and <strong>~92 MB</strong> on the base builder. Both tiny-run outputs are the same size.</li>
+<li>Those two tiny-run images share the same ID, so the final app image is <strong>exactly</strong> the same whether you used the <code>full</code> or <code>base</code> builder.</li>
+</ol>
+<p><strong>So why offer different builders if the output can match?</strong></p>
+<p>Sometimes the build needs more packages than usual, for example compiling an npm package with native modules. The base builder does not include Python, so that compilation fails. The full builder provides Python, so the build succeeds.</p>
+<p>This example fails because Python is not available during the build:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>pack build jammy-base-build-tiny-run-nodejs-container-image <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --path samples/nodejs/npm-with-native-modules <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --builder paketobuildpacks/builder-jammy-base <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --run-image paketobuildpacks/run-jammy-tiny
+</span></span></code></pre></div><pre tabindex="0"><code>npm error gyp ERR! stack Error: Could not find any Python installation to use
+</code></pre><p>The full builder succeeds because its build image provides Python:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>pack build jammy-nodejs-container-image-with-native-full <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --path samples/nodejs/npm-with-native-modules <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --builder paketobuildpacks/builder-jammy-full <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --run-image paketobuildpacks/run-jammy-tiny <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --env <span style="color:#b8860b">BP_LAUNCH_WITH_TINI</span><span style="color:#666">=</span><span style="color:#a2f">true</span>
+</span></span></code></pre></div><p>Paketo Buildpacks for the Noble and later Builders, decided to deprecaate the full builder, therefore, we have to use the <code>BP_NPM_INCLUDE_BUILD_PYTHON</code> env variable, to provide Python during build:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>pack build noble-nodejs-container-image-with-native-base <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --path samples/nodejs/npm-with-native-modules <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --builder paketobuildpacks/ubuntu-noble-builder <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --run-image paketobuildpacks/ubuntu-noble-run-tiny <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --env <span style="color:#b8860b">BP_LAUNCH_WITH_TINI</span><span style="color:#666">=</span><span style="color:#a2f">true</span> <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --env <span style="color:#b8860b">BP_NPM_INCLUDE_BUILD_PYTHON</span><span style="color:#666">=</span><span style="color:#a2f">true</span>
+</span></span></code></pre></div><p>You can use the same approach on the Jammy base builder:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>pack build jammy-nodejs-container-image-with-native-base <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --path samples/nodejs/npm-with-native-modules <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --builder paketobuildpacks/builder-jammy-base <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --run-image paketobuildpacks/run-jammy-tiny <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --env <span style="color:#b8860b">BP_LAUNCH_WITH_TINI</span><span style="color:#666">=</span><span style="color:#a2f">true</span> <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --env <span style="color:#b8860b">BP_NPM_INCLUDE_BUILD_PYTHON</span><span style="color:#666">=</span><span style="color:#a2f">true</span>
+</span></span></code></pre></div><p>That way you avoid downloading the full Jammy builder, we use less disk space, and builds start faster because the full builder takes longer to download.</p>
+<h2 id="containerize-with-ubuntu-resolute-builders">Containerize with Ubuntu Resolute builders</h2>
+<p>All the aforementioned applies for the Resolute Builders too:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>pack build resolute-nodejs-container-image <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --path samples/nodejs/npm-with-native-modules <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --builder paketobuildpacks/ubuntu-resolute-builder <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --run-image paketobuildpacks/ubuntu-resolute-run-tiny <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --env <span style="color:#b8860b">BP_LAUNCH_WITH_TINI</span><span style="color:#666">=</span><span style="color:#a2f">true</span> <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --env <span style="color:#b8860b">BP_NPM_INCLUDE_BUILD_PYTHON</span><span style="color:#666">=</span><span style="color:#a2f">true</span>
+</span></span></code></pre></div><ul>
+<li><code>--run-image</code> — use a tiny run image to reduce final image size</li>
+<li><code>BP_LAUNCH_WITH_TINI=true</code> — required on tiny so the app can start and signals are forwarded</li>
+<li><code>BP_NPM_INCLUDE_BUILD_PYTHON=true</code> — set only when the app builds native modules</li>
+</ul>
+<p>Run the application:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>docker run -d --rm --name resolute-nodejs-container -p 8080:8080 resolute-nodejs-container-image
+</span></span></code></pre></div><p>Validate that the application responds:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>curl http://localhost:8080
+</span></span></code></pre></div><p>Stop and remove the container:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>docker stop resolute-nodejs-container
+</span></span></code></pre></div><p><strong>Note:</strong> See the <a href="https://github.com/paketo-buildpacks/ubuntu-resolute-base-images/releases">full list</a> of available Ubuntu Resolute <code>run</code> and <code>build</code> images.</p>
+<h2 id="containerize-with-ubi-builders">Containerize with UBI builders</h2>
+<p>For background on UBI 9 and UBI 10 builders, see <a href="https://blog.paketo.io/posts/ubi-9-and-10-builders-available">Containerize your Node.js applications with Red Hat UBI 9 &amp; 10 Builders</a>.</p>
+<p>With UBI builders you do not need the <code>--run-image</code> or tini setup above. UBI builders use an extension (another kind of buildpack) that selects the final run image by itself. Their build images also provide Python by default during build.</p>
+<h4 id="ubi-8">UBI 8</h4>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>pack build container-image-nodejs-ubi8 <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --path samples/nodejs/npm <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --builder docker.io/paketobuildpacks/builder-ubi8-base
+</span></span></code></pre></div><p><strong>Note:</strong> Related repository: <a href="https://github.com/paketo-buildpacks/builder-ubi8-base">paketo-buildpacks/builder-ubi8-base</a></p>
+<h4 id="ubi-9">UBI 9</h4>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>pack build container-image-nodejs-ubi9 <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --path samples/nodejs/npm <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --builder docker.io/paketobuildpacks/ubi-9-builder
+</span></span></code></pre></div><p><strong>Note:</strong> Related repository: <a href="https://github.com/paketo-buildpacks/ubi-9-builder">paketo-buildpacks/ubi-9-builder</a></p>
+<h4 id="ubi-10">UBI 10</h4>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>pack build container-image-nodejs-ubi10 <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --path samples/nodejs/npm <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --builder docker.io/paketobuildpacks/ubi-10-builder
+</span></span></code></pre></div><p><strong>Note:</strong> Related repository: <a href="https://github.com/paketo-buildpacks/ubi-10-builder">paketo-buildpacks/ubi-10-builder</a></p>
+<p>Run any of the images you built. For example, the UBI 10 image:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>docker run -d --rm --name container-nodejs-ubi10 -p 8080:8080 container-image-nodejs-ubi10
+</span></span></code></pre></div><p>Validate that the application responds:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>curl http://localhost:8080
+</span></span></code></pre></div><p>Stop and remove the container:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>docker stop container-nodejs-ubi10
+</span></span></code></pre></div><p>Optionally, on any UBI builder, start the app with tini instead of the default launch script. Keep <code>scripts.start</code> as a single command such as <code>node server.js</code> (same as the Noble tiny section):</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>pack build container-image-nodejs-ubi10-tini <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --path samples/nodejs/npm <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --builder docker.io/paketobuildpacks/ubi-10-builder <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --env <span style="color:#b8860b">BP_LAUNCH_WITH_TINI</span><span style="color:#666">=</span><span style="color:#a2f">true</span>
+</span></span></code></pre></div><p>Run, validate, and stop that image the same way, using <code>container-image-nodejs-ubi10-tini</code> as the image name.</p>
+<p><code>--run-image</code> does not change the run image for UBI builds. To force a different run image, set <code>BP_UBI_RUN_IMAGE_OVERRIDE</code>. That variable exists for testing (for example in integration tests) and is not intended for production use.</p>
+<p><strong>Note:</strong> The following example is for demonstration only. Do not use it in production: it builds an app on UBI 8 and runs it on UBI 10, which can produce an unstable runtime.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>pack build container-nodejs-image-build-ubi8-run-ubi10 <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --path samples/nodejs/npm <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --builder docker.io/paketobuildpacks/builder-ubi8-base <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span>    --env <span style="color:#b8860b">BP_UBI_RUN_IMAGE_OVERRIDE</span><span style="color:#666">=</span><span style="color:#b44">&#34;docker.io/paketobuildpacks/ubi-10-run-nodejs-24-base&#34;</span>
+</span></span></code></pre></div><p>Run the application:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>docker run -d --rm --name container-nodejs-build-ubi8-run-ubi10 -p 8080:8080 container-nodejs-image-build-ubi8-run-ubi10
+</span></span></code></pre></div><p>Validate that the application responds:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>curl http://localhost:8080
+</span></span></code></pre></div><p>Stop and remove the container:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>docker stop container-nodejs-build-ubi8-run-ubi10
+</span></span></code></pre></div><h2 id="conclusion">Conclusion</h2>
+<p>On this blog post we covered:</p>
+<ul>
+<li>Building Node.js apps across various Ubuntu (Jammy, Resolute, Noble) and UBI (8, 9, 10) builders.</li>
+<li>Optimizing container sizes by setting in a <code>tiny</code> run image using <code>--run-image</code>.</li>
+<li>Managing processes with <code>BP_LAUNCH_WITH_TINI=true</code> for proper signal handling and shell-less execution on <code>tiny</code> images.</li>
+<li>Supporting native modules builds on newer Ubuntu builders by enabling Python at build time with <code>BP_NPM_INCLUDE_BUILD_PYTHON=true</code>.</li>
+<li>Leveraging UBI builders, which automatically handle run image selection and include Python by default.</li>
+</ul>
+<h2 id="contributing">Contributing</h2>
+<p>If you would like to contribute to the Paketo implementation of Cloud Native Computing Foundation (CNCF) buildpacks, see the community <a href="https://github.com/paketo-buildpacks/community?tab=readme-ov-file#how-to-get-involved">get involved</a> guide or <a href="https://blog.paketo.io/posts/paketo-buildpacks-contributors-wanted/">this blog post on contributing</a>.</p>
+<p>Happy building!</p>
+
+        </article>
+      </section>
+      <footer class="post">
+        <a class="x-share-button" href="https://x.com/intent/tweet?text=Paketo%20Buildpacks%20%7c%20Blog%20%7c%20Containerizing%20and%20Optimizing%20Node.js%20Applications%20with%20Paketo%20Buildpacks&amp;url=https://blog.paketo.io/posts/containerizing-nodejs-apps/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/x.png" alt="Share on X" />
+</a>
+
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://blog.paketo.io/posts/containerizing-nodejs-apps/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/linkedin.png" />
+</a>
+
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://blog.paketo.io/posts/containerizing-nodejs-apps/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/facebook.png" />
+</a>
+
+      </footer>
+    </div>
+  </body>
+</html>
