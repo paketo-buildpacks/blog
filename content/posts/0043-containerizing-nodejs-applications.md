@@ -1,6 +1,6 @@
 ---
 title: Containerizing and Optimizing Node.js Applications with Paketo Buildpacks
-date: "2026-07-13T17:48:19+02:00"
+date: "2026-08-21T14:48:19+02:00"
 slug: containerizing-nodejs-apps
 author: pacostas
 ---
