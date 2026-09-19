@@ -17,7 +17,7 @@ jobs:
       uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
     - name: Checkout Branch
-      uses: paketo-buildpacks/github-config/actions/pull-request/checkout-branch@95db4417114813f5661189259ba2caa93f76c6b9 # main
+      uses: paketo-buildpacks/github-config/actions/pull-request/checkout-branch@9009c0d6ac013a3795908732d2d445fa40473a26 # main
       with:
         branch: automation/tools/update
         start-point: origin/main
@@ -43,20 +43,20 @@ jobs:
 
     - name: Commit
       id: commit
-      uses: paketo-buildpacks/github-config/actions/pull-request/create-commit@95db4417114813f5661189259ba2caa93f76c6b9 # main
+      uses: paketo-buildpacks/github-config/actions/pull-request/create-commit@9009c0d6ac013a3795908732d2d445fa40473a26 # main
       with:
         message: "Updating tools"
         pathspec: "."
 
     - name: Push Branch
       if: ${{ steps.commit.outputs.commit_sha != '' }}
-      uses: paketo-buildpacks/github-config/actions/pull-request/push-branch@95db4417114813f5661189259ba2caa93f76c6b9 # main
+      uses: paketo-buildpacks/github-config/actions/pull-request/push-branch@9009c0d6ac013a3795908732d2d445fa40473a26 # main
       with:
         branch: automation/tools/update
 
     - name: Open Pull Request
       if: ${{ steps.commit.outputs.commit_sha != '' }}
-      uses: paketo-buildpacks/github-config/actions/pull-request/open@95db4417114813f5661189259ba2caa93f76c6b9 # main
+      uses: paketo-buildpacks/github-config/actions/pull-request/open@9009c0d6ac013a3795908732d2d445fa40473a26 # main
       with:
         token: ${{ github.token }}
         title: "Updates tools"
@@ -69,7 +69,7 @@ jobs:
     if: ${{ always() && needs.update.result == 'failure' }}
     steps:
     - name: File Failure Alert Issue
-      uses: paketo-buildpacks/github-config/actions/issue/file@95db4417114813f5661189259ba2caa93f76c6b9 # main
+      uses: paketo-buildpacks/github-config/actions/issue/file@9009c0d6ac013a3795908732d2d445fa40473a26 # main
       with:
         token: ${{ github.token }}
         repo: ${{ github.repository }}
