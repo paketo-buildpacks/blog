@@ -62,6 +62,10 @@ OpenJDK Runtime Environment Corretto-25.0.4.10.1 (build 25.0.4.1+10-LTS)
 
 Once `jvm-vendors` is wired into the builders, the `--buildpack` flags go away entirely and `BP_JVM_VENDOR` is all you need.
 
+```
+pack build my-app --env BP_JVM_VENDOR=amazon-corretto
+```
+
 ## Try it with Java 27
 
 Java 27 is available for seven of the ten vendors — Adoptium, Amazon Corretto, Azul Zulu, BellSoft Liberica, Eclipse OpenJ9, Oracle and SAP Machine. Alibaba Dragonwell, GraalVM and Microsoft OpenJDK have not published 27 builds yet.
