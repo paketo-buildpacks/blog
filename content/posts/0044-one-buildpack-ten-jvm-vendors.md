@@ -5,7 +5,7 @@ slug: one-buildpack-ten-jvm-vendors
 author: anthonydahanne
 ---
 
-Paketo ships ten JVM vendor buildpacks: Adoptium, Alibaba Dragonwell, Amazon Corretto, Azul Zulu, BellSoft Liberica, Eclipse OpenJ9, GraalVM, Microsoft OpenJDK, Oracle and SAP Machine. Until now, that meant ten repositories, ten release trains, and — for you — a `--buildpack` flag every time you wanted anything other than the default.
+Paketo ships ten JVM vendor buildpacks: Adoptium, Alibaba Dragonwell, Amazon Corretto, Azul Zulu, BellSoft Liberica, Eclipse OpenJ9, GraalVM, Microsoft OpenJDK, Oracle and SAP Machine. Until now, that meant ten repositories, ten release trains, and for the user a `--buildpack` flag every time they wanted anything other than the default (Bellsoft Liberica).
 
 [`paketo-buildpacks/jvm-vendors`](https://github.com/paketo-buildpacks/jvm-vendors) replaces the ten repositories with one, and adds a `BP_JVM_VENDOR` environment variable so you can pick your vendor without touching the buildpack order.
 
@@ -93,7 +93,7 @@ openjdk version "27" 2026-09-15
 OpenJDK Runtime Environment (build 27+36)
 ```
 
-Any of the other six behaves the same way. SAP Machine, for instance — and unlike Corretto it publishes a real JRE, so that is what ends up in the runtime image:
+Any of the other six behaves the same way. SAP Machine, for instance:
 
 ```
 pack build my-app --buildpack paketobuildpacks/jvm-vendors-dev:latest \
@@ -128,8 +128,6 @@ Both shapes come out of the same release. The per-vendor buildpacks keep the ven
 ```
 
 For maintainers, this collapses ten sets of dependency-update workflows, ten `go.mod` files and ten release processes into one.
-
-The shared logic was never duplicated, to be clear: the memory calculator, the NMT helper and the certificate loader all live in [`libjvm`](https://github.com/paketo-buildpacks/libjvm), and all ten buildpacks pinned the same version of it. What cost time was *shipping* a change — a `libjvm` release, then a dependency bump and a release in each of the ten repositories, 229 merged bump pull requests between them so far. `jvm-vendors` has no `libjvm` dependency; that code now lives in the repository itself, and the propagation step is gone.
 
 ## Migrating
 
@@ -183,13 +181,13 @@ Byte for byte the same archive — same `BP_JVM_VERSION`, same JDK. Corretto has
 [builder]   No valid JRE available, providing matching JDK instead. Using a JDK at runtime has security implications.
 ```
 
-That message is not new, and it is worth reading: you are shipping a compiler in your runtime image. If it bothers you, `BP_JVM_VENDOR=adoptium` or `sap-machine` will give you a real JRE.
+That message is not new, and it is worth reading: you are shipping a compiler in your runtime image. If it bothers you, choose another vendor that will give you a real JRE.
 
 ### You build native images
 
-This used to be the one area where `jvm-vendors` fell short — BellSoft Liberica shipped no NIK builds at all, and Oracle's `native-image-svm` entry pointed at the plain Oracle JDK, so the tool was missing. Both are fixed.
+Native image works for BellSoft Liberica, GraalVM and Oracle, the same three vendors that offer it today. 
 
-Native image now works for BellSoft Liberica, GraalVM and Oracle, the same three vendors that offer it today. With Liberica:
+With Liberica:
 
 ```
 pack build native-liberica \
@@ -231,7 +229,7 @@ One gap remains: no vendor publishes a Java 27 native image yet, so native build
 
 ## What to watch out for
 
-The buildpack is a preview, and honest about it:
+The buildpack is a preview for now:
 
 - Images are published with a `-dev` suffix: `paketobuildpacks/jvm-vendors-dev`, `paketobuildpacks/bellsoft-liberica-dev`, and so on. The production images still come from the old repositories, which are not archived.
 - Nothing is wired into the builders yet, so you need the two `--buildpack` flags shown above.
