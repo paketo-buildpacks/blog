@@ -185,7 +185,7 @@ Byte for byte the same archive — same `BP_JVM_VERSION`, same JDK. Corretto has
 [builder]   No valid JRE available, providing matching JDK instead. Using a JDK at runtime has security implications.
 ```
 
-That message is not new, and it is worth reading: you are shipping a compiler in your runtime image. If it bothers you, choose another vendor that will give you a real JRE.
+That message is not new, and it is worth reading: you are shipping a compiler in your runtime image. If it bothers you, choose another vendor that will give you a real JRE or use Paketo Buildpacks support for `jlink` to trim out what you don’t need.
 
 ### You build native images
 
