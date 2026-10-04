@@ -117,7 +117,7 @@ OpenJDK Runtime Environment SapMachine (build 27+35)
 
 Both `amd64` and `arm64` are covered; the example above ran on an Apple Silicon Mac.
 
-## One repository, eleven buildpackages
+## One repository, eleven buildpack'ages
 
 Under the hood, `jvm-vendors` is a single Go codebase and a single `buildpack.toml` holding every vendor's dependencies. At packaging time, [`libpak-tools`](https://github.com/paketo-buildpacks/libpak-tools) slices that `buildpack.toml` two different ways:
 
@@ -231,6 +231,70 @@ Note the `BP_MAVEN_ACTIVE_PROFILES=native` flag: the Spring Boot native sample n
 
 One gap remains: no vendor publishes a Java 27 native image yet, so native builds top out at 25.
 
+## Build your own
+
+Ten vendors is the right default for the project, but it may not be the right menu for your
+platform. If you only support 3 of them, there is no reason to embed 7 more — and `bellsoft-liberica` being the default may not match what you have
+standardized on.
+
+Because the vendor list and the default are just entries in `buildpack.toml`, you can cut your own.
+[`libpak-tools`](https://github.com/paketo-buildpacks/libpak-tools) takes `--vendors` for what to
+include and `--default-vendor` for ... the default!
+
+```
+git clone https://github.com/paketo-buildpacks/jvm-vendors && cd jvm-vendors
+
+libpak-tools build-jvm-vendors \
+  --single-buildpack \
+  --buildpack-id "acme/jvm-vendors@1.0.0" \
+  --vendors oracle --vendors adoptium --vendors sap-machine \
+  --default-vendor sap-machine \
+  --buildpack-path .
+[...]
+➜ Building single JVM Vendors buildpack
+➜ Using default vendor sap-machine from [oracle adoptium sap-machine]
+
+Paketo Buildpack for JVM Vendors 1.0.0
+  Creating package in /var/folders/[...]/BundleBuildpack1862535003
+  Pre-package with scripts/build.sh
+    Adding buildpack.toml
+    Adding linux/amd64/bin/build
+[...]
+Successfully created package acme/jvm-vendors and saved to docker daemon
+```
+
+Build with it and the choice is exactly the one you published, SAP Machine, by default:
+
+```
+pack build my-app --buildpack docker://acme/jvm-vendors \
+                  --buildpack paketobuildpacks/java:latest
+[...]
+[builder] Paketo Buildpack for JVM Vendors 1.0.0
+[builder]     $BP_JVM_VENDOR    sap-machine                   the default JVM vendor
+[builder]     $BP_JVM_VENDORS   oracle,adoptium,sap-machine   the available JVM vendors
+[builder]     Using buildpack default Java version 21
+[builder]    21.0.12: Contributing to layer
+[builder]     Downloading from https://github.com/SAP/SapMachine/releases/download/sapmachine-21.0.12.1/sapmachine-jdk-21.0.12.1_linux-aarch64_bin.tar.gz
+```
+
+`BP_JVM_VENDOR=oracle` switches to one of the other two. Ask for one you left out and detection
+says so, rather than quietly falling back to something you did not sanction:
+
+```
+pack build my-app --buildpack docker://acme/jvm-vendors \
+                  --buildpack paketobuildpacks/java:latest \
+                  --env BP_JVM_VENDOR=azul-zulu
+[...]
+[detector]     SKIPPED: buildpack does not match requested JVM vendor of [azul-zulu], buildpack supports ["oracle" "adoptium" "sap-machine"]
+[detector] ERROR: No buildpack groups passed detection.
+```
+
+One thing this does *not* buy you is a smaller buildpack: the three-vendor image is 14.7 MB, exactly
+the same as the ten-vendor one, because the JDKs are metadata rather than payload: they are
+downloaded during the build, not shipped inside the buildpack. What you are trimming is the menu,
+not the weight.
+
+
 ## What to watch out for
 
 The buildpack is a preview for now:
@@ -240,8 +304,10 @@ The buildpack is a preview for now:
 - Versions restart at `0.x` — `0.3.0` at the time of writing, against `11.9.0` for the current `bellsoft-liberica` buildpack.
 - Not every vendor ships every artifact. Only Adoptium, Azul Zulu, BellSoft Liberica, Eclipse OpenJ9 and SAP Machine publish a JRE; native image is BellSoft Liberica, GraalVM and Oracle only.
 
-## Tell us what breaks
+## Coming to default soon - tell us what breaks
 
 That is exactly what a preview is for. Try your applications against `paketobuildpacks/jvm-vendors-dev`, and open an issue on [paketo-buildpacks/jvm-vendors](https://github.com/paketo-buildpacks/jvm-vendors/issues) or find us on [Slack](https://slack.paketo.io/) if something behaves differently from the vendor buildpack you use today.
+
+We intend to make `paketobuildpacks/jvm-vendors` the default for all Java applications in a month or 2; using a version greater than all the individual buildpacks, to avoid clashes.
 
 Happy building!
