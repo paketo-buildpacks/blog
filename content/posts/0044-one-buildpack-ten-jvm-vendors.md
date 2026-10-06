@@ -308,6 +308,6 @@ The buildpack is a preview for now:
 
 That is exactly what a preview is for. Try your applications against `paketobuildpacks/jvm-vendors-dev`, and open an issue on [paketo-buildpacks/jvm-vendors](https://github.com/paketo-buildpacks/jvm-vendors/issues) or find us on [Slack](https://slack.paketo.io/) if something behaves differently from the vendor buildpack you use today.
 
-We intend to make `paketobuildpacks/jvm-vendors` the default for all Java applications in a month or 2; using a version greater than all the individual buildpacks, to avoid clashes.
+We intend to make `paketobuildpacks/jvm-vendors` the default for all Java applications after a one month of testing; using a version greater than all the individual buildpacks, to avoid clashes. We will post again when the change has been made.
 
 Happy building!
