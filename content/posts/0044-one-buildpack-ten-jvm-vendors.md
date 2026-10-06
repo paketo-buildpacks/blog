@@ -233,10 +233,8 @@ One gap remains: no vendor publishes a Java 27 native image yet, so native build
 
 ## Build your own
 
-Ten vendors is the right default for the project, but it may not be the right menu for your
-platform. If you only support 3 of them, there is no reason to embed 7 more — and `bellsoft-liberica` being the default may not match what you have
-standardized on.
-
+Ten vendors is the right default for the project, but it may not be the right selection for your
+platform or company. If you only support three vendors, there is no reason to embed 7 more. Not to mention, `bellsoft-liberica` may not make sense as your default, or even be a vendor that you support at all.
 Because the vendor list and the default are just entries in `buildpack.toml`, you can cut your own.
 [`libpak-tools`](https://github.com/paketo-buildpacks/libpak-tools) takes `--vendors` for what to
 include and `--default-vendor` for ... the default!
