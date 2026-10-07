@@ -10,9 +10,16 @@
 		
 		
 		
-			<lastBuildDate>Fri, 21 Aug 2026 14:48:19 +0200</lastBuildDate>
+			<lastBuildDate>Sat, 26 Sep 2026 18:00:00 +0200</lastBuildDate>
 		
 			<atom:link href="https://blog.paketo.io/posts/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>One buildpack, ten JVM vendors</title>
+				<link>https://blog.paketo.io/posts/one-buildpack-ten-jvm-vendors/</link>
+				<pubDate>Sat, 26 Sep 2026 18:00:00 +0200</pubDate>
+				<guid>https://blog.paketo.io/posts/one-buildpack-ten-jvm-vendors/</guid>
+				<description>&lt;p&gt;Paketo ships ten JVM vendor buildpacks: Adoptium, Alibaba Dragonwell, Amazon Corretto, Azul Zulu, BellSoft Liberica, Eclipse OpenJ9, GraalVM, Microsoft OpenJDK, Oracle and SAP Machine. Until now, that meant ten repositories, ten release trains, and for the user a &lt;code&gt;--buildpack&lt;/code&gt; flag every time they wanted anything other than the default (Bellsoft Liberica).&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://github.com/paketo-buildpacks/jvm-vendors&#34;&gt;&lt;code&gt;paketo-buildpacks/jvm-vendors&lt;/code&gt;&lt;/a&gt; replaces the ten repositories with one, and adds a &lt;code&gt;BP_JVM_VENDOR&lt;/code&gt; environment variable so you can pick your vendor without touching the buildpack order.&lt;/p&gt;</description>
+			</item>
 			<item>
 				<title>Containerizing and Optimizing Node.js Applications with Paketo Buildpacks</title>
 				<link>https://blog.paketo.io/posts/containerizing-nodejs-apps/</link>

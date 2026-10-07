@@ -1,0 +1,260 @@
+<!doctype html>
+<html>
+  <head>
+      <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>One buildpack, ten JVM vendors | Paketo Buildpacks | Blog</title>
+<link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-language" content="en-us" />
+
+<meta property='og:site_name' content="Paketo Buildpacks | Blog">
+<meta property='og:title' content="One buildpack, ten JVM vendors">
+<meta property='og:url' content="https://blog.paketo.io/posts/one-buildpack-ten-jvm-vendors/">
+<meta property='og:image' content='/images/logo512.png'/>
+<meta name="twitter:title" content="Paketo Buildpacks | Blog" />
+<meta name="twitter:url" content="https://blog.paketo.io/posts/one-buildpack-ten-jvm-vendors/" />
+<meta name="twitter:card" content="" />
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TJMQZ5RDFG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TJMQZ5RDFG');
+</script><link rel="stylesheet" href="/scss/main.min.css">
+
+  </head>
+  <body>
+    <div class="post">
+      <header>
+        <a href="/">
+          <img class="logo" src="/images/logo512.png" />
+          <h1>Paketo Buildpacks | Blog</h1>
+        </a>
+      </header>
+      <section>
+        <h1>One buildpack, ten JVM vendors</h1>
+        <section class="author"><img src="/images/authors/anthonydahanne.jpg" /><name>Anthony Dahanne</name></section>
+        <date>Saturday, Sep 26, 2026</date>
+        
+        <article>
+          <p>Paketo ships ten JVM vendor buildpacks: Adoptium, Alibaba Dragonwell, Amazon Corretto, Azul Zulu, BellSoft Liberica, Eclipse OpenJ9, GraalVM, Microsoft OpenJDK, Oracle and SAP Machine. Until now, that meant ten repositories, ten release trains, and for the user a <code>--buildpack</code> flag every time they wanted anything other than the default (Bellsoft Liberica).</p>
+<p><a href="https://github.com/paketo-buildpacks/jvm-vendors"><code>paketo-buildpacks/jvm-vendors</code></a> replaces the ten repositories with one, and adds a <code>BP_JVM_VENDOR</code> environment variable so you can pick your vendor without touching the buildpack order.</p>
+<p>It is available today as a preview, under <code>-dev</code> image names. Read on for what changes, and what to watch out for.</p>
+<h2 id="picking-a-vendor-today">Picking a vendor today</h2>
+<p>The <code>java</code> composite buildpack bundles exactly one JVM buildpack, BellSoft Liberica:</p>
+<pre tabindex="0"><code>pack inspect-builder paketobuildpacks/builder-noble-java-tiny
+[...]
+  paketo-buildpacks/bellsoft-liberica    Paketo Buildpack for BellSoft Liberica    11.9.0
+</code></pre><p>Want Corretto instead? You override the builder&rsquo;s whole order, which means naming the JVM buildpack <em>and</em> the composite, in that order:</p>
+<pre tabindex="0"><code>pack build my-app --buildpack paketobuildpacks/amazon-corretto:latest \
+                  --buildpack paketobuildpacks/java:latest
+</code></pre><p>Get the order wrong and detection fails. Forget <code>paketobuildpacks/java</code> and nothing builds your application. It works, but it is not something you want to explain twice.</p>
+<h2 id="picking-a-vendor-with-jvm-vendors">Picking a vendor with jvm-vendors</h2>
+<p>The <code>jvm-vendors</code> buildpack carries all ten vendors, and <code>BP_JVM_VENDOR</code> chooses between them:</p>
+<pre tabindex="0"><code>pack build my-app --buildpack paketobuildpacks/jvm-vendors-dev:latest \
+                  --buildpack paketobuildpacks/java:latest \
+                  --env BP_JVM_VENDOR=amazon-corretto
+</code></pre><p>The buildpack prints what it resolved:</p>
+<pre tabindex="0"><code>[builder] Paketo Buildpack for JVM Vendors 0.3.0
+[builder]   Build Configuration:
+[builder]     $BP_JVM_VENDOR    amazon-corretto                                    the default JVM vendor
+[builder]     $BP_JVM_VENDORS   adoptium,alibaba-dragonwell,amazon-corretto,[...]  the available JVM vendors
+[builder]     $BP_JVM_VERSION   25                                                 the Java version
+[builder]     Using Java version 25 from BP_JVM_VERSION
+[builder]    25.0.4: Contributing to layer
+[builder]     Downloading from https://corretto.aws/downloads/resources/25.0.4.10.1/amazon-corretto-25.0.4.10.1-linux-aarch64.tar.gz
+</code></pre><p>And the image runs what you asked for:</p>
+<pre tabindex="0"><code>openjdk version &#34;25.0.4.1&#34; 2026-08-18 LTS
+OpenJDK Runtime Environment Corretto-25.0.4.10.1 (build 25.0.4.1+10-LTS)
+</code></pre><p>Once <code>jvm-vendors</code> is wired into the builders, the <code>--buildpack</code> flags go away entirely and <code>BP_JVM_VENDOR</code> is all you need.</p>
+<pre tabindex="0"><code>pack build my-app --env BP_JVM_VENDOR=amazon-corretto
+</code></pre><h2 id="try-it-with-java-27">Try it with Java 27</h2>
+<p>Java 27 is available for seven of the ten vendors — Adoptium, Amazon Corretto, Azul Zulu, BellSoft Liberica, Eclipse OpenJ9, Oracle and SAP Machine. Alibaba Dragonwell, GraalVM and Microsoft OpenJDK have not published 27 builds yet.</p>
+<p>Liberica is the default vendor, so <code>BP_JVM_VENDOR</code> can be left out:</p>
+<pre tabindex="0"><code>cd paketo-buildpacks/samples
+pack build jvm-vendors-demo --path java/maven \
+  --builder paketobuildpacks/builder-noble-java-tiny \
+  --buildpack paketobuildpacks/jvm-vendors-dev:latest \
+  --buildpack paketobuildpacks/java:latest \
+  --env BP_JVM_VERSION=27
+[...]
+[builder]     Using Java version 27 from BP_JVM_VERSION
+[builder]    27.0.0: Contributing to layer
+[builder]     Downloading from https://github.com/bell-sw/Liberica/releases/download/27+36/bellsoft-jdk27+36-linux-aarch64.tar.gz
+[builder]    27.0.0: Contributing to layer
+[builder]     Downloading from https://github.com/bell-sw/Liberica/releases/download/27+36/bellsoft-jre27+36-linux-aarch64.tar.gz
+[...]
+[exporter] Adding layer &#39;paketo-buildpacks/jvm-vendors:jre-bellsoft-liberica&#39;
+Successfully built image &#39;jvm-vendors-demo&#39;
+</code></pre><pre tabindex="0"><code>docker run --rm --entrypoint launcher jvm-vendors-demo -- java -version
+[...]
+openjdk version &#34;27&#34; 2026-09-15
+OpenJDK Runtime Environment (build 27+36)
+</code></pre><p>Any of the other six behaves the same way. SAP Machine, for instance:</p>
+<pre tabindex="0"><code>pack build my-app --buildpack paketobuildpacks/jvm-vendors-dev:latest \
+                  --buildpack paketobuildpacks/java:latest \
+                  --env BP_JVM_VENDOR=sap-machine \
+                  --env BP_JVM_VERSION=27
+[...]
+[builder]     Using Java version 27 from BP_JVM_VERSION
+[builder]    27: Contributing to layer
+[builder]     Downloading from https://github.com/SAP/SapMachine/releases/download/sapmachine-27/sapmachine-jdk-27_linux-aarch64_bin.tar.gz
+[builder]    27: Contributing to layer
+[builder]     Downloading from https://github.com/SAP/SapMachine/releases/download/sapmachine-27/sapmachine-jre-27_linux-aarch64_bin.tar.gz
+[...]
+openjdk version &#34;27&#34; 2026-09-15
+OpenJDK Runtime Environment SapMachine (build 27+35)
+</code></pre><p>Both <code>amd64</code> and <code>arm64</code> are covered; the example above ran on an Apple Silicon Mac.</p>
+<h2 id="one-repository-eleven-buildpackages">One repository, eleven buildpack&rsquo;ages</h2>
+<p>Under the hood, <code>jvm-vendors</code> is a single Go codebase and a single <code>buildpack.toml</code> holding every vendor&rsquo;s dependencies. At packaging time, <a href="https://github.com/paketo-buildpacks/libpak-tools"><code>libpak-tools</code></a> slices that <code>buildpack.toml</code> two different ways:</p>
+<ul>
+<li><strong>One buildpackage per vendor</strong>, with the dependencies of every other vendor stripped out, published under the buildpack IDs you already use — <code>paketo-buildpacks/bellsoft-liberica</code>, <code>paketo-buildpacks/azul-zulu</code>, and so on. These are drop-in replacements for the buildpacks coming out of the old repositories.</li>
+<li><strong>One buildpackage with all ten vendors</strong>, <code>paketo-buildpacks/jvm-vendors</code>, which is what <code>BP_JVM_VENDOR</code> is for.</li>
+</ul>
+<p>Both shapes come out of the same release. The per-vendor buildpacks keep the vendor selection logic too, so in a builder that stacks several of them, the ones you did not ask for step aside during detection:</p>
+<pre tabindex="0"><code>[detector] ======== Output: paketo-buildpacks/bellsoft-liberica@0.3.0 ========
+[detector]     SKIPPED: buildpack does not match requested JVM vendor of [sap-machine], buildpack supports [&#34;bellsoft-liberica&#34;]
+</code></pre><p>For maintainers, this collapses ten sets of dependency-update workflows, ten <code>go.mod</code> files and ten release processes into one.</p>
+<h2 id="migrating">Migrating</h2>
+<p>Three cases cover most setups.</p>
+<h3 id="you-never-configured-a-jvm">You never configured a JVM</h3>
+<p>Nothing to change. BellSoft Liberica is the default vendor in <code>jvm-vendors</code>, as it is in the <code>java</code> composite today, and the default Java version matches too:</p>
+<pre tabindex="0"><code>pack build my-app --buildpack paketobuildpacks/jvm-vendors-dev:latest \
+                  --buildpack paketobuildpacks/java:latest
+[...]
+[builder] Paketo Buildpack for JVM Vendors 0.3.0
+[builder]     $BP_JVM_VERSION   21   the Java version
+[builder]     Using buildpack default Java version 21
+[builder]    21.0.12: Contributing to layer
+[builder]     Downloading from https://github.com/bell-sw/Liberica/releases/download/21.0.12.1+1/bellsoft-jdk21.0.12.1+1-linux-aarch64.tar.gz
+</code></pre><p>Same vendor, same version, same artifact as the buildpack you are on today.</p>
+<h3 id="you-pinned-a-vendor-and-a-version">You pinned a vendor and a version</h3>
+<p>Say Corretto 17. Before, the vendor buildpack went in front of the composite:</p>
+<pre tabindex="0"><code>pack build my-app --buildpack paketobuildpacks/amazon-corretto:latest \
+                  --buildpack paketobuildpacks/java:latest \
+                  --env BP_JVM_VERSION=17
+[...]
+[builder]   Corretto JDK 17.0.20: Contributing to layer
+[builder]     Downloading from https://corretto.aws/downloads/resources/17.0.20.12.1/amazon-corretto-17.0.20.12.1-linux-aarch64.tar.gz
+</code></pre><p>After, the vendor moves out of the buildpack list and into the environment:</p>
+<pre tabindex="0"><code>pack build my-app --buildpack paketobuildpacks/jvm-vendors-dev:latest \
+                  --buildpack paketobuildpacks/java:latest \
+                  --env BP_JVM_VENDOR=amazon-corretto \
+                  --env BP_JVM_VERSION=17
+[...]
+[builder]    17.0.20: Contributing to layer
+[builder]     Downloading from https://corretto.aws/downloads/resources/17.0.20.12.1/amazon-corretto-17.0.20.12.1-linux-aarch64.tar.gz
+</code></pre><p>Byte for byte the same archive — same <code>BP_JVM_VERSION</code>, same JDK. Corretto has no JRE, so both builds tell you what they did instead:</p>
+<pre tabindex="0"><code>[builder]   No valid JRE available, providing matching JDK instead. Using a JDK at runtime has security implications.
+</code></pre><p>That message is not new, and it is worth reading: you are shipping a compiler in your runtime image. If it bothers you, choose another vendor that will give you a real JRE or use Paketo Buildpacks support for <code>jlink</code> to trim out what you don’t need.</p>
+<h3 id="you-build-native-images">You build native images</h3>
+<p>Native image works for BellSoft Liberica, GraalVM and Oracle, the same three vendors that offer it today.</p>
+<p>With Liberica:</p>
+<pre tabindex="0"><code>pack build native-liberica \
+  --path java/native-image/spring-boot-native-image-maven \
+  --builder paketobuildpacks/builder-noble-java-tiny \
+  --buildpack paketobuildpacks/jvm-vendors-dev:latest \
+  --buildpack paketobuildpacks/java-native-image:latest \
+  --env BP_JVM_VENDOR=bellsoft-liberica \
+  --env BP_JVM_VERSION=25 \
+  --env BP_MAVEN_ACTIVE_PROFILES=native
+[...]
+[builder]     Downloading from https://github.com/bell-sw/LibericaNIK/releases/download/25.0.4.1+1-25.0.4.1+2/bellsoft-liberica-vm-openjdk25.0.4.1+2-25.0.4.1+1-linux-aarch64.tar.gz
+[...]
+[builder] Finished generating &#39;io.paketo.demo.DemoApplication&#39; in 2m 40s.
+Successfully built image &#39;native-liberica&#39;
+</code></pre><p>Swap in <code>BP_JVM_VENDOR=oracle</code> and you get Oracle GraalVM instead:</p>
+<pre tabindex="0"><code>[builder]     Downloading from https://download.oracle.com/graalvm/25/latest/graalvm-jdk-25_linux-aarch64_bin.tar.gz
+[...]
+[builder] Finished generating &#39;io.paketo.demo.DemoApplication&#39; in 5m 23s.
+Successfully built image &#39;native-oracle&#39;
+</code></pre><p>Either way you get a binary that is serving requests in well under a tenth of a second:</p>
+<pre tabindex="0"><code>docker run --rm -p 8080:8080 native-liberica
+[...]
+INFO 1 --- [main] o.s.boot.reactor.netty.NettyWebServer : Netty started on port 8080 (http)
+INFO 1 --- [main] io.paketo.demo.DemoApplication        : Started DemoApplication in 0.041 seconds (process running for 0.063)
+</code></pre><p>Note the <code>BP_MAVEN_ACTIVE_PROFILES=native</code> flag: the Spring Boot native sample needs its AOT profile to generate reachability metadata. That is not specific to <code>jvm-vendors</code>, but it is easy to forget.</p>
+<p>One gap remains: no vendor publishes a Java 27 native image yet, so native builds top out at 25.</p>
+<h2 id="build-your-own">Build your own</h2>
+<p>Ten vendors is the right default for the project, but it may not be the right selection for your
+platform or company. If you only support three vendors, there is no reason to embed 7 more. Not to mention, <code>bellsoft-liberica</code> may not make sense as your default, or even be a vendor that you support at all.
+Because the vendor list and the default are just entries in <code>buildpack.toml</code>, you can cut your own.
+<a href="https://github.com/paketo-buildpacks/libpak-tools"><code>libpak-tools</code></a> takes <code>--vendors</code> for what to
+include and <code>--default-vendor</code> for &hellip; the default!</p>
+<pre tabindex="0"><code>git clone https://github.com/paketo-buildpacks/jvm-vendors &amp;&amp; cd jvm-vendors
+
+libpak-tools build-jvm-vendors \
+  --single-buildpack \
+  --buildpack-id &#34;acme/jvm-vendors@1.0.0&#34; \
+  --vendors oracle --vendors adoptium --vendors sap-machine \
+  --default-vendor sap-machine \
+  --buildpack-path .
+[...]
+➜ Building single JVM Vendors buildpack
+➜ Using default vendor sap-machine from [oracle adoptium sap-machine]
+
+Paketo Buildpack for JVM Vendors 1.0.0
+  Creating package in /var/folders/[...]/BundleBuildpack1862535003
+  Pre-package with scripts/build.sh
+    Adding buildpack.toml
+    Adding linux/amd64/bin/build
+[...]
+Successfully created package acme/jvm-vendors and saved to docker daemon
+</code></pre><p>Build with it and the choice is exactly the one you published, SAP Machine, by default:</p>
+<pre tabindex="0"><code>pack build my-app --buildpack docker://acme/jvm-vendors \
+                  --buildpack paketobuildpacks/java:latest
+[...]
+[builder] Paketo Buildpack for JVM Vendors 1.0.0
+[builder]     $BP_JVM_VENDOR    sap-machine                   the default JVM vendor
+[builder]     $BP_JVM_VENDORS   oracle,adoptium,sap-machine   the available JVM vendors
+[builder]     Using buildpack default Java version 21
+[builder]    21.0.12: Contributing to layer
+[builder]     Downloading from https://github.com/SAP/SapMachine/releases/download/sapmachine-21.0.12.1/sapmachine-jdk-21.0.12.1_linux-aarch64_bin.tar.gz
+</code></pre><p><code>BP_JVM_VENDOR=oracle</code> switches to one of the other two. Ask for one you left out and detection
+says so, rather than quietly falling back to something you did not sanction:</p>
+<pre tabindex="0"><code>pack build my-app --buildpack docker://acme/jvm-vendors \
+                  --buildpack paketobuildpacks/java:latest \
+                  --env BP_JVM_VENDOR=azul-zulu
+[...]
+[detector]     SKIPPED: buildpack does not match requested JVM vendor of [azul-zulu], buildpack supports [&#34;oracle&#34; &#34;adoptium&#34; &#34;sap-machine&#34;]
+[detector] ERROR: No buildpack groups passed detection.
+</code></pre><p>One thing this does <em>not</em> buy you is a smaller buildpack: the three-vendor image is 14.7 MB, exactly
+the same as the ten-vendor one, because the JDKs are metadata rather than payload: they are
+downloaded during the build, not shipped inside the buildpack. What you are trimming is the menu,
+not the weight.</p>
+<h2 id="what-to-watch-out-for">What to watch out for</h2>
+<p>The buildpack is a preview for now:</p>
+<ul>
+<li>Images are published with a <code>-dev</code> suffix: <code>paketobuildpacks/jvm-vendors-dev</code>, <code>paketobuildpacks/bellsoft-liberica-dev</code>, and so on. The production images still come from the old repositories, which are not archived.</li>
+<li>Nothing is wired into the builders yet, so you need the two <code>--buildpack</code> flags shown above.</li>
+<li>Versions restart at <code>0.x</code> — <code>0.3.0</code> at the time of writing, against <code>11.9.0</code> for the current <code>bellsoft-liberica</code> buildpack.</li>
+<li>Not every vendor ships every artifact. Only Adoptium, Azul Zulu, BellSoft Liberica, Eclipse OpenJ9 and SAP Machine publish a JRE; native image is BellSoft Liberica, GraalVM and Oracle only.</li>
+</ul>
+<h2 id="coming-to-default-soon---tell-us-what-breaks">Coming to default soon - tell us what breaks</h2>
+<p>That is exactly what a preview is for. Try your applications against <code>paketobuildpacks/jvm-vendors-dev</code>, and open an issue on <a href="https://github.com/paketo-buildpacks/jvm-vendors/issues">paketo-buildpacks/jvm-vendors</a> or find us on <a href="https://slack.paketo.io/">Slack</a> if something behaves differently from the vendor buildpack you use today.</p>
+<p>We intend to make <code>paketobuildpacks/jvm-vendors</code> the default for all Java applications after a one month of testing; using a version greater than all the individual buildpacks, to avoid clashes. We will post again when the change has been made.</p>
+<p>Happy building!</p>
+
+        </article>
+      </section>
+      <footer class="post">
+        <a class="x-share-button" href="https://x.com/intent/tweet?text=Paketo%20Buildpacks%20%7c%20Blog%20%7c%20One%20buildpack,%20ten%20JVM%20vendors&amp;url=https://blog.paketo.io/posts/one-buildpack-ten-jvm-vendors/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/x.png" alt="Share on X" />
+</a>
+
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://blog.paketo.io/posts/one-buildpack-ten-jvm-vendors/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/linkedin.png" />
+</a>
+
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://blog.paketo.io/posts/one-buildpack-ten-jvm-vendors/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/facebook.png" />
+</a>
+
+      </footer>
+    </div>
+  </body>
+</html>

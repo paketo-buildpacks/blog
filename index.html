@@ -40,6 +40,22 @@
       
         <article>
   <div>
+    <h2><a href="/posts/one-buildpack-ten-jvm-vendors/">One buildpack, ten JVM vendors</a></h2>
+    <p>Paketo ships ten JVM vendor buildpacks: Adoptium, Alibaba Dragonwell, Amazon Corretto, Azul Zulu, BellSoft Liberica, Eclipse OpenJ9, GraalVM, Microsoft OpenJDK, Oracle and SAP Machine. Until now, that meant ten repositories, ten release trains, and for the user a <code>--buildpack</code> flag every time they wanted anything other than the default (Bellsoft Liberica).</p>
+<p><a href="https://github.com/paketo-buildpacks/jvm-vendors"><code>paketo-buildpacks/jvm-vendors</code></a> replaces the ten repositories with one, and adds a <code>BP_JVM_VENDOR</code> environment variable so you can pick your vendor without touching the buildpack order.</p>
+    
+      <a href="/posts/one-buildpack-ten-jvm-vendors/">…</a>
+    
+    <div class="metadata">
+      <section class="author"><img src="/images/authors/anthonydahanne.jpg" /><name>Anthony Dahanne</name></section>
+      <span class="date">Saturday, Sep 26, 2026</span>
+    </div>
+  </div>
+</article>
+
+      
+        <article>
+  <div>
     <h2><a href="/posts/containerizing-nodejs-apps/">Containerizing and Optimizing Node.js Applications with Paketo Buildpacks</a></h2>
     <p>Recently we introduced Ubuntu Noble and Resolute builders, which change how we containerize applications.
 This post shows how to containerize and optimize a <strong>Node.js</strong> application with Paketo Buildpacks on Ubuntu and Red Hat Universal Base Image (UBI) builders.</p>
