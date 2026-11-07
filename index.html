@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
   <head>
-	<meta name="generator" content="Hugo 0.166.0">
+	<meta name="generator" content="Hugo 0.167.0">
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>Paketo Buildpacks | Blog</title>
@@ -317,6 +317,12 @@ automatically use the latest SDK and ASP.NET Core runtime.</p>
 </li>
 <li>
 <p><a href="https://github.com/paketo-buildpacks/jammy-static-stack">Jammy-static-stack</a></p>
+<ol>
+<li>docker.io/paketobuildpacks/build-jammy-static</li>
+<li>docker.io/paketobuildpacks/run-jammy-static</li>
+</ol>
+</li>
+</ul>
     
       <a href="/posts/builders-stacks-base-images-restructure/">…</a>
     
@@ -383,6 +389,13 @@ pack build applications/maven
 <ol>
 <li>
 <p>You may migrate off it. The primary feature of this buildpack is that it includes the Microsoft OpenJDK JVM. You do not need this buildpack to use the Microsoft OpenJDK JVM though. To continue to using Microsoft OpenJDK and migrate off of the Java Azure composite buildpack, you need to use <a href="https://paketo.io/docs/howto/java/#use-an-alternative-jvm">the alternative JVM instructions</a> in the Paketo docs.</p>
+<p>For example, <code>pack build --buildpack paketo-buildpacks/microsoft-openjdk paketo-buildpacks/java ...</code> will perform a build with the Microsoft OpenJDK JVM instead of the default Bellsoft Liberica JVM.</p>
+</li>
+<li>
+<p>If you prefer to continue using the Paketo Buildpacks Java Azure composite buildpack, then you will need to fork it and maintain it on your own going forward.</p>
+<p>First, fork the buildpack on GitHub. Then make sure to rename any reference to Paketo Buildpacks to something else. You need to change the buildpack ID and also the image references, so that you are publishing your own copy of that buildpack.</p>
+</li>
+</ol>
     
       <a href="/posts/paketo-java-azure-sunsets/">…</a>
     
@@ -1085,6 +1098,7 @@ matters the most… <strong>developing great software</strong>.</p>
 <h2 id="first-off-what-are-paketo-buildpacks-and-why-would-i-use-them">First off… what are Paketo Buildpacks, and why would I use them?</h2>
 <blockquote>
 <p>Buildpacks provide a higher-level abstraction for building apps</p>
+</blockquote>
     
       <a href="/posts/get-to-know-paketo-buildpacks/">…</a>
     
