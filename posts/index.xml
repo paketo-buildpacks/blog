@@ -10,9 +10,16 @@
 		
 		
 		
-			<lastBuildDate>Sat, 26 Sep 2026 18:00:00 +0200</lastBuildDate>
+			<lastBuildDate>Sat, 07 Nov 2026 11:31:50 -0500</lastBuildDate>
 		
 			<atom:link href="https://blog.paketo.io/posts/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Upcoming Archival of Pipeline Builder</title>
+				<link>https://blog.paketo.io/posts/archive-pipeline-builder/</link>
+				<pubDate>Sat, 07 Nov 2026 11:31:50 -0500</pubDate>
+				<guid>https://blog.paketo.io/posts/archive-pipeline-builder/</guid>
+				<description>&lt;p&gt;The &lt;code&gt;pipeline-builder&lt;/code&gt; project has served the Java Maintainers team well over the last six years. Unfortunately, it has gotten increasingly difficult to maintain two CI pipelines. Modern-day GitHub Actions are fraught with peril and require a lot of hardening to be used safely in a large public project (see what happened with Trivy, Axios, and Tanstack). As such, a project-wide decision was made to migrate all of our projects to the &lt;code&gt;github-config&lt;/code&gt; CI project and focus all of our efforts on making that a secure and efficient way to produce images for our users.&lt;/p&gt;</description>
+			</item>
 			<item>
 				<title>One buildpack, ten JVM vendors</title>
 				<link>https://blog.paketo.io/posts/one-buildpack-ten-jvm-vendors/</link>
