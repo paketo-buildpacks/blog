@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+  <head>
+      <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Spring Cloud Bindings Changes | Paketo Buildpacks | Blog</title>
+<link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-language" content="en-us" />
+
+<meta property='og:site_name' content="Paketo Buildpacks | Blog">
+<meta property='og:title' content="Spring Cloud Bindings Changes">
+<meta property='og:url' content="https://blog.paketo.io/posts/spring-cloud-bindings-changes/">
+<meta property='og:image' content='/images/logo512.png'/>
+<meta name="twitter:title" content="Paketo Buildpacks | Blog" />
+<meta name="twitter:url" content="https://blog.paketo.io/posts/spring-cloud-bindings-changes/" />
+<meta name="twitter:card" content="" />
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TJMQZ5RDFG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TJMQZ5RDFG');
+</script><link rel="stylesheet" href="/scss/main.min.css">
+
+  </head>
+  <body>
+    <div class="post">
+      <header>
+        <a href="/">
+          <img class="logo" src="/images/logo512.png" />
+          <h1>Paketo Buildpacks | Blog</h1>
+        </a>
+      </header>
+      <section>
+        <h1>Spring Cloud Bindings Changes</h1>
+        <section class="author"><img src="/images/authors/dmikusa.jpg" /><name>Daniel Mikusa</name></section>
+        <date>Friday, Nov 20, 2026</date>
+        
+        <article>
+          <p>A quick announcement for our Spring Boot users. Historically, the Spring Boot buildpack has installed the <a href="https://github.com/spring-cloud/spring-cloud-bindings">Spring Cloud Bindings</a> JAR on behalf of users. This is a helpful library for automatically loading Kubernetes Service Bindings and registering them for autoconfiguration in your Spring Boot applications.</p>
+<p>Unfortunately, this project is no longer supported as of Spring Boot 4.2.0. The buildpack installing the library causes applications to crash at runtime with the following message:</p>
+<pre tabindex="0"><code>Spring Cloud Bindings Enabled
+Exception in thread &#34;main&#34; java.lang.reflect.InvocationTargetException
+Caused by: java.lang.IllegalArgumentException: Unable to instantiate factory class [org.springframework.cloud.bindings.boot.BindingFlattenedEnvironmentPostProcessor] for factory type [org.springframework.context.ApplicationListener]
+Caused by: java.lang.NoClassDefFoundError: org/springframework/boot/env/EnvironmentPostProcessor
+</code></pre><p>As is typical for the Paketo project, we will follow the path of upstream projects with respect to deprecations and removals, so Paketo&rsquo;s Spring Boot buildpack will switch to disable this functionality automatically when it detects a Spring Boot 4.2.0 or greater application. This is available starting in version 5.41.0 of the Spring Boot buildpack, and version 22.10.0 of the Paketo Java buildpack.</p>
+<p>If you are running on an older buildpack with Spring Boot 4.2.0+ applications, you may disable the addition of Spring Cloud Bindings by setting <code>BP_SPRING_CLOUD_BINDINGS_DISABLED=true</code> at build time. The buildpack will read this and no longer add the JAR to your application images.</p>
+<p>If you are running older Spring Boot applications that use Kubernetes Service Bindings, that&rsquo;s fine. You may continue using them and the buildpack will continue to allow that. You will need to address this in your applications though, or it will block your upgrade to Spring Boot 4.2.0+. You may consider switching to one of the following options:</p>
+<ul>
+<li>Environment variables</li>
+<li>Spring Boot&rsquo;s built-in config tree support (i.e. ConfigMap &amp; Secrets)</li>
+<li>Spring Cloud Config Server</li>
+<li>Loading directly from a secret manager like Vault or one provided by your Cloud Vendor</li>
+</ul>
+<p>If you&rsquo;re wondering why this has been removed upstream, it looks like it&rsquo;s due to declining vendor support for Kubernetes Service Bindings and other options that have grown more popular with users. For example, several vendors have dropped support, and the Spring Cloud Bindings project hasn&rsquo;t had a release in over two years.</p>
+<ul>
+<li>Red Hat Service Binding Operator was <a href="https://github.com/redhat-developer/service-binding-operator">deprecated in February 2024 and archived in June 2024</a>.</li>
+<li>VMware Tanzu Service Binding was <a href="https://github.com/vmware-tanzu/servicebinding">deprecated in March 2025</a>.</li>
+<li>Quarkus Kubernetes Service Binding was <a href="https://quarkus.io/extensions/io.quarkus/quarkus-kubernetes-service-binding">deprecated in March 2025</a>.</li>
+<li>The Spring AI project <a href="https://github.com/spring-projects/spring-ai/issues/6079">removed support for Service Bindings due to low usage</a>.</li>
+</ul>
+
+        </article>
+      </section>
+      <footer class="post">
+        <a class="x-share-button" href="https://x.com/intent/tweet?text=Paketo%20Buildpacks%20%7c%20Blog%20%7c%20Spring%20Cloud%20Bindings%20Changes&amp;url=https://blog.paketo.io/posts/spring-cloud-bindings-changes/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/x.png" alt="Share on X" />
+</a>
+
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://blog.paketo.io/posts/spring-cloud-bindings-changes/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/linkedin.png" />
+</a>
+
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://blog.paketo.io/posts/spring-cloud-bindings-changes/" target="_blank" rel="noopener noreferrer">
+  <img src="/images/social/facebook.png" />
+</a>
+
+      </footer>
+    </div>
+  </body>
+</html>

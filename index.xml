@@ -10,9 +10,16 @@
 		
 		
 		
-			<lastBuildDate>Sat, 07 Nov 2026 11:31:50 -0500</lastBuildDate>
+			<lastBuildDate>Fri, 20 Nov 2026 17:20:53 -0600</lastBuildDate>
 		
 			<atom:link href="https://blog.paketo.io/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Spring Cloud Bindings Changes</title>
+				<link>https://blog.paketo.io/posts/spring-cloud-bindings-changes/</link>
+				<pubDate>Fri, 20 Nov 2026 17:20:53 -0600</pubDate>
+				<guid>https://blog.paketo.io/posts/spring-cloud-bindings-changes/</guid>
+				<description>&lt;p&gt;A quick announcement for our Spring Boot users. Historically, the Spring Boot buildpack has installed the &lt;a href=&#34;https://github.com/spring-cloud/spring-cloud-bindings&#34;&gt;Spring Cloud Bindings&lt;/a&gt; JAR on behalf of users. This is a helpful library for automatically loading Kubernetes Service Bindings and registering them for autoconfiguration in your Spring Boot applications.&lt;/p&gt;&#xA;&lt;p&gt;Unfortunately, this project is no longer supported as of Spring Boot 4.2.0. The buildpack installing the library causes applications to crash at runtime with the following message:&lt;/p&gt;</description>
+			</item>
 			<item>
 				<title>Upcoming Archival of Pipeline Builder</title>
 				<link>https://blog.paketo.io/posts/archive-pipeline-builder/</link>

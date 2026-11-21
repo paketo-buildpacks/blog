@@ -40,6 +40,22 @@
       
         <article>
   <div>
+    <h2><a href="/posts/spring-cloud-bindings-changes/">Spring Cloud Bindings Changes</a></h2>
+    <p>A quick announcement for our Spring Boot users. Historically, the Spring Boot buildpack has installed the <a href="https://github.com/spring-cloud/spring-cloud-bindings">Spring Cloud Bindings</a> JAR on behalf of users. This is a helpful library for automatically loading Kubernetes Service Bindings and registering them for autoconfiguration in your Spring Boot applications.</p>
+<p>Unfortunately, this project is no longer supported as of Spring Boot 4.2.0. The buildpack installing the library causes applications to crash at runtime with the following message:</p>
+    
+      <a href="/posts/spring-cloud-bindings-changes/">…</a>
+    
+    <div class="metadata">
+      <section class="author"><img src="/images/authors/dmikusa.jpg" /><name>Daniel Mikusa</name></section>
+      <span class="date">Friday, Nov 20, 2026</span>
+    </div>
+  </div>
+</article>
+
+      
+        <article>
+  <div>
     <h2><a href="/posts/archive-pipeline-builder/">Upcoming Archival of Pipeline Builder</a></h2>
     <p>The <code>pipeline-builder</code> project has served the Java Maintainers team well over the last six years. Unfortunately, it has gotten increasingly difficult to maintain two CI pipelines. Modern-day GitHub Actions are fraught with peril and require a lot of hardening to be used safely in a large public project (see what happened with Trivy, Axios, and Tanstack). As such, a project-wide decision was made to migrate all of our projects to the <code>github-config</code> CI project and focus all of our efforts on making that a secure and efficient way to produce images for our users.</p>
     

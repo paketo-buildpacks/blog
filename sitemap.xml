@@ -3,10 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://blog.paketo.io/</loc>
-    <lastmod>2026-11-07T11:31:50-05:00</lastmod>
+    <lastmod>2026-11-20T17:20:53-06:00</lastmod>
   </url><url>
     <loc>https://blog.paketo.io/posts/</loc>
-    <lastmod>2026-11-07T11:31:50-05:00</lastmod>
+    <lastmod>2026-11-20T17:20:53-06:00</lastmod>
+  </url><url>
+    <loc>https://blog.paketo.io/posts/spring-cloud-bindings-changes/</loc>
+    <lastmod>2026-11-20T17:20:53-06:00</lastmod>
   </url><url>
     <loc>https://blog.paketo.io/posts/archive-pipeline-builder/</loc>
     <lastmod>2026-11-07T11:31:50-05:00</lastmod>
